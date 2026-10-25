@@ -1,0 +1,1751 @@
+[
+ {
+  "id": "mc-ias",
+  "kind": "masterclass",
+  "code": "IAS",
+  "title": "Unreliable Airspeed",
+  "titleFr": "Masterclass · Unreliable Airspeed",
+  "fleet": "both",
+  "minutes": 8,
+  "ref": "FCTM ch.8 Airspeed Unreliable (NG 8.29 / MAX 8.30) · QRH NNC 10.1 · PI-QRH Flight With Unreliable Airspeed",
+  "intro": "A blocked pitot gives no warning. Airspeed lies; attitude and N1 tell the truth. Pitch and power first, checklist second.",
+  "chapters": [
+   {
+    "kicker": "Recognize",
+    "title": "When the airspeed lies",
+    "body": [
+     "FCTM causes: pitot/static system, AOA vanes, ADIRU, radome damage.",
+     "Pitot ram inlet blocked only: pressure bleeds out through the drain holes and IAS slowly drops to zero.",
+     "Ram inlet AND drains blocked: trapped pressure, unpredictable IAS. It rises in a climb and falls in a descent: the ASI behaves like an altimeter.",
+     "Erroneous AOA corrupts airspeed and altitude on the side of the bad vane."
+    ],
+    "bullets": [
+     "IAS DISAGREE / ALT DISAGREE / AOA DISAGREE",
+     "Continuous or intermittent stick shaker",
+     "Overspeed, AIRSPEED LOW, erroneous min/max speed bars",
+     "Speed/altitude not consistent with pitch and thrust",
+     "EEC ALTN light(s), radome damage or loss"
+    ],
+    "quote": {
+     "text": "Early recognition of erroneous airspeed indications requires familiarity with the interrelationship between attitude, thrust setting, and airspeed. A delay in recognition could result in loss of airplane control.",
+     "src": "FCTM NG 8.30 / MAX 8.31"
+    }
+   },
+   {
+    "kicker": "Memory items",
+    "title": "Four items, right now",
+    "body": [
+     "As soon as airspeed is suspect: disconnect everything that follows the bad speed, then set a known gear-up attitude and N1."
+    ],
+    "bullets": [
+     "Autopilot (if engaged) . . . Disengage",
+     "Autothrottle (if engaged) . . . Disengage",
+     "F/D switches (both) . . . OFF",
+     "Set the following gear up pitch attitude and thrust: Flaps extended 10° and 80% N1 · Flaps up 4° and 75% N1"
+    ],
+    "nums": [
+     {
+      "v": "10° / 80%",
+      "l": "Pitch / N1",
+      "s": "Flaps extended"
+     },
+     {
+      "v": "4° / 75%",
+      "l": "Pitch / N1",
+      "s": "Flaps up"
+     }
+    ],
+    "quote": {
+     "text": "Memory items for target pitch and thrust must be accomplished as soon as airspeed indications are suspected to be incorrect.",
+     "src": "FCTM NG 8.30 / MAX 8.31"
+    }
+   },
+   {
+    "kicker": "Understand",
+    "title": "Why 10/80 and 4/75?",
+    "body": [
+     "The settings work for all models and engines, at all weights and altitudes. The goal is to stay inside the envelope, not to hold level flight.",
+     "Flaps up: above stall, below overspeed. Flaps extended: above stall, below the flap placard."
+    ],
+    "bullets": [
+     "Flaps extended → the airplane climbs",
+     "Flaps up → slight climb when light/low, slight descent when heavy/high",
+     "Deliberately biased toward high energy",
+     "Keep the current flaps until stabilized; any change → PI-QRH table"
+    ],
+    "quote": {
+     "text": "The settings are biased toward a higher airspeed because a high-energy state is safer than being in a low-energy state.",
+     "src": "FCTM NG 8.30 / MAX 8.31"
+    }
+   },
+   {
+    "kicker": "Clues",
+    "title": "What you can still trust",
+    "body": [
+     "QRH item 6 lists the reliable indications. Stick shaker, overspeed and AIRSPEED LOW may sound erroneously or simultaneously. FPV and PLI may be unreliable.",
+     "One-side clues: stick shaker on one side, airspeed low on one side, PLI on one side. Suspect AOA: AOA DISAGREE plus wrong speed bars on one side → compare the PFDs with the ISFD.",
+     "Pitot/static cause: the AOA indicator (as installed), needle at about three o'clock ≈ safe maneuver/approach speed regardless of flaps."
+    ],
+    "bullets": [
+     "Attitude",
+     "N1",
+     "Ground speed (FMC, ND, ATC radar)",
+     "Radio altitude"
+    ],
+    "quote": {
+     "text": "Comparing only two corresponding airspeeds is not a conclusive indication to determine a reliable airspeed indication. The two corresponding airspeeds can still both be unreliable.",
+     "src": "FCTM NG 8.31 / MAX 8.32"
+    }
+   },
+   {
+    "kicker": "PI tables",
+    "title": "Trimmed, stabilized, then compare",
+    "body": [
+     "No obvious reliable source? PF sets pitch and thrust from the Flight With Unreliable Airspeed table (phase, configuration, weight, altitude), trims, and waits.",
+     "Stabilized = thrust and pitch set, no further trim needed. It is not instantaneous.",
+     "Then compare captain, F/O and standby airspeeds with the table."
+    ],
+    "bullets": [
+     "CLIMB (280/.76) · CRUISE (.76/280) · DESCENT (.76/280) · HOLDING (VREF40 + 70)",
+     "Phase/config change: thrust → pitch → configure → recheck → trim",
+     "Never change configuration before trimmed and stabilized"
+    ],
+    "nums": [
+     {
+      "v": "20 kt",
+      "l": "Max difference",
+      "s": "vs table"
+     },
+     {
+      "v": "0.03 M",
+      "l": "Max difference",
+      "s": "vs table"
+     }
+    ],
+    "quote": {
+     "text": "An airspeed indication that differs by more than 20 knots or 0.03 Mach from the airspeed shown in the table should be considered unreliable.",
+     "src": "QRH NG & MAX 10.1 step 9"
+    }
+   },
+   {
+    "kicker": "Decision tree",
+    "title": "Which side is good?",
+    "bullets": [
+     "Captain's or F/O's reliable → Flight director switch (reliable side) ON; Autopilot (reliable side, if needed) Engage — may not engage or may disconnect",
+     "Do not use the autothrottle.",
+     "Only standby reliable → no autopilot, autothrottle or flight directors",
+     "None reliable → PI-QRH tables for the rest of the flight; check Non-Normal Configuration Landing Distance",
+     "Both CA and FO altitudes unreliable → not RVSM, transponder altitude reporting off; tell ATC"
+    ],
+    "body": [
+     "Flying on tables only: stay visual if possible, configure early, RA available below 2,500 ft, use electronic and visual glideslope."
+    ],
+    "quote": {
+     "text": "If the flight crew recognizes an unreliable airspeed condition and concludes that a reliable airspeed indication is not available, safe flight can still be conducted.",
+     "src": "FCTM NG 8.32 / MAX 8.33"
+    }
+   },
+   {
+    "kicker": "Phases of flight",
+    "title": "From takeoff to touchdown",
+    "bullets": [
+     "Takeoff at/after V1: keep takeoff thrust, rotate toward 15° then normal takeoff pitch target, gear up, keep flaps, climb to acceleration height, then NNC",
+     "Descent: idle to 10,000 ft using pitch and V/S from the table; 2,000 ft above level-off → 1,000 fpm",
+     "Approach: ILS or GLS if available, landing configuration early, set table pitch/thrust at glideslope intercept, control descent rate with thrust",
+     "Landing: touch down 1,000–1,500 ft beyond the threshold, no float; autobrakes if available",
+     "Go-around: GA thrust, toward 15° then normal takeoff pitch; at a safe altitude, NNC pitch/thrust. Only standby reliable → Do not use TO/GA"
+    ],
+    "nums": [
+     {
+      "v": "15°",
+      "l": "Rotation / GA",
+      "s": "then normal takeoff pitch"
+     },
+     {
+      "v": "1,000–1,500 ft",
+      "l": "Touchdown",
+      "s": "beyond threshold"
+     }
+    ],
+    "quote": {
+     "text": "Fly the airplane on to the runway, do not hold it off or let it “float” to touchdown.",
+     "src": "FCTM NG 8.33 / MAX 8.34"
+    }
+   },
+   {
+    "kicker": "NG vs MAX",
+    "title": "Same reflex, different details",
+    "body": [
+     "Memory items, 10°/80% – 4°/75% and the 20 kt / 0.03 M criterion are identical on NG and MAX (QRH 10.1). FCTM text is identical.",
+     "MAX QRH adds a note: the Stick Shaker Indicator, digital readout, analog needle and approach reference band of the AOA indicator may be unreliable if the cause is erroneous AOA.",
+     "MAX: erroneous AOA can also trigger SPEED TRIM FAIL (AOA vane difference 5.5° or greater) — FCTM MAX 8.35."
+    ],
+    "bullets": [
+     "NG transponder: ALT SOURCE selector (1 or 2) · TA ONLY · ALT RPTG OFF",
+     "MAX transponder: ALT selector (1 or 2) · TA · ALT OFF"
+    ]
+   }
+  ],
+  "qcm": [
+   {
+    "q": "Climbing with pitot ram inlet AND drain holes blocked. What does IAS do?",
+    "o": [
+     "It slowly drops to zero",
+     "It freezes regardless of altitude",
+     "It increases as altitude increases",
+     "It oscillates around the true value"
+    ],
+    "a": 2,
+    "w": "Trapped pressure makes the ASI act like an altimeter: IAS rises in a climb. A slow drop to zero is the inlet-only blockage with open drains."
+   },
+   {
+    "q": "Flaps up, airspeed suspect. Which pitch and thrust do you set?",
+    "o": [
+     "4° and 75% N1",
+     "10° and 80% N1",
+     "4° and 80% N1",
+     "10° and 75% N1"
+    ],
+    "a": 0,
+    "w": "QRH 10.1: Flaps up 4° and 75% N1; Flaps extended 10° and 80% N1."
+   },
+   {
+    "q": "Correct order of the Airspeed Unreliable memory items?",
+    "o": [
+     "F/D OFF, A/T, AP, pitch/thrust",
+     "AP, A/T, pitch/thrust, F/D OFF",
+     "PROBE HEAT ON, AP, A/T, pitch/thrust",
+     "AP, A/T, F/D switches (both) OFF, pitch/thrust"
+    ],
+    "a": 3,
+    "w": "Autopilot Disengage, Autothrottle Disengage, F/D switches (both) OFF, then gear-up pitch and thrust. PROBE HEAT is item 5, below the dashed line."
+   },
+   {
+    "q": "Which is NOT listed as reliable in QRH item 6?",
+    "o": [
+     "Ground speed",
+     "Pitch Limit Indicator",
+     "Radio altitude",
+     "N1"
+    ],
+    "a": 1,
+    "w": "Reliable: Attitude, N1, Ground speed, Radio altitude. The QRH notes the FPV and PLI may be unreliable."
+   },
+   {
+    "q": "On the PI table, trimmed and stabilized: when is an airspeed indicator unreliable?",
+    "o": [
+     "Differs by more than 10 kt or 0.01 M",
+     "Differs by more than 15 kt or 0.05 M",
+     "Differs by more than 20 kt or 0.03 M",
+     "As soon as two indicators disagree"
+    ],
+    "a": 2,
+    "w": "QRH 10.1 step 9: more than 20 knots or 0.03 Mach from the table airspeed."
+   },
+   {
+    "q": "Captain and F/O airspeeds agree. Conclusion?",
+    "o": [
+     "Not conclusive: both can still be unreliable",
+     "Both are reliable, re-engage the A/T",
+     "The standby must be the failed one",
+     "Set both F/Ds back ON"
+    ],
+    "a": 0,
+    "w": "FCTM: comparing only two airspeeds is not conclusive; both can be wrong (e.g. both pitots iced)."
+   },
+   {
+    "q": "Only the standby airspeed is reliable. What does the QRH say?",
+    "o": [
+     "Captain's F/D ON",
+     "F/O autopilot if needed",
+     "Autothrottle allowed",
+     "Do not use the autopilot, autothrottle, or flight directors"
+    ],
+    "a": 3,
+    "w": "QRH 10.1 step 11. For a go-around in this case: Do not use TO/GA."
+   },
+   {
+    "q": "Airspeed fails at V1+5 kt on takeoff. FCTM technique?",
+    "o": [
+     "Reduce thrust and set 10°/80% immediately",
+     "Keep takeoff thrust, rotate toward 15° then normal pitch, gear up, keep flaps",
+     "Retract flaps to reduce drag",
+     "Reject the takeoff"
+    ],
+    "a": 1,
+    "w": "FCTM: maintain takeoff thrust, rotate towards 15°, retract gear, maintain flap configuration until acceleration height, then the NNC."
+   }
+  ],
+  "sources": [
+   {
+    "doc": "QRH NG rev 55 & QRH MAX",
+    "loc": "NNC 10.1 Airspeed Unreliable",
+    "quote": "Flaps extended . . . . . . . . . . 10° and 80% N1 / Flaps up . . . . . . . . . . . . . . . . 4° and 75% N1"
+   },
+   {
+    "doc": "QRH NG rev 55 & QRH MAX",
+    "loc": "NNC 10.1 step 6",
+    "quote": "The following indications are reliable: Attitude N1 Ground speed Radio altitude"
+   },
+   {
+    "doc": "QRH NG rev 55 & QRH MAX",
+    "loc": "NNC 10.2–10.3 step 9",
+    "quote": "An airspeed indication that differs by more than 20 knots or 0.03 Mach from the airspeed shown in the table should be considered unreliable."
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 10.2",
+    "quote": "Note: The Stick Shaker Indicator on the Angle of Attack indicator may be unreliable."
+   },
+   {
+    "doc": "FCTM NG rev 25",
+    "loc": "8.29–8.33 Airspeed Unreliable",
+    "quote": "If the ram air inlet to the pitot head is blocked, pressure in the probe is released through the drain holes and the airspeed slowly drops to zero."
+   },
+   {
+    "doc": "FCTM MAX",
+    "loc": "8.30–8.34 Airspeed Unreliable",
+    "quote": "The settings are biased toward a higher airspeed because a high-energy state is safer than being in a low-energy state."
+   },
+   {
+    "doc": "FCTM MAX",
+    "loc": "8.35 Erroneous AOA",
+    "quote": "SPEED TRIM FAIL light (Only and when difference between AOA vanes is 5.5° or greater)"
+   },
+   {
+    "doc": "FCTM NG rev 25",
+    "loc": "8.33 Takeoff",
+    "quote": "maintain takeoff thrust, smoothly rotate towards 15° pitch attitude and establish the normal takeoff pitch attitude target, retract the landing gear, and maintain flap configuration."
+   }
+  ]
+ },
+ {
+  "id": "mc-upset",
+  "kind": "masterclass",
+  "code": "UPRT",
+  "title": "Upset Prevention & Recovery",
+  "titleFr": "Masterclass · Upset Prevention & Recovery",
+  "fleet": "both",
+  "minutes": 8,
+  "ref": "FCTM 7.21–7.25 Upset Recovery · QRH MAN Upset Recovery (NG MAN.1.9 / MAX MAN.1.10)",
+  "intro": "Nose high, nose low, wild bank: two scenarios, one logic. Recognize, disconnect, recover — and always unstall first.",
+  "chapters": [
+   {
+    "kicker": "Define",
+    "title": "What is an upset?",
+    "body": [
+     "Historic definition: unintentionally exceeding any of these limits, or flying at an airspeed inappropriate for the conditions.",
+     "Current definition (AUPRTA): any time the airplane deviates from the intended state — pitch, roll or airspeed."
+    ],
+    "nums": [
+     {
+      "v": "> 25°",
+      "l": "Pitch",
+      "s": "nose up"
+     },
+     {
+      "v": "> 10°",
+      "l": "Pitch",
+      "s": "nose down"
+     },
+     {
+      "v": "> 45°",
+      "l": "Bank",
+      "s": "angle"
+     }
+    ],
+    "quote": {
+     "text": "The latest revision of AUPRTA concludes that an upset condition exists any time that an airplane is deviating from the intended airplane state.",
+     "src": "FCTM NG & MAX 7.21"
+    }
+   },
+   {
+    "kicker": "Recognize",
+    "title": "Read the PFD, not your inner ear",
+    "body": [
+     "Confirm by crosscheck: attitude, airspeed, altitude and trends.",
+     "The PFD is the primary reference: pitch scale and blue/brown color coding.",
+     "The bank pointer stays perpendicular to the horizon at any pitch: roll toward it, the shortest way."
+    ],
+    "bullets": [
+     "Higher than normal control forces may be needed",
+     "Firm, continuous force on column and wheel",
+     "If a technique works, don't stack extra ones"
+    ],
+    "quote": {
+     "text": "When completing the upset recovery maneuver, roll the shortest direction to wings level (toward the bank pointer).",
+     "src": "FCTM NG & MAX 7.22"
+    }
+   },
+   {
+    "kicker": "Priority 1",
+    "title": "Stalled? Unstall first",
+    "body": [
+     "A stall can exist at any attitude. The QRH upset maneuvers assume the airplane is not stalled.",
+     "If stalled: apply and hold nose-down elevator until recovery is complete and the stick shaker stops. Some thrust reduction may be needed to stop the AOA increasing."
+    ],
+    "bullets": [
+     "Stick shaker",
+     "Buffet, possibly heavy",
+     "Lack of pitch authority",
+     "Lack of roll control",
+     "Inability to stop a descent"
+    ],
+    "quote": {
+     "text": "In all upset situations, it is necessary to recover from a stall before applying any other recovery actions.",
+     "src": "FCTM NG & MAX 7.22"
+    }
+   },
+   {
+    "kicker": "Nose high",
+    "title": "Push, trim, reduce, roll",
+    "body": [
+     "Speed decaying, trim nose up, and the instinct to add thrust: underwing engines pitch the nose up even more.",
+     "Trade altitude for airspeed. Up to full nose-down elevator, some nose-down trim — stop trimming as soon as g or elevator force lessens. Hold between 0 and 1 g."
+    ],
+    "bullets": [
+     "Disengage autopilot. Disengage autothrottle.",
+     "Apply nose-down elevator. Apply as much elevator as needed to obtain a nose down pitch rate",
+     "Apply appropriate nose down stabilizer trim*",
+     "Reduce thrust",
+     "Roll (adjust bank angle) to obtain a nose down pitch rate.*",
+     "When approaching the horizon, roll to wings level · Check airspeed and adjust thrust · Establish pitch attitude."
+    ],
+    "nums": [
+     {
+      "v": "0 to 1 g",
+      "l": "During pitch-down",
+      "s": "nose high"
+     },
+     {
+      "v": "45° / 60°",
+      "l": "Bank",
+      "s": "about 45°, max 60°"
+     }
+    ],
+    "quote": {
+     "text": "Pilots should not fly the airplane using stabilizer trim, and should stop trimming nose down when they feel the g force on the airplane lessen or the required elevator force lessen.",
+     "src": "FCTM NG & MAX 7.23"
+    }
+   },
+   {
+    "kicker": "Nose low",
+    "title": "Roll first, pull later",
+    "body": [
+     "Altitude turns into airspeed fast. Pulling at high bank only tightens the turn and loads the structure.",
+     "Do not increase g or use nose-up elevator/trim until approaching wings level. Speedbrakes as needed."
+    ],
+    "bullets": [
+     "Disengage autopilot. Disengage autothrottle.",
+     "Recover from stall, if needed",
+     "Roll in the shortest direction to wings level. If bank angle is more than 90 degrees, unload and roll.*",
+     "Apply nose up elevator · Apply nose up trim, if needed* · Adjust thrust and drag, if needed."
+    ],
+    "nums": [
+     {
+      "v": "> 90°",
+      "l": "Bank",
+      "s": "unload and roll"
+     },
+     {
+      "v": "> 67°",
+      "l": "Bank",
+      "s": "no level flight within load limits"
+     }
+    ],
+    "quote": {
+     "text": "Applying nose-up elevator at bank angles above 60° causes no appreciable change in pitch attitude and may exceed normal structure load limits as well as the wing angle of attack for stall.",
+     "src": "FCTM NG & MAX 7.25"
+    }
+   },
+   {
+    "kicker": "Traps",
+    "title": "Trim and rudder: sparingly",
+    "body": [
+     "Minimal pitch trim during the initial recovery.",
+     "Rudder only if roll control is ineffective and the airplane is not stalled — and only a small amount, in the direction of the desired roll."
+    ],
+    "bullets": [
+     "QRH WARNING: Excessive use of pitch trim or rudder can aggravate an upset, result in loss of control, or result in high structural loads.",
+     "Low energy (nose high) = extra caution with rudder"
+    ],
+    "quote": {
+     "text": "Too much rudder applied too quickly or held too long may result in loss of lateral and directional control or structural failure.",
+     "src": "FCTM NG & MAX 7.25"
+    }
+   },
+   {
+    "kicker": "Crew",
+    "title": "PM calls, PF recovers",
+    "bullets": [
+     "PM: Call out attitude, airspeed and altitude throughout the recovery.",
+     "PM: Verify all needed actions have been done and call out any continued deviation.",
+     "No flight director guidance during the recovery"
+    ],
+    "body": [
+     "NG vs MAX: FCTM text and QRH maneuver are identical (QRH NG MAN.1.9, MAX MAN.1.10). Only the page layout differs."
+    ]
+   }
+  ],
+  "qcm": [
+   {
+    "q": "Historic upset definition: which is correct?",
+    "o": [
+     "Pitch > 20° NU, > 15° ND, bank > 30°",
+     "Pitch > 30° NU, > 10° ND, bank > 60°",
+     "Pitch > 25° NU, > 10° ND, bank > 45°",
+     "Pitch > 25° NU, > 20° ND, bank > 45°"
+    ],
+    "a": 2,
+    "w": "FCTM/QRH: pitch greater than 25° nose up, 10° nose down, bank greater than 45°, or inappropriate airspeed."
+   },
+   {
+    "q": "Upset with stick shaker. What is the very first recovery action?",
+    "o": [
+     "Recover from the stall: hold nose-down elevator until the shaker stops",
+     "Roll wings level",
+     "Full thrust",
+     "Extend speedbrakes"
+    ],
+    "a": 0,
+    "w": "FCTM: in all upset situations, recover from a stall before any other recovery action."
+   },
+   {
+    "q": "Nose high, speed decaying. Effect of a large thrust increase?",
+    "o": [
+     "No pitch effect",
+     "A helpful nose-down moment",
+     "More elevator effectiveness",
+     "Additional nose-up pitch (underwing engines)"
+    ],
+    "a": 3,
+    "w": "FCTM: a large thrust increase \"causes an additional pitch up\". The QRH says Reduce thrust."
+   },
+   {
+    "q": "Nose high recovery: when do you stop nose-down trim?",
+    "o": [
+     "When pitch reaches 0°",
+     "When g force or required elevator force lessens",
+     "After 5 seconds of trim",
+     "Not before wings level"
+    ],
+    "a": 1,
+    "w": "FCTM: stop trimming nose down when you feel the g force or elevator force lessen. Don't fly the airplane with trim."
+   },
+   {
+    "q": "Nose high, elevator alone doesn't stop the pitch rate. What bank may be needed?",
+    "o": [
+     "15° maximum",
+     "90°",
+     "About 45°, up to a maximum of 60°",
+     "None, never bank"
+    ],
+    "a": 2,
+    "w": "FCTM: bank angles of about 45°, up to a maximum of 60°, could be needed."
+   },
+   {
+    "q": "Nose low, 110° of bank. QRH sequence?",
+    "o": [
+     "Pull first to stop the descent",
+     "Unload and roll to the nearest horizon, then nose-up elevator",
+     "Reduce thrust and pull together",
+     "Full opposite rudder"
+    ],
+    "a": 1,
+    "w": "QRH: If bank angle is more than 90 degrees, unload and roll. Nose-up elevator only to complete the recovery."
+   },
+   {
+    "q": "Above which bank angle can level flight NOT be maintained within AFM load factor limits?",
+    "o": [
+     "45°",
+     "60°",
+     "90°",
+     "67°"
+    ],
+    "a": 3,
+    "w": "FCTM 7.25: at bank angles greater than 67°, level flight cannot be maintained within AFM load factor limits."
+   },
+   {
+    "q": "When may rudder be used to help roll?",
+    "o": [
+     "Only if roll control is ineffective and not stalled, with a small amount",
+     "Always, as the first input",
+     "Only nose low beyond 90°",
+     "Only with the autopilot engaged"
+    ],
+    "a": 0,
+    "w": "QRH: careful use of rudder only if roll control is ineffective and the airplane is not stalled. Too much = loss of control or structural failure."
+   }
+  ],
+  "sources": [
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "7.21 Upset Recovery",
+    "quote": "Pitch attitude greater than 25° nose up • Pitch attitude greater than 10° nose down • Bank angle greater than 45°"
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "7.22 Stall Recovery",
+    "quote": "In all upset situations, it is necessary to recover from a stall before applying any other recovery actions."
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "7.23 Nose High",
+    "quote": "Bank angles of about 45°, up to a maximum of 60°, could be needed."
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "7.25 High Bank Angles",
+    "quote": "At bank angles greater than 67°, level flight cannot be maintained within AFM load factor limits."
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "MAN.1.10–1.12 Upset Recovery",
+    "quote": "Roll in the shortest direction to wings level. If bank angle is more than 90 degrees, unload and roll.*"
+   },
+   {
+    "doc": "QRH NG rev 55",
+    "loc": "MAN.1.9 Upset Recovery",
+    "quote": "Careful use of rudder to aid roll control should be considered only if roll control is ineffective and the airplane is not stalled."
+   }
+  ]
+ },
+ {
+  "id": "mc-stall",
+  "kind": "masterclass",
+  "code": "STALL",
+  "title": "Approach to Stall or Stall Recovery",
+  "titleFr": "Masterclass · Approach to Stall Recovery",
+  "fleet": "both",
+  "minutes": 8,
+  "ref": "FCTM 7.11–7.16 Approach to Stall or Stall · QRH MAN.1.1",
+  "intro": "The stick shaker fires: you don't save altitude, you reduce angle of attack. And on the 737, thrust pitches the nose up — handle with care.",
+  "chapters": [
+   {
+    "kicker": "Philosophy",
+    "title": "AOA first, altitude second",
+    "body": [
+     "Approach to stall = controlled flight; stall = out of control but recoverable. The recovery maneuver is the same.",
+     "Accidents: altitude was available, but no positive recovery at the warning → full stall all the way to the ground.",
+     "Recover at the first warning: stick shaker or initial buffet. Near cruise altitude and Mach they may be simultaneous."
+    ],
+    "quote": {
+     "text": "For this reason, emphasis has shifted from a recovery with minimum loss of altitude to reducing the angle of attack below the wing stalling angle of attack to complete a positive and efficient recovery.",
+     "src": "FCTM NG & MAX 7.11"
+    }
+   },
+   {
+    "kicker": "Recognize",
+    "title": "Any attitude, any airspeed",
+    "body": [
+     "Nose high, nose low, high or low bank, in a turn (accelerated stall). It is not always intuitively obvious."
+    ],
+    "bullets": [
+     "Stick shaker (artificial)",
+     "Buffet (natural), could be heavy",
+     "Lack of pitch authority",
+     "Lack of roll control",
+     "Inability to arrest descent rate"
+    ],
+    "quote": {
+     "text": "Do all recoveries from approach to stall as if an actual stall has occurred.",
+     "src": "QRH NG & MAX MAN.1.1"
+    }
+   },
+   {
+    "kicker": "Initiate",
+    "title": "Hold, disconnect, push",
+    "body": [
+     "No flight director commands during the recovery: they are not designed for it."
+    ],
+    "bullets": [
+     "Hold the control column firmly.",
+     "Disengage autopilot and autothrottle.",
+     "Smoothly apply nose down elevator to reduce the angle of attack until buffet or stick shaker stops.",
+     "Nose down stabilizer trim may be needed.* (NG) / can be needed.* (MAX)"
+    ],
+    "quote": {
+     "text": "To initiate the recovery, the angle of attack must be reduced below the wing stalling angle of attack.",
+     "src": "FCTM NG & MAX 7.12"
+    }
+   },
+   {
+    "kicker": "737 specific",
+    "title": "Underwing engines: thrust pitches up",
+    "body": [
+     "Low speed + high thrust: elevator authority may not be enough to pitch the nose down.",
+     "Column forward (up to full forward) + some nose-down trim. Stop trimming when g or column force lessens: too much trim = loss of control or high structural loads.",
+     "Add thrust smoothly. At takeoff or go-around (thrust already high), a thrust reduction may be needed."
+    ],
+    "quote": {
+     "text": "This is because airplanes with underwing-mounted engines have a nose-up pitch moment relative to increased thrust.",
+     "src": "FCTM NG & MAX 7.12"
+    }
+   },
+   {
+    "kicker": "Continue",
+    "title": "Wings level, thrust, speedbrakes in",
+    "bullets": [
+     "Roll in the shortest direction to wings level if needed.**",
+     "Advance thrust levers as needed.",
+     "Retract the speedbrakes.",
+     "Do not change gear or flap configuration, except — During liftoff, if flaps are up, call for flaps 1."
+    ],
+    "body": [
+     "Before the wing is unstalled, ailerons and spoilers are ineffective. Keep nose-down pressure to unload the wing. Rudder is normally not needed.",
+     "Recovering from nose low: don't pull too hard, or you get a secondary stall or sustained shaker."
+    ],
+    "quote": {
+     "text": "Extending or retracting the flaps during the recovery at other times results in an increased altitude loss.",
+     "src": "FCTM NG & MAX 7.13"
+    }
+   },
+   {
+    "kicker": "Altitude",
+    "title": "High: descend. Low: PM watches the ground",
+    "body": [
+     "Above about 20,000 ft the airplane is thrust limited: trade altitude for airspeed. Expect a bigger altitude loss.",
+     "Near the ground: PM calls any trend toward terrain. After takeoff, adjust pitch to reduce AOA while avoiding the ground; flaps up → call Flaps 1.",
+     "Erroneous continuous stick shaker after liftoff, airspeed V2 or greater and positive V/S: continue climbout to acceleration height, monitoring altitude and airspeed."
+    ],
+    "nums": [
+     {
+      "v": "20,000 ft",
+      "l": "Above",
+      "s": "thrust limited"
+     },
+     {
+      "v": "Flaps 1",
+      "l": "At liftoff",
+      "s": "if flaps up"
+     }
+    ]
+   },
+   {
+    "kicker": "Complete",
+    "title": "Stabilize, then rejoin the path",
+    "bullets": [
+     "Check airspeed and adjust thrust as needed.",
+     "Establish pitch attitude.",
+     "Return to the desired flight path.",
+     "Re-engage the autopilot and autothrottle if desired.",
+     "PM: Monitor altitude and airspeed · call out any omissions · call out any trend toward terrain contact · Set the FLAP lever as directed."
+    ],
+    "body": [
+     "Speedbrakes up: higher AOA for a given speed → earlier buffet and shaker, little effect on actual stall speed.",
+     "NG vs MAX: FCTM identical; QRH identical except wording (\"may be needed\" NG / \"can be needed\" MAX)."
+    ],
+    "quote": {
+     "text": "WARNING: ** Excessive use of pitch trim or rudder can aggravate the condition, or can result in loss of control or in high structural loads.",
+     "src": "QRH MAX MAN.1.2"
+    }
+   }
+  ],
+  "qcm": [
+   {
+    "q": "When do you start the recovery?",
+    "o": [
+     "Only once the stall is confirmed",
+     "When speed drops below VREF",
+     "When the PM calls it",
+     "At the first indication: stick shaker or initial buffet"
+    ],
+    "a": 3,
+    "w": "FCTM/QRH: immediately at the first indication of stall (buffet or stick shaker)."
+   },
+   {
+    "q": "Primary goal of the recovery per the current FCTM?",
+    "o": [
+     "Reduce AOA below the wing stalling AOA",
+     "Minimum altitude loss",
+     "Hold heading",
+     "Set maximum thrust immediately"
+    ],
+    "a": 0,
+    "w": "Emphasis has shifted from minimum altitude loss to reducing the angle of attack."
+   },
+   {
+    "q": "Why advance the thrust levers smoothly on a 737?",
+    "o": [
+     "To avoid a compressor stall",
+     "To protect EGT",
+     "Underwing engines create a nose-up pitch moment",
+     "To avoid asymmetry"
+    ],
+    "a": 2,
+    "w": "FCTM 7.12: underwing-mounted engines cause a nose-up pitch moment when thrust is increased."
+   },
+   {
+    "q": "Approach to stall during a go-around, thrust already high, pitch still increasing. FCTM option?",
+    "o": [
+     "Add more thrust",
+     "A thrust reduction may be needed",
+     "Extend flaps",
+     "Engage the A/P"
+    ],
+    "a": 1,
+    "w": "FCTM: during takeoff or go-around, a reduction of thrust can be needed to stop the AOA increasing."
+   },
+   {
+    "q": "Stick shaker at liftoff, flaps inadvertently up. What does the PF call?",
+    "o": [
+     "Flaps 1",
+     "Flaps 5",
+     "Gear down",
+     "No configuration change"
+    ],
+    "a": 0,
+    "w": "QRH: Do not change gear or flap configuration, except during liftoff, if flaps are up, call for flaps 1."
+   },
+   {
+    "q": "Can you follow the F/D during the recovery?",
+    "o": [
+     "Yes, in TO/GA",
+     "Yes, if the A/P is off",
+     "Yes, above FL200",
+     "No, do not use flight director commands"
+    ],
+    "a": 3,
+    "w": "QRH Note: Do not use flight director commands during the recovery."
+   },
+   {
+    "q": "Continuous stick shaker after liftoff, airspeed at or above V2, positive V/S. FCTM guidance?",
+    "o": [
+     "Pitch down firmly",
+     "Retract gear and flaps",
+     "Continue climbout to acceleration height, monitoring altitude and airspeed",
+     "Return and land immediately"
+    ],
+    "a": 2,
+    "w": "FCTM: some failures cause an erroneous shaker; if V2 or greater and V/S positive, continue to acceleration height."
+   },
+   {
+    "q": "Effect of extended speedbrakes on an approach to stall?",
+    "o": [
+     "Lower stick shaker speed",
+     "Higher buffet and shaker speeds, little effect on actual stall speed",
+     "No effect",
+     "They prevent the stall"
+    ],
+    "a": 1,
+    "w": "FCTM 7.14: speedbrakes up → higher AOA for a given speed. The QRH says Retract the speedbrakes."
+   }
+  ],
+  "sources": [
+   {
+    "doc": "QRH NG rev 55 & QRH MAX",
+    "loc": "MAN.1.1 Approach to Stall or Stall Recovery",
+    "quote": "Smoothly apply nose down elevator to reduce the angle of attack until buffet or stick shaker stops."
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "MAN.1.1",
+    "quote": "During liftoff, if flaps are up, call for flaps 1."
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "7.11",
+    "quote": "emphasis has shifted from a recovery with minimum loss of altitude to reducing the angle of attack below the wing stalling angle of attack"
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "7.12",
+    "quote": "Advance thrust levers smoothly because underwing-mounted engines cause a nose-up pitch moment when thrust is increased."
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "7.13 High/Low Altitude Recovery",
+    "quote": "If an erroneous stick shaker is activated continuously and airspeed is V2 or greater and vertical speed is positive, continue climbout to acceleration height"
+   }
+  ]
+ },
+ {
+  "id": "mc-ws",
+  "kind": "masterclass",
+  "code": "WS",
+  "title": "Windshear",
+  "titleFr": "Masterclass · Windshear",
+  "fleet": "both",
+  "minutes": 8,
+  "ref": "FCTM 7.25–7.26 Windshear · FCOM SP.16.26–28 Adverse Weather · QRH MAN Windshear (NG MAN.1.13 / MAX MAN.1.14) · SOP §3.2",
+  "intro": "Near the ground you may get 5 seconds. The best escape maneuver is the one you never fly: avoid, prepare, then TO/GA without hesitation.",
+  "chapters": [
+   {
+    "kicker": "The threat",
+    "title": "Little time, little altitude",
+    "body": [
+     "Below 500 ft the wind is mostly horizontal. An airspeed gain can be the precursor of an airspeed loss.",
+     "The trap: speed drops, the airplane pitches down to regain trim speed. If the pilot lowers the nose too → high sink rate.",
+     "At low altitude: trade airspeed for altitude. More pitch + maximum thrust = the airplane's full performance."
+    ],
+    "nums": [
+     {
+      "v": "5 s",
+      "l": "Reaction time",
+      "s": "as little as"
+     },
+     {
+      "v": "500 ft",
+      "l": "Below",
+      "s": "wind mostly horizontal"
+     }
+    ],
+    "quote": {
+     "text": "As little as 5 seconds may be available to recognize and react to a degrading vertical flight path.",
+     "src": "FCTM NG & MAX 7.26"
+    }
+   },
+   {
+    "kicker": "Avoid",
+    "title": "Look for the clues",
+    "bullets": [
+     "Thunderstorm activity",
+     "Virga (rain that evaporates before reaching the ground)",
+     "Pilot reports",
+     "LLWAS warnings"
+    ],
+    "body": [
+     "Stay clear of cells, heavy precipitation and known windshear. Confirmed windshear: delay takeoff or do not continue the approach.",
+     "Predictive Windshear (PWS): automatic below 1,800 ft AGL, alerts at 1,200 ft AGL and below, 10 to 60 s warning. It will not detect everything (e.g. very dry events)."
+    ],
+    "quote": {
+     "text": "If the presence of windshear is confirmed, delay takeoff or do not continue an approach.",
+     "src": "FCOM NG & MAX SP.16.27"
+    }
+   },
+   {
+    "kicker": "Precautions",
+    "title": "Takeoff: buy margin",
+    "bullets": [
+     "Full rated takeoff thrust, unless a fixed derate is required for dispatch performance",
+     "Flaps 5, 10 or 15 unless limited by obstacles/climb gradient",
+     "Longest suitable runway clear of known windshear",
+     "Consider increased VR up to the performance-limited weight VR, not above actual weight VR + 20 kt; shear at or after actual VR → rotate without hesitation",
+     "Know the initial climb pitch; stick shaker → reduce pitch; do not exceed the PLI"
+    ],
+    "nums": [
+     {
+      "v": "+20 kt",
+      "l": "Max VR increase",
+      "s": "above actual VR"
+     }
+    ]
+   },
+   {
+    "kicker": "Precautions",
+    "title": "Approach: stable early",
+    "bullets": [
+     "Flaps 30 for landing",
+     "Stabilized no lower than 1,000 ft above the airport",
+     "A/T off (or planned off): add a gust-type correction, max 15 kt",
+     "No large thrust or trim reductions on a sudden speed increase",
+     "A/P + A/T: more monitoring and recognition time"
+    ],
+    "nums": [
+     {
+      "v": "1,000 ft",
+      "l": "Stabilized",
+      "s": "no lower than"
+     },
+     {
+      "v": "15 kt",
+      "l": "Max correction",
+      "s": "if A/T off"
+     }
+    ]
+   },
+   {
+    "kicker": "Recognize",
+    "title": "Alerts and unacceptable deviations",
+    "bullets": [
+     "Predictive caution: \"MONITOR RADAR DISPLAY\" → maneuver to avoid",
+     "Takeoff roll: \"WINDSHEAR AHEAD, WINDSHEAR AHEAD\" → before V1 reject, after V1 escape",
+     "Approach: \"GO–AROUND, WINDSHEAR AHEAD\" → escape, or normal go-around at pilot's discretion",
+     "Reactive: two-tone siren + \"WINDSHEAR, WINDSHEAR, WINDSHEAR\" → escape"
+    ],
+    "body": [
+     "Below 1,000 ft AGL, uncontrolled changes in excess of:"
+    ],
+    "nums": [
+     {
+      "v": "15 kt",
+      "l": "IAS",
+      "s": "< 1,000 ft AGL"
+     },
+     {
+      "v": "500 fpm",
+      "l": "V/S",
+      "s": "< 1,000 ft AGL"
+     },
+     {
+      "v": "5°",
+      "l": "Pitch",
+      "s": "< 1,000 ft AGL"
+     },
+     {
+      "v": "1 dot",
+      "l": "Glideslope",
+      "s": "< 1,000 ft AGL"
+     }
+    ]
+   },
+   {
+    "kicker": "Escape · manual",
+    "title": "TO/GA, max thrust, 15°",
+    "bullets": [
+     "Disengage autopilot.",
+     "Push either TO/GA switch.",
+     "Aggressively apply maximum thrust*",
+     "Disengage autothrottle.",
+     "Simultaneously roll wings level and rotate toward an initial pitch attitude of 15°.",
+     "Retract speedbrakes.",
+     "Follow flight director TO/GA guidance (if available)**"
+    ],
+    "body": [
+     "* Maximum thrust: thrust levers full forward if EECs are in normal mode; terrain contact imminent → full forward. ** Do not exceed the Pitch Limit Indication."
+    ],
+    "nums": [
+     {
+      "v": "15°",
+      "l": "Initial pitch",
+      "s": "intermittent shaker = upper limit"
+     }
+    ],
+    "quote": {
+     "text": "In all cases, the pitch attitude that results in intermittent stick shaker or initial buffet is the upper pitch attitude limit.",
+     "src": "QRH NG & MAX MAN Windshear Escape"
+    }
+   },
+   {
+    "kicker": "Escape · automatic",
+    "title": "Automation: yes, but watched",
+    "bullets": [
+     "Push either TO/GA switch*** · Verify TO/GA mode annunciation. · Verify GA thrust. · Retract speedbrakes. · Monitor system performance****",
+     "Do not change flap or gear configuration until windshear is no longer a factor.",
+     "Maintain wings level to maximize climb gradient, unless a turn is required for obstacle clearance",
+     "Do not attempt to regain lost airspeed until windshear is no longer a factor."
+    ],
+    "body": [
+     "In TO/GA the F/D holds target speed until V/S drops to about +600 fpm, then commands 15°, then intermittent shaker (SOP §3.2.7). Protection only with pitch in TOGA.",
+     "On an ILS, A/P and F/D hold the glideslope regardless of AOA or shaker: without TO/GA or manual takeover, the airplane can stall (SOP §3.2.8)."
+    ],
+    "quote": {
+     "text": "WARNING: **** Severe windshear can exceed the performance of the AFDS. Be prepared to disengage the autopilot and autothrottle and fly manually.",
+     "src": "QRH NG & MAX MAN Windshear Escape"
+    }
+   },
+   {
+    "kicker": "Takeoff roll",
+    "title": "Windshear on the runway",
+    "body": [
+     "Before V1: there may not be enough runway to stop. At VR, rotate at a normal rate toward 15°, then fly the escape once airborne.",
+     "Near VR with a sudden speed loss and not enough runway to stop: start a normal rotation at least 2,000 ft before the end of the runway, even if speed is low. Ensure maximum thrust.",
+     "NG vs MAX: maneuver, FCOM precautions and FCTM text are identical."
+    ],
+    "nums": [
+     {
+      "v": "2,000 ft",
+      "l": "Rotate",
+      "s": "before runway end"
+     }
+    ]
+   }
+  ],
+  "qcm": [
+   {
+    "q": "Initial pitch for the manual Windshear Escape Maneuver?",
+    "o": [
+     "10°",
+     "15°",
+     "20°",
+     "Straight to the PLI"
+    ],
+    "a": 1,
+    "w": "QRH: rotate toward an initial pitch attitude of 15°. 20° is the GPWS pull-up."
+   },
+   {
+    "q": "During the escape, airspeed keeps dropping. What do you do?",
+    "o": [
+     "Lower the nose to regain it",
+     "Retract flaps to reduce drag",
+     "Do not try to regain airspeed while windshear is a factor",
+     "Lower the gear"
+    ],
+    "a": 2,
+    "w": "QRH: Do not attempt to regain lost airspeed until windshear is no longer a factor; no configuration change."
+   },
+   {
+    "q": "Upper pitch limit during the escape?",
+    "o": [
+     "The attitude giving intermittent stick shaker or initial buffet",
+     "A fixed 15°",
+     "25°",
+     "The F/D, even beyond the PLI"
+    ],
+    "a": 0,
+    "w": "QRH Note: intermittent stick shaker or initial buffet is the upper pitch limit; do not exceed the PLI."
+   },
+   {
+    "q": "\"WINDSHEAR AHEAD, WINDSHEAR AHEAD\" at 100 kt, before V1. Action?",
+    "o": [
+     "Continue and fly the escape once airborne",
+     "Reduce to climb thrust",
+     "Nothing, it's a caution",
+     "Reject the takeoff"
+    ],
+    "a": 3,
+    "w": "QRH: predictive warning during takeoff roll — before V1 reject; after V1 Windshear Escape Maneuver."
+   },
+   {
+    "q": "On approach: \"GO-AROUND, WINDSHEAR AHEAD\". QRH options?",
+    "o": [
+     "Continue if visual",
+     "Escape maneuver, or a normal go-around at pilot's discretion",
+     "Normal go-around only",
+     "Climb in V/S"
+    ],
+    "a": 1,
+    "w": "QRH: perform the Windshear Escape Maneuver, or, at pilot's discretion, perform a normal go-around."
+   },
+   {
+    "q": "Which uncontrolled deviation below 1,000 ft AGL indicates windshear?",
+    "o": [
+     "10 kt IAS",
+     "300 fpm V/S",
+     "5° pitch attitude",
+     "½ dot glideslope"
+    ],
+    "a": 2,
+    "w": "QRH: 15 kt IAS, 500 fpm V/S, 5° pitch, 1 dot glideslope, unusual thrust lever position for a significant time."
+   },
+   {
+    "q": "Windshear suspected for takeoff: increased VR is limited to?",
+    "o": [
+     "Actual weight VR + 20 kt",
+     "Actual VR + 10 kt",
+     "Actual VR + 15 kt",
+     "V2 + 20 kt"
+    ],
+    "a": 0,
+    "w": "FCOM SP: performance-limited VR, not to exceed actual gross weight Vr + 20 knots. Shear at actual VR: rotate without hesitation."
+   },
+   {
+    "q": "Windshear on an ILS with the A/P engaged and no pilot action. Risk?",
+    "o": [
+     "None, the A/P protects against stall",
+     "The A/P goes to TO/GA by itself",
+     "The A/T reduces thrust",
+     "The A/P holds the glideslope regardless of AOA: speed below shaker, even a stall"
+    ],
+    "a": 3,
+    "w": "SOP §3.2.8: A/P and F/D hold altitude/glideslope without regard to AOA; push TO/GA or fly manually."
+   }
+  ],
+  "sources": [
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "7.26 Windshear",
+    "quote": "As little as 5 seconds may be available to recognize and react to a degrading vertical flight path."
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "MAN.1.14 Windshear Escape Maneuver",
+    "quote": "Simultaneously roll wings level and rotate toward an initial pitch attitude of 15 °."
+   },
+   {
+    "doc": "QRH NG rev 55",
+    "loc": "MAN.1.13 Windshear",
+    "quote": "Unacceptable flight path deviations are recognized as uncontrolled changes from normal steady state flight conditions below 1000 feet AGL, in excess of any of the following: 15 knots indicated airspeed, 500 fpm vertical speed, 5° pitch attitude, 1 dot displacement from the glideslope"
+   },
+   {
+    "doc": "FCOM NG (8D6-ALG) & FCOM MAX",
+    "loc": "SP.16.27 Windshear Precautions",
+    "quote": "not to exceed actual gross weight Vr + 20 knots"
+   },
+   {
+    "doc": "FCOM NG (8D6-ALG) & FCOM MAX",
+    "loc": "SP.16.28",
+    "quote": "add an appropriate airspeed correction (correction applied in the same manner as gust), up to a maximum of 15 knots"
+   },
+   {
+    "doc": "FCOM MAX / FCOM NG",
+    "loc": "MAX 11.20.14 / NG 11.20.12 Predictive Windshear",
+    "quote": "Windshear detection mode operates automatically below 1800 ft. Above Ground Level (AGL), with alerts available at 1200 ft. AGL and below."
+   },
+   {
+    "doc": "SOP B737 MAX/NG Ed03 Rev03",
+    "loc": "§3.2.7–3.2.8",
+    "quote": "both the F/D and A/P attempt to hold the airplane on altitude, or on glideslope after glideslope capture, without regard to angle of attack or stick shaker limitations."
+   }
+  ]
+ },
+ {
+  "id": "mc-eng",
+  "kind": "masterclass",
+  "code": "EFATO",
+  "title": "Engine Failure at or after V1",
+  "titleFr": "Masterclass · Engine Failure after V1",
+  "fleet": "both",
+  "minutes": 8,
+  "ref": "FCTM 3.37–3.44 Takeoff – Engine Failure · SOP §4.1–4.2 · QRH Engine Failure or Shutdown (NG 7.16 / MAX 7.18)",
+  "intro": "An engine quits after V1: you go. Rudder, a slower rotation, V2 to V2+20, nothing before 400 ft. The rest happens at acceleration height.",
+  "chapters": [
+   {
+    "kicker": "Recognize",
+    "title": "Yaw like a crosswind",
+    "body": [
+     "Noise, vibration, possibly rapid yaw. One-engine controllability is excellent on the runway and in the air: VMCA is below VR and VREF.",
+     "Heading is the best indicator of correct rudder. Stop the yaw with rudder, not the wheel: wheel displacement raises spoilers."
+    ],
+    "quote": {
+     "text": "The airplane heading is the best indicator of the correct rudder pedal input. To counter the thrust asymmetry due to an engine failure, stop the yaw with rudder.",
+     "src": "FCTM NG & MAX 3.37"
+    }
+   },
+   {
+    "kicker": "Rotation",
+    "title": "Slower, slightly lower",
+    "body": [
+     "Between V1 and liftoff: smooth rudder, proportional to thrust decay.",
+     "Rotate at VR, smoothly and continuously, ½°/s slower than all-engine, to a pitch 2–3° below normal. Liftoff in about 5 s, then hold V2 to V2+20.",
+     "In flight, correct rudder roughly centers the control wheel (minimum drag)."
+    ],
+    "nums": [
+     {
+      "v": "12–13°",
+      "l": "Target pitch",
+      "s": "2–3° below normal"
+     },
+     {
+      "v": "1.5–2.5°/s",
+      "l": "Rotation rate",
+      "s": "½°/s less"
+     },
+     {
+      "v": "≈ 5 s",
+      "l": "VR → liftoff",
+      "s": "one engine"
+     }
+    ],
+    "quote": {
+     "text": "With an engine inoperative, a smooth continuous rotation is also initiated at VR; however, the target pitch attitude is approximately 2° to 3° below the normal all engine pitch attitude resulting in a 12° to 13° target pitch attitude.",
+     "src": "FCTM NG & MAX 3.37"
+    }
+   },
+   {
+    "kicker": "Initial climb",
+    "title": "V2 to V2 + 20",
+    "bullets": [
+     "Minimum V2 and a positive climb; F/D commands V2 or existing speed up to V2 + 20",
+     "Failure between V2 and V2 + 20 → climb at the speed of the failure",
+     "Failure above V2 + 20 → pitch up to V2 + 20 and hold it to acceleration height",
+     "Positive rate on the altimeter → GEAR UP",
+     "No F/D: attitude and IAS are the pitch references"
+    ],
+    "nums": [
+     {
+      "v": "V2 → V2+20",
+      "l": "Speed",
+      "s": "to acceleration height"
+     }
+    ]
+   },
+   {
+    "kicker": "400 ft",
+    "title": "Nothing urgent below 400 ft",
+    "body": [
+     "Fire or engine breakup: memory items once the flight path is under control, gear up and a safe altitude reached — minimum 400 ft AGL.",
+     "Simple failure: Engine Failure or Shutdown NNC after flap retraction, when conditions permit.",
+     "Immediate turn (EO procedure): normally not below 400 ft AGL, V2 to V2 + 20 with takeoff flaps. Bank 15° max until V2 + 15, then up to 30°.",
+     "A/P: above 400 ft AGL, with correct rudder or rudder trim."
+    ],
+    "nums": [
+     {
+      "v": "400 ft",
+      "l": "AGL",
+      "s": "min: memory items / turn / A/P"
+     },
+     {
+      "v": "15° → 30°",
+      "l": "Bank",
+      "s": "30° allowed at V2 + 15"
+     }
+    ],
+    "bullets": [
+     "Air Algérie SOP above 400 ft: \"SET FIFTEEN DEGREES BANK ANGLE\", then \"STATE THE MALFUNCTION\""
+    ]
+   },
+   {
+    "kicker": "Acceleration",
+    "title": "Acceleration height: level off, speed, flaps",
+    "body": [
+     "FCTM: minimum flap retraction height with an engine inoperative is 400 ft AGL; Boeing training uses 1,000 ft AFE. Based on reaching flaps-up speed and MCT within 5 min (10 min optional).",
+     "Air Algérie SOP: MFRA is published by the takeoff performance calculation, minimum 800 ft HAA, 10-minute basis. Brief an all-engine AND an engine-out acceleration height for every takeoff.",
+     "At acceleration height: flaps-up speed on the MCP (or VNAV), F/D commands a near-level segment (0–200 fpm), retract flaps on schedule. No F/D: lower pitch for about level flight."
+    ],
+    "nums": [
+     {
+      "v": "800 ft",
+      "l": "Min MFRA",
+      "s": "Air Algérie SOP (HAA)"
+     },
+     {
+      "v": "0–200 fpm",
+      "l": "Segment",
+      "s": "flap retraction"
+     }
+    ],
+    "quote": {
+     "text": "As the airplane accelerates and flaps are retracted, adjust the rudder pedal position to maintain the control wheel centered and trim to relieve rudder pedal pressure.",
+     "src": "FCTM NG & MAX 3.43"
+    }
+   },
+   {
+    "kicker": "Flaps up",
+    "title": "CON, checklists, then decide",
+    "bullets": [
+     "Flaps up and at/above flaps-up maneuver speed: LVL CHG (or VNAV), CON, climb to obstacle clearance altitude",
+     "Engine Failure or Shutdown checklist, then After Takeoff checklist, once flaps are up and thrust is set",
+     "Stay at flaps-up maneuver speed until clear of obstacles, then the engine-out schedule (CDU CLB)",
+     "Autothrottle disconnected before level-off",
+     "Noise abatement no longer required"
+    ],
+    "body": [
+     "SOP: \"SET LEVEL CHANGE, MAX CONTINUOUS THRUST AND BANK ANGLE TWENTY FIVE\", engage A/P, PF takes the radio and calls \"ENGINE FAILURE OR SHUTDOWN CHECK-LIST\"."
+    ]
+   },
+   {
+    "kicker": "Reduced thrust",
+    "title": "ATM or derate: touch the levers?",
+    "bullets": [
+     "ATM (assumed temperature): not required, but you may advance to full rated thrust — VMCG/VMCA are based on full rated thrust",
+     "Fixed derate: do NOT exceed the derate limit unless (FCTM) the captain judges terrain clearance cannot be assured / (SOP) terrain contact is imminent — loss of directional control possible",
+     "Combined ATM + derate: at most up to the derate limit"
+    ],
+    "quote": {
+     "text": "This is because the takeoff speeds consider VMCG and VMCA only at the fixed derate level of thrust.",
+     "src": "FCTM NG & MAX 3.44"
+    }
+   },
+   {
+    "kicker": "NG vs MAX",
+    "title": "Same technique, different FMC and tail",
+    "body": [
+     "Technique identical in both FCTMs.",
+     "NG: logic depends on FMC U10.7 and earlier (A/P delayed until flaps up + LVL CHG) or U10.8 and later (VNAV). MAX: VNAV logic, ENG OUT CLB page.",
+     "Tail strike pitch attitude: 737-800 and 737-8 = 11.0°; 737-7 = 13.4°; 737-9 and 737-900ER = 10.0°.",
+     "QRH: Engine Failure or Shutdown p.7.16 (NG) / 7.18 (MAX); ENGINE FIRE or Engine Severe Damage or Separation p.8.10 (NG) / 8.2 (MAX)."
+    ]
+   }
+  ],
+  "qcm": [
+   {
+    "q": "Best indicator of correct rudder input after an engine failure at V1?",
+    "o": [
+     "The slip indicator",
+     "The control wheel",
+     "Heading",
+     "N1 of the live engine"
+    ],
+    "a": 2,
+    "w": "FCTM 3.37: the airplane heading is the best indicator of the correct rudder pedal input."
+   },
+   {
+    "q": "Target rotation pitch with an engine inoperative?",
+    "o": [
+     "15°",
+     "12° to 13°",
+     "10°",
+     "8°"
+    ],
+    "a": 1,
+    "w": "FCTM: 2–3° below the normal all-engine pitch, giving 12° to 13°."
+   },
+   {
+    "q": "Rotation rate with an engine inoperative?",
+    "o": [
+     "About 1.5° to 2.5° per second",
+     "About 3°/s, same as all-engine",
+     "1°/s",
+     "As fast as possible"
+    ],
+    "a": 0,
+    "w": "FCTM: 1/2° per second less than normal, approx 1.5° to 2.5° per second."
+   },
+   {
+    "q": "Engine fails at V2 + 30 kt in the initial climb. Speed to fly?",
+    "o": [
+     "V2",
+     "V2 + 30",
+     "Flaps-up speed",
+     "Pitch up to V2 + 20 and hold it to acceleration height"
+    ],
+    "a": 3,
+    "w": "FCTM/SOP: above V2 + 20, increase pitch to reduce to V2 + 20 and maintain until acceleration height."
+   },
+   {
+    "q": "Engine fire on takeoff: when do you do the memory items?",
+    "o": [
+     "Flight path under control, gear up, minimum 400 ft AGL",
+     "Immediately, even on the runway after V1",
+     "After flap retraction",
+     "Above 1,500 ft"
+    ],
+    "a": 0,
+    "w": "FCTM/SOP: once the flight path is under control, the gear is retracted and a safe altitude (minimum 400 ft AGL) is reached."
+   },
+   {
+    "q": "Immediate engine-out turn with takeoff flaps: bank limit?",
+    "o": [
+     "30° from 400 ft",
+     "10° until flaps up",
+     "15° until V2 + 15, then up to 30°",
+     "25° throughout"
+    ],
+    "a": 2,
+    "w": "FCTM/SOP: limit bank to 15° until V2 + 15 knots; up to 30° permitted at V2 + 15 with takeoff flaps."
+   },
+   {
+    "q": "Per the Air Algérie SOP, the engine-out MFRA is:",
+    "o": [
+     "Always 400 ft AGL",
+     "Always 1,000 ft AFE",
+     "3,000 ft HAA",
+     "From the takeoff performance calculation, minimum 800 ft HAA"
+    ],
+    "a": 3,
+    "w": "SOP §4.2.3. The FCTM gives 400 ft AGL as the Boeing minimum; 3,000 ft HAA is the NADP 1 acceleration height."
+   },
+   {
+    "q": "Fixed derate takeoff, engine fails. Advance the live engine's thrust lever?",
+    "o": [
+     "Yes, always full forward",
+     "No, unless terrain clearance can't be assured / contact is imminent: loss of directional control risk",
+     "Yes, to full rated thrust",
+     "Yes, once above V2"
+    ],
+    "a": 1,
+    "w": "FCTM 3.44: VMCG and VMCA are based only on the derate thrust. With ATM, by contrast, you may go to full rated thrust."
+   }
+  ],
+  "sources": [
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "3.37 Rotation and Liftoff – One Engine Inoperative",
+    "quote": "resulting in a 12° to 13° target pitch attitude. The rate of rotation with an engine inoperative is also slightly slower (1/2° per second less) than that for a normal takeoff, resulting in a rotation rate of approx 1.5° to 2.5° per second."
+   },
+   {
+    "doc": "FCTM NG rev 25",
+    "loc": "3.41 Initial Climb – One Engine Inoperative",
+    "quote": "Accomplish the appropriate memory checklist items once the flight path is under control, the gear is retracted, and a safe altitude has been attained (minimum 400 feet AGL)."
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "3.42 Flap Retraction – One Engine Inoperative",
+    "quote": "The minimum altitude for flap retraction with an engine inoperative is 400 feet AGL."
+   },
+   {
+    "doc": "FCTM NG rev 25",
+    "loc": "3.42 Immediate Turn",
+    "quote": "Limit bank angle to 15° until V2 + 15 knots. Bank angles up to 30° are permitted at V2 + 15 knots with takeoff flaps."
+   },
+   {
+    "doc": "SOP B737 MAX/NG Ed03 Rev03",
+    "loc": "§4.2.3 Flap Retraction - One Engine Inoperative",
+    "quote": "The minimum altitude for flap retraction with an engine inoperative is published through the takeoff performance calculation (minimum 800 ft HAA)."
+   },
+   {
+    "doc": "SOP B737 MAX/NG Ed03 Rev03",
+    "loc": "§4.2.7 Engine flame out on Takeoff procedure",
+    "quote": "SET LEVEL CHANGE, MAX CONTINUOUS THRUST AND BANK ANGLE TWENTY FIVE"
+   },
+   {
+    "doc": "FCTM MAX",
+    "loc": "3.39–3.40 Tail Clearance",
+    "quote": "737-8 ... 15 8.2 15 (38) 11.0"
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "3.44 Fixed Derate",
+    "quote": "a thrust increase following an engine failure could result in loss of directional control and should not be accomplished unless, in the opinion of the captain, terrain clearance cannot be assured."
+   }
+  ]
+ },
+ {
+  "id": "mc-dual",
+  "kind": "masterclass",
+  "code": "DUAL",
+  "title": "Loss of Thrust on Both Engines",
+  "titleFr": "Masterclass · Loss of Thrust on Both Engines",
+  "fleet": "both",
+  "minutes": 8,
+  "ref": "FCTM 8.17–8.18 Loss of Thrust on Both Engines · QRH NNC 7.6 (NG & MAX)",
+  "intro": "Sudden silence, two ENG FAIL alerts. Every second costs N2: memory items now, windmill speed, APU in parallel.",
+  "chapters": [
+   {
+    "kicker": "The stakes",
+    "title": "Use the N2 while it's high",
+    "body": [
+     "Prompt action regardless of altitude or airspeed. The sooner the restart attempt, the better the windmill odds, thanks to the still-high RPM.",
+     "The in-flight start envelope shows where windmill starts were demonstrated in certification — not the only area where one can succeed."
+    ],
+    "bullets": [
+     "QRH condition: both engines have a loss of thrust AND both ENG FAIL alerts show",
+     "Objective: restart at least one engine"
+    ],
+    "quote": {
+     "text": "There is a higher probability that a windmill start will succeed if the restart attempt is made as soon as possible (or immediately after recognizing an engine failure) to take advantage of high engine RPM.",
+     "src": "FCTM NG & MAX 8.17"
+    }
+   },
+   {
+    "kicker": "Memory items",
+    "title": "FLT, CUTOFF, IDLE",
+    "bullets": [
+     "ENGINE START switches (both) . . . FLT",
+     "Engine start levers (both) . . . CUTOFF",
+     "When EGT decreases: Engine start levers (both) . . . IDLE detent",
+     "If EGT reaches a redline or there is no increase in EGT within 30 seconds: Engine start lever (affected engine) . . . Confirm . . . CUTOFF, then IDLE detent — repeat as needed"
+    ],
+    "nums": [
+     {
+      "v": "30 s",
+      "l": "EGT",
+      "s": "no rise → recycle"
+     }
+    ],
+    "body": [
+     "Identical on NG and MAX (QRH 7.6)."
+    ]
+   },
+   {
+    "kicker": "Speed",
+    "title": "275 or 300 kt",
+    "body": [
+     "First reference item: the speed that keeps the windmill going.",
+     "Below 30,000 ft, speed above the crossbleed start envelope improves restart odds. Higher up, you may need to descend."
+    ],
+    "nums": [
+     {
+      "v": "275 kt",
+      "l": "IAS",
+      "s": "at or above FL270"
+     },
+     {
+      "v": "300 kt",
+      "l": "IAS",
+      "s": "below FL270"
+     }
+    ],
+    "quote": {
+     "text": "Loss of thrust at higher altitudes may require descent to a lower altitude to improve windmill starting capability.",
+     "src": "FCTM NG & MAX 8.17"
+    }
+   },
+   {
+    "kicker": "APU",
+    "title": "Memory items first, then APU — don't wait",
+    "bullets": [
+     "Do not wait for a successful engine start before starting the APU.",
+     "APU . . . START",
+     "When APU is running: APU GEN switches (both) . . . ON, one at a time"
+    ],
+    "body": [
+     "Memory items come before the APU start (high N2). If the windmill fails, the APU provides electrics and air for a starter-assisted start.",
+     "Trap: APU GEN power on the buses is not an engine generator at idle. Don't advance the thrust lever too early."
+    ],
+    "quote": {
+     "text": "Initiate the memory portion of the LOSS OF THRUST ON BOTH ENGINES NNC before attempting an APU start for the reasons identified above.",
+     "src": "FCTM NG & MAX 8.17"
+    }
+   },
+   {
+    "kicker": "Choose",
+    "title": "Windmill or starter assist?",
+    "body": [
+     "Neither engine starts: the QRH looks at N2.",
+     "N2 at or above the threshold → windmill start. Below → APU bleed available? starter assist; if not, windmill anyway."
+    ],
+    "nums": [
+     {
+      "v": "11%",
+      "l": "N2 windmill",
+      "s": "NG"
+     },
+     {
+      "v": "8.5%",
+      "l": "N2 windmill",
+      "s": "MAX"
+     },
+     {
+      "v": "11%",
+      "l": "N2 → IDLE",
+      "s": "starter assist (NG & MAX)"
+     }
+    ],
+    "bullets": [
+     "Windmill: Thrust levers (both) Close · start lever CUTOFF, then IDLE detent",
+     "MAX only: ENG HYD PUMP (selected engine) OFF before the windmill start",
+     "Starter assist: Thrust levers Close · WING ANTI-ICE OFF · PACK switches (both) OFF · APU BLEED ON · Ignition BOTH · start lever CUTOFF · ENGINE START GRD · N2 at or above 11% → IDLE detent"
+    ]
+   },
+   {
+    "kicker": "Monitor",
+    "title": "Slow is not failed",
+    "body": [
+     "Acceleration to idle can be very slow, especially at high altitude or in heavy precipitation. N2 steadily increasing + EGT within limits = do not interrupt.",
+     "Hung or stalled start: stagnant RPM and rising EGT. Limit: the lower of EGT redline and EGT start limit redline."
+    ],
+    "bullets": [
+     "Engine stabilized: ENGINE START (operating engine) As needed · Thrust lever Advance slowly · Engine GEN ON",
+     "After starter assist: APU BLEED OFF, PACK (operating engine side) AUTO",
+     "MAX: ENG HYD PUMP (operating engine) ON and YAW DAMPER ON"
+    ],
+    "quote": {
+     "text": "If N2 is steadily increasing and EGT stays within limits, do not interrupt the start.",
+     "src": "QRH NG & MAX 7.6"
+    }
+   },
+   {
+    "kicker": "Afterwards",
+    "title": "Attitude, then the second engine",
+    "bullets": [
+     "Both primary attitude displays failed → IRS MODE selectors (both) ATT — irreversible; about 30 s straight and level, constant speed; enter heading; no autopilot",
+     "Only F/O attitude failed → IRS TRANSFER BOTH ON L, no autopilot",
+     "One engine stays failed → Engine In-Flight Start checklist (NG p.7.24 / MAX p.7.26)",
+     "MAX, no APU GEN: advise cabin crew, CAB/UTIL OFF and IFE/PASS SEAT OFF"
+    ],
+    "body": [
+     "NG vs MAX: same memory items and speeds. Differences: windmill N2 threshold (11% NG / 8.5% MAX), ENG HYD PUMP and YAW DAMPER steps on MAX, cabin load shed on MAX."
+    ]
+   }
+  ],
+  "qcm": [
+   {
+    "q": "First memory item of Loss of Thrust on Both Engines?",
+    "o": [
+     "ENGINE START switches (both) FLT",
+     "APU START",
+     "Engine start levers CUTOFF",
+     "Ignition BOTH"
+    ],
+    "a": 0,
+    "w": "QRH 7.6: 1 ENGINE START switches (both) FLT; 2 Engine start levers (both) CUTOFF; 3 When EGT decreases, IDLE detent."
+   },
+   {
+    "q": "When do the start levers go back to IDLE detent?",
+    "o": [
+     "Immediately",
+     "When N2 reaches 25%",
+     "When EGT decreases",
+     "After the APU start"
+    ],
+    "a": 2,
+    "w": "QRH: When EGT decreases: Engine start levers (both) IDLE detent."
+   },
+   {
+    "q": "No EGT rise after selecting IDLE. How long before recycling the start lever?",
+    "o": [
+     "10 seconds",
+     "20 seconds",
+     "30 seconds",
+     "60 seconds"
+    ],
+    "a": 2,
+    "w": "QRH: EGT redline or no increase in EGT within 30 seconds → CUTOFF, then IDLE detent, repeat as needed."
+   },
+   {
+    "q": "Airspeed to set at FL350?",
+    "o": [
+     "250 kt",
+     "275 kt",
+     "300 kt",
+     "VREF40 + 70"
+    ],
+    "a": 1,
+    "w": "QRH: at or above FL270, 275 knots; below FL270, 300 knots."
+   },
+   {
+    "q": "When do you start the APU?",
+    "o": [
+     "Before the memory items",
+     "Only if the windmill start failed",
+     "Only below FL250",
+     "Without waiting for a successful restart, after the memory items"
+    ],
+    "a": 3,
+    "w": "QRH: Do not wait for a successful engine start before starting the APU. FCTM: memory portion first, to use the high N2."
+   },
+   {
+    "q": "737 MAX, neither engine starts. N2 threshold for a windmill start?",
+    "o": [
+     "N2 at or above 11%",
+     "N2 at or above 8.5%",
+     "N2 at or above 15%",
+     "N2 at or above 25%"
+    ],
+    "a": 1,
+    "w": "QRH MAX: N2 is at or above 8.5% → windmill. On the NG the threshold is 11%."
+   },
+   {
+    "q": "During restart, N2 rises very slowly, EGT within limits. Action?",
+    "o": [
+     "Do not interrupt the start",
+     "CUTOFF and try again",
+     "Advance the thrust lever",
+     "Switch to starter assist"
+    ],
+    "a": 0,
+    "w": "QRH: If N2 is steadily increasing and EGT stays within limits, do not interrupt the start."
+   },
+   {
+    "q": "Starter-assisted start: when does the start lever go to IDLE detent?",
+    "o": [
+     "As soon as ENGINE START is in GRD",
+     "When N2 reaches 25%",
+     "When EGT decreases",
+     "When N2 is at or above 11%"
+    ],
+    "a": 3,
+    "w": "QRH (NG & MAX): When N2 is at or above 11%: Engine start lever IDLE detent."
+   }
+  ],
+  "sources": [
+   {
+    "doc": "QRH NG rev 55 & QRH MAX",
+    "loc": "NNC 7.6 Loss Of Thrust On Both Engines",
+    "quote": "1 ENGINE START switches (both) . . . . . . . . . . FLT 2 Engine start levers (both) . . . . . . . . . . . CUTOFF 3 When EGT decreases: Engine start levers (both) . . . . . . IDLE detent"
+   },
+   {
+    "doc": "QRH NG rev 55 & QRH MAX",
+    "loc": "NNC 7.6 step 5",
+    "quote": "At or above FL270, set airspeed to 275 knots. Below FL270, set airspeed to 300 knots."
+   },
+   {
+    "doc": "QRH NG rev 55",
+    "loc": "NNC 7.7 step 11",
+    "quote": "N2 is at or above 11%: Attempt a windmill start."
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 7.7 step 11 / 7.8 step 15",
+    "quote": "N2 is at or above 8.5%: Attempt a windmill start. ... 15 ENG HYD PUMP (selected engine) . . . . . . . . . OFF"
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 7.12 step 34",
+    "quote": "CAB/UTIL switch . . . . . . . . . . . . . . . OFF IFE/PASS SEAT switch . . . . . . . . . . . OFF"
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "8.17 Loss of Thrust on Both Engines",
+    "quote": "Initiate the memory portion of the LOSS OF THRUST ON BOTH ENGINES NNC before attempting an APU start"
+   },
+   {
+    "doc": "FCTM NG rev 25 & FCTM MAX",
+    "loc": "8.18",
+    "quote": "do not confuse the establishment of APU generator power with the establishment of engine generator power at idle RPM, and avoid advancing the thrust lever prematurely."
+   }
+  ]
+ }
+]
