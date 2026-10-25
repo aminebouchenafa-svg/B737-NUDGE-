@@ -5,49 +5,161 @@
   "cat": "memory",
   "code": "IAS",
   "title": "Airspeed Unreliable",
-  "titleFr": "Vitesse non fiable",
+  "titleFr": "Unreliable Airspeed",
   "fleet": "both",
   "ref": "QRH NNC 10.1 (NG & MAX) · PI Flight With Unreliable Airspeed",
   "flash": {
-   "title": "Montée FL140, nuit, IMC, givrage.",
-   "text": "Le badin CDB plafonne pendant que celui du F/O diminue, A/T en N1. Le stick shaker se déclenche côté CDB alors que l'assiette et la poussée sont normales pour la montée.",
-   "cues": ["IAS DISAGREE", "ALT DISAGREE", "Stick shaker côté CDB", "Barres min/max speed erratiques", "Vitesse incohérente avec assiette/poussée"]
+   "title": "Climbing through FL140, night, IMC, icing.",
+   "text": "Captain's airspeed levels off while the F/O's decreases, A/T in N1. Captain-side stick shaker activates, yet pitch and thrust are normal for the climb.",
+   "cues": [
+    "IAS DISAGREE",
+    "ALT DISAGREE",
+    "Captain-side stick shaker",
+    "Erratic min/max speed bars",
+    "Airspeed inconsistent with pitch/thrust"
+   ]
   },
   "steps": [
-   { "item": "Autopilot (if engaged)", "action": "Disengage", "fleet": "both" },
-   { "item": "Autothrottle (if engaged)", "action": "Disengage", "fleet": "both" },
-   { "item": "F/D switches (both)", "action": "OFF", "fleet": "both" },
-   { "item": "Set the following gear up pitch attitude and thrust: Flaps extended", "action": "10° and 80% N1", "fleet": "both" },
-   { "item": "Set the following gear up pitch attitude and thrust: Flaps up", "action": "4° and 75% N1", "fleet": "both" }
+   {
+    "item": "Autopilot (if engaged)",
+    "action": "Disengage",
+    "fleet": "both"
+   },
+   {
+    "item": "Autothrottle (if engaged)",
+    "action": "Disengage",
+    "fleet": "both"
+   },
+   {
+    "item": "F/D switches (both)",
+    "action": "OFF",
+    "fleet": "both"
+   },
+   {
+    "item": "Set the following gear up pitch attitude and thrust: Flaps extended",
+    "action": "10° and 80% N1",
+    "fleet": "both"
+   },
+   {
+    "item": "Set the following gear up pitch attitude and thrust: Flaps up",
+    "action": "4° and 75% N1",
+    "fleet": "both"
+   }
   ],
   "nums": [
-   { "v": "10° / 80%", "l": "Pitch / N1", "s": "Flaps extended, gear up" },
-   { "v": "4° / 75%", "l": "Pitch / N1", "s": "Flaps up" },
-   { "v": "20 kt", "l": "Écart max vs table PI", "s": "ou 0.03 M → badin non fiable" }
+   {
+    "v": "10° / 80%",
+    "l": "Pitch / N1",
+    "s": "Flaps extended, gear up"
+   },
+   {
+    "v": "4° / 75%",
+    "l": "Pitch / N1",
+    "s": "Flaps up"
+   },
+   {
+    "v": "20 kt",
+    "l": "Max deviation vs PI table",
+    "s": "or 0.03 M → airspeed unreliable"
+   }
   ],
-  "trap": "Croire le stick shaker ou l'alerte overspeed : ils peuvent sonner à tort, voire simultanément. Assiette + N1 d'abord, on analyse ensuite.",
+  "trap": "Trusting the stick shaker or overspeed warning: they can sound falsely, even simultaneously. Pitch + N1 first, analyze later.",
   "then": [
    "PROBE HEAT switches … Check ON",
-   "Indications fiables : Attitude, N1, Ground speed, Radio altitude",
-   "Badin fiable identifié ? → l'utiliser pour le reste du vol (F/D côté fiable ON, A/P côté fiable si besoin, pas d'A/T)",
-   "Sinon : table PI « Flight With Unreliable Airspeed », stabilisé et trimé, comparer les 3 badins : écart > 20 kt ou 0.03 M = non fiable",
-   "Altitude non fiable des deux côtés → pas RVSM, transpondeur ALT OFF"
+   "Reliable indications: Attitude, N1, Ground speed, Radio altitude",
+   "Reliable airspeed identified? → use it for the rest of the flight (reliable-side F/D ON, reliable-side A/P if needed, no A/T)",
+   "Otherwise: PI table “Flight With Unreliable Airspeed”, stabilized and trimmed, compare all 3 airspeeds: deviation > 20 kt or 0.03 M = unreliable",
+   "Altitude unreliable on both sides → not RVSM, transponder ALT OFF"
   ],
-  "diff": "Memory items identiques NG/MAX. La NNC MAX ajoute des notes : le Stick Shaker Indicator de l'indicateur d'AOA (et l'AOA readout/aiguille/bande d'approche si l'AOA est en cause) peut être non fiable ; sur NG l'alerte AIRSPEED LOW est « (as installed) ».",
+  "diff": "Memory items identical NG/MAX. The MAX NNC adds notes: the Stick Shaker Indicator on the AOA indicator (and the AOA readout/pointer/approach band if AOA is the cause) may be unreliable; on NG the AIRSPEED LOW alert is “(as installed)”.",
   "qcm": [
-   { "q": "Volets rentrés, quel couple assiette / N1 en memory item ?", "o": ["10° et 80% N1", "4° et 75% N1", "4° et 80% N1", "10° et 75% N1"], "a": 1, "w": "Flaps up : 4° and 75% N1. Le 10°/80% est pour flaps extended, toujours gear up." },
-   { "q": "Volets sortis (gear up), quel couple assiette / N1 ?", "o": ["15° et 85% N1", "4° et 75% N1", "8° et 80% N1", "10° et 80% N1"], "a": 3, "w": "Flaps extended : 10° and 80% N1, selon la NNC 10.1 sur NG comme sur MAX." },
-   { "q": "Quel est le 3e memory item ?", "o": ["F/D switches (both) … OFF", "PROBE HEAT switches … Check ON", "Autothrottle (if engaged) … Disengage", "Thrust levers … TO/GA"], "a": 0, "w": "Ordre : A/P Disengage → A/T Disengage → F/D (both) OFF → assiette/poussée. PROBE HEAT est le premier reference item, après la ligne pointillée." },
-   { "q": "Quelle indication n'est PAS listée comme fiable par la QRH ?", "o": ["Ground speed", "Radio altitude", "Stick shaker", "N1"], "a": 2, "w": "Fiables : Attitude, N1, Ground speed, Radio altitude. Stick shaker, overspeed et AIRSPEED LOW peuvent sonner à tort." },
-   { "q": "Stabilisé avec la table PI, un badin est jugé non fiable s'il diffère de plus de…", "o": ["10 kt ou 0.02 M", "20 kt ou 0.03 M", "5 kt ou 0.01 M", "30 kt ou 0.05 M"], "a": 1, "w": "« differs by more than 20 knots or 0.03 Mach from the airspeed shown in the table »." }
+   {
+    "q": "Flaps up: which pitch / N1 memory item?",
+    "o": [
+     "10° and 80% N1",
+     "4° and 75% N1",
+     "4° and 80% N1",
+     "10° and 75% N1"
+    ],
+    "a": 1,
+    "w": "Flaps up: 4° and 75% N1. 10°/80% is for flaps extended, still gear up."
+   },
+   {
+    "q": "Flaps extended (gear up): which pitch / N1?",
+    "o": [
+     "15° and 85% N1",
+     "4° and 75% N1",
+     "8° and 80% N1",
+     "10° and 80% N1"
+    ],
+    "a": 3,
+    "w": "Flaps extended: 10° and 80% N1, per NNC 10.1, NG and MAX alike."
+   },
+   {
+    "q": "What is the 3rd memory item?",
+    "o": [
+     "F/D switches (both) … OFF",
+     "PROBE HEAT switches … Check ON",
+     "Autothrottle (if engaged) … Disengage",
+     "Thrust levers … TO/GA"
+    ],
+    "a": 0,
+    "w": "Order: A/P Disengage → A/T Disengage → F/D (both) OFF → pitch/thrust. PROBE HEAT is the first reference item, after the dashed line."
+   },
+   {
+    "q": "Which indication is NOT listed as reliable by the QRH?",
+    "o": [
+     "Ground speed",
+     "Radio altitude",
+     "Stick shaker",
+     "N1"
+    ],
+    "a": 2,
+    "w": "Reliable: Attitude, N1, Ground speed, Radio altitude. Stick shaker, overspeed and AIRSPEED LOW may sound falsely."
+   },
+   {
+    "q": "Stabilized with the PI table, an airspeed is considered unreliable if it differs by more than…",
+    "o": [
+     "10 kt or 0.02 M",
+     "20 kt or 0.03 M",
+     "5 kt or 0.01 M",
+     "30 kt or 0.05 M"
+    ],
+    "a": 1,
+    "w": "“differs by more than 20 knots or 0.03 Mach from the airspeed shown in the table”."
+   }
   ],
   "sources": [
-   { "doc": "QRH MAX", "loc": "NNC 10.1 Airspeed Unreliable (Jan 20, 2026)", "quote": "Flaps extended . . . 10° and 80% N1 / Flaps up . . . 4° and 75% N1" },
-   { "doc": "QRH NG", "loc": "NNC 10.1 Airspeed Unreliable (rev 55)", "quote": "3 F/D switches (both) . . . OFF" },
-   { "doc": "QRH MAX", "loc": "NNC 10.1 step 6", "quote": "The following indications are reliable: Attitude N1 Ground speed Radio altitude" },
-   { "doc": "QRH MAX", "loc": "NNC 10.3 step 9", "quote": "An airspeed indication that differs by more than 20 knots or 0.03 Mach from the airspeed shown in the table should be considered unreliable." },
-   { "doc": "QRH MAX", "loc": "NNC 10.2 notes", "quote": "The Stick Shaker Indicator on the Angle of Attack indicator may be unreliable." },
-   { "doc": "QRH MAX", "loc": "CI.2.2", "quote": "The last immediate action item is followed by a dashed horizontal line." }
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 10.1 Airspeed Unreliable (Jan 20, 2026)",
+    "quote": "Flaps extended . . . 10° and 80% N1 / Flaps up . . . 4° and 75% N1"
+   },
+   {
+    "doc": "QRH NG",
+    "loc": "NNC 10.1 Airspeed Unreliable (rev 55)",
+    "quote": "3 F/D switches (both) . . . OFF"
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 10.1 step 6",
+    "quote": "The following indications are reliable: Attitude N1 Ground speed Radio altitude"
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 10.3 step 9",
+    "quote": "An airspeed indication that differs by more than 20 knots or 0.03 Mach from the airspeed shown in the table should be considered unreliable."
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 10.2 notes",
+    "quote": "The Stick Shaker Indicator on the Angle of Attack indicator may be unreliable."
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "CI.2.2",
+    "quote": "The last immediate action item is followed by a dashed horizontal line."
+   }
   ]
  },
  {
@@ -56,53 +168,184 @@
   "cat": "memory",
   "code": "STAB",
   "title": "Runaway Stabilizer",
-  "titleFr": "Emballement du stabilisateur",
+  "titleFr": "Runaway Stabilizer",
   "fleet": "both",
   "ref": "QRH NNC 9.1 (NG & MAX) · FCTM ch.8 Runaway Stabilizer / Manual Stabilizer Trim",
   "flash": {
-   "title": "Croisière FL350, A/P engagé.",
-   "text": "Le trim wheel tourne en continu, la clacker du trim résonne sans arrêt. Le manche devient lourd et l'assiette dérive alors que la vitesse est stable.",
-   "cues": ["Trim wheel en rotation continue", "Efforts manche croissants", "Indicateur de stab qui défile", "STAB OUT OF TRIM possible"]
+   "title": "Cruise FL350, A/P engaged.",
+   "text": "The trim wheel spins continuously, the trim clacker never stops. Column forces build and pitch drifts while airspeed is stable.",
+   "cues": [
+    "Trim wheel rotating continuously",
+    "Increasing column forces",
+    "Stab trim indicator running",
+    "STAB OUT OF TRIM possible"
+   ]
   },
   "steps": [
-   { "item": "Control column", "action": "Hold firmly", "fleet": "both" },
-   { "item": "Autopilot (if engaged)", "action": "Disengage", "fleet": "both" },
-   { "item": "Autothrottle (if engaged)", "action": "Disengage", "fleet": "both" },
-   { "item": "Control column and thrust levers", "action": "Control airplane pitch attitude and airspeed", "fleet": "both" },
-   { "item": "Main Electric Stabilizer trim", "action": "Reduce control column forces", "fleet": "both" },
-   { "item": "If the runaway stops after the autopilot is disengaged:", "action": "Do not re-engage the autopilot or autothrottle.", "fleet": "both" },
-   { "item": "If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both)", "action": "CUTOUT", "fleet": "both" },
-   { "item": "If the runaway continues: Stabilizer trim wheel", "action": "Grasp and hold", "fleet": "both" }
+   {
+    "item": "Control column",
+    "action": "Hold firmly",
+    "fleet": "both"
+   },
+   {
+    "item": "Autopilot (if engaged)",
+    "action": "Disengage",
+    "fleet": "both"
+   },
+   {
+    "item": "Autothrottle (if engaged)",
+    "action": "Disengage",
+    "fleet": "both"
+   },
+   {
+    "item": "Control column and thrust levers",
+    "action": "Control airplane pitch attitude and airspeed",
+    "fleet": "both"
+   },
+   {
+    "item": "Main Electric Stabilizer trim",
+    "action": "Reduce control column forces",
+    "fleet": "both"
+   },
+   {
+    "item": "If the runaway stops after the autopilot is disengaged:",
+    "action": "Do not re-engage the autopilot or autothrottle.",
+    "fleet": "both"
+   },
+   {
+    "item": "If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both)",
+    "action": "CUTOUT",
+    "fleet": "both"
+   },
+   {
+    "item": "If the runaway continues: Stabilizer trim wheel",
+    "action": "Grasp and hold",
+    "fleet": "both"
+   }
   ],
   "nums": [
-   { "v": "2", "l": "STAB TRIM cutout", "s": "Both switches → CUTOUT" },
-   { "v": "≈15", "l": "Tours de trim wheel", "s": "≈ 1 unit de stab (FCTM)" },
-   { "v": "5.5°", "l": "AOA disagree", "s": "MAX : STS (Speed Trim + MCAS) inhibé, SPEED TRIM FAIL" }
+   {
+    "v": "2",
+    "l": "STAB TRIM cutout",
+    "s": "Both switches → CUTOUT"
+   },
+   {
+    "v": "≈15",
+    "l": "Trim wheel turns",
+    "s": "≈ 1 unit of stab trim (FCTM)"
+   },
+   {
+    "v": "5.5°",
+    "l": "AOA disagree",
+    "s": "MAX: STS (Speed Trim + MCAS) inhibited, SPEED TRIM FAIL"
+   }
   ],
-  "trap": "Débrayer l'A/P sans tenir le manche : on perd les ordres de profondeur de l'A/P. Le manche se tient fermement AVANT de déconnecter. Et une fois coupé, on ne réengage ni A/P ni A/T.",
+  "trap": "Disengaging the A/P without holding the column: you lose the A/P elevator commands. Hold the column firmly BEFORE disconnecting. Once off, do not re-engage A/P or A/T.",
   "then": [
-   "Stabilizer … Trim manually (effort à deux pilotes possible)",
-   "Réduire la vitesse diminue les efforts sur le trim manuel",
-   "Anticiper les besoins de trim, ne pas réengager A/P ni A/T",
-   "Deferred items : configuration d'atterrissage et in-trim établis tôt en finale"
+   "Stabilizer … Trim manually (two-pilot effort may be used)",
+   "Reducing airspeed reduces manual trim forces",
+   "Anticipate trim needs, do not re-engage A/P or A/T",
+   "Deferred items: landing configuration and in-trim established early on final"
   ],
-  "diff": "Memory items identiques NG/MAX (QRH 9.1). Différences système : sur MAX les cutouts s'appellent STAB TRIM PRI et B/U et coupent A/P, main electric et Speed Trim System (Speed Trim + MCAS) ; sur NG ce sont MAIN ELECT et AUTOPILOT. Sur MAX, le manche tiré n'interrompt pas un trim nose down MCAS.",
+  "diff": "Memory items identical NG/MAX (QRH 9.1). System differences: on MAX the cutouts are STAB TRIM PRI and B/U and disconnect A/P, main electric and Speed Trim System (Speed Trim + MCAS); on NG they are MAIN ELECT and AUTOPILOT. On MAX, pulling the column does not stop an MCAS nose-down trim.",
   "qcm": [
-   { "q": "Premier memory item du Runaway Stabilizer ?", "o": ["Autopilot (if engaged) … Disengage", "STAB TRIM cutout switches (both) … CUTOUT", "Control column … Hold firmly", "Stabilizer trim wheel … Grasp and hold"], "a": 2, "w": "On tient le manche fermement avant de déconnecter l'A/P pour garder le contrôle en tangage et les ordres de profondeur de l'A/P (FCTM)." },
-   { "q": "Après déconnexion A/P, l'emballement continue. Action ?", "o": ["STAB TRIM cutout switches (both) … CUTOUT", "Réengager l'autre A/P", "STAB TRIM override switch … OVRD", "Flaps … 15"], "a": 0, "w": "« If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both) … CUTOUT »." },
-   { "q": "Malgré les cutouts, le stab continue de bouger. Action ?", "o": ["Main Electric Stabilizer trim … opposé", "Réduire la poussée à idle", "Remettre les cutouts sur NORMAL", "Stabilizer trim wheel … Grasp and hold"], "a": 3, "w": "« If the runaway continues: Stabilizer trim wheel … Grasp and hold ». Saisir le trim wheel arrête le mouvement du stab (FCOM)." },
-   { "q": "L'emballement s'arrête dès la déconnexion de l'A/P. Ensuite ?", "o": ["Réengager l'A/P et surveiller", "Do not re-engage the autopilot or autothrottle", "Cutouts sur CUTOUT par précaution", "Réengager l'A/T seulement"], "a": 1, "w": "« If the runaway stops after the autopilot is disengaged: Do not re-engage the autopilot or autothrottle. »" },
-   { "q": "Sur MAX, que coupe un cutout STAB TRIM (PRI ou B/U) sur CUTOUT ?", "o": ["Uniquement l'A/P trim", "Uniquement le trim manuel (wheel)", "A/P, main electric et Speed Trim System (Speed Trim + MCAS)", "Uniquement MCAS"], "a": 2, "w": "FCOM MAX : les entrées A/P, main electric et STS (Speed Trim et MCAS) sont déconnectées du moteur de trim. Le trim wheel manuel reste disponible." }
+   {
+    "q": "First Runaway Stabilizer memory item?",
+    "o": [
+     "Autopilot (if engaged) … Disengage",
+     "STAB TRIM cutout switches (both) … CUTOUT",
+     "Control column … Hold firmly",
+     "Stabilizer trim wheel … Grasp and hold"
+    ],
+    "a": 2,
+    "w": "Hold the column firmly before disconnecting the A/P to keep pitch control and retain the A/P elevator commands (FCTM)."
+   },
+   {
+    "q": "A/P disengaged, runaway continues. Action?",
+    "o": [
+     "STAB TRIM cutout switches (both) … CUTOUT",
+     "Engage the other A/P",
+     "STAB TRIM override switch … OVRD",
+     "Flaps … 15"
+    ],
+    "a": 0,
+    "w": "“If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both) … CUTOUT”."
+   },
+   {
+    "q": "Cutouts set, stab still moving. Action?",
+    "o": [
+     "Main Electric Stabilizer trim … opposite",
+     "Thrust levers to idle",
+     "Cutouts back to NORMAL",
+     "Stabilizer trim wheel … Grasp and hold"
+    ],
+    "a": 3,
+    "w": "“If the runaway continues: Stabilizer trim wheel … Grasp and hold”. Grasping the trim wheel stops stab movement (FCOM)."
+   },
+   {
+    "q": "Runaway stops as soon as the A/P is disengaged. Next?",
+    "o": [
+     "Re-engage the A/P and monitor",
+     "Do not re-engage the autopilot or autothrottle",
+     "Cutouts to CUTOUT as a precaution",
+     "Re-engage A/T only"
+    ],
+    "a": 1,
+    "w": "“If the runaway stops after the autopilot is disengaged: Do not re-engage the autopilot or autothrottle.”"
+   },
+   {
+    "q": "On MAX, what does a STAB TRIM cutout (PRI or B/U) at CUTOUT disconnect?",
+    "o": [
+     "A/P trim only",
+     "Manual trim (wheel) only",
+     "A/P, main electric and Speed Trim System (Speed Trim + MCAS)",
+     "MCAS only"
+    ],
+    "a": 2,
+    "w": "FCOM MAX: A/P, main electric and STS (Speed Trim and MCAS) inputs are disconnected from the trim motor. The manual trim wheel remains available."
+   }
   ],
   "sources": [
-   { "doc": "QRH MAX", "loc": "NNC 9.1 Runaway Stabilizer (Jan 20, 2026)", "quote": "1 Control column . . . Hold firmly 2 Autopilot (if engaged) . . . Disengage" },
-   { "doc": "QRH NG", "loc": "NNC 9.1 Runaway Stabilizer (rev 55)", "quote": "If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both) . . . CUTOUT If the runaway continues: Stabilizer trim wheel . . . Grasp and hold" },
-   { "doc": "QRH MAX", "loc": "NNC 9.2", "quote": "8 Stabilizer . . . Trim manually A two-pilot effort may be used to correct an out of trim condition." },
-   { "doc": "FCTM MAX", "loc": "8.27 Runaway Stabilizer", "quote": "The control column must be held firmly before the autopilot (if engaged) is disengaged to maintain airplane pitch control and retain any elevator commands from the autopilot." },
-   { "doc": "FCTM MAX", "loc": "8.28 Manual Stabilizer Trim", "quote": "One unit of stabilizer trim requires approximately 15 turns of the stabilizer trim wheel." },
-   { "doc": "FCOM MAX", "loc": "9.20.7 Stabilizer Trim", "quote": "If either switch is positioned to CUTOUT, the autopilot, main electric and Speed Trim System (Speed Trim function and MCAS function) trim inputs are disconnected from the stabilizer trim motor." },
-   { "doc": "FCOM MAX", "loc": "9.20.8 Speed Trim System", "quote": "If the left and right AOAs disagree by 5.5 degrees or more with the flaps retracted, the SPEED TRIM FAIL light illuminates" },
-   { "doc": "FCOM NG", "loc": "9.20.7 Stabilizer Trim", "quote": "The STAB TRIM MAIN ELECT cutout switch and the STAB TRIM AUTOPILOT cutout switch, located on the control stand" }
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 9.1 Runaway Stabilizer (Jan 20, 2026)",
+    "quote": "1 Control column . . . Hold firmly 2 Autopilot (if engaged) . . . Disengage"
+   },
+   {
+    "doc": "QRH NG",
+    "loc": "NNC 9.1 Runaway Stabilizer (rev 55)",
+    "quote": "If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both) . . . CUTOUT If the runaway continues: Stabilizer trim wheel . . . Grasp and hold"
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 9.2",
+    "quote": "8 Stabilizer . . . Trim manually A two-pilot effort may be used to correct an out of trim condition."
+   },
+   {
+    "doc": "FCTM MAX",
+    "loc": "8.27 Runaway Stabilizer",
+    "quote": "The control column must be held firmly before the autopilot (if engaged) is disengaged to maintain airplane pitch control and retain any elevator commands from the autopilot."
+   },
+   {
+    "doc": "FCTM MAX",
+    "loc": "8.28 Manual Stabilizer Trim",
+    "quote": "One unit of stabilizer trim requires approximately 15 turns of the stabilizer trim wheel."
+   },
+   {
+    "doc": "FCOM MAX",
+    "loc": "9.20.7 Stabilizer Trim",
+    "quote": "If either switch is positioned to CUTOUT, the autopilot, main electric and Speed Trim System (Speed Trim function and MCAS function) trim inputs are disconnected from the stabilizer trim motor."
+   },
+   {
+    "doc": "FCOM MAX",
+    "loc": "9.20.8 Speed Trim System",
+    "quote": "If the left and right AOAs disagree by 5.5 degrees or more with the flaps retracted, the SPEED TRIM FAIL light illuminates"
+   },
+   {
+    "doc": "FCOM NG",
+    "loc": "9.20.7 Stabilizer Trim",
+    "quote": "The STAB TRIM MAIN ELECT cutout switch and the STAB TRIM AUTOPILOT cutout switch, located on the control stand"
+   }
   ]
  },
  {
@@ -111,51 +354,170 @@
   "cat": "memory",
   "code": "EDES",
   "title": "Emergency Descent",
-  "titleFr": "Descente d'urgence",
+  "titleFr": "Emergency Descent",
   "fleet": "both",
   "ref": "QRH NNC 0.1 (NG & MAX) · SOP B737 Ed03 Rev03",
   "flash": {
-   "title": "FL370, croisière.",
-   "text": "La cabine ne se contrôle plus après la NNC CABIN ALTITUDE WARNING : masques à 100%, communication établie. Décision : descente rapide immédiate.",
-   "cues": ["Cabin altitude qui monte", "Klaxon intermittent", "CABIN ALTITUDE light", "Masques passagers"]
+   "title": "FL370, cruise.",
+   "text": "Cabin can no longer be controlled after the CABIN ALTITUDE WARNING NNC: masks at 100%, crew communication established. Decision: immediate rapid descent.",
+   "cues": [
+    "Cabin altitude climbing",
+    "Intermittent horn",
+    "CABIN ALTITUDE light",
+    "Passenger masks deployed"
+   ]
   },
   "steps": [
-   { "item": "Announce the emergency descent.", "action": "The pilot flying will advise the cabin crew, on the PA system, of impending rapid descent. The pilot monitoring will advise ATC and obtain the area altimeter setting.", "fleet": "both" },
-   { "item": "Passenger signs", "action": "ON", "fleet": "both" },
-   { "item": "Without delay,", "action": "descend to the lowest safe altitude or 10,000 feet, whichever is higher.", "fleet": "both" },
-   { "item": "ENGINE START switches (both)", "action": "CONT", "fleet": "both" },
-   { "item": "Thrust levers (both)", "action": "Reduce thrust to minimum or as needed for anti-ice", "fleet": "both" },
-   { "item": "SPEED BRAKE", "action": "FLIGHT DETENT", "fleet": "MAX" },
-   { "item": "Speedbrake", "action": "FLIGHT DETENT", "fleet": "NG" },
-   { "item": "Set target speed to Mmo/Vmo.", "action": "(Caution: If structural integrity is in doubt, limit speed as much as possible and avoid high maneuvering loads.)", "fleet": "both" }
+   {
+    "item": "Announce the emergency descent.",
+    "action": "The pilot flying will advise the cabin crew, on the PA system, of impending rapid descent. The pilot monitoring will advise ATC and obtain the area altimeter setting.",
+    "fleet": "both"
+   },
+   {
+    "item": "Passenger signs",
+    "action": "ON",
+    "fleet": "both"
+   },
+   {
+    "item": "Without delay,",
+    "action": "descend to the lowest safe altitude or 10,000 feet, whichever is higher.",
+    "fleet": "both"
+   },
+   {
+    "item": "ENGINE START switches (both)",
+    "action": "CONT",
+    "fleet": "both"
+   },
+   {
+    "item": "Thrust levers (both)",
+    "action": "Reduce thrust to minimum or as needed for anti-ice",
+    "fleet": "both"
+   },
+   {
+    "item": "SPEED BRAKE",
+    "action": "FLIGHT DETENT",
+    "fleet": "MAX"
+   },
+   {
+    "item": "Speedbrake",
+    "action": "FLIGHT DETENT",
+    "fleet": "NG"
+   },
+   {
+    "item": "Set target speed to Mmo/Vmo.",
+    "action": "(Caution: If structural integrity is in doubt, limit speed as much as possible and avoid high maneuvering loads.)",
+    "fleet": "both"
+   }
   ],
   "nums": [
-   { "v": "10 000 ft", "l": "Niveau cible", "s": "ou lowest safe altitude, le plus haut des deux" },
-   { "v": "Mmo/Vmo", "l": "Vitesse cible", "s": "sauf doute sur la structure" },
-   { "v": "320 kt", "l": "Autostow speedbrake", "s": "NG YD101–YD105, GW > 70 308 kg" }
+   {
+    "v": "10 000 ft",
+    "l": "Target altitude",
+    "s": "or lowest safe altitude, whichever is higher"
+   },
+   {
+    "v": "Mmo/Vmo",
+    "l": "Target speed",
+    "s": "unless structural integrity in doubt"
+   },
+   {
+    "v": "320 kt",
+    "l": "Speedbrake autostow",
+    "s": "NG YD101–YD105, GW > 70 308 kg"
+   }
   ],
-  "trap": "Descendre à 10 000 ft sans regarder la MSA : c'est le plus haut entre lowest safe altitude et 10 000 ft. Et avec doute structural, on ne va pas chercher Mmo/Vmo.",
+  "trap": "Descending to 10 000 ft without checking MSA: it's the higher of lowest safe altitude and 10 000 ft. And with structural doubt, don't chase Mmo/Vmo.",
   "then": [
-   "Approche du niveau : SPEED BRAKE lever en DOWN, mise en palier, remettre de la poussée",
-   "Crew oxygen regulators … Normal (O2 obligatoire au-dessus de 10 000 ft cabine)",
+   "Approaching level-off: SPEED BRAKE lever DOWN, level off, add thrust",
+   "Crew oxygen regulators … Normal (O2 mandatory above 10 000 ft cabin altitude)",
    "ENGINE START switches (both) … As needed",
-   "Nouvelle stratégie selon météo, oxygène, carburant, terrains (LRC possible)",
-   "SOP : technique recommandée A/P en LVL CHG, A/T engagée, pas de V/S ; F/O annonce 2 000 et 1 000 ft avant le palier"
+   "New plan based on weather, oxygen, fuel, airports (LRC possible)",
+   "SOP: recommended technique A/P in LVL CHG, A/T engaged, no V/S; F/O calls 2 000 and 1 000 ft before level-off"
   ],
-  "diff": "Mêmes items. Le libellé du levier est « SPEED BRAKE » sur MAX, « Speedbrake » sur NG. QRH NG (YD101–YD105) : caution autostow du speedbrake vers 50% flight detent au-delà de 320 kt si GW > 70 308 kg, ne pas contrer l'autostow sauf sous 320 kt.",
+  "diff": "Same items. Lever label is “SPEED BRAKE” on MAX, “Speedbrake” on NG. QRH NG (YD101–YD105) caution: speedbrake autostows to the 50% flight detent above 320 kt if GW > 70 308 kg; do not counter the autostow unless below 320 kt.",
   "qcm": [
-   { "q": "Altitude cible de la descente d'urgence ?", "o": ["10 000 ft systématiquement", "FL100 ou MSA, le plus bas des deux", "Lowest safe altitude ou 10 000 ft, le plus haut des deux", "14 000 ft"], "a": 2, "w": "« descend to the lowest safe altitude or 10,000 feet, whichever is higher »." },
-   { "q": "Qui annonce la descente au PA cabine selon la QRH ?", "o": ["Le pilot flying", "Le pilot monitoring", "Le CDB toujours", "Le chef de cabine"], "a": 0, "w": "Le PF prévient la cabine au PA ; le PM prévient l'ATC et récupère le calage altimétrique." },
-   { "q": "Que fait-on des ENGINE START switches en memory item ?", "o": ["FLT", "CONT", "OFF", "GRD"], "a": 1, "w": "« ENGINE START switches (both) … CONT »." },
-   { "q": "Doute sur l'intégrité de la structure : vitesse ?", "o": ["Mmo/Vmo quand même", "Vref + 80", "Turbulence penetration speed obligatoire", "Limiter la vitesse autant que possible, éviter les fortes charges"], "a": 3, "w": "Caution QRH : limit speed as much as possible and avoid high maneuvering loads." },
-   { "q": "Sur certains NG (YD101–YD105) lourds, le speedbrake peut…", "o": ["Se rétracter totalement au-delà de 280 kt", "Autostow vers 50% flight detent au-delà de 320 kt", "Se bloquer à FLIGHT DETENT", "Sortir au maximum automatiquement"], "a": 1, "w": "Caution QRH NG : GW > 70 308 kg, autostow vers le 50% flight detent si la vitesse dépasse 320 kt." }
+   {
+    "q": "Emergency descent target altitude?",
+    "o": [
+     "10 000 ft, always",
+     "FL100 or MSA, whichever is lower",
+     "Lowest safe altitude or 10 000 ft, whichever is higher",
+     "14 000 ft"
+    ],
+    "a": 2,
+    "w": "“descend to the lowest safe altitude or 10,000 feet, whichever is higher”."
+   },
+   {
+    "q": "Per the QRH, who announces the descent to the cabin on the PA?",
+    "o": [
+     "The pilot flying",
+     "The pilot monitoring",
+     "Always the Captain",
+     "The senior cabin crew member"
+    ],
+    "a": 0,
+    "w": "PF advises the cabin on the PA; PM advises ATC and obtains the area altimeter setting."
+   },
+   {
+    "q": "ENGINE START switches in the memory items?",
+    "o": [
+     "FLT",
+     "CONT",
+     "OFF",
+     "GRD"
+    ],
+    "a": 1,
+    "w": "“ENGINE START switches (both) … CONT”."
+   },
+   {
+    "q": "Structural integrity in doubt: speed?",
+    "o": [
+     "Mmo/Vmo anyway",
+     "Vref + 80",
+     "Turbulence penetration speed mandatory",
+     "Limit speed as much as possible, avoid high maneuvering loads"
+    ],
+    "a": 3,
+    "w": "QRH caution: limit speed as much as possible and avoid high maneuvering loads."
+   },
+   {
+    "q": "On some heavy NGs (YD101–YD105), the speedbrake may…",
+    "o": [
+     "Fully retract above 280 kt",
+     "Autostow to 50% flight detent above 320 kt",
+     "Lock at FLIGHT DETENT",
+     "Extend fully automatically"
+    ],
+    "a": 1,
+    "w": "QRH NG caution: GW > 70 308 kg, autostow to the 50% flight detent if airspeed exceeds 320 kt."
+   }
   ],
   "sources": [
-   { "doc": "QRH MAX", "loc": "NNC 0.1 Emergency Descent (Jan 20, 2026)", "quote": "3 Without delay, descend to the lowest safe altitude or 10,000 feet, whichever is higher." },
-   { "doc": "QRH MAX", "loc": "NNC 0.1", "quote": "6 SPEED BRAKE . . . FLIGHT DETENT ... 7 Set target speed to Mmo/Vmo." },
-   { "doc": "QRH NG", "loc": "NNC 0.1 (rev 55)", "quote": "6 Speedbrake . . . FLIGHT DETENT" },
-   { "doc": "QRH NG", "loc": "NNC 0.2 caution, YD101 - YD105", "quote": "When gross weight is greater than 70,308 kgs, speed brake will autostow to the 50% flight detent if airspeed exceeds 320 knots." },
-   { "doc": "SOP B737 MAX/NG Ed03 Rev03", "loc": "Emergency descent", "quote": "use of the autopilot with LVL CHG mode is the recommended technique for rapid descents. Use of the V/S mode is not recommended." }
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 0.1 Emergency Descent (Jan 20, 2026)",
+    "quote": "3 Without delay, descend to the lowest safe altitude or 10,000 feet, whichever is higher."
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 0.1",
+    "quote": "6 SPEED BRAKE . . . FLIGHT DETENT ... 7 Set target speed to Mmo/Vmo."
+   },
+   {
+    "doc": "QRH NG",
+    "loc": "NNC 0.1 (rev 55)",
+    "quote": "6 Speedbrake . . . FLIGHT DETENT"
+   },
+   {
+    "doc": "QRH NG",
+    "loc": "NNC 0.2 caution, YD101 - YD105",
+    "quote": "When gross weight is greater than 70,308 kgs, speed brake will autostow to the 50% flight detent if airspeed exceeds 320 knots."
+   },
+   {
+    "doc": "SOP B737 MAX/NG Ed03 Rev03",
+    "loc": "Emergency descent",
+    "quote": "use of the autopilot with LVL CHG mode is the recommended technique for rapid descents. Use of the V/S mode is not recommended."
+   }
   ]
  },
  {
@@ -164,42 +526,133 @@
   "cat": "memory",
   "code": "HORN",
   "title": "Warning Horns (Landing / Takeoff Configuration)",
-  "titleFr": "Klaxons de configuration",
+  "titleFr": "Configuration Warning Horns",
   "fleet": "both",
   "ref": "QRH NNC 15.1–15.3 Warning Systems (NG & MAX)",
   "flash": {
-   "title": "Alignement piste, poussée affichée.",
-   "text": "Au moment d'avancer les manettes pour le décollage, un klaxon intermittent retentit et TAKEOFF CONFIG s'allume. Plus tard, en finale, un klaxon continu…",
-   "cues": ["Klaxon intermittent au sol", "TAKEOFF CONFIG light", "Klaxon continu en vol", "CABIN ALTITUDE light (> 10 000 ft)"]
+   "title": "Lined up on the runway, setting takeoff thrust.",
+   "text": "As the thrust levers are advanced for takeoff, an intermittent horn sounds and TAKEOFF CONFIG illuminates. Later, on final, a steady horn…",
+   "cues": [
+    "Intermittent horn on the ground",
+    "TAKEOFF CONFIG light",
+    "Steady horn in flight",
+    "CABIN ALTITUDE light (> 10 000 ft)"
+   ]
   },
   "steps": [
-   { "item": "If in flight, the steady warning horn sounds (LANDING CONFIGURATION):", "action": "Assure correct airplane landing configuration.", "fleet": "both" },
-   { "item": "If the intermittent warning horn sounds or a CABIN ALTITUDE light illuminates in flight at an airplane flight altitude above 10,000 feet MSL:", "action": "Don the oxygen masks and set the regulators to 100%. Establish crew communications. ►►Go to the CABIN ALTITUDE WARNING or Rapid Depressurization checklist", "fleet": "both" },
-   { "item": "If the intermittent warning horn sounds or a TAKEOFF CONFIG light illuminates on the ground when advancing the thrust levers to takeoff thrust:", "action": "Assure correct airplane takeoff configuration.", "fleet": "both" }
+   {
+    "item": "If in flight, the steady warning horn sounds (LANDING CONFIGURATION):",
+    "action": "Assure correct airplane landing configuration.",
+    "fleet": "both"
+   },
+   {
+    "item": "If the intermittent warning horn sounds or a CABIN ALTITUDE light illuminates in flight at an airplane flight altitude above 10,000 feet MSL:",
+    "action": "Don the oxygen masks and set the regulators to 100%. Establish crew communications. ►►Go to the CABIN ALTITUDE WARNING or Rapid Depressurization checklist",
+    "fleet": "both"
+   },
+   {
+    "item": "If the intermittent warning horn sounds or a TAKEOFF CONFIG light illuminates on the ground when advancing the thrust levers to takeoff thrust:",
+    "action": "Assure correct airplane takeoff configuration.",
+    "fleet": "both"
+   }
   ],
   "nums": [
-   { "v": "Continu", "l": "Klaxon en vol", "s": "= Landing configuration" },
-   { "v": "Intermittent", "l": "Klaxon", "s": "sol = TO config · vol > 10 000 ft = cabine" },
-   { "v": "100%", "l": "O2 régulateurs", "s": "si klaxon intermittent en vol > 10 000 ft MSL" }
+   {
+    "v": "Steady",
+    "l": "Horn in flight",
+    "s": "= Landing configuration"
+   },
+   {
+    "v": "Intermittent",
+    "l": "Horn",
+    "s": "ground = TO config · flight > 10 000 ft = cabin"
+   },
+   {
+    "v": "100%",
+    "l": "O2 regulators",
+    "s": "if intermittent horn in flight > 10 000 ft MSL"
+   }
   ],
-  "trap": "Confondre les deux klaxons : en vol au-dessus de 10 000 ft MSL, l'intermittent est une alerte d'altitude cabine → masques d'abord, pas une recherche de configuration.",
+  "trap": "Mixing up the two horns: in flight above 10 000 ft MSL, the intermittent horn is a cabin altitude warning → masks first, not a configuration check.",
   "then": [
-   "Au sol (manettes vers la poussée décollage) : établir la bonne configuration décollage avant tout départ",
-   "Klaxon intermittent > 10 000 ft MSL : CABIN ALTITUDE WARNING or Rapid Depressurization (QRH 2.1)",
-   "Klaxon continu en vol : établir la bonne configuration d'atterrissage"
+   "On the ground (thrust levers advanced to takeoff thrust): establish correct takeoff configuration before any departure",
+   "Intermittent horn > 10 000 ft MSL: CABIN ALTITUDE WARNING or Rapid Depressurization (QRH 2.1)",
+   "Steady horn in flight: establish correct landing configuration"
   ],
-  "diff": "Items identiques. Sur NG, les voyants TAKEOFF CONFIG et CABIN ALTITUDE sont « (if installed and operative) » ; sur MAX ils sont toujours présents (Main Panel CDB et F/O).",
+  "diff": "Identical items. On NG, the TAKEOFF CONFIG and CABIN ALTITUDE lights are “(if installed and operative)”; on MAX they are always fitted (Captain and F/O Main Panels).",
   "qcm": [
-   { "q": "En vol, klaxon CONTINU. Memory item ?", "o": ["Masques O2 à 100%", "Assure correct airplane landing configuration.", "Assure correct airplane takeoff configuration.", "Descente d'urgence"], "a": 1, "w": "LANDING CONFIGURATION : « In flight, the steady warning horn sounds » → Assure correct airplane landing configuration." },
-   { "q": "En vol à FL250, klaxon INTERMITTENT. Première action ?", "o": ["Vérifier les volets", "Sortir le train", "Don the oxygen masks and set the regulators to 100%", "Couper le klaxon et continuer"], "a": 2, "w": "Au-dessus de 10 000 ft MSL, l'intermittent = altitude cabine : masques à 100%, communication, puis NNC 2.1." },
-   { "q": "Au sol, poussée avancée, klaxon intermittent. Memory item ?", "o": ["Assure correct airplane takeoff configuration.", "Don the oxygen masks…", "Assure correct airplane landing configuration.", "PROBE HEAT … ON"], "a": 0, "w": "TAKEOFF CONFIGURATION : Assure correct airplane takeoff configuration." },
-   { "q": "Après masques et communication sur klaxon intermittent en vol, quelle NNC ?", "o": ["Emergency Descent seule", "Airspeed Unreliable", "LANDING CONFIGURATION", "CABIN ALTITUDE WARNING or Rapid Depressurization"], "a": 3, "w": "« ►►Go to the CABIN ALTITUDE WARNING or Rapid Depressurization checklist on page 2.1 »." },
-   { "q": "Seuil d'altitude avion qui fait de l'intermittent une alarme cabine ?", "o": ["8 000 ft MSL", "10 000 ft MSL", "14 000 ft MSL", "FL200"], "a": 1, "w": "« in flight at an airplane flight altitude above 10,000 feet MSL »." }
+   {
+    "q": "In flight, STEADY horn. Memory item?",
+    "o": [
+     "O2 masks at 100%",
+     "Assure correct airplane landing configuration.",
+     "Assure correct airplane takeoff configuration.",
+     "Emergency descent"
+    ],
+    "a": 1,
+    "w": "LANDING CONFIGURATION: “In flight, the steady warning horn sounds” → Assure correct airplane landing configuration."
+   },
+   {
+    "q": "In flight at FL250, INTERMITTENT horn. First action?",
+    "o": [
+     "Check the flaps",
+     "Extend the gear",
+     "Don the oxygen masks and set the regulators to 100%",
+     "Silence the horn and continue"
+    ],
+    "a": 2,
+    "w": "Above 10 000 ft MSL, intermittent = cabin altitude: masks at 100%, crew communication, then NNC 2.1."
+   },
+   {
+    "q": "On the ground, thrust advanced, intermittent horn. Memory item?",
+    "o": [
+     "Assure correct airplane takeoff configuration.",
+     "Don the oxygen masks…",
+     "Assure correct airplane landing configuration.",
+     "PROBE HEAT … ON"
+    ],
+    "a": 0,
+    "w": "TAKEOFF CONFIGURATION: Assure correct airplane takeoff configuration."
+   },
+   {
+    "q": "After masks and crew communication for an intermittent horn in flight, which NNC?",
+    "o": [
+     "Emergency Descent only",
+     "Airspeed Unreliable",
+     "LANDING CONFIGURATION",
+     "CABIN ALTITUDE WARNING or Rapid Depressurization"
+    ],
+    "a": 3,
+    "w": "“►►Go to the CABIN ALTITUDE WARNING or Rapid Depressurization checklist on page 2.1”."
+   },
+   {
+    "q": "Airplane altitude above which the intermittent horn becomes a cabin altitude warning?",
+    "o": [
+     "8 000 ft MSL",
+     "10 000 ft MSL",
+     "14 000 ft MSL",
+     "FL200"
+    ],
+    "a": 1,
+    "w": "“in flight at an airplane flight altitude above 10,000 feet MSL”."
+   }
   ],
   "sources": [
-   { "doc": "QRH MAX", "loc": "NNC 15.1 LANDING CONFIGURATION / TAKEOFF CONFIGURATION", "quote": "In flight, the steady warning horn sounds. 1 Assure correct airplane landing configuration." },
-   { "doc": "QRH MAX", "loc": "NNC 15.2 WARNING HORN (INTERMITTENT) or WARNING LIGHT - CABIN ALTITUDE OR TAKEOFF CONFIGURATION", "quote": "Don the oxygen masks and set the regulators to 100%. Establish crew communications." },
-   { "doc": "QRH NG", "loc": "NNC 15.1–15.3 (rev 55)", "quote": "TAKEOFF CONFIG light (if installed and operative) illuminates when advancing the thrust levers to takeoff thrust: Assure correct airplane takeoff configuration." }
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 15.1 LANDING CONFIGURATION / TAKEOFF CONFIGURATION",
+    "quote": "In flight, the steady warning horn sounds. 1 Assure correct airplane landing configuration."
+   },
+   {
+    "doc": "QRH MAX",
+    "loc": "NNC 15.2 WARNING HORN (INTERMITTENT) or WARNING LIGHT - CABIN ALTITUDE OR TAKEOFF CONFIGURATION",
+    "quote": "Don the oxygen masks and set the regulators to 100%. Establish crew communications."
+   },
+   {
+    "doc": "QRH NG",
+    "loc": "NNC 15.1–15.3 (rev 55)",
+    "quote": "TAKEOFF CONFIG light (if installed and operative) illuminates when advancing the thrust levers to takeoff thrust: Assure correct airplane takeoff configuration."
+   }
   ]
  }
 ]

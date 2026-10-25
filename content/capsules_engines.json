@@ -5,17 +5,17 @@
   "cat": "memory",
   "code": "CAB",
   "title": "CABIN ALTITUDE WARNING or Rapid Depressurization",
-  "titleFr": "Alarme altitude cabine / Dépressurisation rapide",
+  "titleFr": "Cabin Altitude Warning / Rapid Depressurization",
   "fleet": "both",
   "ref": "QRH NNC 2.1 (NG & MAX) · NNC 0.1 Emergency Descent · SOP 2.6",
   "flash": {
-   "title": "Croisière FL370, nuit, au-dessus du Sahara.",
-   "text": "Un bang sourd, les oreilles claquent, un léger brouillard envahit le cockpit. Le klaxon intermittent retentit, l'altitude cabine grimpe à toute vitesse.",
+   "title": "Cruise FL370, night, over the Sahara.",
+   "text": "A dull bang, ears pop, a light mist fills the flight deck. The intermittent horn sounds, cabin altitude climbing fast.",
    "cues": [
-    "Klaxon intermittent en vol",
+    "Intermittent horn in flight",
     "CABIN ALTITUDE light",
-    "Altitude cabine > 10 000 ft",
-    "Cabin rate en forte montée"
+    "Cabin altitude > 10 000 ft",
+    "Cabin rate climbing fast"
    ]
   },
   "steps": [
@@ -60,32 +60,32 @@
   "nums": [
    {
     "v": "100%",
-    "l": "Régulateurs O2",
-    "s": "Masques équipage"
+    "l": "O2 regulators",
+    "s": "Crew masks"
    },
    {
     "v": "10 000 ft",
-    "l": "Altitude cabine",
-    "s": "Seuil alarme · masques retirables à ou sous"
+    "l": "Cabin altitude",
+    "s": "Warning threshold · masks off at or below"
    },
    {
     "v": "MAN",
-    "l": "Pressurisation",
-    "s": "Puis outflow CLOSE"
+    "l": "Pressurization",
+    "s": "Then outflow CLOSE"
    }
   ],
-  "trap": "Diagnostiquer avant d'avoir le masque : le masque et la com d'abord, l'hypoxie ne prévient pas. Et en vol, ce klaxon intermittent n'est PAS l'alarme de config décollage.",
+  "trap": "Diagnosing before the mask is on: mask and comms first, hypoxia gives no warning. And in flight, this intermittent horn is NOT the takeoff config warning.",
   "then": [
-   "Cabine incontrôlable → Emergency Descent (NNC 0.1) en mémoire",
-   "Cabine contrôlable → maintenir en MAN, masques retirables à ou sous 10 000 ft cabine",
-   "Deferred items : Descent checklist avec outflow VALVE en actions brèves",
-   "Pattern altitude : outflow VALVE OPEN jusqu'à pleine ouverture pour dépressuriser",
-   "SOP : CDB « … MEMORY ITEMS, I HAVE CONTROL », F/O coupe le klaxon, MAN + CLOSE"
+   "Cabin uncontrollable → Emergency Descent (NNC 0.1) from memory",
+   "Cabin controllable → stay in MAN, masks may be removed at or below 10 000 ft cabin",
+   "Deferred items: Descent checklist, outflow VALVE in brief inputs",
+   "Pattern altitude: outflow VALVE OPEN until fully open to depressurize",
+   "SOP: CPT “… MEMORY ITEMS, I HAVE CONTROL”, F/O silences the horn, MAN + CLOSE"
   ],
-  "diff": "Items identiques NG/MAX. Sur NG, le voyant CABIN ALTITUDE est « if installed and operative » ; sur MAX il est toujours installé. Le QRH MAX parle d'« immediate action items » au lieu de « memory items ».",
+  "diff": "Identical items NG/MAX. On NG, the CABIN ALTITUDE light is “if installed and operative”; on MAX it is always installed. The MAX QRH says “immediate action items” instead of “memory items”.",
   "qcm": [
    {
-    "q": "Premier item mémoire ?",
+    "q": "First memory item?",
     "o": [
      "Pressurization mode selector … MAN",
      "Don oxygen masks and set regulators to 100%.",
@@ -93,51 +93,51 @@
      "Outflow VALVE switch … Hold in CLOSE"
     ],
     "a": 1,
-    "w": "Masques à 100% d'abord, puis communication équipage. Sans oxygène, le reste n'a pas lieu d'être."
+    "w": "Masks at 100% first, then crew communication. Without oxygen, nothing else matters."
    },
    {
-    "q": "Que fait-on avec l'outflow VALVE switch ?",
+    "q": "What do you do with the outflow VALVE switch?",
     "o": [
      "Move to OPEN",
      "Momentary CLOSE pulses",
      "Hold in CLOSE until the outflow VALVE indication shows fully closed",
-     "Laisser en AUTO"
+     "Leave in AUTO"
     ],
     "a": 2,
-    "w": "On maintient en CLOSE jusqu'à l'indication de fermeture complète, après avoir mis le sélecteur en MAN."
+    "w": "Hold in CLOSE until fully closed is indicated, after setting the mode selector to MAN."
    },
    {
-    "q": "Quand passe-t-on PASS OXYGEN sur ON ?",
+    "q": "When is PASS OXYGEN set to ON?",
     "o": [
-     "Toujours, dès le klaxon",
-     "Si cabin altitude is uncontrollable",
-     "Uniquement au-dessus du FL250",
-     "Après l'Emergency Descent"
+     "Always, as soon as the horn sounds",
+     "If cabin altitude is uncontrollable",
+     "Only above FL250",
+     "After the Emergency Descent"
     ],
     "a": 1,
-    "w": "Step 5 conditionnel : si l'altitude cabine est incontrôlable → Passenger signs ON, PASS OXYGEN ON, puis Emergency Descent."
+    "w": "Conditional step 5: if cabin altitude is uncontrollable → Passenger signs ON, PASS OXYGEN ON, then Emergency Descent."
    },
    {
-    "q": "Klaxon intermittent en vol au FL350 : de quoi s'agit-il ?",
+    "q": "Intermittent horn in flight at FL350: what is it?",
     "o": [
      "Takeoff configuration warning",
      "Landing configuration warning",
      "Overspeed",
-     "Altitude cabine > 10 000 ft"
+     "Cabin altitude > 10 000 ft"
     ],
     "a": 3,
-    "w": "Le klaxon de config décollage n'est armé qu'au sol. En vol, il indique une altitude cabine supérieure à 10 000 ft (FCTM 8)."
+    "w": "The takeoff config horn is armed only on the ground. In flight, it indicates cabin altitude above 10 000 ft (FCTM 8)."
    },
    {
-    "q": "À quelle condition les masques peuvent-ils être retirés ?",
+    "q": "When may the masks be removed?",
     "o": [
-     "Cabine à ou sous 10 000 ft",
-     "Avion à ou sous FL140",
-     "Dès que la cabine est contrôlable",
-     "Après la Descent checklist"
+     "Cabin at or below 10 000 ft",
+     "Airplane at or below FL140",
+     "As soon as the cabin is controllable",
+     "After the Descent checklist"
     ],
     "a": 0,
-    "w": "Step 6 : cabine contrôlable, et quand l'altitude cabine est à ou sous 10 000 ft, « Oxygen masks may be removed »."
+    "w": "Step 6: cabin controllable, and once cabin altitude is at or below 10 000 ft, “Oxygen masks may be removed”."
    }
   ],
   "sources": [
@@ -179,17 +179,17 @@
   "cat": "memory",
   "code": "FIRE",
   "title": "ENGINE FIRE or Engine Severe Damage or Separation",
-  "titleFr": "Feu moteur / Dommage sévère / Séparation",
+  "titleFr": "Engine Fire / Severe Damage / Separation",
   "fleet": "both",
   "ref": "QRH NNC 8.10 (NG) · 8.2 (MAX) · SOP 4.2.5 / 4.2.11",
   "flash": {
-   "title": "Montée initiale piste 23 DAAG, 800 ft.",
-   "text": "La cloche feu retentit, FIRE WARN rouges allumés, la poignée moteur 2 est illuminée. L'avion est sous contrôle, train rentré.",
+   "title": "Initial climb, runway 23 DAAG, 800 ft.",
+   "text": "Fire bell rings, red FIRE WARN lights on, engine 2 fire switch illuminated. Airplane under control, gear up.",
    "cues": [
     "Fire bell",
     "FIRE WARN",
-    "Engine fire switch illuminé",
-    "Vibrations cellule + paramètres anormaux"
+    "Engine fire switch illuminated",
+    "Airframe vibration + abnormal parameters"
    ]
   },
   "steps": [
@@ -222,32 +222,32 @@
   "nums": [
    {
     "v": "1 s",
-    "l": "Rotation poignée",
+    "l": "Fire switch rotation",
     "s": "Rotate to the stop and hold"
    },
    {
     "v": "30 s",
-    "l": "Attente",
-    "s": "Puis rotation vers l'autre butée si toujours allumé"
+    "l": "Wait",
+    "s": "Then rotate to the other stop if still illuminated"
    },
    {
     "v": "400 ft",
-    "l": "AGL mini",
-    "s": "Memory items au décollage (SOP)"
+    "l": "Minimum AGL",
+    "s": "Takeoff memory items (SOP)"
    }
   ],
-  "trap": "Agir vite… sur le mauvais moteur. Chaque item « Confirm » exige l'accord des deux pilotes : main du PM sur la commande, le PF confirme, puis action.",
+  "trap": "Acting fast… on the wrong engine. Every “Confirm” item needs both pilots' agreement: PM's hand on the control, PF confirms, then action.",
   "then": [
-   "Au sol → Engine Fire on the Ground (Back Cover.2)",
-   "En vol, après 30 s toujours allumé → poignée sur l'autre butée, 1 s",
-   "Vibrations fortes persistantes → réduire la vitesse et descendre sans délai",
-   "ISOLATION VALVE CLOSE, PACK côté panne OFF, APU BLEED OFF, APU START",
+   "On the ground → Engine Fire on the Ground (Back Cover.2)",
+   "In flight, still illuminated after 30 s → rotate to the other stop, 1 s",
+   "Heavy vibration persists → reduce airspeed and descend without delay",
+   "ISOLATION VALVE CLOSE, affected-side PACK OFF, APU BLEED OFF, APU START",
    "TA (MAX) / TA ONLY (NG), nearest suitable airport, One Engine Inoperative Landing"
   ],
-  "diff": "Items identiques. MAX : condition ajoutée « Engine failure with smoke or fumes in the flight deck or cabin » (LRD) ; délestage CAB/UTIL + IFE/PASS SEAT si pas d'APU ; note 50% N1 mini si anti-givrage voilure au-dessus du FL220. NNC 8.10 sur NG, 8.2 sur MAX.",
+  "diff": "Identical items. MAX: added condition “Engine failure with smoke or fumes in the flight deck or cabin” (LRD); CAB/UTIL + IFE/PASS SEAT load shed if no APU; note 50% N1 minimum if wing anti-ice above FL220. NNC 8.10 on NG, 8.2 on MAX.",
   "qcm": [
    {
-    "q": "Ordre correct des items 2 à 4 ?",
+    "q": "Correct order of items 2 to 4?",
     "o": [
      "Fire switch Pull → Thrust lever Close → Start lever CUTOFF",
      "Thrust lever Close → Start lever CUTOFF → Fire switch Pull",
@@ -255,51 +255,51 @@
      "Thrust lever Close → Fire switch Pull → Start lever CUTOFF"
     ],
     "a": 1,
-    "w": "A/T Disengage, Thrust lever Close, Start lever CUTOFF, Fire switch Pull, puis Rotate si toujours allumé."
+    "w": "A/T Disengage, Thrust lever Close, Start lever CUTOFF, Fire switch Pull, then Rotate if still illuminated."
    },
    {
-    "q": "Quand tourne-t-on la poignée feu en mémoire ?",
+    "q": "When is the fire switch rotated in the memory items?",
     "o": [
-     "Toujours, immédiatement après Pull",
-     "Seulement après 30 secondes",
+     "Always, immediately after Pull",
+     "Only after 30 seconds",
      "If the engine fire switch or ENG OVERHEAT light is illuminated",
-     "Seulement au sol"
+     "Only on the ground"
     ],
     "a": 2,
-    "w": "Step 5 conditionnel : si la poignée ou ENG OVERHEAT est allumé → Rotate to the stop and hold for 1 second."
+    "w": "Conditional step 5: if the fire switch or ENG OVERHEAT light is illuminated → Rotate to the stop and hold for 1 second."
    },
    {
-    "q": "La poignée reste allumée 30 s après la 1re rotation. Action ?",
+    "q": "Fire switch still illuminated 30 s after the first rotation. Action?",
     "o": [
      "Rotate to the other stop and hold for 1 second",
-     "Re-tourner sur la même butée",
-     "Rallumer le moteur",
+     "Rotate to the same stop again",
+     "Relight the engine",
      "APU fire switch Pull"
     ],
     "a": 0,
-    "w": "Step 7 : rotation vers l'autre butée pour décharger la deuxième bouteille, maintien 1 seconde."
+    "w": "Step 7: rotate to the other stop to discharge the second bottle, hold 1 second."
    },
    {
-    "q": "Selon le SOP, hauteur mini pour les memory items feu moteur au décollage ?",
+    "q": "Per SOP, minimum height for engine fire memory items after takeoff?",
     "o": [
      "1 500 ft AGL",
      "1 000 ft AGL",
-     "Dès V1",
+     "At V1",
      "400 ft AGL"
     ],
     "a": 3,
-    "w": "Avion sous contrôle, train rentré, altitude de sécurité atteinte (minimum 400 ft AGL)."
+    "w": "Airplane under control, gear up, safe altitude reached (minimum 400 ft AGL)."
    },
    {
-    "q": "Le feu est sur un moteur au sol. Quelle checklist après le step 5 ?",
+    "q": "Engine fire on the ground. Which checklist after step 5?",
     "o": [
      "Engine Tailpipe Fire",
-     "Evacuation directement",
+     "Evacuation directly",
      "Engine Fire on the Ground (Back Cover.2)",
      "One Engine Inoperative Landing"
     ],
     "a": 2,
-    "w": "Step 6 « Choose one: On the ground » → Engine Fire on the Ground, au dos du QRH."
+    "w": "Step 6 “Choose one: On the ground” → Engine Fire on the Ground, on the QRH back cover."
    }
   ],
   "sources": [
@@ -341,17 +341,17 @@
   "cat": "memory",
   "code": "SURGE",
   "title": "Engine Limit or Surge or Stall",
-  "titleFr": "Moteur hors limites / Pompage / Décrochage",
+  "titleFr": "Engine Limit / Surge / Stall",
   "fleet": "both",
   "ref": "QRH NNC 7.2 (NG & MAX) · FCTM ch.8 Loss of Engine Thrust Control",
   "flash": {
-   "title": "Montée FL180, forte pluie.",
-   "text": "Plusieurs détonations sourdes, légères vibrations. L'EGT du moteur 1 monte vers le rouge, le N1 fluctue et ne suit plus la manette.",
+   "title": "Climbing through FL180, heavy rain.",
+   "text": "Several dull bangs, light vibration. Engine 1 EGT rising toward redline, N1 fluctuating and no longer following the thrust lever.",
    "cues": [
-    "EGT vers redline",
-    "N1/N2 fluctuants",
-    "Bangs / vibrations",
-    "Pas de réponse à la manette"
+    "EGT toward redline",
+    "N1/N2 fluctuating",
+    "Bangs / vibration",
+    "No response to thrust lever"
    ]
   },
   "steps": [
@@ -369,22 +369,22 @@
   "nums": [
    {
     "v": "50%",
-    "l": "N1 mini",
-    "s": "MAX · anti-givrage voilure > FL220"
+    "l": "Minimum N1",
+    "s": "MAX · wing anti-ice > FL220"
    }
   ],
-  "trap": "Réduire la manette sans confirmer le moteur, ou tout couper d'emblée : on retarde seulement jusqu'au retour dans les limites. Et pas d'APU / prédictions FMC en poussée réduite.",
+  "trap": "Retarding the thrust lever without confirming the engine, or shutting it down outright: retard only until back within limits. If the engine runs at reduced thrust: do not use FMC performance predictions, and set the transponder to TA.",
   "then": [
-   "Paramètres stabilisés et EGT stable/en baisse → avancer lentement, RPM/EGT suivent ?",
-   "Moteur OK ou poussée réduite sans pompage → continuer (TA / TA ONLY si poussée réduite)",
-   "Anormal ou EGT qui monte → Engine start lever CUTOFF (Confirm), PACK côté panne OFF",
+   "Parameters stabilized and EGT stable/decreasing → advance slowly; do RPM/EGT follow?",
+   "Engine normal, or reduced thrust without surge → continue (TA / TA ONLY if reduced thrust)",
+   "Abnormal or EGT increasing → Engine start lever CUTOFF (Confirm), affected-side PACK OFF",
    "APU START, balance fuel, ISOLATION VALVE Verify AUTO",
-   "Rallumage possible si rotation N1 et pas de vibration anormale → Engine In-Flight Start"
+   "Restart possible if N1 rotation and no abnormal vibration → Engine In-Flight Start"
   ],
-  "diff": "Items identiques. MAX : TA (NG : TA ONLY), délestage CAB/UTIL + IFE/PASS SEAT si APU indisponible, note 50% N1 au-dessus du FL220. In-Flight Start en 7.24 (NG) / 7.26 (MAX).",
+  "diff": "Identical items. MAX: TA (NG: TA ONLY), CAB/UTIL + IFE/PASS SEAT load shed if APU unavailable, 50% N1 note above FL220. In-Flight Start at 7.24 (NG) / 7.26 (MAX).",
   "qcm": [
    {
-    "q": "Item 2 de la checklist ?",
+    "q": "Checklist item 2?",
     "o": [
      "Thrust lever … Close",
      "Engine start lever … CUTOFF",
@@ -392,10 +392,10 @@
      "Thrust lever … Advance slowly"
     ],
     "a": 2,
-    "w": "On retarde jusqu'au retour dans les limites ou jusqu'à manette fermée, pas de coupure immédiate."
+    "w": "Retard until back within limits or until the thrust lever is closed; no immediate shutdown."
    },
    {
-    "q": "Premier item ?",
+    "q": "First item?",
     "o": [
      "Autothrottle (if engaged) … Disengage",
      "Autopilot … Disengage",
@@ -403,40 +403,40 @@
      "Ignition … BOTH"
     ],
     "a": 0,
-    "w": "L'A/T est déconnecté d'abord pour éviter qu'il ne repousse la manette du moteur affecté."
+    "w": "A/T is disengaged first so it doesn't drive the affected engine's thrust lever back up."
    },
    {
-    "q": "Après les memory items, l'EGT continue de monter. Étape suivante ?",
+    "q": "After the memory items, EGT keeps increasing. Next step?",
     "o": [
-     "Go to step 4 : Advance slowly",
-     "Go to step 7 : Engine start lever CUTOFF",
+     "Go to step 4: Advance slowly",
+     "Go to step 7: Engine start lever CUTOFF",
      "Engine fire switch Pull",
-     "Rien, surveiller"
+     "Nothing, monitor"
     ],
     "a": 1,
-    "w": "Step 3 : « Engine indications are abnormal or EGT continues to increase » → step 7, coupure du moteur après confirmation."
+    "w": "Step 3: “Engine indications are abnormal or EGT continues to increase” → step 7, engine shutdown after confirmation."
    },
    {
-    "q": "Moteur qui tourne en poussée réduite sans pompage. Selon le QRH ?",
+    "q": "Engine running at reduced thrust without surge. Per the QRH?",
     "o": [
-     "Utiliser les prédictions FMC normales",
-     "Transponder TA (MAX) / TA ONLY (NG) et pas de prédictions FMC",
-     "Couper le moteur par précaution",
-     "Mettre ENGINE START sur GRD"
+     "Use normal FMC predictions",
+     "Transponder TA (MAX) / TA ONLY (NG) and no FMC predictions",
+     "Shut down the engine as a precaution",
+     "Set ENGINE START to GRD"
     ],
     "a": 1,
-    "w": "« Do not use FMC performance predictions » et transpondeur TA pour éviter des ordres de montée hors capacité."
+    "w": "“Do not use FMC performance predictions” and transponder TA to avoid climb commands beyond capability."
    },
    {
-    "q": "Condition de rallumage selon le QRH ?",
+    "q": "Restart condition per the QRH?",
     "o": [
      "N2 > 20%",
-     "Toujours après 30 s",
-     "Uniquement sous FL250",
-     "S'il y a rotation N1 et pas de vibration cellule anormale"
+     "Always after 30 s",
+     "Only below FL250",
+     "If there is N1 rotation and no abnormal airframe vibration"
     ],
     "a": 3,
-    "w": "« A restart may be attempted if there is N1 rotation and no abnormal airframe vibration. »"
+    "w": "“A restart may be attempted if there is N1 rotation and no abnormal airframe vibration.”"
    }
   ],
   "sources": [
@@ -473,17 +473,17 @@
   "cat": "memory",
   "code": "DUAL",
   "title": "Loss Of Thrust On Both Engines",
-  "titleFr": "Perte de poussée des deux moteurs",
+  "titleFr": "Loss of Thrust, Both Engines",
   "fleet": "both",
   "ref": "QRH NNC 7.6 (NG & MAX) · FCTM 8.17",
   "flash": {
-   "title": "Descente FL290, cumulonimbus, très forte pluie.",
-   "text": "Les deux N1 s'effondrent, ENG FAIL ambre sur les deux moteurs, les écrans clignotent. Silence inhabituel dans le cockpit.",
+   "title": "Descending through FL290, CB, very heavy rain.",
+   "text": "Both N1s collapse, amber ENG FAIL on both engines, displays flicker. Unusual silence on the flight deck.",
    "cues": [
     "ENG FAIL (both)",
-    "N1/N2 en chute sur les 2 moteurs",
-    "Perte des génératrices",
-    "Pluie / grêle intense"
+    "N1/N2 dropping on both engines",
+    "Loss of generators",
+    "Intense rain / hail"
    ]
   },
   "steps": [
@@ -516,37 +516,37 @@
   "nums": [
    {
     "v": "30 s",
-    "l": "EGT doit monter",
-    "s": "Sinon CUTOFF puis IDLE"
+    "l": "EGT must rise",
+    "s": "Otherwise CUTOFF then IDLE"
    },
    {
     "v": "275 kt",
-    "l": "Vitesse",
+    "l": "Speed",
     "s": "At or above FL270"
    },
    {
     "v": "300 kt",
-    "l": "Vitesse",
+    "l": "Speed",
     "s": "Below FL270"
    },
    {
     "v": "11% / 8.5%",
-    "l": "N2 windmill",
+    "l": "Windmill N2",
     "s": "NG / MAX"
    }
   ],
-  "trap": "Démarrer l'APU avant les memory items : le FCTM demande de lancer la partie mémoire d'abord pour profiter du N2 élevé. Pas de procédure de confirmation croisée pour cette checklist (SOP).",
+  "trap": "Starting the APU before the memory items: the FCTM calls for the memory items first to take advantage of high N2. No cross-confirmation procedure for this checklist (SOP).",
   "then": [
-   "Vitesse : 275 kt à/au-dessus du FL270, 300 kt en dessous",
-   "Accélération lente possible : si N2 monte et EGT dans les limites, ne pas interrompre",
-   "APU START sans attendre le rallumage, puis APU GEN (both) ON un par un",
-   "Pas de rallumage : windmill si N2 ≥ 11% (NG) / 8.5% (MAX), sinon starter assist avec APU bleed",
-   "Moteur stabilisé : thrust lever Advance slowly, GEN ON"
+   "Speed: 275 kt at/above FL270, 300 kt below",
+   "Slow acceleration possible: if N2 rises and EGT within limits, do not interrupt",
+   "APU START without waiting for relight, then APU GEN (both) ON one at a time",
+   "No relight: windmill if N2 ≥ 11% (NG) / 8.5% (MAX), otherwise starter assist with APU bleed",
+   "Engine stabilized: thrust lever Advance slowly, GEN ON"
   ],
-  "diff": "Items identiques. Reference items : seuil windmill N2 11% (NG) vs 8.5% (MAX) ; le MAX fait sélectionner un moteur et met ENG HYD PUMP (selected engine) OFF avant le rallumage, puis ENG HYD PUMP ON et YAW DAMPER ON.",
+  "diff": "Identical items. Reference items: windmill N2 threshold 11% (NG) vs 8.5% (MAX); MAX has you select an engine and set ENG HYD PUMP (selected engine) OFF before the restart, then ENG HYD PUMP ON and YAW DAMPER ON.",
   "qcm": [
    {
-    "q": "Premier item mémoire ?",
+    "q": "First memory item?",
     "o": [
      "APU … START",
      "Engine start levers (both) … CUTOFF",
@@ -554,32 +554,32 @@
      "ENGINE START switches (both) … FLT"
     ],
     "a": 3,
-    "w": "FLT d'abord (allumage), puis start levers CUTOFF, puis IDLE quand l'EGT baisse."
+    "w": "FLT first (ignition), then start levers CUTOFF, then IDLE when EGT decreases."
    },
    {
-    "q": "Quand remet-on les start levers en IDLE detent ?",
+    "q": "When are the start levers returned to IDLE detent?",
     "o": [
      "When EGT decreases",
-     "Après 30 secondes",
-     "Quand N2 > 20%",
-     "Immédiatement"
+     "After 30 seconds",
+     "When N2 > 20%",
+     "Immediately"
     ],
     "a": 0,
-    "w": "Step 3 : « When EGT decreases: Engine start levers (both) … IDLE detent »."
+    "w": "Step 3: “When EGT decreases: Engine start levers (both) … IDLE detent”."
    },
    {
-    "q": "EGT sans hausse 30 s après IDLE. Action ?",
+    "q": "No EGT rise 30 s after IDLE. Action?",
     "o": [
      "APU START",
      "Engine start lever (affected engine) … Confirm … CUTOFF, then IDLE detent",
      "Engine fire switch Pull",
-     "Augmenter la vitesse à 300 kt et attendre"
+     "Increase speed to 300 kt and wait"
     ],
     "a": 1,
-    "w": "Step 4 : CUTOFF puis IDLE detent, à répéter si l'EGT atteint la redline ou ne monte pas en 30 s."
+    "w": "Step 4: CUTOFF then IDLE detent, repeat if EGT reaches redline or does not rise within 30 s."
    },
    {
-    "q": "Vitesse cible au FL300 ?",
+    "q": "Target speed at FL300?",
     "o": [
      "250 kt",
      "300 kt",
@@ -587,10 +587,10 @@
      "Vref + 80"
     ],
     "a": 2,
-    "w": "At or above FL270 : 275 kt. Below FL270 : 300 kt."
+    "w": "At or above FL270: 275 kt. Below FL270: 300 kt."
    },
    {
-    "q": "Seuil N2 pour tenter un windmill start sur 737 MAX ?",
+    "q": "N2 threshold to attempt a windmill start on the 737 MAX?",
     "o": [
      "8.5%",
      "11%",
@@ -598,7 +598,7 @@
      "25%"
     ],
     "a": 0,
-    "w": "MAX : N2 ≥ 8.5% → windmill. NG : 11%. En dessous, starter assist si APU bleed dispo."
+    "w": "MAX: N2 ≥ 8.5% → windmill. NG: 11%. Below that, starter assist if APU bleed available."
    }
   ],
   "sources": [
@@ -645,17 +645,17 @@
   "cat": "memory",
   "code": "ABRT",
   "title": "Aborted Engine Start",
-  "titleFr": "Démarrage moteur interrompu",
+  "titleFr": "Aborted Engine Start",
   "fleet": "both",
   "ref": "QRH NNC 7.1 (NG & MAX) · FCOM NP.21 Engine Start",
   "flash": {
-   "title": "Parking Oran, mise en route moteur 2.",
-   "text": "Start lever en IDLE. Le N2 stagne, l'EGT grimpe très vite vers la limite de démarrage. Le F/O garde la main sur le start lever.",
+   "title": "On stand in Oran, starting engine 2.",
+   "text": "Start lever to IDLE. N2 hangs, EGT climbs very fast toward the start limit. The F/O keeps a hand on the start lever.",
    "cues": [
-    "EGT approche la start limit",
-    "N1/N2 stagnants",
-    "Pas de hausse EGT en 15 s",
-    "Pas de pression d'huile au ralenti"
+    "EGT approaching start limit",
+    "N1/N2 hanging",
+    "No EGT rise within 15 s",
+    "No oil pressure at idle"
    ]
   },
   "steps": [
@@ -668,36 +668,36 @@
   "nums": [
    {
     "v": "15 s",
-    "l": "EGT doit monter",
-    "s": "Après start lever IDLE"
+    "l": "EGT must rise",
+    "s": "After start lever IDLE"
    },
    {
     "v": "60 s",
-    "l": "Ventilation",
+    "l": "Motoring",
     "s": "Motor the engine"
    },
    {
     "v": "20%",
     "l": "N2",
-    "s": "Attendre en dessous avant GRD"
+    "s": "Wait until below before GRD"
    },
    {
     "v": "15 min",
-    "l": "Refroidissement",
-    "s": "Après 3 démarrages avortés"
+    "l": "Cooling",
+    "s": "After 3 aborted starts"
    }
   ],
-  "trap": "Remettre ENGINE START sur GRD alors que le N2 tourne encore : attendre N2 < 20%. Et ne jamais rouvrir le start lever pour « rattraper » un démarrage.",
+  "trap": "Returning ENGINE START to GRD while N2 is still spinning down: wait for N2 < 20%. And never reopen the start lever to “save” a start.",
   "then": [
-   "ENGINE START switch encore en GRD → ventiler 60 s, puis OFF",
-   "Switch déjà en OFF → attendre N2 < 20%, GRD, ventiler 60 s, OFF",
-   "Critères d'abort (FCOM) : N1/N2 qui ne monte pas après hausse EGT, pas de pression d'huile au ralenti, EGT sans hausse 15 s, EGT vers la start limit",
-   "3 démarrages avortés consécutifs → 15 min de refroidissement"
+   "ENGINE START switch still in GRD → motor 60 s, then OFF",
+   "Switch already OFF → wait for N2 < 20%, GRD, motor 60 s, OFF",
+   "Abort criteria (FCOM): N1/N2 not rising after EGT rise, no oil pressure at idle, no EGT rise within 15 s, EGT approaching start limit",
+   "3 consecutive aborted starts → 15 min cooling"
   ],
-  "diff": "Item identique. Sur MAX (LEAP-1B), l'EEC a une protection automatique au sol (hot start, stall, dépassement EGT, wet start) qui coupe carburant et allumage ; elle ne fonctionne pas en vol.",
+  "diff": "Identical item. On MAX (LEAP-1B), the EEC has automatic ground protection (hot start, stall, EGT exceedance, wet start) that cuts fuel and ignition; it does not operate in flight.",
   "qcm": [
    {
-    "q": "Le seul item mémoire ?",
+    "q": "The only memory item?",
     "o": [
      "ENGINE START switch … OFF",
      "Engine start lever (affected engine) … CUTOFF",
@@ -705,51 +705,51 @@
      "APU BLEED … OFF"
     ],
     "a": 1,
-    "w": "Un seul memory item : start lever CUTOFF. La ventilation fait partie des reference items."
+    "w": "Single memory item: start lever CUTOFF. Motoring is part of the reference items."
    },
    {
-    "q": "ENGINE START switch est en OFF. Avant de le remettre sur GRD ?",
+    "q": "ENGINE START switch is OFF. Before returning it to GRD?",
     "o": [
-     "Attendre 60 s",
-     "Attendre EGT < 100 °C",
-     "Attendre que N2 descende sous 20%",
-     "Aucune attente"
+     "Wait 60 s",
+     "Wait for EGT < 100 °C",
+     "Wait for N2 to drop below 20%",
+     "No wait"
     ],
     "a": 2,
-    "w": "Step 3 : « After N2 decreases below 20% » → GRD, ventiler 60 s, puis OFF."
+    "w": "Step 3: “After N2 decreases below 20%” → GRD, motor 60 s, then OFF."
    },
    {
-    "q": "Durée de ventilation demandée ?",
+    "q": "Required motoring time?",
     "o": [
-     "30 secondes",
+     "30 seconds",
      "2 minutes",
-     "15 secondes",
-     "60 secondes"
+     "15 seconds",
+     "60 seconds"
     ],
     "a": 3,
-    "w": "« Motor the engine for 60 seconds. »"
+    "w": "“Motor the engine for 60 seconds.”"
    },
    {
-    "q": "Lequel N'EST PAS un critère d'abort du FCOM ?",
+    "q": "Which is NOT an FCOM abort criterion?",
     "o": [
-     "N2 à 25% au moment d'ouvrir le start lever",
-     "Pas de pression d'huile quand le moteur est stabilisé au ralenti",
-     "EGT sans hausse 15 s après IDLE detent",
-     "EGT qui approche rapidement la start limit"
+     "N2 at 25% when opening the start lever",
+     "No oil pressure once the engine is stabilized at idle",
+     "No EGT rise 15 s after IDLE detent",
+     "EGT rapidly approaching the start limit"
     ],
     "a": 0,
-    "w": "25% N2 est la condition normale pour ouvrir le start lever, pas un critère d'abort."
+    "w": "25% N2 is the normal condition for opening the start lever, not an abort criterion."
    },
    {
-    "q": "Après 3 démarrages avortés consécutifs ?",
+    "q": "After 3 consecutive aborted starts?",
     "o": [
-     "5 min de refroidissement",
-     "15 min de refroidissement",
-     "Maintenance obligatoire",
-     "Démarrage par crossbleed"
+     "5 min cooling",
+     "15 min cooling",
+     "Maintenance mandatory",
+     "Crossbleed start"
     ],
     "a": 1,
-    "w": "FCOM limitations : « After three consecutive aborted start attempts, a 15-minute cooling period is required »."
+    "w": "FCOM limitations: “After three consecutive aborted start attempts, a 15-minute cooling period is required”."
    }
   ],
   "sources": [
@@ -786,17 +786,17 @@
   "cat": "memory",
   "code": "OVHT",
   "title": "ENGINE OVERHEAT",
-  "titleFr": "Surchauffe moteur",
+  "titleFr": "Engine Overheat",
   "fleet": "both",
   "ref": "QRH NNC 8.14 (NG) · 8.6 (MAX)",
   "flash": {
-   "title": "Croisière FL350, jour.",
-   "text": "MASTER CAUTION, OVHT/DET sur le récap. Le voyant ENG 1 OVERHEAT est allumé, pas de cloche feu. Paramètres moteur normaux.",
+   "title": "Cruise FL350, daytime.",
+   "text": "MASTER CAUTION, OVHT/DET on the annunciator. ENG 1 OVERHEAT light on, no fire bell. Engine parameters normal.",
    "cues": [
     "ENG 1 OVERHEAT light",
     "MASTER CAUTION",
     "OVHT/DET annunciator",
-    "Pas de fire bell"
+    "No fire bell"
    ]
   },
   "steps": [
@@ -817,17 +817,17 @@
    }
   ],
   "nums": [],
-  "trap": "Couper le moteur d'office : on ferme seulement la manette. Si le voyant s'éteint, le moteur reste en fonctionnement à poussée réduite.",
+  "trap": "Shutting the engine down by reflex: only close the thrust lever. If the light goes out, the engine keeps running at reduced thrust.",
   "then": [
-   "Voyant toujours allumé → ENGINE FIRE or Engine Severe Damage or Separation",
-   "Voyant éteint → poussée réduite pour le garder éteint, pas de prédictions FMC",
-   "Transpondeur TA (MAX) / TA ONLY (NG)",
-   "MAX : éviter le givrage, anti-givrage moteur indisponible côté affecté"
+   "Light stays on → ENGINE FIRE or Engine Severe Damage or Separation",
+   "Light out → reduced thrust to keep it out, no FMC predictions",
+   "Transponder TA (MAX) / TA ONLY (NG)",
+   "MAX: avoid icing, engine anti-ice unavailable on the affected side"
   ],
-  "diff": "Items identiques. MAX ajoute : « Avoid icing conditions. Engine anti-ice is not available on the affected engine. » et ne pas faire ENGINE COWL VALVE or TAI INDICATION. Renvoi ENGINE FIRE page 8.10 (NG) / 8.2 (MAX).",
+  "diff": "Identical items. MAX adds: “Avoid icing conditions. Engine anti-ice is not available on the affected engine.” and do not run ENGINE COWL VALVE or TAI INDICATION. ENGINE FIRE reference page 8.10 (NG) / 8.2 (MAX).",
   "qcm": [
    {
-    "q": "Item 2 de ENGINE OVERHEAT ?",
+    "q": "ENGINE OVERHEAT item 2?",
     "o": [
      "Engine start lever … CUTOFF",
      "Engine fire switch … Pull",
@@ -835,43 +835,43 @@
      "Thrust lever … Retard until within limits"
     ],
     "a": 2,
-    "w": "A/T Disengage puis manette fermée. Pas de coupure carburant en mémoire."
+    "w": "A/T Disengage, then thrust lever closed. No fuel cutoff in the memory items."
    },
    {
-    "q": "Le voyant ENG OVERHEAT reste allumé après fermeture de la manette ?",
+    "q": "ENG OVERHEAT light stays on after closing the thrust lever?",
     "o": [
      "Go to ENGINE FIRE or Engine Severe Damage or Separation",
-     "Attendre 30 s puis rouvrir",
+     "Wait 30 s then advance again",
      "Engine Limit or Surge or Stall",
      "Engine Tailpipe Fire"
     ],
     "a": 0,
-    "w": "Step 3 : voyant toujours allumé → checklist ENGINE FIRE, poignée feu incluse."
+    "w": "Step 3: light still on → ENGINE FIRE checklist, fire switch included."
    },
    {
-    "q": "Le voyant s'éteint. Que fait-on du moteur ?",
+    "q": "The light goes out. What about the engine?",
     "o": [
-     "Shutdown par précaution",
+     "Precautionary shutdown",
      "Run the engine at reduced thrust to keep the light extinguished",
-     "Retour à la poussée normale",
-     "Rallumage avec ignition BOTH"
+     "Back to normal thrust",
+     "Relight with ignition BOTH"
     ],
     "a": 1,
-    "w": "On garde le moteur à poussée réduite pour que le voyant reste éteint."
+    "w": "Keep the engine at reduced thrust so the light stays out."
    },
    {
-    "q": "Spécificité MAX dans les reference items ?",
+    "q": "MAX-specific reference item?",
     "o": [
-     "Couper le PACK côté panne",
-     "Démarrer l'APU",
-     "ENGINE START sur CONT",
-     "Éviter le givrage : anti-givrage moteur indisponible côté affecté"
+     "Affected-side PACK OFF",
+     "Start the APU",
+     "ENGINE START to CONT",
+     "Avoid icing: engine anti-ice unavailable on the affected side"
     ],
     "a": 3,
-    "w": "QRH MAX 8.7 step 6 : « Avoid icing conditions. Engine anti-ice is not available on the affected engine. »"
+    "w": "QRH MAX 8.7 step 6: “Avoid icing conditions. Engine anti-ice is not available on the affected engine.”"
    },
    {
-    "q": "Premier item ?",
+    "q": "First item?",
     "o": [
      "Autothrottle (if engaged) … Disengage",
      "Autopilot … Disengage",
@@ -879,7 +879,7 @@
      "MASTER CAUTION … Reset"
     ],
     "a": 0,
-    "w": "Comme pour ENGINE FIRE et Engine Limit : on commence par déconnecter l'A/T."
+    "w": "As for ENGINE FIRE and Engine Limit: start by disengaging the A/T."
    }
   ],
   "sources": [
@@ -906,17 +906,17 @@
   "cat": "memory",
   "code": "APU",
   "title": "APU FIRE",
-  "titleFr": "Feu APU",
+  "titleFr": "APU Fire",
   "fleet": "both",
   "ref": "QRH NNC 8.1 (NG & MAX) · FCTM ch.8 Evacuation",
   "flash": {
-   "title": "Escale Alger, transit, APU en marche.",
-   "text": "La cloche feu retentit, FIRE WARN allumés, la poignée APU est illuminée. Les moteurs sont arrêtés, passagers en embarquement.",
+   "title": "Turnaround in Algiers, APU running.",
+   "text": "Fire bell rings, FIRE WARN lights on, APU fire switch illuminated. Engines shut down, passengers boarding.",
    "cues": [
     "Fire bell",
     "FIRE WARN",
-    "APU fire switch illuminé",
-    "APU en fonctionnement"
+    "APU fire switch illuminated",
+    "APU running"
    ]
   },
   "steps": [
@@ -934,20 +934,20 @@
   "nums": [
    {
     "v": "1 s",
-    "l": "Rotation poignée APU",
+    "l": "APU fire switch rotation",
     "s": "Rotate to the stop and hold"
    }
   ],
-  "trap": "Faire seulement « Pull » comme sur un moteur : pour l'APU, l'item unique enchaîne Pull, rotation à la butée et maintien 1 s. Puis APU switch OFF.",
+  "trap": "Doing only “Pull” as for an engine: for the APU, the single item chains Pull, rotate to the stop and hold 1 s. Then APU switch OFF.",
   "then": [
-   "Poignée APU qui s'éteint → checklist terminée",
-   "Poignée qui reste allumée → plan to land at the nearest suitable airport",
-   "Au sol, si évacuation : Evacuation checklist (Back Cover.4)"
+   "APU fire switch extinguishes → checklist complete",
+   "Switch stays illuminated → plan to land at the nearest suitable airport",
+   "On the ground, if evacuating: Evacuation checklist (Back Cover.4)"
   ],
   "diff": null,
   "qcm": [
    {
-    "q": "Premier item APU FIRE ?",
+    "q": "First APU FIRE item?",
     "o": [
      "APU switch … OFF",
      "APU BLEED … OFF",
@@ -955,10 +955,10 @@
      "APU fire switch … Pull"
     ],
     "a": 2,
-    "w": "Pull, rotation et maintien 1 s dans le même item, avant de couper l'APU switch."
+    "w": "Pull, rotate and hold 1 s in a single item, before switching the APU OFF."
    },
    {
-    "q": "Deuxième item ?",
+    "q": "Second item?",
     "o": [
      "APU switch … OFF",
      "Engine start levers … CUTOFF",
@@ -966,40 +966,40 @@
      "Advise ATC"
     ],
     "a": 0,
-    "w": "Item 2 : APU switch OFF. La ligne pointillée suit."
+    "w": "Item 2: APU switch OFF. The dashed line follows."
    },
    {
-    "q": "La poignée APU reste allumée en vol ?",
+    "q": "APU fire switch stays illuminated in flight?",
     "o": [
-     "Tourner vers l'autre butée",
+     "Rotate to the other stop",
      "Plan to land at the nearest suitable airport",
-     "Redémarrer l'APU",
-     "Ignorer"
+     "Restart the APU",
+     "Ignore it"
     ],
     "a": 1,
-    "w": "Step 4 : « Plan to land at the nearest suitable airport. »"
+    "w": "Step 4: “Plan to land at the nearest suitable airport.”"
    },
    {
-    "q": "Combien de temps maintenir la poignée en rotation ?",
+    "q": "How long to hold the switch rotated?",
     "o": [
      "5 s",
      "30 s",
-     "Jusqu'à extinction",
+     "Until it extinguishes",
      "1 s"
     ],
     "a": 3,
-    "w": "« Rotate to the stop, and hold for 1 second. »"
+    "w": "“Rotate to the stop, and hold for 1 second.”"
    },
    {
-    "q": "La poignée APU s'éteint après décharge. Suite ?",
+    "q": "APU fire switch extinguishes after discharge. Next?",
     "o": [
-     "Checklist terminée",
+     "Checklist complete",
      "Plan to land at the nearest suitable airport",
      "Engine Fire on the Ground",
-     "Redémarrer l'APU"
+     "Restart the APU"
     ],
     "a": 0,
-    "w": "Step 3 « APU fire switch extinguishes » → ■■■■ fin de checklist."
+    "w": "Step 3 “APU fire switch extinguishes” → ■■■■ end of checklist."
    }
   ],
   "sources": [
