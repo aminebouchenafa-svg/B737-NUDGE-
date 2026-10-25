@@ -1,6 +1,6 @@
 # 737 NUDGE — content schema (write valid JSON, UTF-8)
 
-Sources (manuels compagnie, non versionnés car propriété Boeing / Air Algérie — convertis avec `pdftotext -layout`):
+Sources (company manuals, not in the repo: Boeing / Air Algérie proprietary — converted with `pdftotext -layout`):
 - a39d2488-QRH_B737_MAX.txt            QRH 737 MAX (D6-27370-MAX-ALG, Jan 2026)
 - 7d894c68-12-QRH-B737NG_REV55.txt     QRH 737 NG rev 55
 - 93b0a388-FCTM_B737_MAX.txt           FCTM MAX
@@ -16,7 +16,7 @@ Sources (manuels compagnie, non versionnés car propriété Boeing / Air Algéri
 - Every procedure item, number and limit MUST come from the docs. Copy checklist item wording VERBATIM in English (as printed, e.g. "Autopilot (if engaged) ... Disengage").
 - If NG and MAX differ, say so precisely (field "fleet" on step, or "diff" text). Check BOTH QRH.
 - Never invent. If unsure, leave it out. Each capsule has "sources" with doc + section/page + short verbatim quote proving key items.
-- Learner-facing text in FRENCH (concise, punchy, pilot jargon OK: PF/PM, N1, A/T…). Procedure items stay in English.
+- Learner-facing text in ENGLISH (concise, punchy, pilot jargon OK: PF/PM, N1, A/T…). The key "titleFr" holds the English display title.
 - QCM: 4 options, exactly one correct, plausible distractors (typical confusions: 10/80 vs 4/75, order of items, wrong switch). "w" = 1-2 sentence explanation. Vary the correct index (a: 0..3).
 - Keep it short: a capsule is played in under 3 minutes.
 

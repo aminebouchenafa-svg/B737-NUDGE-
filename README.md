@@ -1,44 +1,44 @@
 # 737 Nudge
 
-Capsules de sécurité de 3 minutes et masterclass pour pilotes **B737 NG / MAX**.
-Format court, ludique, rejouable : on révise un réflexe par jour sur iPhone ou iPad.
+3-minute safety capsules and masterclasses for **B737 NG / MAX** pilots.
+Short, playful and replayable: one reflex a day, on iPhone or iPad.
 
-## Ce que contient l'app
+## What's inside
 
-- **Capsules (3 min)** : situation flash → items à réciter (tap pour vérifier, dans l'ordre) → chiffres clés → la suite / le piège / la différence NG-MAX → QCM 5 questions.
-  - *Memory items* (immediate action items du QRH)
-  - *Manœuvres* (Non-Normal Maneuvers du QRH)
-  - *SOP compagnie* (SOP B737 MAX-NG Ed 03 Rev 03, juin 2026)
-- **Masterclass (~8 min)** : cours en chapitres (FCTM / QRH / FCOM) avec les gros chiffres, citations sourcées, puis QCM 8 questions.
-- **Révision espacée** : chaque erreur revient le lendemain ; chaque capsule revient à J+1, J+3, J+7, J+14, J+30 selon le score.
-- **Motivation** : XP, combos, série de jours, grades (Cadet → Captain · TRE), badges.
-- **Sélecteur de flotte NG / MAX** : les items et capsules propres à une flotte s'adaptent.
+- **Capsules (3 min)**: flash scenario → recall items (tap to check, in order) → key numbers → what's next / the trap / NG-MAX difference → 5-question quiz.
+  - *Memory items* (QRH immediate action items)
+  - *Maneuvers* (QRH Non-Normal Maneuvers)
+  - *Company SOP* (SOP B737 MAX-NG Ed 03 Rev 03, June 2026)
+- **Masterclasses (~8 min)**: chaptered course (FCTM / QRH / FCOM) with the big numbers and sourced quotes, then an 8-question quiz.
+- **Spaced review**: every wrong answer comes back the next day; each capsule comes back at D+1, D+3, D+7, D+14, D+30 depending on the score.
+- **Motivation**: XP, combos, day streak, ranks (Cadet → Captain · TRE), badges.
+- **NG / MAX fleet switch**: fleet-specific items and capsules adapt.
 
-## Installer sur iPhone / iPad
+## Install on iPhone / iPad
 
-L'app est une PWA : pas d'App Store, elle marche hors ligne après la première ouverture.
+The app is a PWA: no App Store needed, and it works offline after the first launch.
 
-1. Héberger le dossier (GitHub Pages : Settings → Pages → branche, dossier `/`).
-2. Ouvrir l'URL dans Safari → Partager → **Sur l'écran d'accueil**.
+1. Host the folder (GitHub Pages: Settings → Pages → branch, folder `/`).
+2. Open the URL in Safari → Share → **Add to Home Screen**.
 
-Pour tester en local : `python3 -m http.server` puis ouvrir http://localhost:8000.
+Local test: `python3 -m http.server`, then open http://localhost:8000.
 
-## Modifier le contenu
+## Editing content
 
-Tout le contenu pédagogique est dans `content/*.json` (format décrit dans `content/SCHEMA.md`).
-Chaque élément garde ses `sources` (document, section, citation mot pour mot) pour la relecture.
+All training content lives in `content/*.json` (format in `content/SCHEMA.md`).
+Each item keeps its `sources` (document, section, verbatim quote) for review.
 
-Après modification :
+After editing:
 
 ```
 python3 tools/build.py
 ```
 
-Le script vérifie le contenu (4 options, une bonne réponse, 5 questions par capsule, 8 par masterclass, ids uniques)
-puis régénère `src/content.js` et `dist/artifact.html` (aperçu en un seul fichier).
-Pensez à incrémenter `VERSION` dans `sw.js` pour que les appareils récupèrent la mise à jour.
+The script checks the content (4 options, one right answer, 5 questions per capsule, 8 per masterclass, unique ids)
+and regenerates `src/content.js` and `dist/artifact.html` (single-file preview).
+Bump `VERSION` in `sw.js` so devices pick up the update.
 
-## Avertissement
+## Disclaimer
 
-Outil de révision. Il ne remplace pas le QRH, le FCOM, le FCTM ni les SOP en vigueur.
-Le contenu doit être relu et validé par l'encadrement technique avant diffusion.
+Training aid only. It does not replace the current QRH, FCOM, FCTM or SOP.
+Content must be reviewed and approved by the technical/training department before release.

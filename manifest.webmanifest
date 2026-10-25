@@ -1,8 +1,8 @@
 {
   "name": "737 Nudge",
   "short_name": "737 Nudge",
-  "description": "Capsules de sécurité 3 minutes et masterclass pour pilotes B737 NG / MAX.",
-  "lang": "fr",
+  "description": "3-minute safety capsules and masterclasses for B737 NG / MAX pilots.",
+  "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
