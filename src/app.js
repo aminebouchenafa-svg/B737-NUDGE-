@@ -305,8 +305,17 @@ function slideBody(s, c) {
     const lbl = c.cat === "memory" ? "Memory items" : c.cat === "maneuver" ? "Manœuvre" : "Actions clés";
     const all = P.rev >= s.steps.length;
     return `${K(lbl)}<h1 class="h1">${c.cat === "sop" ? "Les standards." : "Récitez, puis vérifiez."}</h1>
-      <div class="mem">${s.steps.map((m, k) => `<button class="mi ${k < P.rev ? "rev" : k === P.rev ? "next" : "locked"} ${/^(if|when)\b/i.test(m.item) ? "cond" : ""}" data-mi="${k}" ${k > P.rev ? 'tabindex="-1"' : ""}>
-        <span class="n">${k + 1}</span><span class="k">${esc(m.item)}<span class="dots"><span class="v">${k < P.rev ? esc(m.action) : "?"}</span></span></span></button>`).join("")}</div>
+      <div class="mem">${s.steps.map((m, k) => {
+        const st = `${k < P.rev ? "rev" : k === P.rev ? "next" : "locked"} ${/^(if|when)\b/i.test(m.item || m.phase || "") ? "cond" : ""}`;
+        const head = `<button class="mi ${st}" data-mi="${k}" ${k > P.rev ? 'tabindex="-1"' : ""}><span class="n">${k + 1}</span>`;
+        if (m.text !== undefined) {
+          // prose step (maneuvers): show who acts and the phase, hide what they do
+          return `${head}<span class="k"><span class="who">${m.role ? `<i>${esc(m.role)}</i>` : ""}${esc(m.phase || (m.role ? "" : "Action"))}</span>
+            <span class="pv ${k < P.rev ? "on" : ""}">${k < P.rev ? esc(m.text) : "<i></i><i></i>"}</span></span></button>`;
+        }
+        const short = String(m.action).length <= 22;
+        return `${head}<span class="k">${esc(m.item)}<span class="dots"><span class="v ${short ? "" : "lng"}">${k < P.rev ? esc(m.action) : "?"}</span></span></span></button>`;
+      }).join("")}</div>
       <div class="hint">${all ? "Complet ✓ — glissez pour continuer" : "Touchez l'item surligné pour révéler la réponse"}${!all && S.cap[c.id] ? ' · <button data-revall style="color:var(--cyan);text-decoration:underline">tout révéler</button>' : ""}</div>`;
   }
   if (s.t === "nums") return `${K("Les chiffres")}<h1 class="h1">À graver.</h1>

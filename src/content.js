@@ -540,6 +540,2325 @@ window.NUDGE = {
    ]
   },
   {
+   "id": "cabin-alt",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "CAB",
+   "title": "CABIN ALTITUDE WARNING or Rapid Depressurization",
+   "titleFr": "Alarme altitude cabine / Dépressurisation rapide",
+   "fleet": "both",
+   "ref": "QRH NNC 2.1 (NG & MAX) · NNC 0.1 Emergency Descent · SOP 2.6",
+   "flash": {
+    "title": "Croisière FL370, nuit, au-dessus du Sahara.",
+    "text": "Un bang sourd, les oreilles claquent, un léger brouillard envahit le cockpit. Le klaxon intermittent retentit, l'altitude cabine grimpe à toute vitesse.",
+    "cues": [
+     "Klaxon intermittent en vol",
+     "CABIN ALTITUDE light",
+     "Altitude cabine > 10 000 ft",
+     "Cabin rate en forte montée"
+    ]
+   },
+   "steps": [
+    {
+     "fleet": "both",
+     "role": "",
+     "phase": "",
+     "text": "Don oxygen masks and set regulators to 100%."
+    },
+    {
+     "fleet": "both",
+     "role": "",
+     "phase": "",
+     "text": "Establish crew communications."
+    },
+    {
+     "item": "Pressurization mode selector",
+     "action": "MAN",
+     "fleet": "both"
+    },
+    {
+     "item": "Outflow VALVE switch",
+     "action": "Hold in CLOSE until the outflow VALVE indication shows fully closed",
+     "fleet": "both"
+    },
+    {
+     "item": "If cabin altitude is uncontrollable: Passenger signs",
+     "action": "ON",
+     "fleet": "both"
+    },
+    {
+     "item": "If cabin altitude is uncontrollable: PASS OXYGEN switch",
+     "action": "ON",
+     "fleet": "both"
+    },
+    {
+     "item": "If cabin altitude is uncontrollable:",
+     "action": "►►Go to the Emergency Descent checklist on page 0.1",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "100%",
+     "l": "Régulateurs O2",
+     "s": "Masques équipage"
+    },
+    {
+     "v": "10 000 ft",
+     "l": "Altitude cabine",
+     "s": "Seuil alarme · masques retirables à ou sous"
+    },
+    {
+     "v": "MAN",
+     "l": "Pressurisation",
+     "s": "Puis outflow CLOSE"
+    }
+   ],
+   "trap": "Diagnostiquer avant d'avoir le masque : le masque et la com d'abord, l'hypoxie ne prévient pas. Et en vol, ce klaxon intermittent n'est PAS l'alarme de config décollage.",
+   "then": [
+    "Cabine incontrôlable → Emergency Descent (NNC 0.1) en mémoire",
+    "Cabine contrôlable → maintenir en MAN, masques retirables à ou sous 10 000 ft cabine",
+    "Deferred items : Descent checklist avec outflow VALVE en actions brèves",
+    "Pattern altitude : outflow VALVE OPEN jusqu'à pleine ouverture pour dépressuriser",
+    "SOP : CDB « … MEMORY ITEMS, I HAVE CONTROL », F/O coupe le klaxon, MAN + CLOSE"
+   ],
+   "diff": "Items identiques NG/MAX. Sur NG, le voyant CABIN ALTITUDE est « if installed and operative » ; sur MAX il est toujours installé. Le QRH MAX parle d'« immediate action items » au lieu de « memory items ».",
+   "qcm": [
+    {
+     "q": "Premier item mémoire ?",
+     "o": [
+      "Pressurization mode selector … MAN",
+      "Don oxygen masks and set regulators to 100%.",
+      "Passenger signs … ON",
+      "Outflow VALVE switch … Hold in CLOSE"
+     ],
+     "a": 1,
+     "w": "Masques à 100% d'abord, puis communication équipage. Sans oxygène, le reste n'a pas lieu d'être."
+    },
+    {
+     "q": "Que fait-on avec l'outflow VALVE switch ?",
+     "o": [
+      "Move to OPEN",
+      "Momentary CLOSE pulses",
+      "Hold in CLOSE until the outflow VALVE indication shows fully closed",
+      "Laisser en AUTO"
+     ],
+     "a": 2,
+     "w": "On maintient en CLOSE jusqu'à l'indication de fermeture complète, après avoir mis le sélecteur en MAN."
+    },
+    {
+     "q": "Quand passe-t-on PASS OXYGEN sur ON ?",
+     "o": [
+      "Toujours, dès le klaxon",
+      "Si cabin altitude is uncontrollable",
+      "Uniquement au-dessus du FL250",
+      "Après l'Emergency Descent"
+     ],
+     "a": 1,
+     "w": "Step 5 conditionnel : si l'altitude cabine est incontrôlable → Passenger signs ON, PASS OXYGEN ON, puis Emergency Descent."
+    },
+    {
+     "q": "Klaxon intermittent en vol au FL350 : de quoi s'agit-il ?",
+     "o": [
+      "Takeoff configuration warning",
+      "Landing configuration warning",
+      "Overspeed",
+      "Altitude cabine > 10 000 ft"
+     ],
+     "a": 3,
+     "w": "Le klaxon de config décollage n'est armé qu'au sol. En vol, il indique une altitude cabine supérieure à 10 000 ft (FCTM 8)."
+    },
+    {
+     "q": "À quelle condition les masques peuvent-ils être retirés ?",
+     "o": [
+      "Cabine à ou sous 10 000 ft",
+      "Avion à ou sous FL140",
+      "Dès que la cabine est contrôlable",
+      "Après la Descent checklist"
+     ],
+     "a": 0,
+     "w": "Step 6 : cabine contrôlable, et quand l'altitude cabine est à ou sous 10 000 ft, « Oxygen masks may be removed »."
+    }
+   ]
+  },
+  {
+   "id": "eng-fire",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "FIRE",
+   "title": "ENGINE FIRE or Engine Severe Damage or Separation",
+   "titleFr": "Feu moteur / Dommage sévère / Séparation",
+   "fleet": "both",
+   "ref": "QRH NNC 8.10 (NG) · 8.2 (MAX) · SOP 4.2.5 / 4.2.11",
+   "flash": {
+    "title": "Montée initiale piste 23 DAAG, 800 ft.",
+    "text": "La cloche feu retentit, FIRE WARN rouges allumés, la poignée moteur 2 est illuminée. L'avion est sous contrôle, train rentré.",
+    "cues": [
+     "Fire bell",
+     "FIRE WARN",
+     "Engine fire switch illuminé",
+     "Vibrations cellule + paramètres anormaux"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Autothrottle (if engaged)",
+     "action": "Disengage",
+     "fleet": "both"
+    },
+    {
+     "item": "Thrust lever (affected engine)",
+     "action": "Confirm … Close",
+     "fleet": "both"
+    },
+    {
+     "item": "Engine start lever (affected engine)",
+     "action": "Confirm … CUTOFF",
+     "fleet": "both"
+    },
+    {
+     "item": "Engine fire switch (affected engine)",
+     "action": "Confirm … Pull",
+     "fleet": "both"
+    },
+    {
+     "item": "If the engine fire switch or ENG OVERHEAT light is illuminated: Engine fire switch (affected engine)",
+     "action": "Rotate to the stop and hold for 1 second",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "1 s",
+     "l": "Rotation poignée",
+     "s": "Rotate to the stop and hold"
+    },
+    {
+     "v": "30 s",
+     "l": "Attente",
+     "s": "Puis rotation vers l'autre butée si toujours allumé"
+    },
+    {
+     "v": "400 ft",
+     "l": "AGL mini",
+     "s": "Memory items au décollage (SOP)"
+    }
+   ],
+   "trap": "Agir vite… sur le mauvais moteur. Chaque item « Confirm » exige l'accord des deux pilotes : main du PM sur la commande, le PF confirme, puis action.",
+   "then": [
+    "Au sol → Engine Fire on the Ground (Back Cover.2)",
+    "En vol, après 30 s toujours allumé → poignée sur l'autre butée, 1 s",
+    "Vibrations fortes persistantes → réduire la vitesse et descendre sans délai",
+    "ISOLATION VALVE CLOSE, PACK côté panne OFF, APU BLEED OFF, APU START",
+    "TA (MAX) / TA ONLY (NG), nearest suitable airport, One Engine Inoperative Landing"
+   ],
+   "diff": "Items identiques. MAX : condition ajoutée « Engine failure with smoke or fumes in the flight deck or cabin » (LRD) ; délestage CAB/UTIL + IFE/PASS SEAT si pas d'APU ; note 50% N1 mini si anti-givrage voilure au-dessus du FL220. NNC 8.10 sur NG, 8.2 sur MAX.",
+   "qcm": [
+    {
+     "q": "Ordre correct des items 2 à 4 ?",
+     "o": [
+      "Fire switch Pull → Thrust lever Close → Start lever CUTOFF",
+      "Thrust lever Close → Start lever CUTOFF → Fire switch Pull",
+      "Start lever CUTOFF → Thrust lever Close → Fire switch Pull",
+      "Thrust lever Close → Fire switch Pull → Start lever CUTOFF"
+     ],
+     "a": 1,
+     "w": "A/T Disengage, Thrust lever Close, Start lever CUTOFF, Fire switch Pull, puis Rotate si toujours allumé."
+    },
+    {
+     "q": "Quand tourne-t-on la poignée feu en mémoire ?",
+     "o": [
+      "Toujours, immédiatement après Pull",
+      "Seulement après 30 secondes",
+      "If the engine fire switch or ENG OVERHEAT light is illuminated",
+      "Seulement au sol"
+     ],
+     "a": 2,
+     "w": "Step 5 conditionnel : si la poignée ou ENG OVERHEAT est allumé → Rotate to the stop and hold for 1 second."
+    },
+    {
+     "q": "La poignée reste allumée 30 s après la 1re rotation. Action ?",
+     "o": [
+      "Rotate to the other stop and hold for 1 second",
+      "Re-tourner sur la même butée",
+      "Rallumer le moteur",
+      "APU fire switch Pull"
+     ],
+     "a": 0,
+     "w": "Step 7 : rotation vers l'autre butée pour décharger la deuxième bouteille, maintien 1 seconde."
+    },
+    {
+     "q": "Selon le SOP, hauteur mini pour les memory items feu moteur au décollage ?",
+     "o": [
+      "1 500 ft AGL",
+      "1 000 ft AGL",
+      "Dès V1",
+      "400 ft AGL"
+     ],
+     "a": 3,
+     "w": "Avion sous contrôle, train rentré, altitude de sécurité atteinte (minimum 400 ft AGL)."
+    },
+    {
+     "q": "Le feu est sur un moteur au sol. Quelle checklist après le step 5 ?",
+     "o": [
+      "Engine Tailpipe Fire",
+      "Evacuation directement",
+      "Engine Fire on the Ground (Back Cover.2)",
+      "One Engine Inoperative Landing"
+     ],
+     "a": 2,
+     "w": "Step 6 « Choose one: On the ground » → Engine Fire on the Ground, au dos du QRH."
+    }
+   ]
+  },
+  {
+   "id": "eng-limit",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "SURGE",
+   "title": "Engine Limit or Surge or Stall",
+   "titleFr": "Moteur hors limites / Pompage / Décrochage",
+   "fleet": "both",
+   "ref": "QRH NNC 7.2 (NG & MAX) · FCTM ch.8 Loss of Engine Thrust Control",
+   "flash": {
+    "title": "Montée FL180, forte pluie.",
+    "text": "Plusieurs détonations sourdes, légères vibrations. L'EGT du moteur 1 monte vers le rouge, le N1 fluctue et ne suit plus la manette.",
+    "cues": [
+     "EGT vers redline",
+     "N1/N2 fluctuants",
+     "Bangs / vibrations",
+     "Pas de réponse à la manette"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Autothrottle (if engaged)",
+     "action": "Disengage",
+     "fleet": "both"
+    },
+    {
+     "item": "Thrust lever (affected engine)",
+     "action": "Confirm … Retard until engine indications stay within limits or the thrust lever is closed",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "50%",
+     "l": "N1 mini",
+     "s": "MAX · anti-givrage voilure > FL220"
+    }
+   ],
+   "trap": "Réduire la manette sans confirmer le moteur, ou tout couper d'emblée : on retarde seulement jusqu'au retour dans les limites. Et pas d'APU / prédictions FMC en poussée réduite.",
+   "then": [
+    "Paramètres stabilisés et EGT stable/en baisse → avancer lentement, RPM/EGT suivent ?",
+    "Moteur OK ou poussée réduite sans pompage → continuer (TA / TA ONLY si poussée réduite)",
+    "Anormal ou EGT qui monte → Engine start lever CUTOFF (Confirm), PACK côté panne OFF",
+    "APU START, balance fuel, ISOLATION VALVE Verify AUTO",
+    "Rallumage possible si rotation N1 et pas de vibration anormale → Engine In-Flight Start"
+   ],
+   "diff": "Items identiques. MAX : TA (NG : TA ONLY), délestage CAB/UTIL + IFE/PASS SEAT si APU indisponible, note 50% N1 au-dessus du FL220. In-Flight Start en 7.24 (NG) / 7.26 (MAX).",
+   "qcm": [
+    {
+     "q": "Item 2 de la checklist ?",
+     "o": [
+      "Thrust lever … Close",
+      "Engine start lever … CUTOFF",
+      "Thrust lever … Confirm … Retard until engine indications stay within limits or the thrust lever is closed",
+      "Thrust lever … Advance slowly"
+     ],
+     "a": 2,
+     "w": "On retarde jusqu'au retour dans les limites ou jusqu'à manette fermée, pas de coupure immédiate."
+    },
+    {
+     "q": "Premier item ?",
+     "o": [
+      "Autothrottle (if engaged) … Disengage",
+      "Autopilot … Disengage",
+      "Engine start lever … CUTOFF",
+      "Ignition … BOTH"
+     ],
+     "a": 0,
+     "w": "L'A/T est déconnecté d'abord pour éviter qu'il ne repousse la manette du moteur affecté."
+    },
+    {
+     "q": "Après les memory items, l'EGT continue de monter. Étape suivante ?",
+     "o": [
+      "Go to step 4 : Advance slowly",
+      "Go to step 7 : Engine start lever CUTOFF",
+      "Engine fire switch Pull",
+      "Rien, surveiller"
+     ],
+     "a": 1,
+     "w": "Step 3 : « Engine indications are abnormal or EGT continues to increase » → step 7, coupure du moteur après confirmation."
+    },
+    {
+     "q": "Moteur qui tourne en poussée réduite sans pompage. Selon le QRH ?",
+     "o": [
+      "Utiliser les prédictions FMC normales",
+      "Transponder TA (MAX) / TA ONLY (NG) et pas de prédictions FMC",
+      "Couper le moteur par précaution",
+      "Mettre ENGINE START sur GRD"
+     ],
+     "a": 1,
+     "w": "« Do not use FMC performance predictions » et transpondeur TA pour éviter des ordres de montée hors capacité."
+    },
+    {
+     "q": "Condition de rallumage selon le QRH ?",
+     "o": [
+      "N2 > 20%",
+      "Toujours après 30 s",
+      "Uniquement sous FL250",
+      "S'il y a rotation N1 et pas de vibration cellule anormale"
+     ],
+     "a": 3,
+     "w": "« A restart may be attempted if there is N1 rotation and no abnormal airframe vibration. »"
+    }
+   ]
+  },
+  {
+   "id": "dual-eng",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "DUAL",
+   "title": "Loss Of Thrust On Both Engines",
+   "titleFr": "Perte de poussée des deux moteurs",
+   "fleet": "both",
+   "ref": "QRH NNC 7.6 (NG & MAX) · FCTM 8.17",
+   "flash": {
+    "title": "Descente FL290, cumulonimbus, très forte pluie.",
+    "text": "Les deux N1 s'effondrent, ENG FAIL ambre sur les deux moteurs, les écrans clignotent. Silence inhabituel dans le cockpit.",
+    "cues": [
+     "ENG FAIL (both)",
+     "N1/N2 en chute sur les 2 moteurs",
+     "Perte des génératrices",
+     "Pluie / grêle intense"
+    ]
+   },
+   "steps": [
+    {
+     "item": "ENGINE START switches (both)",
+     "action": "FLT",
+     "fleet": "both"
+    },
+    {
+     "item": "Engine start levers (both)",
+     "action": "CUTOFF",
+     "fleet": "both"
+    },
+    {
+     "item": "When EGT decreases: Engine start levers (both)",
+     "action": "IDLE detent",
+     "fleet": "both"
+    },
+    {
+     "item": "If EGT reaches a redline or there is no increase in EGT within 30 seconds: Engine start lever (affected engine)",
+     "action": "Confirm … CUTOFF, then IDLE detent",
+     "fleet": "both"
+    },
+    {
+     "item": "If EGT again reaches a redline or there is no increase in EGT within 30 seconds,",
+     "action": "repeat as needed.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "30 s",
+     "l": "EGT doit monter",
+     "s": "Sinon CUTOFF puis IDLE"
+    },
+    {
+     "v": "275 kt",
+     "l": "Vitesse",
+     "s": "At or above FL270"
+    },
+    {
+     "v": "300 kt",
+     "l": "Vitesse",
+     "s": "Below FL270"
+    },
+    {
+     "v": "11% / 8.5%",
+     "l": "N2 windmill",
+     "s": "NG / MAX"
+    }
+   ],
+   "trap": "Démarrer l'APU avant les memory items : le FCTM demande de lancer la partie mémoire d'abord pour profiter du N2 élevé. Pas de procédure de confirmation croisée pour cette checklist (SOP).",
+   "then": [
+    "Vitesse : 275 kt à/au-dessus du FL270, 300 kt en dessous",
+    "Accélération lente possible : si N2 monte et EGT dans les limites, ne pas interrompre",
+    "APU START sans attendre le rallumage, puis APU GEN (both) ON un par un",
+    "Pas de rallumage : windmill si N2 ≥ 11% (NG) / 8.5% (MAX), sinon starter assist avec APU bleed",
+    "Moteur stabilisé : thrust lever Advance slowly, GEN ON"
+   ],
+   "diff": "Items identiques. Reference items : seuil windmill N2 11% (NG) vs 8.5% (MAX) ; le MAX fait sélectionner un moteur et met ENG HYD PUMP (selected engine) OFF avant le rallumage, puis ENG HYD PUMP ON et YAW DAMPER ON.",
+   "qcm": [
+    {
+     "q": "Premier item mémoire ?",
+     "o": [
+      "APU … START",
+      "Engine start levers (both) … CUTOFF",
+      "Ignition select … BOTH",
+      "ENGINE START switches (both) … FLT"
+     ],
+     "a": 3,
+     "w": "FLT d'abord (allumage), puis start levers CUTOFF, puis IDLE quand l'EGT baisse."
+    },
+    {
+     "q": "Quand remet-on les start levers en IDLE detent ?",
+     "o": [
+      "When EGT decreases",
+      "Après 30 secondes",
+      "Quand N2 > 20%",
+      "Immédiatement"
+     ],
+     "a": 0,
+     "w": "Step 3 : « When EGT decreases: Engine start levers (both) … IDLE detent »."
+    },
+    {
+     "q": "EGT sans hausse 30 s après IDLE. Action ?",
+     "o": [
+      "APU START",
+      "Engine start lever (affected engine) … Confirm … CUTOFF, then IDLE detent",
+      "Engine fire switch Pull",
+      "Augmenter la vitesse à 300 kt et attendre"
+     ],
+     "a": 1,
+     "w": "Step 4 : CUTOFF puis IDLE detent, à répéter si l'EGT atteint la redline ou ne monte pas en 30 s."
+    },
+    {
+     "q": "Vitesse cible au FL300 ?",
+     "o": [
+      "250 kt",
+      "300 kt",
+      "275 kt",
+      "Vref + 80"
+     ],
+     "a": 2,
+     "w": "At or above FL270 : 275 kt. Below FL270 : 300 kt."
+    },
+    {
+     "q": "Seuil N2 pour tenter un windmill start sur 737 MAX ?",
+     "o": [
+      "8.5%",
+      "11%",
+      "20%",
+      "25%"
+     ],
+     "a": 0,
+     "w": "MAX : N2 ≥ 8.5% → windmill. NG : 11%. En dessous, starter assist si APU bleed dispo."
+    }
+   ]
+  },
+  {
+   "id": "aborted-start",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "ABRT",
+   "title": "Aborted Engine Start",
+   "titleFr": "Démarrage moteur interrompu",
+   "fleet": "both",
+   "ref": "QRH NNC 7.1 (NG & MAX) · FCOM NP.21 Engine Start",
+   "flash": {
+    "title": "Parking Oran, mise en route moteur 2.",
+    "text": "Start lever en IDLE. Le N2 stagne, l'EGT grimpe très vite vers la limite de démarrage. Le F/O garde la main sur le start lever.",
+    "cues": [
+     "EGT approche la start limit",
+     "N1/N2 stagnants",
+     "Pas de hausse EGT en 15 s",
+     "Pas de pression d'huile au ralenti"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Engine start lever (affected engine)",
+     "action": "CUTOFF",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "15 s",
+     "l": "EGT doit monter",
+     "s": "Après start lever IDLE"
+    },
+    {
+     "v": "60 s",
+     "l": "Ventilation",
+     "s": "Motor the engine"
+    },
+    {
+     "v": "20%",
+     "l": "N2",
+     "s": "Attendre en dessous avant GRD"
+    },
+    {
+     "v": "15 min",
+     "l": "Refroidissement",
+     "s": "Après 3 démarrages avortés"
+    }
+   ],
+   "trap": "Remettre ENGINE START sur GRD alors que le N2 tourne encore : attendre N2 < 20%. Et ne jamais rouvrir le start lever pour « rattraper » un démarrage.",
+   "then": [
+    "ENGINE START switch encore en GRD → ventiler 60 s, puis OFF",
+    "Switch déjà en OFF → attendre N2 < 20%, GRD, ventiler 60 s, OFF",
+    "Critères d'abort (FCOM) : N1/N2 qui ne monte pas après hausse EGT, pas de pression d'huile au ralenti, EGT sans hausse 15 s, EGT vers la start limit",
+    "3 démarrages avortés consécutifs → 15 min de refroidissement"
+   ],
+   "diff": "Item identique. Sur MAX (LEAP-1B), l'EEC a une protection automatique au sol (hot start, stall, dépassement EGT, wet start) qui coupe carburant et allumage ; elle ne fonctionne pas en vol.",
+   "qcm": [
+    {
+     "q": "Le seul item mémoire ?",
+     "o": [
+      "ENGINE START switch … OFF",
+      "Engine start lever (affected engine) … CUTOFF",
+      "Engine fire switch … Pull",
+      "APU BLEED … OFF"
+     ],
+     "a": 1,
+     "w": "Un seul memory item : start lever CUTOFF. La ventilation fait partie des reference items."
+    },
+    {
+     "q": "ENGINE START switch est en OFF. Avant de le remettre sur GRD ?",
+     "o": [
+      "Attendre 60 s",
+      "Attendre EGT < 100 °C",
+      "Attendre que N2 descende sous 20%",
+      "Aucune attente"
+     ],
+     "a": 2,
+     "w": "Step 3 : « After N2 decreases below 20% » → GRD, ventiler 60 s, puis OFF."
+    },
+    {
+     "q": "Durée de ventilation demandée ?",
+     "o": [
+      "30 secondes",
+      "2 minutes",
+      "15 secondes",
+      "60 secondes"
+     ],
+     "a": 3,
+     "w": "« Motor the engine for 60 seconds. »"
+    },
+    {
+     "q": "Lequel N'EST PAS un critère d'abort du FCOM ?",
+     "o": [
+      "N2 à 25% au moment d'ouvrir le start lever",
+      "Pas de pression d'huile quand le moteur est stabilisé au ralenti",
+      "EGT sans hausse 15 s après IDLE detent",
+      "EGT qui approche rapidement la start limit"
+     ],
+     "a": 0,
+     "w": "25% N2 est la condition normale pour ouvrir le start lever, pas un critère d'abort."
+    },
+    {
+     "q": "Après 3 démarrages avortés consécutifs ?",
+     "o": [
+      "5 min de refroidissement",
+      "15 min de refroidissement",
+      "Maintenance obligatoire",
+      "Démarrage par crossbleed"
+     ],
+     "a": 1,
+     "w": "FCOM limitations : « After three consecutive aborted start attempts, a 15-minute cooling period is required »."
+    }
+   ]
+  },
+  {
+   "id": "eng-ovht",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "OVHT",
+   "title": "ENGINE OVERHEAT",
+   "titleFr": "Surchauffe moteur",
+   "fleet": "both",
+   "ref": "QRH NNC 8.14 (NG) · 8.6 (MAX)",
+   "flash": {
+    "title": "Croisière FL350, jour.",
+    "text": "MASTER CAUTION, OVHT/DET sur le récap. Le voyant ENG 1 OVERHEAT est allumé, pas de cloche feu. Paramètres moteur normaux.",
+    "cues": [
+     "ENG 1 OVERHEAT light",
+     "MASTER CAUTION",
+     "OVHT/DET annunciator",
+     "Pas de fire bell"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Autothrottle (if engaged)",
+     "action": "Disengage",
+     "fleet": "both"
+    },
+    {
+     "item": "Thrust lever (affected engine)",
+     "action": "Confirm … Close",
+     "fleet": "both"
+    },
+    {
+     "item": "If the ENG OVERHEAT light stays illuminated:",
+     "action": "►►Go to the ENGINE FIRE or Engine Severe Damage or Separation checklist",
+     "fleet": "both"
+    }
+   ],
+   "nums": [],
+   "trap": "Couper le moteur d'office : on ferme seulement la manette. Si le voyant s'éteint, le moteur reste en fonctionnement à poussée réduite.",
+   "then": [
+    "Voyant toujours allumé → ENGINE FIRE or Engine Severe Damage or Separation",
+    "Voyant éteint → poussée réduite pour le garder éteint, pas de prédictions FMC",
+    "Transpondeur TA (MAX) / TA ONLY (NG)",
+    "MAX : éviter le givrage, anti-givrage moteur indisponible côté affecté"
+   ],
+   "diff": "Items identiques. MAX ajoute : « Avoid icing conditions. Engine anti-ice is not available on the affected engine. » et ne pas faire ENGINE COWL VALVE or TAI INDICATION. Renvoi ENGINE FIRE page 8.10 (NG) / 8.2 (MAX).",
+   "qcm": [
+    {
+     "q": "Item 2 de ENGINE OVERHEAT ?",
+     "o": [
+      "Engine start lever … CUTOFF",
+      "Engine fire switch … Pull",
+      "Thrust lever (affected engine) … Confirm … Close",
+      "Thrust lever … Retard until within limits"
+     ],
+     "a": 2,
+     "w": "A/T Disengage puis manette fermée. Pas de coupure carburant en mémoire."
+    },
+    {
+     "q": "Le voyant ENG OVERHEAT reste allumé après fermeture de la manette ?",
+     "o": [
+      "Go to ENGINE FIRE or Engine Severe Damage or Separation",
+      "Attendre 30 s puis rouvrir",
+      "Engine Limit or Surge or Stall",
+      "Engine Tailpipe Fire"
+     ],
+     "a": 0,
+     "w": "Step 3 : voyant toujours allumé → checklist ENGINE FIRE, poignée feu incluse."
+    },
+    {
+     "q": "Le voyant s'éteint. Que fait-on du moteur ?",
+     "o": [
+      "Shutdown par précaution",
+      "Run the engine at reduced thrust to keep the light extinguished",
+      "Retour à la poussée normale",
+      "Rallumage avec ignition BOTH"
+     ],
+     "a": 1,
+     "w": "On garde le moteur à poussée réduite pour que le voyant reste éteint."
+    },
+    {
+     "q": "Spécificité MAX dans les reference items ?",
+     "o": [
+      "Couper le PACK côté panne",
+      "Démarrer l'APU",
+      "ENGINE START sur CONT",
+      "Éviter le givrage : anti-givrage moteur indisponible côté affecté"
+     ],
+     "a": 3,
+     "w": "QRH MAX 8.7 step 6 : « Avoid icing conditions. Engine anti-ice is not available on the affected engine. »"
+    },
+    {
+     "q": "Premier item ?",
+     "o": [
+      "Autothrottle (if engaged) … Disengage",
+      "Autopilot … Disengage",
+      "Thrust lever … Close",
+      "MASTER CAUTION … Reset"
+     ],
+     "a": 0,
+     "w": "Comme pour ENGINE FIRE et Engine Limit : on commence par déconnecter l'A/T."
+    }
+   ]
+  },
+  {
+   "id": "apu-fire",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "APU",
+   "title": "APU FIRE",
+   "titleFr": "Feu APU",
+   "fleet": "both",
+   "ref": "QRH NNC 8.1 (NG & MAX) · FCTM ch.8 Evacuation",
+   "flash": {
+    "title": "Escale Alger, transit, APU en marche.",
+    "text": "La cloche feu retentit, FIRE WARN allumés, la poignée APU est illuminée. Les moteurs sont arrêtés, passagers en embarquement.",
+    "cues": [
+     "Fire bell",
+     "FIRE WARN",
+     "APU fire switch illuminé",
+     "APU en fonctionnement"
+    ]
+   },
+   "steps": [
+    {
+     "item": "APU fire switch",
+     "action": "Confirm … Pull, rotate to the stop, and hold for 1 second",
+     "fleet": "both"
+    },
+    {
+     "item": "APU switch",
+     "action": "OFF",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "1 s",
+     "l": "Rotation poignée APU",
+     "s": "Rotate to the stop and hold"
+    }
+   ],
+   "trap": "Faire seulement « Pull » comme sur un moteur : pour l'APU, l'item unique enchaîne Pull, rotation à la butée et maintien 1 s. Puis APU switch OFF.",
+   "then": [
+    "Poignée APU qui s'éteint → checklist terminée",
+    "Poignée qui reste allumée → plan to land at the nearest suitable airport",
+    "Au sol, si évacuation : Evacuation checklist (Back Cover.4)"
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "Premier item APU FIRE ?",
+     "o": [
+      "APU switch … OFF",
+      "APU BLEED … OFF",
+      "APU fire switch … Confirm … Pull, rotate to the stop, and hold for 1 second",
+      "APU fire switch … Pull"
+     ],
+     "a": 2,
+     "w": "Pull, rotation et maintien 1 s dans le même item, avant de couper l'APU switch."
+    },
+    {
+     "q": "Deuxième item ?",
+     "o": [
+      "APU switch … OFF",
+      "Engine start levers … CUTOFF",
+      "APU GEN … OFF",
+      "Advise ATC"
+     ],
+     "a": 0,
+     "w": "Item 2 : APU switch OFF. La ligne pointillée suit."
+    },
+    {
+     "q": "La poignée APU reste allumée en vol ?",
+     "o": [
+      "Tourner vers l'autre butée",
+      "Plan to land at the nearest suitable airport",
+      "Redémarrer l'APU",
+      "Ignorer"
+     ],
+     "a": 1,
+     "w": "Step 4 : « Plan to land at the nearest suitable airport. »"
+    },
+    {
+     "q": "Combien de temps maintenir la poignée en rotation ?",
+     "o": [
+      "5 s",
+      "30 s",
+      "Jusqu'à extinction",
+      "1 s"
+     ],
+     "a": 3,
+     "w": "« Rotate to the stop, and hold for 1 second. »"
+    },
+    {
+     "q": "La poignée APU s'éteint après décharge. Suite ?",
+     "o": [
+      "Checklist terminée",
+      "Plan to land at the nearest suitable airport",
+      "Engine Fire on the Ground",
+      "Redémarrer l'APU"
+     ],
+     "a": 0,
+     "w": "Step 3 « APU fire switch extinguishes » → ■■■■ fin de checklist."
+    }
+   ]
+  },
+  {
+   "id": "stall",
+   "kind": "capsule",
+   "cat": "maneuver",
+   "code": "STALL",
+   "title": "Approach to Stall or Stall Recovery",
+   "titleFr": "Approche du décrochage / décrochage",
+   "fleet": "both",
+   "ref": "QRH MAN.1.1 (NG & MAX) · FCTM 7.11–7.15",
+   "flash": {
+    "title": "Virage base, flaps 5, A/P engagé, nuit.",
+    "text": "ATC vous a gardé haut, speedbrakes encore sortis. Dans le virage la vitesse fond sous la bande ambre et le manche se met à vibrer.",
+    "cues": [
+     "Stick shaker",
+     "Buffet",
+     "“AIRSPEED LOW”",
+     "Vitesse dans la bande ambre",
+     "Assiette qui monte, vario qui baisse"
+    ]
+   },
+   "steps": [
+    {
+     "role": "PF",
+     "phase": "Initiate the recovery",
+     "text": "Hold the control column firmly.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Initiate the recovery",
+     "text": "Disengage autopilot and autothrottle.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Initiate the recovery",
+     "text": "Smoothly apply nose down elevator to reduce the angle of attack until buffet or stick shaker stops. Nose down stabilizer trim can be needed.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Continue the recovery",
+     "text": "Roll in the shortest direction to wings level if needed.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Continue the recovery",
+     "text": "Advance thrust levers as needed.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Continue the recovery",
+     "text": "Retract the speedbrakes.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Continue the recovery",
+     "text": "Do not change gear or flap configuration, except — During liftoff, if flaps are up, call for flaps 1.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Set the FLAP lever as directed.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Complete the recovery",
+     "text": "Check airspeed and adjust thrust as needed. Establish pitch attitude. Return to the desired flight path.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Re-engage the autopilot and autothrottle if desired.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Monitor altitude and airspeed. Verify all needed actions have been done and call out any omissions. Call out any trend toward terrain contact.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "Flaps 1",
+     "l": "Seul changement config",
+     "s": "Au liftoff si flaps UP"
+    },
+    {
+     "v": "20 000 ft",
+     "l": "Au-dessus : avion limité en poussée",
+     "s": "Récup = perte d'altitude"
+    },
+    {
+     "v": "V2",
+     "l": "Shaker erroné au décollage",
+     "s": "≥ V2 et V/S positive : continuer"
+    }
+   ],
+   "trap": "Vouloir « sauver l'altitude » en gardant le manche arrière. On réduit l'incidence d'abord (manche en avant, trim piqué si besoin, sans excès) ; et pas de FD pendant la récupération.",
+   "then": [
+    "Retour à la vitesse commandée, poussée ajustée, trajectoire reprise",
+    "Re-engager A/P et A/T selon procédures normales",
+    "Ressource douce : un pull up trop agressif → décrochage secondaire",
+    "Poussée déjà élevée (T/O, G/A) : une réduction peut être nécessaire pour faire baisser l'incidence",
+    "PM : annonce toute tendance vers le sol"
+   ],
+   "diff": "Manœuvre identique NG/MAX (QRH MAN.1.1). Nuance de rédaction : « Nose down stabilizer trim may be needed » (QRH NG) / « can be needed » (QRH MAX).",
+   "qcm": [
+    {
+     "q": "Stick shaker en virage base, A/P engagé. Premier geste du PF selon le QRH ?",
+     "o": [
+      "Hold the control column firmly",
+      "Advance thrust levers to maximum",
+      "Retract the speedbrakes",
+      "Roll wings level"
+     ],
+     "a": 0,
+     "w": "Initiate the recovery commence par « Hold the control column firmly », puis déconnexion A/P et A/T et nose down elevator."
+    },
+    {
+     "q": "Pendant la récupération, les directeurs de vol :",
+     "o": [
+      "Se suivent en tangage uniquement",
+      "Ne s'utilisent pas",
+      "Se suivent après TO/GA",
+      "Se suivent si A/P déconnecté"
+     ],
+     "a": 1,
+     "w": "QRH : « Do not use flight director commands during the recovery. » Les FD ne sont pas conçus pour guider une sortie de décrochage (FCTM 7.14)."
+    },
+    {
+     "q": "Shaker au liftoff, volets rentrés par erreur. Configuration ?",
+     "o": [
+      "Ne rien toucher",
+      "Sortir le train",
+      "Appeler flaps 1",
+      "Appeler flaps 5"
+     ],
+     "a": 2,
+     "w": "Seule exception au « Do not change gear or flap configuration » : « During liftoff, if flaps are up, call for flaps 1. »"
+    },
+    {
+     "q": "Le manche seul ne suffit pas à faire baisser le nez. Le trim à piquer :",
+     "o": [
+      "Est interdit pendant la manœuvre",
+      "Doit être mis plein piqué",
+      "Se fait uniquement à la roue de trim",
+      "Peut être nécessaire, avec modération"
+     ],
+     "a": 3,
+     "w": "« Nose down stabilizer trim can be needed » — mais un excès de trim peut aggraver la situation ou mener à la perte de contrôle (WARNING QRH)."
+    },
+    {
+     "q": "Approche du décrochage vers FL350. Que dit le FCTM ?",
+     "o": [
+      "La poussée max suffit, sans perte d'altitude",
+      "Il faut échanger de l'altitude contre de la vitesse",
+      "Sortir flaps 1 pour baisser la Vs",
+      "Engager l'A/P pour stabiliser"
+     ],
+     "a": 1,
+     "w": "Au-dessus d'environ 20 000 ft l'avion est limité en poussée : nose down + trim pour descendre, la récupération coûte plus d'altitude."
+    }
+   ]
+  },
+  {
+   "id": "gpws",
+   "kind": "capsule",
+   "cat": "maneuver",
+   "code": "GPWS",
+   "title": "Ground Proximity Warning System (GPWS) Response — GPWS Warning",
+   "titleFr": "Évitement terrain (PULL UP)",
+   "fleet": "both",
+   "ref": "QRH MAN.1.2–1.3 (MAX) / MAN.1.5–1.6 (NG) · FCTM 7.18 · SOP 3.3",
+   "flash": {
+    "title": "Arrivée de nuit, relief autour du terrain, IMC.",
+    "text": "Clairance de descente mal comprise, vous passez sous l'altitude de secteur. Le radioaltimètre défile et le cockpit hurle.",
+    "cues": [
+     "“TERRAIN TERRAIN PULL UP”",
+     "PULL UP rouge sur les deux PFD",
+     "Terrain rouge plein sur ND",
+     "Radio altitude qui chute"
+    ]
+   },
+   "steps": [
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Call “TERRAIN GO” (SOP Air Algérie)",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Disengage autopilot.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Disengage autothrottle.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Aggressively apply maximum thrust.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Simultaneously roll wings level and rotate to an initial pitch attitude of 20°.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Retract speedbrakes.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "If terrain remains a threat, continue rotation up to the pitch limit indicator (if available) or stick shaker or initial buffet.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Do not change gear or flap configuration until terrain separation is assured.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Monitor radio altimeter for sustained or increasing terrain separation.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "When clear of terrain, slowly decrease pitch attitude and accelerate.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Assure maximum thrust. Verify all needed actions have been completed and call out any omissions.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Monitor vertical speed and altitude (radio altitude for terrain clearance and barometric altitude for a minimum safe altitude.) Call out any trend toward terrain contact.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "20°",
+     "l": "Assiette initiale",
+     "s": "Puis jusqu'au PLI / shaker si menace"
+    },
+    {
+     "v": "MAX",
+     "l": "Poussée",
+     "s": "Manettes plein avant (EEC normal)"
+    },
+    {
+     "v": "20–30 s",
+     "l": "Préavis look-ahead",
+     "s": "Avant impact projeté (FCOM MAX)"
+    }
+   ],
+   "trap": "Garder l'A/P ou suivre le FD : le QRH dit « Do not use flight director commands ». Et ne pas toucher au train/volets tant que la séparation terrain n'est pas assurée.",
+   "then": [
+    "Plus de menace : annoncer que le terrain n'est plus un facteur (SOP)",
+    "Réduire lentement l'assiette, accélérer, rentrer train/volets selon schedule",
+    "Ne pas réengager A/P ou A/T avant d'avoir la séparation terrain assurée (FCTM)",
+    "Alerte look-ahead en montée/croisière/descente vérifiée au-dessus de la MSA : peut être considérée non fiable",
+    "GPWS Caution (SINK RATE, TERRAIN, GLIDESLOPE…) : « Correct the flight path, airplane configuration, or airspeed. »"
+   ],
+   "diff": "Manœuvre identique NG/MAX. Sur NG, l'alerte « OBSTACLE OBSTACLE PULL UP » / CAUTION OBSTACLE n'existe que sur les avions YD108–YD117, YG721–YV388 (effectivité QRH NG).",
+   "qcm": [
+    {
+     "q": "« TERRAIN TERRAIN PULL UP » de nuit en IMC. Assiette initiale visée ?",
+     "o": [
+      "10°",
+      "15°",
+      "20°",
+      "25°"
+     ],
+     "a": 2,
+     "w": "GPWS warning : « rotate to an initial pitch attitude of 20° ». Le 15° c'est la windshear escape."
+    },
+    {
+     "q": "Le terrain reste menaçant après 20°. Jusqu'où cabrer ?",
+     "o": [
+      "Jusqu'à 25° maximum",
+      "Jusqu'au PLI, ou stick shaker, ou buffet initial",
+      "Jusqu'à ce que le FD soit centré",
+      "Jusqu'à V2"
+     ],
+     "a": 1,
+     "w": "« continue rotation up to the pitch limit indicator (if available) or stick shaker or initial buffet. » Le shaker intermittent est la limite haute."
+    },
+    {
+     "q": "Pendant la manœuvre, train et volets :",
+     "o": [
+      "Rentrer le train immédiatement",
+      "Volets à 1 pour réduire la traînée",
+      "Volets 15 pour plus de portance",
+      "Ne pas changer avant séparation terrain assurée"
+     ],
+     "a": 3,
+     "w": "« Do not change gear or flap configuration until terrain separation is assured. »"
+    },
+    {
+     "q": "Rôle du PM sur la poussée ?",
+     "o": [
+      "Assure maximum thrust",
+      "Set CLB thrust",
+      "Push TO/GA",
+      "Disengage autothrottle"
+     ],
+     "a": 0,
+     "w": "PM : « Assure maximum thrust », vérifie les actions et annonce les omissions. Le PF a déjà déconnecté l'A/T."
+    },
+    {
+     "q": "Annonce SOP Air Algérie du PF au déclenchement de la manœuvre ?",
+     "o": [
+      "« PULL UP »",
+      "« GO AROUND, TERRAIN »",
+      "« TERRAIN GO »",
+      "« ESCAPE »"
+     ],
+     "a": 2,
+     "w": "SOP 3.3 : « When the GPWS Warning Maneuver is required, the PF shall call: \"TERRAIN GO\" »."
+    }
+   ]
+  },
+  {
+   "id": "tcas",
+   "kind": "capsule",
+   "cat": "maneuver",
+   "code": "TCAS",
+   "title": "Traffic Avoidance",
+   "titleFr": "Évitement de trafic (TCAS RA)",
+   "fleet": "both",
+   "ref": "QRH MAN.1.8–1.10 (MAX) / MAN.1.7–1.8 (NG) · FCTM 7.18–7.20 · SOP 3.4, 15.5",
+   "flash": {
+    "title": "Montée vers FL240, A/P engagé, zone TMA chargée.",
+    "text": "TA d'abord, puis le trafic converge. TCAS ordonne une manœuvre alors que l'ATC vient de vous donner une autre consigne.",
+    "cues": [
+     "“TRAFFIC, TRAFFIC”",
+     "“CLIMB, CLIMB”",
+     "Zone rouge sur l'indicateur de vitesse verticale/attitude",
+     "Symbole trafic rouge sur ND"
+    ]
+   },
+   "steps": [
+    {
+     "role": "PF",
+     "phase": "For TA",
+     "text": "Look for traffic using traffic display as a guide. If traffic is sighted, maneuver if needed.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "For TA",
+     "text": "Call out any conflicting traffic.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "For RA (except a climb in landing configuration)",
+     "text": "If maneuvering is needed, disengage the autopilot and autothrottle.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Smoothly adjust pitch and thrust to satisfy the RA command. Follow the planned lateral flight path unless visual contact with the conflicting traffic requires other action.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Attempt to establish visual contact.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Call out any conflicting traffic.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "For a climb RA in landing configuration: Disengage the autopilot and autothrottle. Advance thrust levers forward to ensure maximum thrust is attained and call for FLAPS 15.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Verify maximum thrust set. Position flap lever to 15 detent.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Smoothly adjust pitch to satisfy the RA command. Follow the planned lateral flight path unless visual contact with the conflicting traffic requires other action.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Verify a positive rate of climb on the altimeter and call “GEAR UP.”",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Verify a positive rate of climb on the altimeter and call “POSITIVE RATE.” Set the landing gear lever to UP.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "1000 ft",
+     "l": "AGL",
+     "s": "Ne pas suivre un DESCEND RA en dessous"
+    },
+    {
+     "v": "Flaps 15",
+     "l": "Climb RA en config atterrissage",
+     "s": "+ poussée max"
+    },
+    {
+     "v": "1000 ft/min",
+     "l": "Vz max",
+     "s": "Dans les 2000 ft avant le niveau (SOP)"
+    }
+   ],
+   "trap": "Suivre l'ATC plutôt que le RA, ou manœuvrer à l'opposé : « Comply with the RA if there is a conflict between the RA and air traffic control. » Et pas de manœuvre sur un simple TA.",
+   "then": [
+    "Pas d'ordre FD en tangage avant d'être clear of conflict",
+    "Shaker ou buffet initial pendant le RA → Approach to Stall Recovery immédiatement",
+    "Buffet haute vitesse : relâcher l'effort à cabrer mais continuer la manœuvre",
+    "Clear of conflict : retour rapide et souple à l'altitude/vitesse autorisées",
+    "TCAS II v7.1 Air Algérie : « LEVEL OFF, LEVEL OFF » = ramener la Vz à 0"
+   ],
+   "diff": "Manœuvre identique NG/MAX. Toute la flotte Air Algérie est en TCAS II v7.1 (SOP) : l'ancien RA « ADJUST VERTICAL SPEED ADJUST » est remplacé par « LEVEL OFF ».",
+   "qcm": [
+    {
+     "q": "RA « CLIMB » alors que l'ATC vient de demander de descendre. Que faire ?",
+     "o": [
+      "Suivre l'ATC, c'est l'autorité",
+      "Suivre le RA",
+      "Maintenir le niveau et demander à l'ATC",
+      "Virer pour s'écarter"
+     ],
+     "a": 1,
+     "w": "WARNING QRH : « Comply with the RA if there is a conflict between the RA and air traffic control. »"
+    },
+    {
+     "q": "En dessous de quelle hauteur ne suit-on pas un DESCEND RA ?",
+     "o": [
+      "500 ft AGL",
+      "1000 ft AGL",
+      "1500 ft AGL",
+      "2500 ft AGL"
+     ],
+     "a": 1,
+     "w": "« Do not follow a DESCEND (fly down) RA issued below 1000 feet AGL. »"
+    },
+    {
+     "q": "Climb RA en finale, config atterrissage. Volets demandés par le PF ?",
+     "o": [
+      "FLAPS 1",
+      "FLAPS 5",
+      "FLAPS 10",
+      "FLAPS 15"
+     ],
+     "a": 3,
+     "w": "« Advance thrust levers forward to ensure maximum thrust is attained and call for FLAPS 15. » Puis GEAR UP sur positive rate."
+    },
+    {
+     "q": "TA « TRAFFIC, TRAFFIC », trafic non visuel. Action ?",
+     "o": [
+      "Chercher le trafic à l'aide de l'écran, sans manœuvrer sur le TA seul",
+      "Monter de 500 ft par précaution",
+      "Déconnecter l'A/P et descendre",
+      "Passer le TCAS en TA ONLY"
+     ],
+     "a": 0,
+     "w": "Pour un TA : rechercher le trafic. « Maneuvers based solely on a TA can result in reduced separation and are not recommended. »"
+    },
+    {
+     "q": "Stick shaker pendant un RA de montée. Priorité ?",
+     "o": [
+      "Continuer le RA, il est prioritaire",
+      "Réduire la Vz de moitié",
+      "Approach to Stall Recovery immédiatement",
+      "Rentrer les volets"
+     ],
+     "a": 2,
+     "w": "Note QRH : shaker ou buffet initial → « immediately accomplish the APPROACH TO STALL RECOVERY procedure ». Le shaker passe avant tout (FCTM)."
+    }
+   ]
+  },
+  {
+   "id": "upset-high",
+   "kind": "capsule",
+   "cat": "maneuver",
+   "code": "UPS↑",
+   "title": "Upset Recovery — Nose High Recovery",
+   "titleFr": "Récupération d'assiette — nez haut",
+   "fleet": "both",
+   "ref": "QRH MAN.1.10–1.11 (MAX) / MAN.1.9–1.10 (NG) · FCTM 7.21–7.24 · SOP 3.8",
+   "flash": {
+    "title": "Croisière FL370, turbulence en air clair.",
+    "text": "Une rafale verticale et l'A/P décroche. Le nez part à 30° au-dessus de l'horizon, la vitesse s'effondre.",
+    "cues": [
+     "Assiette > 25° nez haut",
+     "Vitesse qui décroît rapidement",
+     "Ciel bleu dominant sur l'ADI",
+     "A/P disconnect"
+    ]
+   },
+   "steps": [
+    {
+     "role": "PF/PM",
+     "phase": "",
+     "text": "Recognize and confirm the developing situation",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Disengage autopilot.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Disengage autothrottle.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Recover",
+     "text": "Apply nose-down elevator. Apply as much elevator as needed to obtain a nose down pitch rate",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Recover",
+     "text": "Apply appropriate nose down stabilizer trim",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Recover",
+     "text": "Reduce thrust",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Recover",
+     "text": "Roll (adjust bank angle) to obtain a nose down pitch rate.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Complete the recovery",
+     "text": "When approaching the horizon, roll to wings level",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Complete the recovery",
+     "text": "Check airspeed and adjust thrust",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Complete the recovery",
+     "text": "Establish pitch attitude.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Call out attitude, airspeed and altitude throughout the recovery. Verify all needed actions have been done and call out any continued deviation.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "> 25°",
+     "l": "Nez haut",
+     "s": "Définition historique d'un upset"
+    },
+    {
+     "v": "45°–60°",
+     "l": "Inclinaison",
+     "s": "Si le tangage seul ne fait pas baisser le nez (FCTM)"
+    },
+    {
+     "v": "0 à 1 g",
+     "l": "Facteur de charge",
+     "s": "Pendant la mise en piqué (FCTM)"
+    }
+   ],
+   "trap": "Remettre plein gaz parce que la vitesse chute : sous les ailes, la poussée cabre encore plus. On réduit la poussée et on pousse ; le trim, juste ce qu'il faut — l'excès de trim ou de palonnier aggrave l'upset.",
+   "then": [
+    "Décroché ? D'abord sortir du décrochage (nose down jusqu'à arrêt du shaker)",
+    "Arrêter le trim piqué quand le g ou l'effort au manche diminue",
+    "Palonnier : seulement si le gauchissement est inefficace et l'avion non décroché, petite quantité",
+    "Proche de l'horizon : ailes à plat, vitesse, poussée, assiette"
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "Nez haut 30°, vitesse qui chute. Action sur la poussée ?",
+     "o": [
+      "Poussée max pour regagner de la vitesse",
+      "Maintenir la poussée actuelle",
+      "Reduce thrust",
+      "TO/GA"
+     ],
+     "a": 2,
+     "w": "QRH : « Reduce thrust ». Moteurs sous les ailes : plus de poussée = moment cabreur supplémentaire."
+    },
+    {
+     "q": "Le piqué au manche et le trim ne suffisent pas. Étape suivante du QRH ?",
+     "o": [
+      "Roll (adjust bank angle) to obtain a nose down pitch rate",
+      "Sortir les speedbrakes",
+      "Sortir flaps 1",
+      "Plein palonnier"
+     ],
+     "a": 0,
+     "w": "« Roll (adjust bank angle) to obtain a nose down pitch rate. » Le FCTM cite 45°, jusqu'à 60° max."
+    },
+    {
+     "q": "Quand remet-on les ailes à plat ?",
+     "o": [
+      "Immédiatement au début de la récupération",
+      "When approaching the horizon",
+      "Après avoir retrouvé la vitesse de croisière",
+      "Quand le shaker s'arrête"
+     ],
+     "a": 1,
+     "w": "Complete the recovery : « When approaching the horizon, roll to wings level », puis vitesse/poussée, assiette."
+    },
+    {
+     "q": "Historiquement, un upset nez haut c'est une assiette supérieure à :",
+     "o": [
+      "10°",
+      "15°",
+      "20°",
+      "25°"
+     ],
+     "a": 3,
+     "w": "Pitch > 25° nose up, > 10° nose down, bank > 45°, ou vitesse inappropriée. Aujourd'hui : toute déviation de l'état voulu."
+    },
+    {
+     "q": "Rôle du PM pendant la récupération ?",
+     "o": [
+      "Reprendre les commandes",
+      "Call out attitude, airspeed and altitude throughout the recovery",
+      "Ré-engager l'A/P dès que possible",
+      "Lire la check-list NNC"
+     ],
+     "a": 1,
+     "w": "PM : annonce attitude, vitesse et altitude tout au long, vérifie les actions et annonce toute déviation persistante."
+    }
+   ]
+  },
+  {
+   "id": "upset-low",
+   "kind": "capsule",
+   "cat": "maneuver",
+   "code": "UPS↓",
+   "title": "Upset Recovery — Nose Low Recovery",
+   "titleFr": "Récupération d'assiette — nez bas",
+   "fleet": "both",
+   "ref": "QRH MAN.1.11–1.12 (MAX) / MAN.1.10–1.11 (NG) · FCTM 7.21–7.25 · SOP 3.8",
+   "flash": {
+    "title": "Descente FL200, IMC, nuit.",
+    "text": "Panne d'affichage côté PF, désorientation. Quand vous reprenez le scan, l'avion est à 100° d'inclinaison, nez sous l'horizon, la vitesse grimpe vers VMO.",
+    "cues": [
+     "Inclinaison > 90°",
+     "Assiette nez bas > 10°",
+     "Vitesse qui s'emballe vers VMO/MMO",
+     "Marron dominant sur l'ADI",
+     "“BANK ANGLE”"
+    ]
+   },
+   "steps": [
+    {
+     "role": "PF/PM",
+     "phase": "",
+     "text": "Recognize and confirm the developing situation",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Disengage autopilot.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Disengage autothrottle.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Recover",
+     "text": "Recover from stall, if needed",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Recover",
+     "text": "Roll in the shortest direction to wings level. If bank angle is more than 90 degrees, unload and roll.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Complete the recovery",
+     "text": "Apply nose up elevator",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Complete the recovery",
+     "text": "Apply nose up trim, if needed",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "Complete the recovery",
+     "text": "Adjust thrust and drag, if needed.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Call out attitude, airspeed and altitude throughout the recovery. Verify all needed actions have been done and call out any continued deviation.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "> 10°",
+     "l": "Nez bas",
+     "s": "Définition historique d'un upset"
+    },
+    {
+     "v": "90°",
+     "l": "Inclinaison",
+     "s": "Au-delà : unload and roll"
+    },
+    {
+     "v": "67°",
+     "l": "Inclinaison",
+     "s": "Au-delà, vol en palier impossible dans les limites de g (FCTM)"
+    }
+   ],
+   "trap": "Tirer sur le manche avant d'avoir remis les ailes à plat : au-delà de 60° d'inclinaison, cabrer ne change quasiment pas l'assiette et charge la structure. D'abord rouler (shortest direction, vers le bank pointer), puis ressource.",
+   "then": [
+    "Le bank pointer reste perpendiculaire à l'horizon : rouler vers lui",
+    "Pas de nose up ni de trim cabreur avant d'approcher les ailes à plat (FCTM)",
+    "Speedbrakes si besoin pour contenir la vitesse",
+    "Efforts aux commandes plus élevés que la normale : effort ferme et continu"
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "Inclinaison 110°, nez bas. Le geste QRH ?",
+     "o": [
+      "Tirer pour ramener le nez à l'horizon",
+      "Réduire la poussée et sortir le train",
+      "Unload and roll, shortest direction to wings level",
+      "Plein palonnier côté haut"
+     ],
+     "a": 2,
+     "w": "« Roll in the shortest direction to wings level. If bank angle is more than 90 degrees, unload and roll. »"
+    },
+    {
+     "q": "Ordre correct en nez bas :",
+     "o": [
+      "Nose up elevator puis roll wings level",
+      "Roll wings level puis nose up elevator",
+      "Trim cabreur puis roll",
+      "Speedbrakes puis roll"
+     ],
+     "a": 1,
+     "w": "Recover : stall si besoin, roll wings level. Complete the recovery : nose up elevator, trim si besoin, poussée/traînée."
+    },
+    {
+     "q": "Avant toute action de récupération d'upset, si l'avion est décroché :",
+     "o": [
+      "Sortir du décrochage d'abord (nose down)",
+      "Remettre les ailes à plat d'abord",
+      "Poussée max d'abord",
+      "Sortir les volets"
+     ],
+     "a": 0,
+     "w": "QRH : « If the airplane is stalled, first recover from the stall by applying and maintaining nose down elevator until stall recovery is complete and stick shaker stops. »"
+    },
+    {
+     "q": "Au-delà de quelle inclinaison le vol en palier est-il impossible dans les limites de facteur de charge AFM ?",
+     "o": [
+      "45°",
+      "60°",
+      "67°",
+      "90°"
+     ],
+     "a": 2,
+     "w": "FCTM 7.25 : « At bank angles greater than 67°, level flight cannot be maintained within AFM load factor limits. »"
+    },
+    {
+     "q": "Usage du palonnier pendant un upset :",
+     "o": [
+      "Systématique pour accélérer le roulis",
+      "Interdit",
+      "Seulement pour les nez haut",
+      "Seulement si le gauchissement est inefficace et l'avion non décroché, avec soin"
+     ],
+     "a": 3,
+     "w": "QRH : « Careful use of rudder to aid roll control should be considered only if roll control is ineffective and the airplane is not stalled. »"
+    }
+   ]
+  },
+  {
+   "id": "windshear",
+   "kind": "capsule",
+   "cat": "maneuver",
+   "code": "WS",
+   "title": "Windshear Escape Maneuver",
+   "titleFr": "Cisaillement de vent — manœuvre d'échappement",
+   "fleet": "both",
+   "ref": "QRH MAN.1.12–1.15 (MAX) / MAN.1.11–1.14 (NG) · FCTM 7.25 · SOP 3.2",
+   "flash": {
+    "title": "Courte finale, 600 ft, orage à proximité, A/P engagé.",
+    "text": "La vitesse gagne 20 kt puis s'effondre de 25 kt, le vario passe à −1500 ft/min sous le glide.",
+    "cues": [
+     "Sirène deux tons + “WINDSHEAR, WINDSHEAR, WINDSHEAR”",
+     "WINDSHEAR rouge sur les deux PFD",
+     "“GO-AROUND, WINDSHEAR AHEAD”",
+     "IAS −15 kt / V/S −500 fpm / 1 dot G/S"
+    ]
+   },
+   "steps": [
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Call “WINDSHEAR GO” (SOP Air Algérie)",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "MANUAL FLIGHT",
+     "text": "Disengage autopilot.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "MANUAL FLIGHT",
+     "text": "Push either TO/GA switch.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "MANUAL FLIGHT",
+     "text": "Aggressively apply maximum thrust",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "MANUAL FLIGHT",
+     "text": "Disengage autothrottle.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "MANUAL FLIGHT",
+     "text": "Simultaneously roll wings level and rotate toward an initial pitch attitude of 15°.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "MANUAL FLIGHT",
+     "text": "Retract speedbrakes.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "MANUAL FLIGHT",
+     "text": "Follow flight director TO/GA guidance (if available) — Do not exceed the Pitch Limit Indication.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "AUTOMATIC FLIGHT",
+     "text": "Push either TO/GA switch. Verify TO/GA mode annunciation. Verify GA thrust. Retract speedbrakes. Monitor system performance",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "MANUAL OR AUTOMATIC FLIGHT: Do not change flap or gear configuration until windshear is no longer a factor.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "MANUAL OR AUTOMATIC FLIGHT: Maintain wings level to maximize climb gradient, unless a turn is required for obstacle clearance. Monitor vertical speed and altitude.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "MANUAL OR AUTOMATIC FLIGHT: Do not attempt to regain lost airspeed until windshear is no longer a factor.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Verify maximum thrust (manual) / Verify GA thrust (automatic). Verify all needed actions have been completed and call out any omissions.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Monitor vertical speed and altitude. Call out any trend toward terrain contact, descending flight path, or significant airspeed changes.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "15°",
+     "l": "Assiette initiale",
+     "s": "Puis jusqu'au shaker intermittent / PLI"
+    },
+    {
+     "v": "15 kt",
+     "l": "IAS",
+     "s": "Écart inacceptable < 1000 ft AGL (avec 500 fpm, 5° pitch, 1 dot G/S)"
+    },
+    {
+     "v": "2 000 ft",
+     "l": "Avant fin de piste",
+     "s": "Rotation au plus tard si arrêt impossible"
+    },
+    {
+     "v": "V1",
+     "l": "PWS au roulage",
+     "s": "Avant : RTO · Après : escape"
+    }
+   ],
+   "trap": "Baisser le nez pour « regagner la vitesse » : c'est le crash. On garde l'assiette (15°, jusqu'au shaker intermittent) et on ne touche ni train ni volets tant que le windshear est un facteur.",
+   "then": [
+    "PWS caution (« MONITOR RADAR DISPLAY ») : manœuvrer pour éviter le windshear",
+    "PWS warning en approche (« GO-AROUND, WINDSHEAR AHEAD ») : escape, ou remise de gaz normale au choix du pilote",
+    "Windshear au roulage avant V1 : à VR rotation normale vers 15°, escape une fois en l'air",
+    "Fin : annoncer windshear plus un facteur, transition vol normal, rentrer train/volets selon schedule (SOP)",
+    "TO/GA indisponible : déconnecter A/P et A/T et piloter à la main"
+   ],
+   "diff": "Manœuvre identique NG/MAX (QRH NG MAN.1.13 / MAX MAN.1.14). Rien à adapter côté pilote.",
+   "qcm": [
+    {
+     "q": "Windshear warning en finale, pilotage manuel. Assiette initiale visée ?",
+     "o": [
+      "10°",
+      "15°",
+      "20°",
+      "Celle du FD uniquement"
+     ],
+     "a": 1,
+     "w": "« rotate toward an initial pitch attitude of 15° » — 20° c'est le GPWS PULL UP."
+    },
+    {
+     "q": "« WINDSHEAR AHEAD, WINDSHEAR AHEAD » au roulage, avant V1 :",
+     "o": [
+      "Continuer et faire l'escape après rotation",
+      "Rejeter le décollage",
+      "Rotation immédiate",
+      "Continuer, c'est seulement prédictif"
+     ],
+     "a": 1,
+     "w": "Predictive windshear warning during takeoff roll : « before V1, reject takeoff · after V1, perform the Windshear Escape Maneuver »."
+    },
+    {
+     "q": "Pendant l'escape, la vitesse continue de baisser. Le PF :",
+     "o": [
+      "Baisse le nez pour la regagner",
+      "Rentre les volets pour réduire la traînée",
+      "Rentre le train",
+      "Ne cherche pas à regagner la vitesse tant que le windshear est un facteur"
+     ],
+     "a": 3,
+     "w": "« Do not attempt to regain lost airspeed until windshear is no longer a factor. » Le shaker intermittent est la limite haute d'assiette."
+    },
+    {
+     "q": "Écart « inacceptable » sous 1000 ft AGL : lequel ne fait PAS partie de la liste QRH ?",
+     "o": [
+      "15 kt IAS",
+      "500 fpm V/S",
+      "10° d'inclinaison",
+      "1 dot glideslope"
+     ],
+     "a": 2,
+     "w": "Liste QRH : 15 kt IAS, 500 fpm V/S, 5° pitch, 1 dot G/S, position manette inhabituelle prolongée. Pas d'inclinaison."
+    },
+    {
+     "q": "En vol automatique, après avoir poussé TO/GA, le PF :",
+     "o": [
+      "Verify TO/GA mode annunciation, verify GA thrust",
+      "Déconnecte immédiatement l'A/T",
+      "Sort flaps 15",
+      "Sélectionne LVL CHG"
+     ],
+     "a": 0,
+     "w": "AUTOMATIC FLIGHT : TO/GA, « Verify TO/GA mode annunciation. Verify GA thrust. Retract speedbrakes. Monitor system performance », prêt à reprendre en manuel."
+    }
+   ]
+  },
+  {
+   "id": "rto",
+   "kind": "capsule",
+   "cat": "maneuver",
+   "code": "RTO",
+   "title": "Rejected Takeoff",
+   "titleFr": "Décollage interrompu",
+   "fleet": "both",
+   "ref": "QRH MAN.1.5–1.8 (MAX) / MAN.1.2–1.4 (NG) · FCTM 3.29–3.32 · SOP 3.1",
+   "flash": {
+    "title": "Décollage DAAG, piste mouillée, CDB PF, autobrake RTO.",
+    "text": "Le F/O vient d'annoncer « EIGHTY KNOTS ». À 120 kt, V1 à 142, la Master Caution s'allume avec un voyant système, puis un bruit sourd.",
+    "cues": [
+     "MASTER CAUTION",
+     "ENGINE FIRE / ENGINE FAILURE annoncé",
+     "Bruit / vibration inhabituels",
+     "Accélération anormalement lente",
+     "Takeoff configuration warning"
+    ]
+   },
+   "steps": [
+    {
+     "role": "CAPT",
+     "phase": "",
+     "text": "Announce “REJECT” (captain only decides) — decision in time to start the maneuver by V1",
+     "fleet": "both"
+    },
+    {
+     "role": "CAPT",
+     "phase": "",
+     "text": "Without delay: Simultaneously close the thrust levers, disengage the autothrottles and apply maximum manual wheel brakes or verify operation of RTO autobrake.",
+     "fleet": "both"
+    },
+    {
+     "role": "CAPT",
+     "phase": "",
+     "text": "If RTO autobrake is selected, monitor system performance and apply manual wheel brakes if the AUTO BRAKE DISARM light illuminates or deceleration is not adequate.",
+     "fleet": "both"
+    },
+    {
+     "role": "CAPT",
+     "phase": "",
+     "text": "Raise SPEED BRAKE lever.",
+     "fleet": "both"
+    },
+    {
+     "role": "CAPT",
+     "phase": "",
+     "text": "Apply reverse thrust up to the maximum amount consistent with conditions.",
+     "fleet": "both"
+    },
+    {
+     "role": "CAPT",
+     "phase": "",
+     "text": "Continue maximum braking until certain the airplane can stop on the runway.",
+     "fleet": "both"
+    },
+    {
+     "role": "F/O",
+     "phase": "",
+     "text": "Verify actions as follows: Thrust levers closed. Autothrottles disengaged. Maximum brakes applied.",
+     "fleet": "both"
+    },
+    {
+     "role": "F/O",
+     "phase": "",
+     "text": "Verify SPEED BRAKE lever UP and call “SPEEDBRAKES UP.” If SPEED BRAKE lever is not UP, call “SPEEDBRAKES NOT UP.”",
+     "fleet": "both"
+    },
+    {
+     "role": "F/O",
+     "phase": "",
+     "text": "Reverse thrust applied. When both REV indications are green, call \"REVERSERS NORMAL.\" If there is no REV indication(s) or the indication(s) stays amber, call \"NO REVERSER ENGINE NUMBER 1\", or \"NO REVERSER ENGINE NUMBER 2\", or \"NO REVERSERS\". Call out omitted action items.",
+     "fleet": "both"
+    },
+    {
+     "role": "F/O",
+     "phase": "",
+     "text": "Call out 60 knots.",
+     "fleet": "both"
+    },
+    {
+     "role": "CAPT",
+     "phase": "",
+     "text": "When stopping is assured: Start movement of the reverse thrust levers to reach the reverse idle detent before taxi speed. After the engines are at reverse idle, move the reverse thrust levers to full down.",
+     "fleet": "both"
+    },
+    {
+     "role": "F/O",
+     "phase": "",
+     "text": "Communicate the reject decision to the control tower and cabin as soon as practical.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "80 kt",
+     "l": "Avant : on rejette pour",
+     "s": "Master caution, panne système, bruit/vibration, pneu, accél. lente, config warning, feu, panne moteur, PWS, fenêtre, avion inapte"
+    },
+    {
+     "v": "80 kt → V1",
+     "l": "Seulement pour",
+     "s": "Feu / fire warning, panne moteur, PWS warning, avion unsafe ou incapable de voler"
+    },
+    {
+     "v": "60 kt",
+     "l": "Annonce F/O",
+     "s": "« 60 knots »"
+    },
+    {
+     "v": "V1",
+     "l": "Vitesse max",
+     "s": "Pour la 1ʳᵉ action d'arrêt (14 CFR 25)"
+    }
+   ],
+   "trap": "Rejeter au-dessus de 80 kt pour une Master Caution, ou commencer l'action d'arrêt après V1 : cause n°1 des sorties de piste. Et ne pas oublier de déconnecter l'A/T, sinon les manettes repartent si on rejette avant THR HLD.",
+   "then": [
+    "F/O à l'ATC (sous 60 kt ou à l'arrêt) : « AIR ALGERIE (call sign) REJECTED TAKEOFF AIRCRAFT ON THE RUNWAY » (SOP)",
+    "CDB au PA : « CABIN CREW NORMAL PROCEDURES » ou « CABIN CREW AT YOUR STATIONS »",
+    "Memory items / NNC selon la cause ; si besoin « EVACUATION CHECKLIST » puis « EVACUATE, EVACUATE, EVACUATE »",
+    "Brake Cooling Schedule, fuse plugs, frein de parc seulement si évacuation, pompiers, vent si feu",
+    "Nouveau décollage : nouveau « CABIN READY » exigé"
+   ],
+   "diff": "Manœuvre identique NG/MAX. Pages QRH différentes (NG MAN.1.2, MAX MAN.1.5). Nuance de rédaction : « unless passenger evacuation is needed » (NG) / « is necessary » (MAX).",
+   "qcm": [
+    {
+     "q": "À 110 kt (V1 140), MASTER CAUTION seule, pas d'autre symptôme. Décision ?",
+     "o": [
+      "Rejeter immédiatement",
+      "Rejeter si le CDB est PF",
+      "Continuer le décollage",
+      "Rejeter si piste longue"
+     ],
+     "a": 2,
+     "w": "Au-dessus de 80 kt et avant V1, on ne rejette que pour feu/fire warning, panne moteur, PWS warning, ou avion unsafe/incapable de voler."
+    },
+    {
+     "q": "Lequel N'est PAS un motif de rejet entre 80 kt et V1 ?",
+     "o": [
+      "Engine failure",
+      "Fire warning",
+      "Predictive windshear warning",
+      "Tire failure"
+     ],
+     "a": 3,
+     "w": "Tire failure fait partie de la liste « before 80 knots » seulement. Entre 80 kt et V1 : fire, engine failure, PWS warning, unsafe/unable to fly."
+    },
+    {
+     "q": "F/O PF, le CDB annonce « REJECT ». Qui pilote ?",
+     "o": [
+      "Le F/O jusqu'à l'arrêt complet",
+      "Le F/O garde les commandes jusqu'à une action positive du CDB",
+      "Le CDB dès l'annonce, sans autre geste",
+      "Le PM"
+     ],
+     "a": 1,
+     "w": "« the first officer maintains control of the airplane until the captain makes a positive input to the controls. »"
+    },
+    {
+     "q": "Réversers : une seule indication REV passe au vert. Annonce F/O ?",
+     "o": [
+      "« REVERSERS NORMAL »",
+      "« NO REVERSERS »",
+      "« NO REVERSER ENGINE NUMBER 1 » (ou 2)",
+      "« REVERSER FAULT »"
+     ],
+     "a": 2,
+     "w": "Si une indication REV manque ou reste ambre : « NO REVERSER ENGINE NUMBER 1 » ou « NUMBER 2 »; les deux : « NO REVERSERS »."
+    },
+    {
+     "q": "Pourquoi déconnecter l'A/T sur tout RTO (FCTM) ?",
+     "o": [
+      "Avant THR HLD, les manettes réavanceraient à la poussée décollage une fois relâchées",
+      "Pour armer l'autobrake RTO",
+      "Pour activer les reversers",
+      "Pour couper le FD"
+     ],
+     "a": 0,
+     "w": "Avant l'annonce THR HLD, sans déconnexion les manettes repartent à la poussée de décollage. Par cohérence : A/T déconnectée pour tous les RTO."
+    }
+   ]
+  },
+  {
+   "id": "orw",
+   "kind": "capsule",
+   "cat": "maneuver",
+   "code": "ORW",
+   "title": "Overrun Warnings (ORW)",
+   "titleFr": "Alertes de sortie de piste (ORW)",
+   "fleet": "MAX",
+   "ref": "QRH MAX MAN.1.4–1.5 · FCOM MAX L.10 / 15.20.13–14",
+   "flash": {
+    "title": "MAX, approche piste courte et mouillée, vent arrière.",
+    "text": "Un peu haut et rapide à 300 ft, vous poussez pour rattraper le plan. Puis, au sol, le freinage auto paraît mou.",
+    "cues": [
+     "“OVERRUN, GO-AROUND”",
+     "GO AROUND sur le PFD",
+     "“MAX BRAKES, MAX REVERSE”",
+     "MAX REVERSE sur le PFD"
+    ]
+   },
+   "steps": [
+    {
+     "role": "PF/PM",
+     "phase": "In-Air Overrun Warning (OVERRUN, GO-AROUND / GO-AROUND on PFD)",
+     "text": "Execute a go-around.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "On-Ground Overrun Warning — Without delay",
+     "text": "Simultaneously close the thrust levers and apply maximum manual wheel brakes.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Verify speed brakes are deployed or raise the SPEED BRAKE lever.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Apply reverse thrust up to the maximum amount consistent with conditions.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "Continue maximum braking until certain the airplane can stop on the runway.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Verify actions as follows: Thrust levers closed. Maximum brakes applied.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Verify SPEED BRAKE lever UP and call “SPEEDBRAKES UP.” If SPEED BRAKE lever is not UP, call “SPEEDBRAKES NOT UP.”",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Reverse thrust applied. When both REV indications are green, call \"REVERSERS NORMAL.\" If there is no REV indication(s) or the indication(s) stays amber, call \"NO REVERSER ENGINE NUMBER 1\", or \"NO REVERSER ENGINE NUMBER 2\", or \"NO REVERSERS\". Call out omitted action items.",
+     "fleet": "both"
+    },
+    {
+     "role": "PM",
+     "phase": "",
+     "text": "Call out 60 knots.",
+     "fleet": "both"
+    },
+    {
+     "role": "PF",
+     "phase": "",
+     "text": "When stopping is assured: Start movement of the reverse thrust levers to reach the reverse idle detent before taxi speed. After the engines are at reverse idle, move the reverse thrust levers to full down.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "500 ft",
+     "l": "In-air ORW armé",
+     "s": "Au-dessus du TDZE jusqu'au toucher"
+    },
+    {
+     "v": "3 s",
+     "l": "On-ground ORW armé",
+     "s": "Après le toucher"
+    },
+    {
+     "v": "20 kt",
+     "l": "On-ground désarmé",
+     "s": "GS < 20 kt ou à 1000 ft du bout de piste"
+    },
+    {
+     "v": "150 ft",
+     "l": "Aural in-air répété",
+     "s": "Si ≤ 150 ft TDZE et alerte vraie ≥ 7 s"
+    }
+   ],
+   "trap": "Croire que pas d'alerte = arrêt garanti. Le FCOM est clair : ORW ne remplace pas le calcul de distance d'atterrissage en route, et l'absence d'alerte ne garantit pas l'arrêt avant le bout de piste.",
+   "then": [
+    "« OVERRUN, GO-AROUND » en approche : remise de gaz immédiate",
+    "Inhiber l'ORW si OAT au sol < −40 °C ou > 50 °C, ou masse > MLW (FCOM MAX)",
+    "L'aural « MAX BRAKES, MAX REVERSE » ne retentit qu'une fois",
+    "Basé sur la base de données piste EGPWS et la position avion"
+   ],
+   "diff": "MAX uniquement : l'ORW et sa manœuvre n'existent pas dans le QRH NG (rev 55).",
+   "qcm": [
+    {
+     "q": "« OVERRUN, GO-AROUND » à 200 ft. Action ?",
+     "o": [
+      "Continuer et freiner max",
+      "Execute a go-around",
+      "Réduire la vitesse et continuer",
+      "Sortir les speedbrakes"
+     ],
+     "a": 1,
+     "w": "In-Air Overrun Warning : « Execute a go-around. » (PF et PM)."
+    },
+    {
+     "q": "« MAX BRAKES, MAX REVERSE » au roulement. Premier geste du PF ?",
+     "o": [
+      "Simultaneously close the thrust levers and apply maximum manual wheel brakes",
+      "Augmenter le réglage autobrake",
+      "Remettre les gaz",
+      "Raise SPEED BRAKE lever puis freiner"
+     ],
+     "a": 0,
+     "w": "« Without delay: Simultaneously close the thrust levers and apply maximum manual wheel brakes. »"
+    },
+    {
+     "q": "L'In-Air ORW est armé à partir de :",
+     "o": [
+      "1000 ft TDZE",
+      "50 ft RA",
+      "500 ft au-dessus du TDZE",
+      "Le FAF"
+     ],
+     "a": 2,
+     "w": "FCOM MAX : « The alert is armed from 500 feet above the runway touchdown zone elevation (TDZE) until airplane touchdown. »"
+    },
+    {
+     "q": "Cas où il faut inhiber l'ORW (FCOM) :",
+     "o": [
+      "Piste mouillée",
+      "Vent arrière",
+      "Autobrake 3",
+      "Masse supérieure à la MLW"
+     ],
+     "a": 3,
+     "w": "Inhiber si OAT au sol < −40 °C ou > 50 °C, ou masse > Maximum Landing Weight."
+    },
+    {
+     "q": "Pas d'alerte ORW sur une piste courte. Conclusion ?",
+     "o": [
+      "L'arrêt est garanti",
+      "Rien n'est garanti : le calcul de distance d'atterrissage reste obligatoire",
+      "Le freinage peut être réduit",
+      "L'autobrake peut être désarmé"
+     ],
+     "a": 1,
+     "w": "« The lack of an overrun alert does not guarantee the airplane can stop prior to reaching the runway end. »"
+    }
+   ]
+  },
+  {
+   "id": "raas",
+   "kind": "capsule",
+   "cat": "maneuver",
+   "code": "RAAS",
+   "title": "Runway Awareness and Advisory System (RAAS)",
+   "titleFr": "Alertes RAAS (conscience piste)",
+   "fleet": "both",
+   "ref": "QRH MAN.1.8 (MAX) / MAN.1.4 (NG) · FCOM NG L.10.9",
+   "flash": {
+    "title": "Roulage de nuit, plateforme inconnue, piste parallèle.",
+    "text": "Vous vous alignez sur ce que vous croyez être la piste autorisée. L'annonce vocale ne correspond pas à votre briefing.",
+    "cues": [
+     "Annonce vocale RAAS de la piste",
+     "Identifiant de piste inattendu",
+     "Doute sur la position"
+    ]
+   },
+   "steps": [
+    {
+     "role": "PF/PM",
+     "phase": "",
+     "text": "If a RAAS callout or alert differs from the flight crew’s expectation: Verify position. Contact ATC for assistance, if needed.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [],
+   "trap": "Utiliser RAAS comme aide à la navigation ou à la décision de performance : interdit. Il ne remplace ni NOTAM ni ATIS, et la longueur de piste annoncée ne tient pas compte de la météo ou de l'état de piste.",
+   "then": [
+    "Ne pas utiliser RAAS pour la navigation",
+    "Pas un substitut aux NOTAM / ATIS",
+    "Alerte longueur de piste réglée par la compagnie, sans facteurs temps réel"
+   ],
+   "diff": "QRH NG : RAAS limité par effectivité aux avions YD111–YD117 et YG721–YV388 (voir FCOM NG 0.1 pour les immatriculations). QRH MAX : sans restriction d'effectivité.",
+   "qcm": [
+    {
+     "q": "L'annonce RAAS ne correspond pas à la piste attendue. Action QRH ?",
+     "o": [
+      "Ignorer, RAAS est seulement informatif",
+      "Verify position. Contact ATC for assistance, if needed.",
+      "Décoller, la clairance prime",
+      "Couper le RAAS"
+     ],
+     "a": 1,
+     "w": "QRH : « Verify position. Contact ATC for assistance, if needed. » (PF et PM)."
+    },
+    {
+     "q": "Une alerte RAAS de longueur de piste peut-elle servir à juger la performance ?",
+     "o": [
+      "Oui, si piste sèche",
+      "Oui, en complément de l'OPT",
+      "Non : réglée par la compagnie, sans météo ni état de piste ni NOTAM",
+      "Oui, sur MAX uniquement"
+     ],
+     "a": 2,
+     "w": "FCOM NG : « Do not use … RAAS … to determine real-time runway suitability for airplane performance. »"
+    },
+    {
+     "q": "RAAS peut-il remplacer l'ATIS ou les NOTAM ?",
+     "o": [
+      "Oui",
+      "Non",
+      "Seulement de nuit",
+      "Seulement en LVP"
+     ],
+     "a": 1,
+     "w": "« Do not use RAAS callouts or alerts as a substitute for NOTAM or ATIS information. »"
+    },
+    {
+     "q": "Usage interdit du RAAS selon le FCOM NG :",
+     "o": [
+      "Navigation",
+      "Conscience de situation",
+      "Confirmation de l'alignement",
+      "Alerte en cas de doute"
+     ],
+     "a": 0,
+     "w": "« Do not use RAAS callouts or alerts for navigation. »"
+    },
+    {
+     "q": "Côté NG Air Algérie, le RAAS est :",
+     "o": [
+      "Installé sur toute la flotte NG",
+      "Absent de la flotte NG",
+      "Limité par effectivité (YD111–YD117, YG721–YV388)",
+      "Seulement sur -600"
+     ],
+     "a": 2,
+     "w": "Le QRH et le FCOM NG portent l'effectivité YD111 - YD117, YG721 - YV388 pour le RAAS."
+    }
+   ]
+  },
+  {
    "id": "stab-app",
    "kind": "capsule",
    "cat": "sop",
