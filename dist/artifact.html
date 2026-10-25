@@ -1,0 +1,2419 @@
+<title>737 Nudge</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612:wght@400;700&family=B612+Mono&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one-screen app. Home = header + tab content + bottom tab bar. Player = story bars, card stage, bottom action bar.
+   Look: 737 display unit at night. Colors are the real PFD/ND symbology roles (magenta = commanded, cyan = selected, green = engaged, amber = caution, red = warning). */
+:root{
+  --bg:#05070c; --bg2:#0b0f18; --panel:#101624; --panel2:#161e30; --line:#232d45; --line2:#2f3b5a;
+  --fg:#e9eef8; --dim:#8b97b1; --mute:#5d6782;
+  --mag:#ff5ad9; --cyan:#3fe0ff; --green:#45f0a0; --amber:#ffb428; --red:#ff4f61; --white:#ffffff;
+  --f-disp:"B612","Barlow Semi Condensed",system-ui,sans-serif;
+  --f-mono:"B612 Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --f-body:"Barlow","Barlow Semi Condensed",-apple-system,system-ui,sans-serif;
+  --r:16px; --gut:max(16px, env(safe-area-inset-left, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.4;overflow:hidden;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0;text-align:inherit}
+button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:10px}
+h1,h2,h3,p{margin:0}
+.app{height:100%;display:flex;flex-direction:column;max-width:1100px;margin:0 auto;position:relative}
+.scr{flex:1;display:flex;flex-direction:column;min-height:0;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:12px 0}
+.scroll{flex:1;overflow-y:auto;min-height:0;-webkit-overflow-scrolling:touch;padding-bottom:20px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+
+/* ---------- HEADER ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:12px}
+.logo{font-family:var(--f-disp);font-weight:700;font-size:1.35rem;letter-spacing:.06em;white-space:nowrap}
+.logo b{color:var(--cyan);text-shadow:0 0 16px rgba(63,224,255,.5)}
+.chips{display:flex;gap:6px;align-items:center}
+.chip{font-family:var(--f-mono);font-size:.82rem;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--panel);display:flex;gap:6px;align-items:center;white-space:nowrap}
+.chip .ic{color:var(--amber)}
+.chip.xp .ic{color:var(--cyan)}
+.chip.hot{border-color:rgba(255,180,40,.5);box-shadow:0 0 14px rgba(255,180,40,.18)}
+.fleet{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:var(--panel);padding:3px}
+.fleet button{font-family:var(--f-mono);font-size:.78rem;padding:5px 10px;border-radius:999px;color:var(--dim)}
+.fleet button[aria-pressed="true"]{background:var(--green);color:#03140c}
+
+/* ---------- HOME ---------- */
+.rank{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;margin-bottom:14px}
+.rank .stripes{display:flex;gap:3px}
+.rank .stripes i{width:8px;height:26px;border-radius:2px;background:var(--line2);transform:skewX(-14deg)}
+.rank .stripes i.on{background:var(--amber);box-shadow:0 0 10px rgba(255,180,40,.4)}
+.rank .meta{min-width:0}
+.rank .nm{font-family:var(--f-disp);font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
+.rank .bar{height:5px;background:var(--line);border-radius:5px;margin-top:6px;overflow:hidden}
+.rank .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--mag));border-radius:5px}
+.rank small{font-family:var(--f-mono);font-size:.72rem;color:var(--dim)}
+
+.hero{position:relative;overflow:hidden;border-radius:22px;padding:18px;background:radial-gradient(120% 140% at 100% 0%,#1c1238 0%,transparent 55%),linear-gradient(160deg,#0b2333,#0a0f1c 70%);border:1px solid #1f3a55}
+.hero .adi{position:absolute;right:-34px;top:-34px;width:130px;height:130px;opacity:.32;pointer-events:none}
+.tag{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+.hero h2{font-family:var(--f-disp);font-size:1.25rem;line-height:1.15;margin:8px 0 4px;max-width:78%;text-wrap:balance}
+.hero p{color:#b6c3dc;font-size:.95rem;max-width:80%}
+.hero .row{display:flex;gap:10px;align-items:center;margin-top:16px;flex-wrap:wrap}
+.go{font-family:var(--f-disp);font-weight:700;font-size:.82rem;letter-spacing:.1em;background:var(--cyan);color:#021018;padding:13px 18px;border-radius:12px;box-shadow:0 0 26px rgba(63,224,255,.35)}
+.go:active{transform:scale(.97)}
+.go.alt{background:var(--panel2);color:var(--fg);box-shadow:none;border:1px solid var(--line2)}
+
+.goal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.goal div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.goal b{display:block;font-family:var(--f-disp);font-size:1.25rem;font-variant-numeric:tabular-nums}
+.goal small{font-family:var(--f-mono);font-size:.68rem;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+.goal .g b{color:var(--green)} .goal .c b{color:var(--cyan)} .goal .a b{color:var(--amber)}
+
+.sec{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:22px 0 10px}
+.sec span:last-child{letter-spacing:.06em}
+.grid{display:grid;grid-template-columns:1fr;gap:10px}
+.cap{display:grid;grid-template-columns:54px 1fr auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px;min-width:0;transition:border-color .2s,transform .12s}
+.cap:active{transform:scale(.985)}
+.cap:hover{border-color:var(--line2)}
+.badge{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-disp);font-weight:700;font-size:.74rem;letter-spacing:.04em;color:#03070c;position:relative}
+.badge.ring::after{content:"";position:absolute;inset:-4px;border-radius:17px;border:2px solid var(--green)}
+.cap .tx{min-width:0}
+.cap h3{font-size:1rem;font-weight:700;line-height:1.2}
+.cap small{display:block;color:var(--dim);font-size:.82rem;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cap .st{font-family:var(--f-disp);font-size:.78rem;color:var(--dim);text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.cap .st .ok{color:var(--green)}
+.cap .st .due{color:var(--amber)}
+.pips{display:flex;gap:3px}
+.pips i{width:6px;height:6px;border-radius:2px;background:var(--line2)}
+.pips i.on{background:var(--green)}
+.fl{font-family:var(--f-mono);font-size:.62rem;padding:2px 5px;border-radius:4px;border:1px solid var(--line2);color:var(--dim);vertical-align:2px;margin-left:6px}
+
+.mc{position:relative;overflow:hidden;border-radius:20px;padding:16px;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;text-align:left;min-height:150px}
+.mc .big{font-family:var(--f-disp);font-weight:700;font-size:2.2rem;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.mc h3{font-family:var(--f-disp);font-size:1rem;letter-spacing:.02em}
+.mc p{color:var(--dim);font-size:.88rem}
+.mc .foot{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.72rem;color:var(--dim);margin-top:auto}
+.mc .foot .ok{color:var(--green)}
+
+.empty{background:var(--panel);border:1px dashed var(--line2);border-radius:var(--r);padding:20px;color:var(--dim);text-align:center;line-height:1.5}
+.disc{font-family:var(--f-mono);font-size:.66rem;color:var(--mute);text-align:center;padding:18px 0 4px;line-height:1.6}
+
+/* tab bar */
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);background:rgba(5,7,12,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:6px max(10px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px))}
+.tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);position:relative}
+.tabs svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tabs button[aria-current="page"]{color:var(--cyan)}
+.tabs .dot{position:absolute;top:2px;right:calc(50% - 18px);min-width:16px;height:16px;border-radius:8px;background:var(--amber);color:#1a0f00;font-size:.6rem;display:grid;place-items:center;padding:0 4px;letter-spacing:0}
+
+/* profile */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.stat b{display:block;font-family:var(--f-disp);font-size:1.7rem;font-variant-numeric:tabular-nums}
+.stat small{font-family:var(--f-mono);font-size:.7rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bdg{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.bdg .h{width:44px;height:44px;display:grid;place-items:center;font-family:var(--f-disp);font-weight:700;font-size:.8rem;clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%);background:var(--line2);color:var(--mute)}
+.bdg.on .h{background:var(--amber);color:#1a0f00}
+.bdg b{font-size:.8rem;line-height:1.2}
+.bdg small{font-size:.68rem;color:var(--dim);line-height:1.25}
+.bdg:not(.on){opacity:.6}
+.lnk{font-family:var(--f-mono);font-size:.78rem;color:var(--red);padding:10px 0;margin-top:14px}
+
+/* ---------- PLAYER ---------- */
+.player{max-width:680px;width:100%;margin:0 auto}
+.bars{display:flex;gap:4px;padding-top:4px}
+.bars i{flex:1;height:4px;border-radius:4px;background:var(--line);position:relative;overflow:hidden}
+.bars i.on{background:var(--cyan)}
+.bars i.cur{background:var(--line2)}
+.bars i.cur::after{content:"";position:absolute;inset:0;background:var(--cyan);transform-origin:left;animation:fill 1.6s ease-in-out infinite alternate}
+.bars i.ok{background:var(--green)} .bars i.ko{background:var(--red)}
+@keyframes fill{from{transform:scaleX(.15)}to{transform:scaleX(.85)}}
+.phead{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;margin-top:10px}
+.x{width:38px;height:38px;border-radius:12px;background:var(--panel);display:grid;place-items:center;font-size:1.3rem;color:var(--dim)}
+.ptitle{font-family:var(--f-mono);font-size:.72rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.timer{font-family:var(--f-disp);font-size:1rem;color:var(--amber);font-variant-numeric:tabular-nums;padding:6px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.timer.low{color:var(--red);border-color:rgba(255,79,97,.5);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.55}}
+.combo{font-family:var(--f-mono);font-size:.78rem;color:var(--mag);text-align:right;min-height:1.2em;margin-top:6px}
+.stage{flex:1;display:flex;flex-direction:column;min-height:0;overflow-y:auto;padding:14px 0 18px;scrollbar-width:none}
+.stage::-webkit-scrollbar{display:none}
+.stage>.card{margin-block:auto}
+.card.anim{animation:in .38s cubic-bezier(.2,.8,.2,1) both}
+.card.back{animation-name:inb}
+@keyframes in{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes inb{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+.kicker{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.kicker::before{content:"";width:18px;height:2px;background:currentColor}
+.h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(1.55rem,6.6vw,2.3rem);line-height:1.1;margin-bottom:14px;text-wrap:balance}
+.lead{font-size:1.08rem;line-height:1.5;color:#c8d3ea;max-width:62ch}
+.lead+.lead{margin-top:10px}
+.cues{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.cues span{font-family:var(--f-mono);font-size:.82rem;padding:7px 10px;border-radius:6px;background:#000;border:1px solid var(--line2);color:var(--amber);letter-spacing:.03em}
+.cues span:nth-child(3n+1){color:var(--red)}
+
+/* memory items */
+.mem{display:flex;flex-direction:column;gap:8px}
+.mi{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left;transition:border-color .2s,background .2s}
+.mi .n{font-family:var(--f-mono);font-size:.8rem;color:var(--mute);padding-top:2px}
+.mi .k{font-weight:600;line-height:1.3;min-width:0}
+.mi .dots{display:flex;align-items:center;gap:8px;margin-top:6px}
+.mi .dots::before{content:"";flex:1;border-bottom:2px dotted var(--line2)}
+.mi .v{font-family:var(--f-mono);font-size:.92rem;letter-spacing:.04em;padding:3px 8px;border-radius:6px;background:var(--panel2);color:transparent;min-width:84px;text-align:center;transition:color .25s,background .25s;text-transform:uppercase}
+.mi.next{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(63,224,255,.12)}
+.mi.rev{border-color:rgba(69,240,160,.35);background:#0d1a1a}
+.mi.rev .v{color:var(--green);background:transparent}
+.mi.rev .n{color:var(--green)}
+.mi.cond{border-style:dashed}
+.mi.locked{opacity:.55}
+.hint{font-family:var(--f-mono);font-size:.76rem;color:var(--dim);margin-top:12px;text-align:center}
+
+/* big numbers */
+.nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.num:last-child:nth-child(odd){grid-column:1/-1}
+.num{background:#000;border:1px solid var(--line);border-radius:18px;padding:16px 14px;min-width:0;position:relative;overflow:hidden}
+.num .v{font-family:var(--f-disp);font-weight:700;font-size:clamp(2.4rem,13vw,3.9rem);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
+.num .l{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+.num .s{font-size:.82rem;color:var(--dim);margin-top:2px}
+.num.c0 .v{color:var(--mag);text-shadow:0 0 24px rgba(255,90,217,.45)}
+.num.c1 .v{color:var(--green);text-shadow:0 0 24px rgba(69,240,160,.4)}
+.num.c2 .v{color:var(--cyan);text-shadow:0 0 24px rgba(63,224,255,.45)}
+.num.c3 .v{color:var(--amber);text-shadow:0 0 24px rgba(255,180,40,.4)}
+.num.long .v{font-size:clamp(1.5rem,7vw,2.3rem);white-space:normal}
+.pop{animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.pop:nth-child(2){animation-delay:.08s}.pop:nth-child(3){animation-delay:.16s}.pop:nth-child(4){animation-delay:.24s}
+@keyframes pop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+
+.box{border-radius:0 14px 14px 0;padding:13px 15px;margin-top:12px;line-height:1.45;background:var(--panel);border-left:3px solid var(--amber)}
+.box b{font-family:var(--f-mono);font-weight:400;letter-spacing:.14em;font-size:.72rem;display:block;margin-bottom:4px;color:var(--amber)}
+.box.diff{border-left-color:var(--green)} .box.diff b{color:var(--green)}
+.box.q{border-left-color:var(--cyan);font-style:italic;color:#c8d3ea} .box.q b{color:var(--cyan);font-style:normal}
+.then{display:flex;flex-direction:column;gap:8px}
+.then li{list-style:none;display:grid;grid-template-columns:22px 1fr;gap:8px;line-height:1.4;color:#c8d3ea}
+.then li::before{content:"▸";color:var(--cyan);font-family:var(--f-mono)}
+.then{padding:0;margin:0}
+
+/* qcm */
+.q{font-size:1.18rem;font-weight:700;line-height:1.35;margin-bottom:16px;text-wrap:balance}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{padding:13px 14px;border-radius:14px;background:var(--panel);border:1.5px solid var(--line);font-size:1rem;line-height:1.35;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;transition:transform .12s,border-color .2s}
+.opt:active:not(:disabled){transform:scale(.98)}
+.opt .l{font-family:var(--f-mono);width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--panel2);color:var(--dim)}
+.opt.ok{border-color:var(--green);background:#0a2219}
+.opt.ok .l{background:var(--green);color:#03140c}
+.opt.ko{border-color:var(--red);background:#2a0d14;animation:shake .35s}
+.opt.ko .l{background:var(--red);color:#1a0306}
+.opt.fade{opacity:.45}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.why{margin-top:12px;font-size:.96rem;line-height:1.45;color:#c8d3ea;background:var(--panel2);border-radius:14px;padding:12px 14px;animation:in .3s both}
+.why b{font-family:var(--f-mono);font-weight:400;letter-spacing:.08em}
+.gain{position:fixed;left:50%;top:38%;transform:translate(-50%,0);font-family:var(--f-disp);font-weight:700;font-size:1.6rem;color:var(--green);pointer-events:none;animation:rise .9s ease-out forwards;z-index:6;text-shadow:0 0 20px rgba(69,240,160,.6)}
+@keyframes rise{to{opacity:0;transform:translate(-50%,-60px)}}
+
+.nav{display:flex;gap:10px;padding-block:10px calc(12px + env(safe-area-inset-bottom, 0px))}
+.btn{flex:1;font-family:var(--f-disp);font-weight:700;letter-spacing:.1em;font-size:.84rem;padding:16px;border-radius:14px;background:var(--cyan);color:#021018;text-align:center}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn.ghost{flex:0 0 auto;background:var(--panel);color:var(--fg);border:1px solid var(--line);padding:16px 20px}
+.btn:disabled{opacity:.3;cursor:default}
+
+/* result */
+.res{text-align:center}
+.ring{width:176px;height:176px;margin:0 auto 16px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring .s{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-disp);font-weight:700;font-size:2.7rem;font-variant-numeric:tabular-nums}
+.ring .s small{font-size:.8rem;color:var(--dim);display:block;font-family:var(--f-mono);font-weight:400;margin-top:4px}
+.rewards{display:flex;justify-content:center;gap:10px;margin:16px 0;flex-wrap:wrap}
+.rw{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-family:var(--f-mono);font-size:.78rem;color:var(--dim);min-width:84px}
+.rw b{display:block;font-family:var(--f-disp);font-size:1.35rem;color:var(--amber)}
+.rw.c b{color:var(--cyan)} .rw.g b{color:var(--green)}
+.newbadge{display:inline-flex;gap:8px;align-items:center;background:#1d1505;border:1px solid rgba(255,180,40,.5);color:var(--amber);border-radius:999px;padding:6px 12px;font-family:var(--f-mono);font-size:.8rem;margin:4px}
+.src{font-family:var(--f-mono);font-size:.72rem;color:var(--mute);margin-top:12px;line-height:1.6}
+.review{margin-top:16px;text-align:left;display:flex;flex-direction:column;gap:8px}
+.review div{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:0 12px 12px 0;padding:10px 12px;font-size:.88rem;line-height:1.4}
+.review div b{display:block;color:var(--green);font-weight:600;margin-top:4px}
+
+.burst{position:fixed;inset:0;pointer-events:none;z-index:5}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);background:var(--panel2);border:1px solid var(--line2);padding:10px 16px;border-radius:12px;font-family:var(--f-mono);font-size:.8rem;z-index:8;animation:in .3s both}
+
+@media (min-width:760px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mcgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .badges{grid-template-columns:repeat(4,1fr)}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .homewrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+  .tabs{max-width:560px;margin:0 auto 10px;width:100%;border:1px solid var(--line);border-radius:20px;padding-bottom:6px}
+  .h1{font-size:2.4rem}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+</style>
+<div class="app" id="app"></div>
+<canvas class="burst" id="burst"></canvas>
+<script>
+/* Generated by tools/build.py from content/*.json. Do not edit by hand. */
+window.NUDGE = {
+ "capsules": [
+  {
+   "id": "ias",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "IAS",
+   "title": "Airspeed Unreliable",
+   "titleFr": "Vitesse non fiable",
+   "fleet": "both",
+   "ref": "QRH NNC 10.1 (NG & MAX) · PI Flight With Unreliable Airspeed",
+   "flash": {
+    "title": "Montée FL140, nuit, IMC, givrage.",
+    "text": "Le badin CDB plafonne pendant que celui du F/O diminue, A/T en N1. Le stick shaker se déclenche côté CDB alors que l'assiette et la poussée sont normales pour la montée.",
+    "cues": [
+     "IAS DISAGREE",
+     "ALT DISAGREE",
+     "Stick shaker côté CDB",
+     "Barres min/max speed erratiques",
+     "Vitesse incohérente avec assiette/poussée"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Autopilot (if engaged)",
+     "action": "Disengage",
+     "fleet": "both"
+    },
+    {
+     "item": "Autothrottle (if engaged)",
+     "action": "Disengage",
+     "fleet": "both"
+    },
+    {
+     "item": "F/D switches (both)",
+     "action": "OFF",
+     "fleet": "both"
+    },
+    {
+     "item": "Set the following gear up pitch attitude and thrust: Flaps extended",
+     "action": "10° and 80% N1",
+     "fleet": "both"
+    },
+    {
+     "item": "Set the following gear up pitch attitude and thrust: Flaps up",
+     "action": "4° and 75% N1",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "10° / 80%",
+     "l": "Pitch / N1",
+     "s": "Flaps extended, gear up"
+    },
+    {
+     "v": "4° / 75%",
+     "l": "Pitch / N1",
+     "s": "Flaps up"
+    },
+    {
+     "v": "20 kt",
+     "l": "Écart max vs table PI",
+     "s": "ou 0.03 M → badin non fiable"
+    }
+   ],
+   "trap": "Croire le stick shaker ou l'alerte overspeed : ils peuvent sonner à tort, voire simultanément. Assiette + N1 d'abord, on analyse ensuite.",
+   "then": [
+    "PROBE HEAT switches … Check ON",
+    "Indications fiables : Attitude, N1, Ground speed, Radio altitude",
+    "Badin fiable identifié ? → l'utiliser pour le reste du vol (F/D côté fiable ON, A/P côté fiable si besoin, pas d'A/T)",
+    "Sinon : table PI « Flight With Unreliable Airspeed », stabilisé et trimé, comparer les 3 badins : écart > 20 kt ou 0.03 M = non fiable",
+    "Altitude non fiable des deux côtés → pas RVSM, transpondeur ALT OFF"
+   ],
+   "diff": "Memory items identiques NG/MAX. La NNC MAX ajoute des notes : le Stick Shaker Indicator de l'indicateur d'AOA (et l'AOA readout/aiguille/bande d'approche si l'AOA est en cause) peut être non fiable ; sur NG l'alerte AIRSPEED LOW est « (as installed) ».",
+   "qcm": [
+    {
+     "q": "Volets rentrés, quel couple assiette / N1 en memory item ?",
+     "o": [
+      "10° et 80% N1",
+      "4° et 75% N1",
+      "4° et 80% N1",
+      "10° et 75% N1"
+     ],
+     "a": 1,
+     "w": "Flaps up : 4° and 75% N1. Le 10°/80% est pour flaps extended, toujours gear up."
+    },
+    {
+     "q": "Volets sortis (gear up), quel couple assiette / N1 ?",
+     "o": [
+      "15° et 85% N1",
+      "4° et 75% N1",
+      "8° et 80% N1",
+      "10° et 80% N1"
+     ],
+     "a": 3,
+     "w": "Flaps extended : 10° and 80% N1, selon la NNC 10.1 sur NG comme sur MAX."
+    },
+    {
+     "q": "Quel est le 3e memory item ?",
+     "o": [
+      "F/D switches (both) … OFF",
+      "PROBE HEAT switches … Check ON",
+      "Autothrottle (if engaged) … Disengage",
+      "Thrust levers … TO/GA"
+     ],
+     "a": 0,
+     "w": "Ordre : A/P Disengage → A/T Disengage → F/D (both) OFF → assiette/poussée. PROBE HEAT est le premier reference item, après la ligne pointillée."
+    },
+    {
+     "q": "Quelle indication n'est PAS listée comme fiable par la QRH ?",
+     "o": [
+      "Ground speed",
+      "Radio altitude",
+      "Stick shaker",
+      "N1"
+     ],
+     "a": 2,
+     "w": "Fiables : Attitude, N1, Ground speed, Radio altitude. Stick shaker, overspeed et AIRSPEED LOW peuvent sonner à tort."
+    },
+    {
+     "q": "Stabilisé avec la table PI, un badin est jugé non fiable s'il diffère de plus de…",
+     "o": [
+      "10 kt ou 0.02 M",
+      "20 kt ou 0.03 M",
+      "5 kt ou 0.01 M",
+      "30 kt ou 0.05 M"
+     ],
+     "a": 1,
+     "w": "« differs by more than 20 knots or 0.03 Mach from the airspeed shown in the table »."
+    }
+   ]
+  },
+  {
+   "id": "stab",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "STAB",
+   "title": "Runaway Stabilizer",
+   "titleFr": "Emballement du stabilisateur",
+   "fleet": "both",
+   "ref": "QRH NNC 9.1 (NG & MAX) · FCTM ch.8 Runaway Stabilizer / Manual Stabilizer Trim",
+   "flash": {
+    "title": "Croisière FL350, A/P engagé.",
+    "text": "Le trim wheel tourne en continu, la clacker du trim résonne sans arrêt. Le manche devient lourd et l'assiette dérive alors que la vitesse est stable.",
+    "cues": [
+     "Trim wheel en rotation continue",
+     "Efforts manche croissants",
+     "Indicateur de stab qui défile",
+     "STAB OUT OF TRIM possible"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Control column",
+     "action": "Hold firmly",
+     "fleet": "both"
+    },
+    {
+     "item": "Autopilot (if engaged)",
+     "action": "Disengage",
+     "fleet": "both"
+    },
+    {
+     "item": "Autothrottle (if engaged)",
+     "action": "Disengage",
+     "fleet": "both"
+    },
+    {
+     "item": "Control column and thrust levers",
+     "action": "Control airplane pitch attitude and airspeed",
+     "fleet": "both"
+    },
+    {
+     "item": "Main Electric Stabilizer trim",
+     "action": "Reduce control column forces",
+     "fleet": "both"
+    },
+    {
+     "item": "If the runaway stops after the autopilot is disengaged:",
+     "action": "Do not re-engage the autopilot or autothrottle.",
+     "fleet": "both"
+    },
+    {
+     "item": "If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both)",
+     "action": "CUTOUT",
+     "fleet": "both"
+    },
+    {
+     "item": "If the runaway continues: Stabilizer trim wheel",
+     "action": "Grasp and hold",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "2",
+     "l": "STAB TRIM cutout",
+     "s": "Both switches → CUTOUT"
+    },
+    {
+     "v": "≈15",
+     "l": "Tours de trim wheel",
+     "s": "≈ 1 unit de stab (FCTM)"
+    },
+    {
+     "v": "5.5°",
+     "l": "AOA disagree",
+     "s": "MAX : STS (Speed Trim + MCAS) inhibé, SPEED TRIM FAIL"
+    }
+   ],
+   "trap": "Débrayer l'A/P sans tenir le manche : on perd les ordres de profondeur de l'A/P. Le manche se tient fermement AVANT de déconnecter. Et une fois coupé, on ne réengage ni A/P ni A/T.",
+   "then": [
+    "Stabilizer … Trim manually (effort à deux pilotes possible)",
+    "Réduire la vitesse diminue les efforts sur le trim manuel",
+    "Anticiper les besoins de trim, ne pas réengager A/P ni A/T",
+    "Deferred items : configuration d'atterrissage et in-trim établis tôt en finale"
+   ],
+   "diff": "Memory items identiques NG/MAX (QRH 9.1). Différences système : sur MAX les cutouts s'appellent STAB TRIM PRI et B/U et coupent A/P, main electric et Speed Trim System (Speed Trim + MCAS) ; sur NG ce sont MAIN ELECT et AUTOPILOT. Sur MAX, le manche tiré n'interrompt pas un trim nose down MCAS.",
+   "qcm": [
+    {
+     "q": "Premier memory item du Runaway Stabilizer ?",
+     "o": [
+      "Autopilot (if engaged) … Disengage",
+      "STAB TRIM cutout switches (both) … CUTOUT",
+      "Control column … Hold firmly",
+      "Stabilizer trim wheel … Grasp and hold"
+     ],
+     "a": 2,
+     "w": "On tient le manche fermement avant de déconnecter l'A/P pour garder le contrôle en tangage et les ordres de profondeur de l'A/P (FCTM)."
+    },
+    {
+     "q": "Après déconnexion A/P, l'emballement continue. Action ?",
+     "o": [
+      "STAB TRIM cutout switches (both) … CUTOUT",
+      "Réengager l'autre A/P",
+      "STAB TRIM override switch … OVRD",
+      "Flaps … 15"
+     ],
+     "a": 0,
+     "w": "« If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both) … CUTOUT »."
+    },
+    {
+     "q": "Malgré les cutouts, le stab continue de bouger. Action ?",
+     "o": [
+      "Main Electric Stabilizer trim … opposé",
+      "Réduire la poussée à idle",
+      "Remettre les cutouts sur NORMAL",
+      "Stabilizer trim wheel … Grasp and hold"
+     ],
+     "a": 3,
+     "w": "« If the runaway continues: Stabilizer trim wheel … Grasp and hold ». Saisir le trim wheel arrête le mouvement du stab (FCOM)."
+    },
+    {
+     "q": "L'emballement s'arrête dès la déconnexion de l'A/P. Ensuite ?",
+     "o": [
+      "Réengager l'A/P et surveiller",
+      "Do not re-engage the autopilot or autothrottle",
+      "Cutouts sur CUTOUT par précaution",
+      "Réengager l'A/T seulement"
+     ],
+     "a": 1,
+     "w": "« If the runaway stops after the autopilot is disengaged: Do not re-engage the autopilot or autothrottle. »"
+    },
+    {
+     "q": "Sur MAX, que coupe un cutout STAB TRIM (PRI ou B/U) sur CUTOUT ?",
+     "o": [
+      "Uniquement l'A/P trim",
+      "Uniquement le trim manuel (wheel)",
+      "A/P, main electric et Speed Trim System (Speed Trim + MCAS)",
+      "Uniquement MCAS"
+     ],
+     "a": 2,
+     "w": "FCOM MAX : les entrées A/P, main electric et STS (Speed Trim et MCAS) sont déconnectées du moteur de trim. Le trim wheel manuel reste disponible."
+    }
+   ]
+  },
+  {
+   "id": "edesc",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "EDES",
+   "title": "Emergency Descent",
+   "titleFr": "Descente d'urgence",
+   "fleet": "both",
+   "ref": "QRH NNC 0.1 (NG & MAX) · SOP B737 Ed03 Rev03",
+   "flash": {
+    "title": "FL370, croisière.",
+    "text": "La cabine ne se contrôle plus après la NNC CABIN ALTITUDE WARNING : masques à 100%, communication établie. Décision : descente rapide immédiate.",
+    "cues": [
+     "Cabin altitude qui monte",
+     "Klaxon intermittent",
+     "CABIN ALTITUDE light",
+     "Masques passagers"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Announce the emergency descent.",
+     "action": "The pilot flying will advise the cabin crew, on the PA system, of impending rapid descent. The pilot monitoring will advise ATC and obtain the area altimeter setting.",
+     "fleet": "both"
+    },
+    {
+     "item": "Passenger signs",
+     "action": "ON",
+     "fleet": "both"
+    },
+    {
+     "item": "Without delay,",
+     "action": "descend to the lowest safe altitude or 10,000 feet, whichever is higher.",
+     "fleet": "both"
+    },
+    {
+     "item": "ENGINE START switches (both)",
+     "action": "CONT",
+     "fleet": "both"
+    },
+    {
+     "item": "Thrust levers (both)",
+     "action": "Reduce thrust to minimum or as needed for anti-ice",
+     "fleet": "both"
+    },
+    {
+     "item": "SPEED BRAKE",
+     "action": "FLIGHT DETENT",
+     "fleet": "MAX"
+    },
+    {
+     "item": "Speedbrake",
+     "action": "FLIGHT DETENT",
+     "fleet": "NG"
+    },
+    {
+     "item": "Set target speed to Mmo/Vmo.",
+     "action": "(Caution: If structural integrity is in doubt, limit speed as much as possible and avoid high maneuvering loads.)",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "10 000 ft",
+     "l": "Niveau cible",
+     "s": "ou lowest safe altitude, le plus haut des deux"
+    },
+    {
+     "v": "Mmo/Vmo",
+     "l": "Vitesse cible",
+     "s": "sauf doute sur la structure"
+    },
+    {
+     "v": "320 kt",
+     "l": "Autostow speedbrake",
+     "s": "NG YD101–YD105, GW > 70 308 kg"
+    }
+   ],
+   "trap": "Descendre à 10 000 ft sans regarder la MSA : c'est le plus haut entre lowest safe altitude et 10 000 ft. Et avec doute structural, on ne va pas chercher Mmo/Vmo.",
+   "then": [
+    "Approche du niveau : SPEED BRAKE lever en DOWN, mise en palier, remettre de la poussée",
+    "Crew oxygen regulators … Normal (O2 obligatoire au-dessus de 10 000 ft cabine)",
+    "ENGINE START switches (both) … As needed",
+    "Nouvelle stratégie selon météo, oxygène, carburant, terrains (LRC possible)",
+    "SOP : technique recommandée A/P en LVL CHG, A/T engagée, pas de V/S ; F/O annonce 2 000 et 1 000 ft avant le palier"
+   ],
+   "diff": "Mêmes items. Le libellé du levier est « SPEED BRAKE » sur MAX, « Speedbrake » sur NG. QRH NG (YD101–YD105) : caution autostow du speedbrake vers 50% flight detent au-delà de 320 kt si GW > 70 308 kg, ne pas contrer l'autostow sauf sous 320 kt.",
+   "qcm": [
+    {
+     "q": "Altitude cible de la descente d'urgence ?",
+     "o": [
+      "10 000 ft systématiquement",
+      "FL100 ou MSA, le plus bas des deux",
+      "Lowest safe altitude ou 10 000 ft, le plus haut des deux",
+      "14 000 ft"
+     ],
+     "a": 2,
+     "w": "« descend to the lowest safe altitude or 10,000 feet, whichever is higher »."
+    },
+    {
+     "q": "Qui annonce la descente au PA cabine selon la QRH ?",
+     "o": [
+      "Le pilot flying",
+      "Le pilot monitoring",
+      "Le CDB toujours",
+      "Le chef de cabine"
+     ],
+     "a": 0,
+     "w": "Le PF prévient la cabine au PA ; le PM prévient l'ATC et récupère le calage altimétrique."
+    },
+    {
+     "q": "Que fait-on des ENGINE START switches en memory item ?",
+     "o": [
+      "FLT",
+      "CONT",
+      "OFF",
+      "GRD"
+     ],
+     "a": 1,
+     "w": "« ENGINE START switches (both) … CONT »."
+    },
+    {
+     "q": "Doute sur l'intégrité de la structure : vitesse ?",
+     "o": [
+      "Mmo/Vmo quand même",
+      "Vref + 80",
+      "Turbulence penetration speed obligatoire",
+      "Limiter la vitesse autant que possible, éviter les fortes charges"
+     ],
+     "a": 3,
+     "w": "Caution QRH : limit speed as much as possible and avoid high maneuvering loads."
+    },
+    {
+     "q": "Sur certains NG (YD101–YD105) lourds, le speedbrake peut…",
+     "o": [
+      "Se rétracter totalement au-delà de 280 kt",
+      "Autostow vers 50% flight detent au-delà de 320 kt",
+      "Se bloquer à FLIGHT DETENT",
+      "Sortir au maximum automatiquement"
+     ],
+     "a": 1,
+     "w": "Caution QRH NG : GW > 70 308 kg, autostow vers le 50% flight detent si la vitesse dépasse 320 kt."
+    }
+   ]
+  },
+  {
+   "id": "horn",
+   "kind": "capsule",
+   "cat": "memory",
+   "code": "HORN",
+   "title": "Warning Horns (Landing / Takeoff Configuration)",
+   "titleFr": "Klaxons de configuration",
+   "fleet": "both",
+   "ref": "QRH NNC 15.1–15.3 Warning Systems (NG & MAX)",
+   "flash": {
+    "title": "Alignement piste, poussée affichée.",
+    "text": "Au moment d'avancer les manettes pour le décollage, un klaxon intermittent retentit et TAKEOFF CONFIG s'allume. Plus tard, en finale, un klaxon continu…",
+    "cues": [
+     "Klaxon intermittent au sol",
+     "TAKEOFF CONFIG light",
+     "Klaxon continu en vol",
+     "CABIN ALTITUDE light (> 10 000 ft)"
+    ]
+   },
+   "steps": [
+    {
+     "item": "If in flight, the steady warning horn sounds (LANDING CONFIGURATION):",
+     "action": "Assure correct airplane landing configuration.",
+     "fleet": "both"
+    },
+    {
+     "item": "If the intermittent warning horn sounds or a CABIN ALTITUDE light illuminates in flight at an airplane flight altitude above 10,000 feet MSL:",
+     "action": "Don the oxygen masks and set the regulators to 100%. Establish crew communications. ►►Go to the CABIN ALTITUDE WARNING or Rapid Depressurization checklist",
+     "fleet": "both"
+    },
+    {
+     "item": "If the intermittent warning horn sounds or a TAKEOFF CONFIG light illuminates on the ground when advancing the thrust levers to takeoff thrust:",
+     "action": "Assure correct airplane takeoff configuration.",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "Continu",
+     "l": "Klaxon en vol",
+     "s": "= Landing configuration"
+    },
+    {
+     "v": "Intermittent",
+     "l": "Klaxon",
+     "s": "sol = TO config · vol > 10 000 ft = cabine"
+    },
+    {
+     "v": "100%",
+     "l": "O2 régulateurs",
+     "s": "si klaxon intermittent en vol > 10 000 ft MSL"
+    }
+   ],
+   "trap": "Confondre les deux klaxons : en vol au-dessus de 10 000 ft MSL, l'intermittent est une alerte d'altitude cabine → masques d'abord, pas une recherche de configuration.",
+   "then": [
+    "Au sol (manettes vers la poussée décollage) : établir la bonne configuration décollage avant tout départ",
+    "Klaxon intermittent > 10 000 ft MSL : CABIN ALTITUDE WARNING or Rapid Depressurization (QRH 2.1)",
+    "Klaxon continu en vol : établir la bonne configuration d'atterrissage"
+   ],
+   "diff": "Items identiques. Sur NG, les voyants TAKEOFF CONFIG et CABIN ALTITUDE sont « (if installed and operative) » ; sur MAX ils sont toujours présents (Main Panel CDB et F/O).",
+   "qcm": [
+    {
+     "q": "En vol, klaxon CONTINU. Memory item ?",
+     "o": [
+      "Masques O2 à 100%",
+      "Assure correct airplane landing configuration.",
+      "Assure correct airplane takeoff configuration.",
+      "Descente d'urgence"
+     ],
+     "a": 1,
+     "w": "LANDING CONFIGURATION : « In flight, the steady warning horn sounds » → Assure correct airplane landing configuration."
+    },
+    {
+     "q": "En vol à FL250, klaxon INTERMITTENT. Première action ?",
+     "o": [
+      "Vérifier les volets",
+      "Sortir le train",
+      "Don the oxygen masks and set the regulators to 100%",
+      "Couper le klaxon et continuer"
+     ],
+     "a": 2,
+     "w": "Au-dessus de 10 000 ft MSL, l'intermittent = altitude cabine : masques à 100%, communication, puis NNC 2.1."
+    },
+    {
+     "q": "Au sol, poussée avancée, klaxon intermittent. Memory item ?",
+     "o": [
+      "Assure correct airplane takeoff configuration.",
+      "Don the oxygen masks…",
+      "Assure correct airplane landing configuration.",
+      "PROBE HEAT … ON"
+     ],
+     "a": 0,
+     "w": "TAKEOFF CONFIGURATION : Assure correct airplane takeoff configuration."
+    },
+    {
+     "q": "Après masques et communication sur klaxon intermittent en vol, quelle NNC ?",
+     "o": [
+      "Emergency Descent seule",
+      "Airspeed Unreliable",
+      "LANDING CONFIGURATION",
+      "CABIN ALTITUDE WARNING or Rapid Depressurization"
+     ],
+     "a": 3,
+     "w": "« ►►Go to the CABIN ALTITUDE WARNING or Rapid Depressurization checklist on page 2.1 »."
+    },
+    {
+     "q": "Seuil d'altitude avion qui fait de l'intermittent une alarme cabine ?",
+     "o": [
+      "8 000 ft MSL",
+      "10 000 ft MSL",
+      "14 000 ft MSL",
+      "FL200"
+     ],
+     "a": 1,
+     "w": "« in flight at an airplane flight altitude above 10,000 feet MSL »."
+    }
+   ]
+  },
+  {
+   "id": "stab-app",
+   "kind": "capsule",
+   "cat": "sop",
+   "code": "STAB",
+   "title": "Stabilized Approach Criteria",
+   "titleFr": "Approche stabilisée",
+   "fleet": "both",
+   "ref": "SOP B737 Ed03 Rev03 §17.5 p.132-134 · FCTM ch.5 Stabilized Approach",
+   "flash": {
+    "title": "ILS 05, VMC, vent arrière fort.",
+    "text": "Tu as accepté un raccourci ATC. À 1100 ft AFE : flaps 30 sortis, Vapp +14 kt, V/S 1200 fpm, glide 1 dot haut. Le PM regarde l'altimètre…",
+    "cues": [
+     "Vapp +14 kt",
+     "V/S −1200 fpm",
+     "G/S 1 dot",
+     "1000 ft AFE"
+    ]
+   },
+   "steps": [
+    {
+     "item": "At 1000 feet to touchdown (PM)",
+     "action": "Call \"1000 STABLE\" or \"1000 UNSTABLE GO AROUND\"",
+     "fleet": "both"
+    },
+    {
+     "item": "If PM call out stable (PF)",
+     "action": "Call \"CONTINUE\"",
+     "fleet": "both"
+    },
+    {
+     "item": "If PM call out unstable (PF)",
+     "action": "Call \"GO-AROUND\" and execute a GO AROUND",
+     "fleet": "both"
+    },
+    {
+     "item": "Approach speed",
+     "action": "deviations of +10 knots to – 5 knots are acceptable if the airspeed is trending toward approach speed",
+     "fleet": "both"
+    },
+    {
+     "item": "Vertical Speed",
+     "action": "no greater than 1000 fpm in the last 1000ft",
+     "fleet": "both"
+    },
+    {
+     "item": "ILS approaches",
+     "action": "within one dot of the glide slope and localizer, or within the expanded localizer scale",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "1000 ft",
+     "l": "AFE",
+     "s": "Toutes approches (y.c. visual approach)"
+    },
+    {
+     "v": "+10/−5 kt",
+     "l": "Vapp",
+     "s": "Si tendance vers Vapp"
+    },
+    {
+     "v": "1000 fpm",
+     "l": "V/S max",
+     "s": "Derniers 1000 ft"
+    },
+    {
+     "v": "500 ft",
+     "l": "AFE",
+     "s": "Circling & visual traffic pattern"
+    }
+   ],
+   "trap": "Le FCTM Boeing dit 1000 ft IMC / 500 ft VMC. Chez Air Algérie : TOUTES les approches stabilisées à 1000 ft AFE — seuls le circling et le visual traffic pattern ont la porte à 500 ft AFE.",
+   "then": [
+    "Déstabilisée sous 1000 ft AFE = remise de gaz immédiate.",
+    "Critères complets : bonne trajectoire, petites corrections, config atterrissage, poussée adaptée, briefings et checklists faits.",
+    "RNP aux minima VNAV : dans 75 ft de déviation verticale.",
+    "Circling / visual pattern : ailes à plat sur le final à 400 ft AFE (visual segment : 500 ft AFE).",
+    "Au seuil : Vapp +10 kt max, atterrissage dans la TDZ (3000 premiers ft ou 1er tiers, le plus court)."
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "Approche à vue de jour, VMC. Selon le SOP Air Algérie, à quelle hauteur doit-elle être stabilisée ?",
+     "o": [
+      "500 ft AFE",
+      "1000 ft AFE",
+      "1500 ft AFE",
+      "400 ft AFE"
+     ],
+     "a": 1,
+     "w": "SOP §17.5.1 : « For a Visual Approach, the airplane must be stabilized … by 1000 feet AFE ». Le 500 ft VMC est la reco FCTM, pas la règle compagnie."
+    },
+    {
+     "q": "Quelle tolérance de vitesse est acceptable pour être stabilisé ?",
+     "o": [
+      "+5/−5 kt",
+      "+15/−5 kt",
+      "+10/0 kt",
+      "+10/−5 kt si tendance vers Vapp"
+     ],
+     "a": 3,
+     "w": "« deviations of +10 knots to – 5 knots are acceptable if the airspeed is trending toward approach speed »."
+    },
+    {
+     "q": "Une approche devient non stabilisée à 700 ft AFE. Que fait-on ?",
+     "o": [
+      "Remise de gaz immédiate",
+      "On corrige jusqu'à 500 ft",
+      "On continue si la piste est en vue",
+      "Le CDB décide de continuer"
+     ],
+     "a": 0,
+     "w": "Note 1 §17.5.1 : « An approach that becomes unstabilized below 1000 feet AFE requires an immediate go-around »."
+    },
+    {
+     "q": "Pour un circling, quelle est la porte de stabilisation ?",
+     "o": [
+      "1000 ft AFE, ailes à plat à 500 ft",
+      "500 ft AFE, ailes à plat sur le final à 400 ft AFE",
+      "400 ft AFE",
+      "MDA"
+     ],
+     "a": 1,
+     "w": "Circling : stabilisé à 500 ft AFE, sauf les ailes « leveled on final when the airplane reaches 400 feet AFE »."
+    },
+    {
+     "q": "Qui annonce à 1000 ft et quoi ?",
+     "o": [
+      "Le PF : « STABILIZED »",
+      "Le GPWS seul, pas d'annonce",
+      "Le PM : « 1000 STABLE » ou « 1000 UNSTABLE GO AROUND »",
+      "Le PM : « ONE THOUSAND »"
+     ],
+     "a": 2,
+     "w": "SOP §18.2.1 : le PM annonce « 1000 STABLE » ou « 1000 UNSTABLE GO AROUND », le PF répond « CONTINUE » ou « GO-AROUND »."
+    }
+   ]
+  },
+  {
+   "id": "go-around-sop",
+   "kind": "capsule",
+   "cat": "sop",
+   "code": "G/A",
+   "title": "F/D Go-Around Procedure (Single Channel or Manual)",
+   "titleFr": "Remise de gaz — callouts SOP",
+   "fleet": "both",
+   "ref": "SOP B737 Ed03 Rev03 §19 p.167-171 · FCOM NP Go-Around · FCTM ch.5",
+   "flash": {
+    "title": "ILS 23, CAT I, brouillard.",
+    "text": "GPWS « MINIMUMS ». Le PM n'a rien annoncé en visuel. Mains sur le manche, AP déconnecté.",
+    "cues": [
+     "« MINIMUMS »",
+     "Pas d'annonce visuelle du PM",
+     "Flaps 30",
+     "A/T engagé"
+    ]
+   },
+   "steps": [
+    {
+     "item": "PF",
+     "action": "Push TO/GA switch. Call “GO-AROUND, “SET GO-AROUND THRUST”",
+     "fleet": "both"
+    },
+    {
+     "item": "PF",
+     "action": "Call \"FLAPS FIFTEEN\" or \"FLAPS ___\" as needed — Rotate to go–around attitude",
+     "fleet": "both"
+    },
+    {
+     "item": "PM",
+     "action": "Confirm thrust advances toward G/A, and call “GO-AROUND THRUST SET” — position FLAP lever to 15",
+     "fleet": "both"
+    },
+    {
+     "item": "Positive rate of climb",
+     "action": "PM: “POSITIVE RATE” — PF: “GEAR UP”",
+     "fleet": "both"
+    },
+    {
+     "item": "If the airspeed is within the amber band",
+     "action": "limit bank angle to 15°",
+     "fleet": "both"
+    },
+    {
+     "item": "Above 400 feet radio altitude",
+     "action": "call for appropriate roll mode — “TUNE RADIOS FOR MISSED APPROACH”",
+     "fleet": "both"
+    },
+    {
+     "item": "At acceleration height (minimum 1000ft AGL)",
+     "action": "Commence flap retraction call \"FLAPS ___\" according to the flap retraction schedule",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "15°",
+     "l": "Pitch",
+     "s": "Rotation G/A (manuel / single channel)"
+    },
+    {
+     "v": "400 ft",
+     "l": "RA",
+     "s": "Mode latéral"
+    },
+    {
+     "v": "1000 ft",
+     "l": "AGL mini",
+     "s": "Accélération / rentrée volets"
+    },
+    {
+     "v": "15°",
+     "l": "Bank max",
+     "s": "Vitesse dans la bande ambre"
+    }
+   ],
+   "trap": "Aux minima, le PF ne cherche pas la piste : pas d'annonce visuelle du PM = remise de gaz. Et une fois les reverses sorties, atterrissage complet obligatoire.",
+   "then": [
+    "TO/GA une 2e fois si poussée G/A pleine requise (après la poussée réduite).",
+    "Volets rentrés et ≥ vitesse de manœuvre : LVL CHG (VNAV si volets UP), « COMMAND A/B ».",
+    "PM : « SPEED CHECKED, FLAPS UP » puis « FLAPS UP, NO LIGHTS ».",
+    "« AFTER TAKEOFF CHECKLIST ».",
+    "Dual channel (FLARE armé) : AP restent engagés, PF « GO-AROUND, FLAPS 15 » puis « SET GO-AROUND THRUST »."
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "Remise de gaz manuelle : quelle est la première annonce du PF ?",
+     "o": [
+      "« GO-AROUND, FLAPS 15 »",
+      "« GO-AROUND, SET GO-AROUND THRUST »",
+      "« TOGA, FLAPS 15, GEAR UP »",
+      "« MISSED APPROACH »"
+     ],
+     "a": 1,
+     "w": "§19.2 : Push TO/GA switch, call « GO-AROUND, SET GO-AROUND THRUST ». « GO-AROUND, FLAPS 15 » est l'annonce dual channel (§19.3)."
+    },
+    {
+     "q": "Hauteur minimale d'accélération pour commencer à rentrer les volets ?",
+     "o": [
+      "400 ft AGL",
+      "800 ft AGL",
+      "1000 ft AGL",
+      "1500 ft AGL"
+     ],
+     "a": 2,
+     "w": "« At acceleration height (minimum 1000ft AGL) Commence flap retraction »."
+    },
+    {
+     "q": "Vitesse dans la bande ambre pendant la G/A : limite d'inclinaison ?",
+     "o": [
+      "10°",
+      "15°",
+      "25°",
+      "30°"
+     ],
+     "a": 1,
+     "w": "« If the airspeed is within the amber band, limit bank angle to 15° »."
+    },
+    {
+     "q": "Aux minimums, le PF n'a entendu aucune annonce de références visuelles du PM. Il doit :",
+     "o": [
+      "Regarder dehors pour chercher la piste",
+      "Attendre 100 ft de plus",
+      "Demander au PM",
+      "Remettre les gaz sans délai"
+     ],
+     "a": 3,
+     "w": "SOP p.143 : « If the PF has not heard any visual cue calls from the PM, it is safe to assume that no visual cues have been received so execute a go-around »."
+    },
+    {
+     "q": "Remise de gaz après le toucher : quelle affirmation est correcte ?",
+     "o": [
+      "Après sélection des reverses, l'atterrissage complet est obligatoire",
+      "Une G/A automatique reste possible après le toucher",
+      "Le F/D G/A est disponible dès l'avance des manettes au sol",
+      "Les reverses peuvent être rentrées pour redécoller"
+     ],
+     "a": 0,
+     "w": "§19.1 : « Once reverse thrust is initiated following touchdown, a full stop landing must be made. » Et « An automatic go-around cannot be initiated after touchdown »."
+    }
+   ]
+  },
+  {
+   "id": "takeoff-callouts",
+   "kind": "capsule",
+   "cat": "sop",
+   "code": "T/O",
+   "title": "Takeoff Procedure — Standard Callouts",
+   "titleFr": "Décollage — annonces standard",
+   "fleet": "both",
+   "ref": "SOP B737 Ed03 Rev03 §14.2-14.4 p.101-105 · §7.1 p.46",
+   "flash": {
+    "title": "Alger 23, le F/O est PF.",
+    "text": "Alignés, autorisés au décollage. Le CDB transfère les commandes. Les manettes avancent…",
+    "cues": [
+     "« YOU HAVE CONTROL »",
+     "40% N1",
+     "TOGA",
+     "80 kt"
+    ]
+   },
+   "steps": [
+    {
+     "item": "If the First Officer is doing the Take Off",
+     "action": "CPT: “YOU HAVE CONTROL” — F/O: “I HAVE CONTROL”",
+     "fleet": "both"
+    },
+    {
+     "item": "PF, starting takeoff roll",
+     "action": "Call \"TAKEOFF\" Advance the thrust levers to approximately 40% N1 — PM: “STABILIZED”",
+     "fleet": "both"
+    },
+    {
+     "item": "PF",
+     "action": "Push TOGA and call: “N1, HEADING SEL/LNAV, TOGA, SET THRUST”",
+     "fleet": "both"
+    },
+    {
+     "item": "PM",
+     "action": "Adjust takeoff thrust before 60 knots as needed — Call \"THRUST SET\"",
+     "fleet": "both"
+    },
+    {
+     "item": "PM: “EIGHTY KNOTS”",
+     "action": "PF: Verify 80 knots and call “CHECKED”",
+     "fleet": "both"
+    },
+    {
+     "item": "PM: “V ONE” — At VR: “ROTATE”",
+     "action": "PF: At VR, rotate toward 15° pitch attitude",
+     "fleet": "both"
+    },
+    {
+     "item": "PM: “POSITIVE RATE”",
+     "action": "PF: “GEAR UP” — PM sets the landing gear lever to UP",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "40%",
+     "l": "N1",
+     "s": "Stabilisation avant TOGA"
+    },
+    {
+     "v": "60 kt",
+     "l": "Réglage poussée",
+     "s": "Ajuster avant 60 kt"
+    },
+    {
+     "v": "15°",
+     "l": "Pitch",
+     "s": "Rotation à VR"
+    },
+    {
+     "v": "400 ft",
+     "l": "RA",
+     "s": "Début des annonces FMA"
+    }
+   ],
+   "trap": "F/O PF : après « THRUST SET », c'est la main du CDB qui est sur les manettes jusqu'à V1 — c'est lui qui décide le rejet.",
+   "then": [
+    "Pas d'autre annonce FMA sous 400 ft RA ; à 400 ft : « LNAV » ou « HEADING SELECT » + « VNAV SPEED ».",
+    "Au-dessus de 400 ft RA : mode latéral, AP au-dessus de l'altitude mini → « COMMAND A/B ».",
+    "Thrust reduction : « N ONE VNAV SPEED » ; volets selon schedule, PM « FLAPS ___, GREEN LIGHT ».",
+    "Sans virage publié dans la SID : pas de virage avant 400 ft AGL.",
+    "F/D OFF interdit en ligne pour l'entraînement ; V/S pas avant flaps UP."
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "À combien de N1 le PF stabilise-t-il les moteurs avant TOGA ?",
+     "o": [
+      "Environ 40% N1",
+      "Environ 70% N1",
+      "Ralenti",
+      "Environ 60% N1"
+     ],
+     "a": 0,
+     "w": "« Advance the thrust levers to approximately 40% N1 », le PM annonce « STABILIZED »."
+    },
+    {
+     "q": "Avant quelle vitesse le PM doit-il avoir ajusté la poussée décollage ?",
+     "o": [
+      "80 kt",
+      "V1",
+      "60 kt",
+      "40 kt"
+     ],
+     "a": 2,
+     "w": "« Adjust takeoff thrust before 60 knots as needed »."
+    },
+    {
+     "q": "Le F/O est PF. Qui a la main sur les manettes jusqu'à V1 après « THRUST SET » ?",
+     "o": [
+      "Le F/O (PF)",
+      "Le CDB",
+      "Personne, A/T engagé",
+      "Le PF jusqu'à 80 kt puis le CDB"
+     ],
+     "a": 1,
+     "w": "« After takeoff thrust is set, the captain's hand must be on the thrust levers until V1. »"
+    },
+    {
+     "q": "Annonce PM « EIGHTY KNOTS » : réponse du PF ?",
+     "o": [
+      "« EIGHTY »",
+      "« V ONE »",
+      "Aucune",
+      "« CHECKED »"
+     ],
+     "a": 3,
+     "w": "PF : « Verify 80 knots and call “CHECKED” »."
+    },
+    {
+     "q": "À quelle hauteur commencent les annonces FMA au décollage (hors annonce TOGA) ?",
+     "o": [
+      "50 ft RA",
+      "400 ft RA",
+      "1000 ft AGL",
+      "Thrust reduction altitude"
+     ],
+     "a": 1,
+     "w": "§14.4 : « No further FMA callouts are to be made below 400 feet RA »."
+    }
+   ]
+  },
+  {
+   "id": "rto-decision",
+   "kind": "capsule",
+   "cat": "sop",
+   "code": "RTO",
+   "title": "Rejected Takeoff Decision",
+   "titleFr": "Décision d'interruption du décollage",
+   "fleet": "both",
+   "ref": "SOP B737 Ed03 Rev03 NNP §3.1-3.1.1 p.217-218 · QRH MAN.1 Rejected Takeoff (NG & MAX)",
+   "flash": {
+    "title": "Décollage Oran, 110 kt, V1 142.",
+    "text": "Master caution, voyant PACK sur l'overhead. Le PF continue l'accélération. Le CDB a la main sur les manettes…",
+    "cues": [
+     "MASTER CAUTION",
+     "AIR COND annunciator",
+     "110 kt",
+     "V1 142"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Decision to reject",
+     "action": "The captain has the sole responsibility … the captain clearly announces “REJECT,” immediately starts the rejected takeoff maneuver and assumes control of the airplane",
+     "fleet": "both"
+    },
+    {
+     "item": "Before 80 knots, reject the takeoff for any of the following",
+     "action": "master caution · system failure(s) · unusual noise or vibration · tire failure · abnormally slow acceleration · takeoff configuration warning · fire or fire warning · engine failure · predictive windshear warning · side window opens · unsafe or unable to fly",
+     "fleet": "both"
+    },
+    {
+     "item": "Above 80 knots and before V1, reject the takeoff for any of the following",
+     "action": "fire or fire warning · engine failure · predictive windshear warning · if the airplane is unsafe or unable to fly",
+     "fleet": "both"
+    },
+    {
+     "item": "If the first officer is making the takeoff",
+     "action": "the first officer maintains control of the airplane until the captain makes a positive input to the controls",
+     "fleet": "both"
+    },
+    {
+     "item": "Below 60 knots or when aircraft has come to a stop (F/O)",
+     "action": "“AIR ALGERIE (Call sign) REJECTED TAKEOFF AIRCRAFT ON THE RUNWAY\"",
+     "fleet": "both"
+    },
+    {
+     "item": "Airplane stopped (CPT, PA)",
+     "action": "\"CABIN CREW NORMAL PROCEDURES\" or \"CABIN CREW AT YOUR STATIONS\"",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "80 kt",
+     "l": "Seuil",
+     "s": "Bas / haute vitesse"
+    },
+    {
+     "v": "V1",
+     "l": "Décision",
+     "s": "1re action de freinage avant V1"
+    },
+    {
+     "v": "60 kt",
+     "l": "Appel ATC",
+     "s": "Par le F/O, ou à l'arrêt"
+    },
+    {
+     "v": "5-10 kt",
+     "l": "Avant V2",
+     "s": "Rotation si Vr oubliée"
+    }
+   ],
+   "trap": "Au-dessus de 80 kt, une master caution seule n'est PAS un motif de rejet : seuls feu, panne moteur, PWS warning, avion inapte au vol. Et après V1, rejet seulement si le CDB juge l'avion incapable de voler.",
+   "then": [
+    "Avion arrêté : évaluer, memory items et/ou NNC.",
+    "Évacuation : « EVACUATION CHECKLIST », PA « EVACUATE, EVACUATE, EVACUATE ».",
+    "Nouveau décollage prévu = nouveau « CABIN READY ».",
+    "V speeds non affichées sans autre panne : décollage possible, le PM annonce V1 et VR."
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "À 110 kt (V1 142), master caution PACK. Décision ?",
+     "o": [
+      "Rejet immédiat",
+      "Rejet si le CDB l'annonce avant 120 kt",
+      "Continuer le décollage",
+      "Rejet seulement si le PM confirme"
+     ],
+     "a": 2,
+     "w": "Au-dessus de 80 kt et avant V1, la master caution n'est pas dans la liste : fire, engine failure, predictive windshear warning, unsafe or unable to fly."
+    },
+    {
+     "q": "Qui décide du rejet et quelle annonce ?",
+     "o": [
+      "Le PF : « STOP »",
+      "Le CDB seul : « REJECT »",
+      "Le PM : « ABORT »",
+      "Celui qui voit la panne : « STOP STOP »"
+     ],
+     "a": 1,
+     "w": "QRH MAN.1 : « The captain has the sole responsibility for the decision to reject the takeoff … clearly announces “REJECT” »."
+    },
+    {
+     "q": "F/O PF, le CDB annonce « REJECT ». Quand le CDB a-t-il les commandes ?",
+     "o": [
+      "Dès l'annonce",
+      "À 60 kt",
+      "À l'arrêt",
+      "Quand il fait une action positive sur les commandes"
+     ],
+     "a": 3,
+     "w": "« the first officer maintains control of the airplane until the captain makes a positive input to the controls »."
+    },
+    {
+     "q": "Quand le F/O informe-t-il l'ATC du rejet ?",
+     "o": [
+      "Sous 60 kt ou à l'arrêt, après la prise de commandes du CDB",
+      "Immédiatement à l'annonce REJECT",
+      "Après la checklist évacuation",
+      "Jamais, c'est le CDB"
+     ],
+     "a": 0,
+     "w": "SOP §3.1 : « After the captain has taken control and below 60 knots or when aircraft has come to a stop »."
+    },
+    {
+     "q": "Avion arrêté, évacuation possiblement nécessaire. Annonce PA du CDB ?",
+     "o": [
+      "« CABIN CREW NORMAL PROCEDURES »",
+      "« EVACUATE, EVACUATE, EVACUATE »",
+      "« CABIN CREW AT YOUR STATIONS »",
+      "« NUMBER ONE TO THE FLIGHT DECK »"
+     ],
+     "a": 2,
+     "w": "« CABIN CREW AT YOUR STATIONS » quand une évacuation pourrait être nécessaire ; « EVACUATE ×3 » seulement après décision d'évacuer."
+    }
+   ]
+  },
+  {
+   "id": "approach-deviations",
+   "kind": "capsule",
+   "cat": "sop",
+   "code": "DEV",
+   "title": "Callouts — Deviations on Final Approach",
+   "titleFr": "Annonces de déviation en finale",
+   "fleet": "both",
+   "ref": "SOP B737 Ed03 Rev03 §7.1-7.4 p.46-49",
+   "flash": {
+    "title": "ILS 09, turbulence, PF en manuel.",
+    "text": "Vers 800 ft, le localizer dérive, le vario passe à −1300 fpm, l'inclinaison atteint 10° pour corriger. Le PM doit parler.",
+    "cues": [
+     "LOC ¼ dot",
+     "V/S −1300 fpm",
+     "Bank 10°",
+     "IAS Vapp −6"
+    ]
+   },
+   "steps": [
+    {
+     "item": "IAS: Vapp (+10/-5 Kts) from bug speed",
+     "action": "“SPEED”",
+     "fleet": "both"
+    },
+    {
+     "item": "Rate of Descent: ≥1200ft/mn",
+     "action": "“SINK RATE”",
+     "fleet": "both"
+    },
+    {
+     "item": "Pitch Attitude: 10.0 Nose Up or 0.0 Nose Down",
+     "action": "“PITCH”",
+     "fleet": "both"
+    },
+    {
+     "item": "Bank Angle: > 7°",
+     "action": "“BANK”",
+     "fleet": "both"
+    },
+    {
+     "item": "Localizer: Excess Deviation Warning or 1/4 Dot on the PFD",
+     "action": "“LOCALIZER”",
+     "fleet": "both"
+    },
+    {
+     "item": "Glideslope: Excess Deviation Warning or 1 Dot on the PFD",
+     "action": "“GLIDESLOPE”",
+     "fleet": "both"
+    },
+    {
+     "item": "Course: 2.5° (VOR)/5° (ADF)",
+     "action": "“COURSE”",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "1200",
+     "l": "ft/min",
+     "s": "« SINK RATE »"
+    },
+    {
+     "v": "¼ dot",
+     "l": "LOC",
+     "s": "« LOCALIZER »"
+    },
+    {
+     "v": "1 dot",
+     "l": "G/S",
+     "s": "« GLIDESLOPE »"
+    },
+    {
+     "v": "> 7°",
+     "l": "Bank",
+     "s": "« BANK »"
+    }
+   ],
+   "trap": "Ne pas inverser : LOCALIZER à ¼ dot, GLIDESLOPE à 1 dot. Et SINK RATE à 1200 ft/min ≠ critère de stabilisation 1000 fpm.",
+   "then": [
+    "Si le PM rate une annonce, le PF la fait.",
+    "Le PF acquitte les annonces GPWS, sauf les annonces d'altitude sous 500 ft AFE.",
+    "« CONTINUE » / « GO-AROUND » aux minima : toujours annoncé.",
+    "Annonce auto non entendue → le PM la fait. Changements FMA sous 1000 ft : annoncés par le PM.",
+    "Checkpoints : « ___ FEET HIGH/LOW »."
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "À partir de quelle déviation localizer le PM annonce-t-il « LOCALIZER » ?",
+     "o": [
+      "1 dot",
+      "½ dot",
+      "¼ dot",
+      "2 dots"
+     ],
+     "a": 2,
+     "w": "Table §7.3 : « Excess Deviation Warning or 1/4 Dot on the PFD »."
+    },
+    {
+     "q": "Seuil de l'annonce « SINK RATE » en finale ?",
+     "o": [
+      "≥ 1000 ft/min",
+      "≥ 1200 ft/min",
+      "≥ 1500 ft/min",
+      "≥ 800 ft/min"
+     ],
+     "a": 1,
+     "w": "« Rate of Descent ≥1200ft/mn → SINK RATE »."
+    },
+    {
+     "q": "Annonce « PITCH » : limites ?",
+     "o": [
+      "10.0 nose up ou 0.0 nose down",
+      "15° nose up ou 5° nose down",
+      "7.5° nose up ou 2.5° nose down",
+      "12° nose up ou 0° nose down"
+     ],
+     "a": 0,
+     "w": "Table §7.3 : « 10.0 Nose Up or 0.0 Nose Down »."
+    },
+    {
+     "q": "Annonce « BANK » en finale à partir de :",
+     "o": [
+      "> 15°",
+      "> 10°",
+      "> 5°",
+      "> 7°"
+     ],
+     "a": 3,
+     "w": "Table §7.3 : « Bank Angle > 7° → BANK »."
+    },
+    {
+     "q": "Sous 500 ft AFE, le PF doit-il acquitter les annonces d'altitude GPWS ?",
+     "o": [
+      "Oui, toutes",
+      "Non, sauf « CONTINUE »/« GO-AROUND » aux minima qui restent obligatoires",
+      "Oui, seulement « PLUS HUNDRED »",
+      "Non, le PM les acquitte"
+     ],
+     "a": 1,
+     "w": "§7.1 : pas d'acquittement des altitude callouts sous 500 ft AFE ; « CONTINUE » ou « GO-AROUND » aux minimums « shall always be made »."
+    }
+   ]
+  },
+  {
+   "id": "altitude-awareness",
+   "kind": "capsule",
+   "cat": "sop",
+   "code": "ALT",
+   "title": "Altitude Selections/Awareness — MCP Settings",
+   "titleFr": "Altitude & MCP : zéro level bust",
+   "fleet": "both",
+   "ref": "SOP B737 Ed03 Rev03 §5.3 p.39 · §7.1-7.2 p.46-47 · §15 p.112",
+   "flash": {
+    "title": "Descente vers FL120, fréquence chargée.",
+    "text": "L'ATC donne « descend FL110 » — était-ce pour vous ou pour un indicatif proche ? AP engagé, le PF tend la main vers la fenêtre ALT.",
+    "cues": [
+     "Indicatifs similaires",
+     "MCP ALT",
+     "VNAV PTH",
+     "« ONE THOUSAND TO LEVEL OFF »"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Autopilot engaged (PF sets)",
+     "action": "\"ALTITUDE/FLIGHT LEVEL ___ SET\" — PM verifies and calls \"CHECKED\"",
+     "fleet": "both"
+    },
+    {
+     "item": "Manual flight (PF commands)",
+     "action": "\"SET ALTITUDE/FLIGHT LEVEL ___\" — PM executes and replies \"___ SET\" — PF \"CHECKED\"",
+     "fleet": "both"
+    },
+    {
+     "item": "Approaching the assigned altitude",
+     "action": "“ONE THOUSAND TO LEVEL OFF”",
+     "fleet": "both"
+    },
+    {
+     "item": "If in doubt about the clearance received",
+     "action": "the PM shall immediately contact ATC and clarify/confirm the issued altitude clearance",
+     "fleet": "both"
+    },
+    {
+     "item": "First contact with ATC",
+     "action": "report the cleared flight level",
+     "fleet": "both"
+    },
+    {
+     "item": "If an FMA fails to engage, or disengages",
+     "action": "call the mode that failed preceded by the word “NO” i.e. “NO ALT HOLD”",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "1000 ft",
+     "l": "Avant palier",
+     "s": "« ONE THOUSAND TO LEVEL OFF »"
+    },
+    {
+     "v": "2",
+     "l": "Annonces",
+     "s": "Verbale + automatique"
+    }
+   ],
+   "trap": "CWS sélectionné au MCP : le FMA a l'air normal mais ALT ACQ n'est plus armé — l'avion traverse l'altitude sélectionnée. Ne pas sélectionner CWS.",
+   "then": [
+    "Après chaque message ATC, les deux pilotes s'accordent qu'il était pour eux.",
+    "Hors routes publiées : vérifier altitude assignée > MSA.",
+    "Toute modification de la fenêtre ALT est annoncée par celui qui la manipule.",
+    "Croiser altimètres et calages ; standard au passage de l'altitude de transition.",
+    "À la capture glide : PF pointe la missed approach altitude (LEGS), l'affiche, « SET » → PM « CHECKED »."
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "Annonce standard à l'approche de l'altitude assignée ?",
+     "o": [
+      "« ONE THOUSAND TO LEVEL OFF »",
+      "« ALTITUDE ALERT »",
+      "« ONE TO GO »",
+      "« APPROACHING LEVEL »"
+     ],
+     "a": 0,
+     "w": "SOP §5.3 b : « ONE THOUSAND TO LEVEL OFF » standard callout when approaching the assigned altitude."
+    },
+    {
+     "q": "AP engagé, nouvelle altitude ATC. Qui l'affiche au MCP ?",
+     "o": [
+      "Le PM, le PF vérifie",
+      "Le CDB toujours",
+      "Le PF, le PM vérifie visuellement et verbalement",
+      "Celui qui a répondu à l'ATC"
+     ],
+     "a": 2,
+     "w": "§5.3 e : « With the autopilot engaged, PF sets the new altitude » ; le PM vérifie. AP non engagé : le PM affiche, le PF vérifie."
+    },
+    {
+     "q": "Doute sur l'altitude autorisée. Qui agit ?",
+     "o": [
+      "Le PF reprend la dernière altitude",
+      "Le CDB décide sans ATC",
+      "On attend le prochain message",
+      "Le PM appelle immédiatement l'ATC pour confirmer"
+     ],
+     "a": 3,
+     "w": "§5.3 : « the PM shall immediately call ATC and ask for confirmation of the instruction »."
+    },
+    {
+     "q": "Pourquoi ne pas sélectionner CWS au MCP ?",
+     "o": [
+      "Le F/D se déconnecte",
+      "ALT ACQ n'est plus armé et l'avion traverse l'altitude MCP",
+      "L'A/T passe en ARM",
+      "Le VNAV se reprogramme"
+     ],
+     "a": 1,
+     "w": "SOP p.112 : « the FMA looks normal but the ALT ACQ facility is no longer armed. The aircraft will continue through the MCP selected altitude »."
+    },
+    {
+     "q": "ALT HOLD ne s'engage pas au palier. Annonce ?",
+     "o": [
+      "« ALT HOLD »",
+      "« CHECK FMA »",
+      "« NO ALT HOLD »",
+      "« LEVEL OFF »"
+     ],
+     "a": 2,
+     "w": "§7.1 : « call the mode that failed preceded by the word “NO” i.e. “NO ALT HOLD” »."
+    }
+   ]
+  },
+  {
+   "id": "autoflight-policy",
+   "kind": "capsule",
+   "cat": "sop",
+   "code": "AFS",
+   "title": "Autoflight Policy",
+   "titleFr": "Politique d'automatisme",
+   "fleet": "both",
+   "ref": "SOP B737 Ed03 Rev03 §6 p.43-44 · §14.4 p.105",
+   "flash": {
+    "title": "VOR/DME 27, plafond 800 ft, visi 4 km.",
+    "text": "Belle journée pour s'entraîner au pilotage manuel ? Le PF propose de faire l'approche à la main, F/D ON.",
+    "cues": [
+     "Ceiling 800 ft",
+     "Visibility 4 km",
+     "Non-ILS",
+     "CMD A dispo"
+    ]
+   },
+   "steps": [
+    {
+     "item": "Selecting autopilot/auto throttle on or off",
+     "action": "the PF must verbalize the change. Both pilots must verify the change",
+     "fleet": "both"
+    },
+    {
+     "item": "Non-ILS approaches when ceiling < 1,000 feet or visibility < 5 km or weather at the published minimum",
+     "action": "Use of the autopilot is required (if operational)",
+     "fleet": "both"
+    },
+    {
+     "item": "At or below 5000 feet AFE",
+     "action": "the PF shall guard the flight controls (control wheel, rudder pedals and thrust levers)",
+     "fleet": "both"
+    },
+    {
+     "item": "PF not prepared to assume physical control",
+     "action": "the PF role must be passed to the PM with positive confirmation",
+     "fleet": "both"
+    },
+    {
+     "item": "ILS cat 1 approach",
+     "action": "The use of dual channel autopilot … is not authorized",
+     "fleet": "both"
+    },
+    {
+     "item": "Auto throttle",
+     "action": "recommended during takeoff and climb … all other phases only when the autopilot is engaged in CMD",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "1000 ft",
+     "l": "Plafond",
+     "s": "Non-ILS : AP requis si inférieur"
+    },
+    {
+     "v": "5 km",
+     "l": "Visibilité",
+     "s": "Non-ILS : AP requis si inférieure"
+    },
+    {
+     "v": "5000 ft",
+     "l": "AFE",
+     "s": "PF garde les commandes"
+    },
+    {
+     "v": "400 ft",
+     "l": "AGL",
+     "s": "Deux mains sur le manche à la rotation"
+    }
+   ],
+   "trap": "Approche non-ILS sous 1000 ft de plafond ou 5 km de visi : l'AP est OBLIGATOIRE (si opérationnel). Et pas de dual channel en ILS CAT I.",
+   "then": [
+    "Pilotage manuel encouragé si trafic et charge faibles ; F/D OFF pour entraînement interdit en ligne.",
+    "Les deux F/D obligatoires pour tous les décollages (si opérationnels), sélectionnés ON/OFF ensemble.",
+    "Engager l'AP seulement avion trimé, ordres F/D satisfaits, trajectoire maîtrisée.",
+    "PF annonce les changements FMA ; PM « CHECKED ». Sous 1000 ft en approche : le PM annonce.",
+    "Paliers à basse altitude normalement sous AP."
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "Approche VOR, plafond 800 ft. Pilotage manuel autorisé ?",
+     "o": [
+      "Oui, si le CDB l'accepte",
+      "Oui, avec F/D ON",
+      "Non, l'AP est requis (si opérationnel)",
+      "Oui, sous 1000 ft seulement"
+     ],
+     "a": 2,
+     "w": "§6.2 : AP requis pour non-ILS si « ceiling is less than 1,000 feet or the reported visibility is less than 5 km or the reported weather is at the published minimum »."
+    },
+    {
+     "q": "ILS CAT I : dual channel autorisé ?",
+     "o": [
+      "Non, pas autorisé",
+      "Oui, recommandé",
+      "Oui si vent < 15 kt",
+      "Oui pour autoland"
+     ],
+     "a": 0,
+     "w": "§6.2 : « The use of dual channel autopilot for ILS cat 1 approach is not authorized »."
+    },
+    {
+     "q": "À partir de quand le PF garde-t-il les commandes (manche, palonnier, manettes) ?",
+     "o": [
+      "10 000 ft AFE",
+      "1000 ft AFE",
+      "Approach checklist",
+      "5000 ft AFE et en dessous"
+     ],
+     "a": 3,
+     "w": "§6.1 : « At or below 5000 feet AFE the PF shall guard the flight controls »."
+    },
+    {
+     "q": "Auto throttle en croisière, AP déconnecté (vol manuel) :",
+     "o": [
+      "Obligatoire",
+      "Recommandé seulement si AP en CMD",
+      "Interdit au-dessus du FL100",
+      "Recommandé en toutes phases"
+     ],
+     "a": 1,
+     "w": "§6.4 : hors décollage/montée, « auto throttle use is recommended only when the autopilot is engaged in CMD »."
+    },
+    {
+     "q": "Le PF n'est pas prêt à reprendre physiquement l'avion (ex. paperasse). Que faire ?",
+     "o": [
+      "Laisser l'AP, le PM surveille",
+      "Augmenter le niveau d'automatisme",
+      "Passer le rôle PF au PM avec confirmation positive",
+      "Annoncer « HEADS DOWN »"
+     ],
+     "a": 2,
+     "w": "§6.1 : « the PF role must be passed to the PM with positive confirmation »."
+    }
+   ]
+  },
+  {
+   "id": "nnc-management",
+   "kind": "capsule",
+   "cat": "sop",
+   "code": "NNC",
+   "title": "Non-Normal Procedures — Philosophy and Work Method",
+   "titleFr": "Gestion d'une panne : méthode Air Algérie",
+   "fleet": "both",
+   "ref": "SOP B737 Ed03 Rev03 NNP §1.1-1.8 p.202-205",
+   "flash": {
+    "title": "Croisière FL350, CDB PF.",
+    "text": "Master caution. ENG sur l'annunciator, puis voyant sur l'overhead moteur 2. Le F/O tend déjà la main vers les manettes…",
+    "cues": [
+     "MASTER CAUTION",
+     "ENG annunciator",
+     "Moteur n°2",
+     "AP engagé"
+    ]
+   },
+   "steps": [
+    {
+     "item": "1",
+     "action": "Control airplane’s attitude and path.",
+     "fleet": "both"
+    },
+    {
+     "item": "2",
+     "action": "Cancel any aural or warning light.",
+     "fleet": "both"
+    },
+    {
+     "item": "3",
+     "action": "Assess the situation and identify the problem.",
+     "fleet": "both"
+    },
+    {
+     "item": "4",
+     "action": "Do memory items if required at a safe altitude, or do reference items according to the associated checklist in their area of responsibility (PF, PM).",
+     "fleet": "both"
+    },
+    {
+     "item": "5",
+     "action": "Make the safest and best decision",
+     "fleet": "both"
+    },
+    {
+     "item": "6",
+     "action": "Make the 4 comms (ATC, Cabin Crew, Pax and Company).",
+     "fleet": "both"
+    },
+    {
+     "item": "Critical control in flight (PM)",
+     "action": "Show Critical control and the requested Action than call ”CONFIRM?” — PF: ”CONFIRMED!”",
+     "fleet": "both"
+    }
+   ],
+   "nums": [
+    {
+     "v": "6",
+     "l": "Étapes",
+     "s": "Contrôle → … → 4 comms"
+    },
+    {
+     "v": "4",
+     "l": "Comms",
+     "s": "ATC, PNC, Pax, Compagnie"
+    },
+    {
+     "v": "3×",
+     "l": "Seat belt sign",
+     "s": "Signal d'urgence au PNC"
+    },
+    {
+     "v": "NITS",
+     "l": "Briefing CSS",
+     "s": "Nature, Intention, Time, Special"
+    }
+   ],
+   "trap": "Avant de toucher une manette de poussée, un start lever, une fire switch, un drive disconnect, un IRS (une seule en panne) ou un flight control switch : « CONFIRM? » / « CONFIRMED! ». Seule exception : Loss of Thrust on Both Engines.",
+   "then": [
+    "Master caution : PF ou PM annonce + voyants (les DEUX annunciators), le PM lit et diagnostique, le PF recoupe.",
+    "Le PF répartit les tâches (« I HAVE CONTROL and Communication… ») et identifie la NNC.",
+    "Priorité : NNC avec memory items > NNC sans > supplementary > normal.",
+    "Moteur : toujours « number one » / « number two ».",
+    "Sauf atterrissage immédiat requis, actions correctives terminées avant la finale ; ASR pour tout écart au SOP."
+   ],
+   "diff": null,
+   "qcm": [
+    {
+     "q": "Première action devant toute situation anormale ?",
+     "o": [
+      "Annuler l'alarme",
+      "Lire la QRH",
+      "Contrôler l'assiette et la trajectoire",
+      "Prévenir l'ATC"
+     ],
+     "a": 2,
+     "w": "SOP NNP §1.1 : « Control airplane’s attitude and path » d'abord, puis cancel, assess, memory/reference items, décision, 4 comms."
+    },
+    {
+     "q": "Les « 4 comms » sont :",
+     "o": [
+      "ATC, PNC, Pax, Compagnie",
+      "ATC, PNC, Maintenance, Météo",
+      "ATC, CDB, PNC, Pax",
+      "ATC, Compagnie, Aéroport, Pompiers"
+     ],
+     "a": 0,
+     "w": "« Make the 4 comms (ATC, Cabin Crew, Pax and Company) »."
+    },
+    {
+     "q": "Le PM s'apprête à couper le start lever moteur 2. Procédure ?",
+     "o": [
+      "Il agit puis annonce",
+      "Le PF agit lui-même",
+      "Il attend la checklist complète",
+      "Il montre la commande, énonce l'action, « CONFIRM? » → PF « CONFIRMED! »"
+     ],
+     "a": 3,
+     "w": "NNP §1.5 : confirmation obligatoire avant de bouger une commande critique en vol."
+    },
+    {
+     "q": "Plusieurs checklists en attente. Quelle priorité ?",
+     "o": [
+      "Normal > supplementary > NNC",
+      "NNC avec memory items > NNC sans > supplementary > normal",
+      "Ordre d'apparition des voyants",
+      "Au choix du PM"
+     ],
+     "a": 1,
+     "w": "NNP §1.4 : c'est au CDB de prioriser, en général dans cet ordre."
+    },
+    {
+     "q": "Pannes multiples sur le panneau pressurisation/air conditionné : par où commencer ?",
+     "o": [
+      "Voyant du haut",
+      "Voyant le plus à gauche",
+      "Voyant du bas",
+      "N'importe lequel"
+     ],
+     "a": 2,
+     "w": "NNP §1.4 : électrique → commencer par le voyant du haut ; air conditioning/pressurisation → par le voyant du bas."
+    }
+   ]
+  }
+ ],
+ "masterclasses": []
+};
+
+</script>
+<script>
+/* 737 NUDGE — app logic (vanilla JS, no build step). Content comes from window.NUDGE (content.js). */
+(() => {
+"use strict";
+
+const DATA = window.NUDGE || { capsules: [], masterclasses: [] };
+const CAPS = DATA.capsules;
+const MCS = DATA.masterclasses;
+const CAP_TIME = 180;
+const LS = "nudge737.v1";
+
+/* ---------- helpers ---------- */
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const dayKey = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const addDays = (n) => { const d = new Date(); d.setDate(d.getDate() + n); return dayKey(d); };
+const fmt = (t) => { const a = Math.abs(t); return `${t < 0 ? "+" : ""}${Math.floor(a / 60)}:${String(a % 60).padStart(2, "0")}`; };
+const shuffle = (a) => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+const COLORS = { memory: ["#ff5ad9", "#ffb428", "#ff4f61", "#3fe0ff", "#45f0a0"], maneuver: ["#45f0a0", "#3fe0ff"], sop: ["#3fe0ff", "#a6b4ff"] };
+const CAT = { memory: "Memory items", maneuver: "Manœuvres", sop: "SOP compagnie" };
+const LEITNER = [1, 1, 3, 7, 14, 30];
+
+/* ---------- state ---------- */
+const DEF = { xp: 0, streak: 0, best: 0, last: null, fleet: "MAX", sound: true, cap: {}, mc: {}, miss: {}, day: { k: null, n: 0 }, badges: [], q: 0, ok: 0, cleared: 0 };
+let S = structuredClone(DEF);
+try { const v = localStorage.getItem(LS); if (v) S = { ...S, ...JSON.parse(v) }; } catch (e) {}
+const save = () => { try { localStorage.setItem(LS, JSON.stringify(S)); } catch (e) {} };
+
+/* streak breaks if a day was skipped */
+if (S.last && S.last !== dayKey() && S.last !== addDays(-1)) { S.streak = 0; save(); }
+
+const visible = (c) => !c.fleet || c.fleet === "both" || c.fleet === S.fleet;
+const capsVisible = () => CAPS.filter(visible);
+const mcsVisible = () => MCS.filter(visible);
+const capColor = (c) => c.color || COLORS[c.cat]?.[CAPS.filter((x) => x.cat === c.cat).indexOf(c) % COLORS[c.cat].length] || "#3fe0ff";
+const isDue = (id) => S.cap[id] && S.cap[id].due <= dayKey();
+const missDue = () => Object.entries(S.miss).filter(([, m]) => m.due <= dayKey() && findQ(m.id, m.qi)).map(([k, m]) => ({ key: k, ...m }));
+const reviewCount = () => missDue().length + capsVisible().filter((c) => isDue(c.id)).length;
+function findQ(id, qi) { const c = CAPS.find((x) => x.id === id) || MCS.find((x) => x.id === id); return c && c.qcm[qi] ? { c, q: c.qcm[qi] } : null; }
+
+/* ---------- ranks & badges ---------- */
+const RANKS = [
+  { xp: 0, n: "Cadet", s: 1 }, { xp: 300, n: "First Officer", s: 2 }, { xp: 900, n: "Senior First Officer", s: 3 },
+  { xp: 2000, n: "Captain", s: 4 }, { xp: 4000, n: "Captain · TRI", s: 4 }, { xp: 7000, n: "Captain · TRE", s: 4 },
+];
+const rankOf = (xp) => { let i = 0; RANKS.forEach((r, k) => { if (xp >= r.xp) i = k; }); return { ...RANKS[i], i, next: RANKS[i + 1] }; };
+const allBest = (cat) => { const l = CAPS.filter((c) => c.cat === cat); return l.length > 0 && l.every((c) => (S.cap[c.id]?.best || 0) >= 4); };
+const BADGES = [
+  { id: "first", g: "1", n: "Premier vol", d: "Terminer une capsule", t: () => Object.keys(S.cap).length > 0 },
+  { id: "perfect", g: "5/5", n: "Sans faute", d: "5/5 à une capsule", t: () => Object.values(S.cap).some((c) => c.best >= 5) },
+  { id: "fast", g: "90s", n: "Réflexe", d: "Capsule ≥ 4/5 en moins de 90 s", t: () => Object.values(S.cap).some((c) => c.fast) },
+  { id: "st3", g: "3", n: "Régulier", d: "Série de 3 jours", t: () => S.best >= 3 },
+  { id: "st7", g: "7", n: "Semaine pleine", d: "Série de 7 jours", t: () => S.best >= 7 },
+  { id: "st30", g: "30", n: "Line check ready", d: "Série de 30 jours", t: () => S.best >= 30 },
+  { id: "mem", g: "MEM", n: "Memory items", d: "Toutes les capsules memory ≥ 4/5", t: () => allBest("memory") },
+  { id: "man", g: "MAN", n: "Manœuvres", d: "Toutes les manœuvres ≥ 4/5", t: () => allBest("maneuver") },
+  { id: "sop", g: "SOP", n: "Standard", d: "Toutes les capsules SOP ≥ 4/5", t: () => allBest("sop") },
+  { id: "mc1", g: "MC", n: "Masterclass", d: "Terminer une masterclass", t: () => Object.keys(S.mc).length > 0 },
+  { id: "mcall", g: "TRI", n: "Instructeur", d: "Toutes les masterclass ≥ 6/8", t: () => MCS.length > 0 && MCS.every((m) => (S.mc[m.id]?.best || 0) >= 6) },
+  { id: "deb", g: "DEB", n: "Débrief", d: "Corriger 10 erreurs en révision", t: () => S.cleared >= 10 },
+];
+function checkBadges() {
+  const fresh = BADGES.filter((b) => !S.badges.includes(b.id) && b.t());
+  fresh.forEach((b) => S.badges.push(b.id));
+  return fresh;
+}
+
+/* ---------- sound & haptics ---------- */
+let AC = null;
+function beep(ok) {
+  try { navigator.vibrate && navigator.vibrate(ok ? 18 : [40, 50, 40]); } catch (e) {}
+  if (!S.sound) return;
+  try {
+    AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+    const notes = ok ? [880, 1320] : [196, 147];
+    notes.forEach((f, i) => {
+      const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + i * 0.09;
+      o.type = ok ? "sine" : "square"; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(ok ? 0.12 : 0.05, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+      o.connect(g).connect(AC.destination); o.start(t); o.stop(t + 0.18);
+    });
+  } catch (e) {}
+}
+
+/* ---------- XP / streak ---------- */
+function award(xp) {
+  S.xp += xp;
+  const k = dayKey();
+  if (S.last !== k) { S.streak = S.last === addDays(-1) ? S.streak + 1 : 1; S.last = k; }
+  S.best = Math.max(S.best, S.streak);
+  if (S.day.k !== k) S.day = { k, n: 0 };
+  S.day.n++;
+}
+function noteMiss(id, qi, ok) {
+  const key = `${id}#${qi}`;
+  S.q++; if (ok) S.ok++;
+  if (!ok) S.miss[key] = { id, qi, due: addDays(1), n: (S.miss[key]?.n || 0) + 1 };
+}
+
+/* ---------- views ---------- */
+const app = $("#app");
+let tab = "home", P = null, tick = null;
+
+const ICONS = {
+  home: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
+  lib: '<rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+  mc: '<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/>',
+  me: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+};
+
+function header() {
+  const r = rankOf(S.xp);
+  return `<div class="top">
+    <div class="logo"><b>737</b> NUDGE</div>
+    <div class="chips">
+      <div class="fleet" role="group" aria-label="Flotte">${["NG", "MAX"].map((f) => `<button data-fleet="${f}" aria-pressed="${S.fleet === f}">${f}</button>`).join("")}</div>
+      <span class="chip ${S.streak >= 3 ? "hot" : ""}" title="Série de jours"><span class="ic">▲</span>${S.streak}</span>
+      <span class="chip xp" title="XP"><span class="ic">◆</span>${S.xp}</span>
+    </div>
+  </div>
+  <div class="rank">
+    <div class="stripes" aria-hidden="true">${[0, 1, 2, 3].map((k) => `<i class="${k < r.s ? "on" : ""}"></i>`).join("")}</div>
+    <div class="meta"><div class="nm">${esc(r.n)}</div>
+      <div class="bar"><i style="width:${r.next ? Math.round(((S.xp - r.xp) / (r.next.xp - r.xp)) * 100) : 100}%"></i></div>
+      <small>${r.next ? `${r.next.xp - S.xp} XP avant ${esc(r.next.n)}` : "Grade maximum"}</small></div>
+  </div>`;
+}
+
+function capRow(c) {
+  const st = S.cap[c.id];
+  const pips = `<span class="pips">${[0, 1, 2, 3, 4].map((k) => `<i class="${st && k < st.best ? "on" : ""}"></i>`).join("")}</span>`;
+  const right = !st ? `<span>3:00</span>` : isDue(c.id) ? `<span class="due">À revoir</span>` : `<span class="ok">${st.best}/5</span>`;
+  const fl = c.fleet && c.fleet !== "both" ? `<span class="fl">${esc(c.fleet)}</span>` : "";
+  return `<button class="cap" data-go="${esc(c.id)}">
+    <span class="badge ${st && st.best >= 5 ? "ring" : ""}" style="background:${capColor(c)}">${esc(c.code)}</span>
+    <span class="tx"><h3>${esc(c.titleFr || c.title)}${fl}</h3><small>${esc(c.title)} · ${esc(c.ref || "")}</small></span>
+    <span class="st">${right}${pips}</span></button>`;
+}
+
+function mcCard(m, i) {
+  const st = S.mc[m.id];
+  const big = m.chapters.flatMap((c) => c.nums || [])[0];
+  const col = ["var(--mag)", "var(--cyan)", "var(--green)", "var(--amber)"][i % 4];
+  return `<button class="mc" data-mc="${esc(m.id)}">
+    <span class="tag" style="color:${col}">Masterclass · ${esc(m.code)}</span>
+    ${big ? `<span class="big" style="color:${col}">${esc(big.v)}</span>` : ""}
+    <h3>${esc(m.title)}</h3><p>${esc(m.intro || "")}</p>
+    <span class="foot"><span>${m.chapters.length} chapitres · ${m.minutes || 8} min</span><span class="${st ? "ok" : ""}">${st ? `${st.best}/${m.qcm.length} ✓` : "Nouveau"}</span></span></button>`;
+}
+
+function dailyPick() {
+  const vis = capsVisible();
+  const due = vis.find((c) => isDue(c.id));
+  if (due) return { c: due, why: "À revoir aujourd'hui" };
+  const fresh = vis.find((c) => !S.cap[c.id]);
+  if (fresh) return { c: fresh, why: "Nouvelle capsule" };
+  const d = new Date(); const idx = (d.getFullYear() * 400 + d.getMonth() * 31 + d.getDate()) % Math.max(vis.length, 1);
+  return { c: vis[idx], why: "Capsule du jour" };
+}
+
+function vHome() {
+  const pick = dailyPick();
+  const rc = reviewCount();
+  const today = S.day.k === dayKey() ? S.day.n : 0;
+  const acc = S.q ? Math.round((S.ok / S.q) * 100) : 0;
+  const mcs = mcsVisible();
+  const next = pick.c ? `<div class="hero">
+      <svg class="adi" viewBox="0 0 100 100" aria-hidden="true"><defs><clipPath id="adc"><circle cx="50" cy="50" r="44"/></clipPath></defs><g clip-path="url(#adc)"><rect x="-20" y="-20" width="140" height="74" fill="#1d6fa8" transform="rotate(-8 50 50)"/><rect x="-20" y="54" width="140" height="80" fill="#7a4a1c" transform="rotate(-8 50 50)"/><path d="M-20 54h140" stroke="#fff" stroke-width="1.5" transform="rotate(-8 50 50)"/></g><circle cx="50" cy="50" r="44" fill="none" stroke="#3fe0ff" stroke-width="1.5"/><path d="M26 52h16l4 4M74 52H58l-4 4" stroke="#ffb428" stroke-width="3" fill="none"/><path d="M38 44h24M30 62h40" stroke="#ff5ad9" stroke-width="2"/></svg>
+      <div class="tag">${esc(pick.why)} · ${esc(CAT[pick.c.cat] || "")}</div>
+      <h2>${esc(pick.c.titleFr || pick.c.title)}</h2>
+      <p>Situation, ${pick.c.steps?.length ? "items à réciter, " : ""}chiffres clés, 5 questions.</p>
+      <div class="row"><button class="go" data-go="${esc(pick.c.id)}">DÉMARRER · 3 MIN</button>
+      ${rc ? `<button class="go alt" data-review>RÉVISION · ${rc}</button>` : ""}</div>
+    </div>` : `<div class="empty">Aucune capsule pour cette flotte.</div>`;
+  const mem = capsVisible().filter((c) => c.cat === "memory").slice(0, 6);
+  return `<div class="scr">${header()}<div class="scroll">
+    ${next}
+    <div class="goal">
+      <div class="g"><b>${today}<span style="font-size:.8rem;color:var(--dim)">/3</span></b><small>Aujourd'hui</small></div>
+      <div class="c"><b>${acc}%</b><small>Précision</small></div>
+      <div class="a"><b>${S.best}</b><small>Meilleure série</small></div>
+    </div>
+    <div class="homewrap">
+      <div><div class="sec"><span>Memory items</span><span>${mem.length}</span></div><div class="grid" style="grid-template-columns:1fr">${mem.map(capRow).join("")}</div></div>
+      <div><div class="sec"><span>Masterclass</span><span>${mcs.length}</span></div><div class="grid" style="grid-template-columns:1fr">${mcs.slice(0, 3).map(mcCard).join("")}</div></div>
+    </div>
+    ${disclaimer()}</div></div>`;
+}
+
+function vLib() {
+  const vis = capsVisible();
+  const cats = ["memory", "maneuver", "sop"].filter((k) => vis.some((c) => c.cat === k));
+  const rc = reviewCount();
+  return `<div class="scr">${header()}<div class="scroll">
+    ${rc ? `<div class="hero" style="padding:14px 16px"><div class="tag" style="color:var(--amber)">Révision espacée</div><h2 style="font-size:1.05rem;max-width:100%">${rc} élément${rc > 1 ? "s" : ""} à revoir aujourd'hui</h2><div class="row" style="margin-top:10px"><button class="go" data-review>LANCER LA RÉVISION</button></div></div>` : ""}
+    ${cats.map((k) => { const l = vis.filter((c) => c.cat === k); const done = l.filter((c) => S.cap[c.id]).length;
+      return `<div class="sec"><span>${CAT[k]}</span><span>${done}/${l.length}</span></div><div class="grid">${l.map(capRow).join("")}</div>`; }).join("")}
+    ${disclaimer()}</div></div>`;
+}
+
+function vMc() {
+  const l = mcsVisible();
+  return `<div class="scr">${header()}<div class="scroll">
+    <div class="sec"><span>Masterclass · cours approfondis</span><span>${l.length}</span></div>
+    <div class="grid mcgrid">${l.map(mcCard).join("") || `<div class="empty">Masterclass à venir.</div>`}</div>
+    ${disclaimer()}</div></div>`;
+}
+
+function vMe() {
+  const acc = S.q ? Math.round((S.ok / S.q) * 100) : 0;
+  return `<div class="scr">${header()}<div class="scroll">
+    <div class="stats">
+      <div class="stat"><b>${S.xp}</b><small>XP total</small></div>
+      <div class="stat"><b>${S.best}</b><small>Meilleure série</small></div>
+      <div class="stat"><b>${acc}%</b><small>Précision · ${S.q} q.</small></div>
+      <div class="stat"><b>${Object.keys(S.cap).length}/${CAPS.length}</b><small>Capsules jouées</small></div>
+    </div>
+    <div class="sec"><span>Badges</span><span>${S.badges.length}/${BADGES.length}</span></div>
+    <div class="badges">${BADGES.map((b) => `<div class="bdg ${S.badges.includes(b.id) ? "on" : ""}"><span class="h">${esc(b.g)}</span><b>${esc(b.n)}</b><small>${esc(b.d)}</small></div>`).join("")}</div>
+    <div class="sec"><span>Grades</span><span></span></div>
+    <div class="grid" style="grid-template-columns:1fr">${RANKS.map((r) => `<div class="cap" style="grid-template-columns:1fr auto;cursor:default"><span class="tx"><h3 style="color:${S.xp >= r.xp ? "var(--amber)" : "var(--dim)"}">${esc(r.n)}</h3></span><span class="st">${r.xp} XP</span></div>`).join("")}</div>
+    <div class="sec"><span>Réglages</span><span></span></div>
+    <button class="cap" id="snd" style="grid-template-columns:1fr auto"><span class="tx"><h3>Sons</h3><small>Signal bonne / mauvaise réponse</small></span><span class="st"><span class="${S.sound ? "ok" : ""}">${S.sound ? "ON" : "OFF"}</span></span></button>
+    <button class="lnk" id="reset">Réinitialiser ma progression</button>
+    ${disclaimer()}</div></div>`;
+}
+
+function disclaimer() {
+  return `<div class="disc">Outil de révision. Ne remplace pas le QRH, le FCOM, le FCTM ni les SOP en vigueur.<br>Sources : QRH NG rev 55 · QRH MAX · FCTM NG rev 25 · FCTM MAX · SOP B737 Ed 03 Rev 03<br>Prepared by CPT Bouchenafa M.A · Fleet Training Manager B737 NG/MAX</div>`;
+}
+
+function tabbar() {
+  const rc = reviewCount();
+  const t = [["home", "Accueil"], ["lib", "Capsules"], ["mc", "Masterclass"], ["me", "Profil"]];
+  return `<nav class="tabs">${t.map(([k, n]) => `<button data-tab="${k}" ${tab === k ? 'aria-current="page"' : ""}><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]}</svg>${n}${k === "lib" && rc ? `<span class="dot">${rc}</span>` : ""}</button>`).join("")}</nav>`;
+}
+
+let resetArmed = false;
+function home(t) {
+  clearInterval(tick); P = null;
+  if (t) tab = t;
+  const v = { home: vHome, lib: vLib, mc: vMc, me: vMe }[tab]();
+  app.innerHTML = v + tabbar();
+  app.querySelectorAll("[data-tab]").forEach((b) => (b.onclick = () => home(b.dataset.tab)));
+  app.querySelectorAll("[data-go]").forEach((b) => (b.onclick = () => startCap(b.dataset.go)));
+  app.querySelectorAll("[data-mc]").forEach((b) => (b.onclick = () => startMc(b.dataset.mc)));
+  app.querySelectorAll("[data-review]").forEach((b) => (b.onclick = startReview));
+  app.querySelectorAll("[data-fleet]").forEach((b) => (b.onclick = () => { S.fleet = b.dataset.fleet; save(); home(); toast(`Flotte : 737 ${S.fleet}`); }));
+  const snd = $("#snd"); if (snd) snd.onclick = () => { S.sound = !S.sound; save(); home(); };
+  const rs = $("#reset");
+  if (rs) rs.onclick = () => {
+    if (!resetArmed) { resetArmed = true; rs.textContent = "Touchez encore pour confirmer"; setTimeout(() => { resetArmed = false; }, 3000); return; }
+    S = { ...structuredClone(DEF), fleet: S.fleet, sound: S.sound }; save(); resetArmed = false; home(); toast("Progression réinitialisée");
+  };
+}
+
+/* ---------- players ---------- */
+function slidesForCap(c) {
+  const steps = (c.steps || []).filter((s) => !s.fleet || s.fleet === "both" || s.fleet === S.fleet);
+  const sl = [{ t: "flash" }];
+  if (steps.length) sl.push({ t: "mem", steps });
+  if (c.nums?.length) sl.push({ t: "nums" });
+  if (c.then?.length || c.trap || c.diff) sl.push({ t: "then" });
+  return sl;
+}
+const prepQ = (q) => { const order = shuffle(q.o.map((_, k) => k)); return { ...q, o: order.map((k) => q.o[k]), a: order.indexOf(q.a) }; };
+
+function startCap(id) {
+  const c = CAPS.find((x) => x.id === id); if (!c) return;
+  const slides = slidesForCap(c);
+  const qs = c.qcm.map((q, qi) => ({ ...prepQ(q), id: c.id, qi }));
+  P = { mode: "cap", c, slides, qs, i: 0, score: 0, ans: null, res: [], rev: 0, t: CAP_TIME, combo: 0, xp: 0, dir: 1 };
+  runTimer(); render();
+}
+function startMc(id) {
+  const m = MCS.find((x) => x.id === id); if (!m) return;
+  const slides = [{ t: "mcintro" }, ...m.chapters.map((ch) => ({ t: "chap", ch }))];
+  const qs = m.qcm.map((q, qi) => ({ ...prepQ(q), id: m.id, qi }));
+  P = { mode: "mc", c: { ...m, color: "#ff5ad9" }, slides, qs, i: 0, score: 0, ans: null, res: [], rev: 0, t: null, combo: 0, xp: 0, dir: 1 };
+  render();
+}
+function startReview() {
+  const items = shuffle(missDue()).slice(0, 5).map((m) => { const f = findQ(m.id, m.qi); return { ...prepQ(f.q), id: m.id, qi: m.qi, from: f.c.titleFr || f.c.title }; });
+  // pad with questions from capsules due for review
+  const dueCaps = capsVisible().filter((c) => isDue(c.id));
+  for (const c of shuffle(dueCaps)) { if (items.length >= 5) break; const qi = Math.floor(Math.random() * c.qcm.length); if (!items.some((x) => x.id === c.id && x.qi === qi)) items.push({ ...prepQ(c.qcm[qi]), id: c.id, qi, from: c.titleFr || c.title }); }
+  if (!items.length) { toast("Rien à revoir. Bravo."); return; }
+  P = { mode: "rev", c: { code: "REV", title: "Révision", titleFr: "Révision espacée", color: "#ffb428" }, slides: [], qs: items, i: 0, score: 0, ans: null, res: [], rev: 0, t: null, combo: 0, xp: 0, dir: 1, dueCaps: dueCaps.map((c) => c.id) };
+  render();
+}
+function runTimer() {
+  clearInterval(tick);
+  tick = setInterval(() => {
+    if (!P || P.t === null) return;
+    P.t--;
+    const el = $("#tm"); if (el) { el.textContent = P.t >= 0 ? fmt(P.t) : "0:00"; el.classList.toggle("low", P.t <= 30); }
+  }, 1000);
+}
+
+function slideBody(s, c) {
+  const col = c.color || capColor(c);
+  const K = (t) => `<div class="kicker" style="color:${col}">${esc(t)}</div>`;
+  if (s.t === "flash") return `${K("Situation")}<h1 class="h1">${esc(c.flash.title)}</h1><p class="lead">${esc(c.flash.text)}</p>
+      <div class="cues">${(c.flash.cues || []).map((x) => `<span>${esc(x)}</span>`).join("")}</div>`;
+  if (s.t === "mem") {
+    const lbl = c.cat === "memory" ? "Memory items" : c.cat === "maneuver" ? "Manœuvre" : "Actions clés";
+    const all = P.rev >= s.steps.length;
+    return `${K(lbl)}<h1 class="h1">${c.cat === "sop" ? "Les standards." : "Récitez, puis vérifiez."}</h1>
+      <div class="mem">${s.steps.map((m, k) => `<button class="mi ${k < P.rev ? "rev" : k === P.rev ? "next" : "locked"} ${/^(if|when)\b/i.test(m.item) ? "cond" : ""}" data-mi="${k}" ${k > P.rev ? 'tabindex="-1"' : ""}>
+        <span class="n">${k + 1}</span><span class="k">${esc(m.item)}<span class="dots"><span class="v">${k < P.rev ? esc(m.action) : "?"}</span></span></span></button>`).join("")}</div>
+      <div class="hint">${all ? "Complet ✓ — glissez pour continuer" : "Touchez l'item surligné pour révéler la réponse"}${!all && S.cap[c.id] ? ' · <button data-revall style="color:var(--cyan);text-decoration:underline">tout révéler</button>' : ""}</div>`;
+  }
+  if (s.t === "nums") return `${K("Les chiffres")}<h1 class="h1">À graver.</h1>
+      <div class="nums">${c.nums.map((n, k) => `<div class="num pop c${k % 4} ${String(n.v).length > 6 ? "long" : ""}"><div class="v">${esc(n.v)}</div><div class="l">${esc(n.l)}</div>${n.s ? `<div class="s">${esc(n.s)}</div>` : ""}</div>`).join("")}</div>`;
+  if (s.t === "then") return `${K("Ensuite")}<h1 class="h1">Et après ?</h1>
+      ${c.then?.length ? `<ul class="then">${c.then.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+      ${c.trap ? `<div class="box"><b>PIÈGE</b>${esc(c.trap)}</div>` : ""}
+      ${c.diff ? `<div class="box diff"><b>NG / MAX</b>${esc(c.diff)}</div>` : ""}`;
+  if (s.t === "mcintro") return `${K("Masterclass · " + (c.minutes || 8) + " min")}<h1 class="h1">${esc(c.title)}</h1><p class="lead">${esc(c.intro || "")}</p>
+      <div class="cues">${c.chapters.map((ch, k) => `<span style="color:var(--cyan)">${k + 1} · ${esc(ch.kicker || ch.title)}</span>`).join("")}</div>
+      <p class="src">${esc(c.ref || "")}</p>`;
+  if (s.t === "chap") {
+    const ch = s.ch;
+    return `${K(ch.kicker || "Chapitre")}<h1 class="h1">${esc(ch.title)}</h1>
+      ${(ch.body || []).map((p) => `<p class="lead">${esc(p)}</p>`).join("")}
+      ${ch.nums?.length ? `<div class="nums" style="margin-top:16px">${ch.nums.map((n, k) => `<div class="num pop c${k % 4} ${String(n.v).length > 6 ? "long" : ""}"><div class="v">${esc(n.v)}</div><div class="l">${esc(n.l)}</div>${n.s ? `<div class="s">${esc(n.s)}</div>` : ""}</div>`).join("")}</div>` : ""}
+      ${ch.bullets?.length ? `<ul class="then" style="margin-top:14px">${ch.bullets.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+      ${ch.quote ? `<div class="box q"><b>${esc(ch.quote.src || "FCTM")}</b>“${esc(ch.quote.text)}”</div>` : ""}`;
+  }
+  return "";
+}
+
+function qBody(q, qi, n, col) {
+  const answered = P.ans !== null;
+  return `<div class="kicker" style="color:${col}">Question ${qi + 1} / ${n}${q.from ? " · " + esc(q.from) : ""}</div><p class="q">${esc(q.q)}</p>
+    <div class="opts">${q.o.map((o, k) => `<button class="opt ${answered ? (k === q.a ? "ok" : k === P.ans ? "ko" : "fade") : ""}" data-o="${k}" ${answered ? "disabled" : ""}><span class="l">${"ABCD"[k]}</span><span>${esc(o)}</span></button>`).join("")}</div>
+    ${answered ? `<div class="why"><b style="color:${P.ans === q.a ? "var(--green)" : "var(--red)"}">${P.ans === q.a ? "✓ EXACT" : "✗ À REVOIR"}</b> · ${esc(q.w)}</div>` : ""}`;
+}
+
+function render() {
+  const { c, slides, qs, i } = P;
+  const total = slides.length + qs.length;
+  const col = c.color || capColor(c);
+  const bars = Array.from({ length: total }, (_, k) => {
+    if (k >= slides.length) { const r = P.res[k - slides.length]; if (r !== undefined) return `<i class="${r ? "ok" : "ko"}"></i>`; }
+    return `<i class="${k < i ? "on" : k === i ? "cur" : ""}"></i>`;
+  }).join("");
+  let body, canNext = true, label = "SUIVANT";
+  if (i < slides.length) {
+    const s = slides[i];
+    body = slideBody(s, c);
+    if (s.t === "mem") canNext = P.rev >= s.steps.length;
+    if (i === slides.length - 1) label = "QCM →";
+  } else {
+    const qi = i - slides.length;
+    body = qBody(qs[qi], qi, qs.length, col);
+    canNext = P.ans !== null;
+    label = qi === qs.length - 1 ? "RÉSULTAT" : "SUIVANT";
+  }
+  const showPrev = i > 0 && i < slides.length;
+  app.innerHTML = `<div class="scr player">
+    <div class="bars">${bars}</div>
+    <div class="phead"><button class="x" id="x" aria-label="Quitter">×</button><span class="ptitle">${esc(c.code)} · ${esc(c.titleFr || c.title)}</span>${P.t !== null ? `<span class="timer ${P.t <= 30 ? "low" : ""}" id="tm">${P.t >= 0 ? fmt(P.t) : "0:00"}</span>` : `<span class="timer" style="color:var(--cyan)">${i + 1}/${total}</span>`}</div>
+    <div class="combo">${P.combo >= 2 ? `COMBO ×${P.combo}` : ""}</div>
+    <div class="stage" id="stage"><div class="card ${P.lastI !== i ? "anim" : ""} ${P.dir < 0 ? "back" : ""}">${body}</div></div>
+    <div class="nav">${showPrev ? '<button class="btn ghost" id="pv" aria-label="Précédent">←</button>' : ""}<button class="btn" id="nx" ${canNext ? "" : "disabled"}>${label}</button></div>
+  </div>`;
+  P.lastI = i;
+  $("#x").onclick = () => home();
+  const pv = $("#pv"); if (pv) pv.onclick = prev;
+  $("#nx").onclick = next;
+  app.querySelectorAll("[data-mi]").forEach((b) => (b.onclick = () => { if (+b.dataset.mi === P.rev) { P.rev++; beep(true); render(); } }));
+  const ra = $("[data-revall]"); if (ra) ra.onclick = (e) => { e.stopPropagation(); P.rev = 99; render(); };
+  app.querySelectorAll("[data-o]").forEach((b) => (b.onclick = () => answer(+b.dataset.o)));
+}
+
+function answer(k) {
+  if (!P || P.ans !== null || P.i < P.slides.length) return;
+  const q = P.qs[P.i - P.slides.length];
+  P.ans = k;
+  const ok = k === q.a;
+  P.res.push(ok);
+  if (ok) {
+    P.score++; P.combo++;
+    const g = (P.mode === "mc" ? 15 : 20) + (P.combo >= 3 ? 10 : 0);
+    P.xp += g; floatGain(`+${g}`); confetti(14);
+    if (P.mode === "rev" && S.miss[`${q.id}#${q.qi}`]) { delete S.miss[`${q.id}#${q.qi}`]; S.cleared++; }
+  } else { P.combo = 0; }
+  noteMiss(q.id, q.qi, ok);
+  if (!ok && P.mode === "rev") S.miss[`${q.id}#${q.qi}`].due = addDays(1);
+  beep(ok); save(); render();
+  const st = $("#stage"); if (st) st.scrollTop = st.scrollHeight;
+}
+function next() {
+  if (!P) return;
+  const total = P.slides.length + P.qs.length;
+  const s = P.slides[P.i];
+  if (s && s.t === "mem" && P.rev < s.steps.length) return;
+  if (P.i >= P.slides.length && P.ans === null) return;
+  if (P.i >= total - 1) return result();
+  P.i++; P.ans = null; P.rev = 0; P.dir = 1; render();
+}
+function prev() { if (!P || P.i === 0 || P.i >= P.slides.length) return; P.i--; P.rev = 99; P.dir = -1; render(); }
+
+function result() {
+  clearInterval(tick);
+  const { c, score, qs, mode } = P;
+  const n = qs.length, pct = n ? score / n : 0;
+  const used = P.t !== null ? CAP_TIME - P.t : null;
+  let bonus = 0, notes = [];
+  if (mode === "cap") {
+    if (P.t >= 0) { bonus += 20; notes.push("Chrono +20"); }
+    if (score === n) { bonus += 30; notes.push("Sans faute +30"); }
+    const prevS = S.cap[c.id] || { best: 0, plays: 0, box: 0 };
+    const box = score >= 4 ? Math.min((prevS.box || 0) + 1, LEITNER.length - 1) : 1;
+    S.cap[c.id] = { best: Math.max(prevS.best || 0, score), plays: (prevS.plays || 0) + 1, box, due: addDays(LEITNER[box]), fast: prevS.fast || (score >= 4 && used <= 90) };
+  } else if (mode === "mc") {
+    bonus += 50; notes.push("Masterclass +50");
+    const prevM = S.mc[c.id] || { best: 0 };
+    S.mc[c.id] = { best: Math.max(prevM.best, score), done: true };
+  } else if (mode === "rev") {
+    bonus += 20; notes.push("Révision +20");
+    (P.dueCaps || []).forEach((id) => { if (S.cap[id]) S.cap[id].due = addDays(LEITNER[S.cap[id].box || 1]); });
+  }
+  const xp = P.xp + bonus;
+  award(xp);
+  const fresh = checkBadges();
+  save();
+  const C = 2 * Math.PI * 74, colr = pct >= 0.8 ? "var(--green)" : pct >= 0.6 ? "var(--amber)" : "var(--red)";
+  const msg = pct === 1 ? "Réflexes verrouillés." : pct >= 0.8 ? "Solide. On revoit ça dans quelques jours." : pct >= 0.6 ? "Presque. Refaites-la demain." : "À retravailler avec le QRH.";
+  const wrong = qs.filter((_, k) => P.res[k] === false);
+  const ref = mode === "rev" ? "" : `<p class="src">Référence : ${esc(c.ref || "")}</p>`;
+  app.innerHTML = `<div class="scr player"><div class="stage"><div class="card anim res">
+    <div class="kicker" style="color:${c.color || capColor(c)};justify-content:center">${esc(c.titleFr || c.title)}</div>
+    <div class="ring"><svg viewBox="0 0 176 176" width="176" height="176" aria-hidden="true"><circle cx="88" cy="88" r="74" fill="none" stroke="var(--line)" stroke-width="12"/><circle cx="88" cy="88" r="74" fill="none" stroke="${colr}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - pct)}"/></svg>
+      <div class="s"><span>${score}/${n}<small>${used !== null ? (P.t >= 0 ? "en " + fmt(used) : "temps dépassé") : mode === "mc" ? "masterclass" : "révision"}</small></span></div></div>
+    <h1 class="h1" style="font-size:1.4rem">${msg}</h1>
+    <div class="rewards"><div class="rw c"><b>+${xp}</b>XP</div><div class="rw"><b>▲ ${S.streak}</b>jour${S.streak > 1 ? "s" : ""}</div>${mode === "cap" ? `<div class="rw g"><b>J+${LEITNER[S.cap[c.id].box]}</b>prochaine</div>` : ""}</div>
+    ${notes.length ? `<p class="src" style="margin-top:0">${notes.join(" · ")}</p>` : ""}
+    ${fresh.map((b) => `<span class="newbadge">⬢ Nouveau badge : ${esc(b.n)}</span>`).join("")}
+    ${wrong.length ? `<div class="review"><div class="sec" style="margin:8px 0 0"><span>À retenir</span><span>${wrong.length}</span></div>${wrong.map((q) => `<div>${esc(q.q)}<b>${esc(q.o[q.a])}</b></div>`).join("")}</div>` : ""}
+    ${ref}
+  </div></div>
+  <div class="nav"><button class="btn ghost" id="re" aria-label="Rejouer">↻</button><button class="btn" id="hm">CONTINUER</button></div></div>`;
+  $("#re").onclick = () => (mode === "cap" ? startCap(c.id) : mode === "mc" ? startMc(c.id) : startReview());
+  $("#hm").onclick = () => home();
+  if (pct >= 0.8) confetti(90);
+  P = null;
+}
+
+/* ---------- input ---------- */
+let tx = null, ty = null;
+document.addEventListener("touchstart", (e) => { if (!P) return; tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+document.addEventListener("touchend", (e) => {
+  if (!P || tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
+  if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+  dx < 0 ? next() : prev();
+}, { passive: true });
+document.addEventListener("keydown", (e) => {
+  if (!P) return;
+  if (e.key === "ArrowRight" || e.key === "Enter") { if (e.target.closest && e.target.closest("button") && e.key === "Enter") return; next(); }
+  else if (e.key === "ArrowLeft") prev();
+  else if (e.key === "Escape") home();
+  else if (/^[1-4]$/.test(e.key)) answer(+e.key - 1);
+  else if (e.key === " " && P.slides[P.i]?.t === "mem") { e.preventDefault(); P.rev++; render(); }
+});
+
+/* ---------- fx ---------- */
+function toast(t) { const d = document.createElement("div"); d.className = "toast"; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 1800); }
+function floatGain(t) { const d = document.createElement("div"); d.className = "gain"; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 950); }
+const cv = $("#burst"), cx = cv.getContext("2d"); let parts = [], raf = null;
+function confetti(n) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  cv.width = innerWidth; cv.height = innerHeight;
+  const cols = ["#3fe0ff", "#ff5ad9", "#ffb428", "#45f0a0"];
+  for (let k = 0; k < n; k++) parts.push({ x: innerWidth / 2, y: innerHeight * 0.5, vx: (Math.random() - 0.5) * 13, vy: -Math.random() * 13 - 4, s: Math.random() * 5 + 3, c: cols[k % 4], l: 64 });
+  if (!raf) loop();
+}
+function loop() {
+  cx.clearRect(0, 0, cv.width, cv.height);
+  parts.forEach((p) => { p.x += p.vx; p.y += p.vy; p.vy += 0.45; p.l--; cx.fillStyle = p.c; cx.globalAlpha = Math.max(p.l / 64, 0); cx.fillRect(p.x, p.y, p.s, p.s * 0.6); });
+  parts = parts.filter((p) => p.l > 0);
+  raf = parts.length ? requestAnimationFrame(loop) : (cx.clearRect(0, 0, cv.width, cv.height), null);
+}
+
+/* offline support when served as a PWA */
+if ("serviceWorker" in navigator && location.protocol === "https:" && !/claude|anthropic/.test(location.hostname)) {
+  try { navigator.serviceWorker.register("sw.js").catch(() => {}); } catch (e) {}
+}
+
+home();
+})();
+
+</script>
