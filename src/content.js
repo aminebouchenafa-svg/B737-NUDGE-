@@ -7,18 +7,18 @@ window.NUDGE = {
    "cat": "memory",
    "code": "IAS",
    "title": "Airspeed Unreliable",
-   "titleFr": "Vitesse non fiable",
+   "titleFr": "Unreliable Airspeed",
    "fleet": "both",
    "ref": "QRH NNC 10.1 (NG & MAX) · PI Flight With Unreliable Airspeed",
    "flash": {
-    "title": "Montée FL140, nuit, IMC, givrage.",
-    "text": "Le badin CDB plafonne pendant que celui du F/O diminue, A/T en N1. Le stick shaker se déclenche côté CDB alors que l'assiette et la poussée sont normales pour la montée.",
+    "title": "Climbing through FL140, night, IMC, icing.",
+    "text": "Captain's airspeed levels off while the F/O's decreases, A/T in N1. Captain-side stick shaker activates, yet pitch and thrust are normal for the climb.",
     "cues": [
      "IAS DISAGREE",
      "ALT DISAGREE",
-     "Stick shaker côté CDB",
-     "Barres min/max speed erratiques",
-     "Vitesse incohérente avec assiette/poussée"
+     "Captain-side stick shaker",
+     "Erratic min/max speed bars",
+     "Airspeed inconsistent with pitch/thrust"
     ]
    },
    "steps": [
@@ -61,44 +61,44 @@ window.NUDGE = {
     },
     {
      "v": "20 kt",
-     "l": "Écart max vs table PI",
-     "s": "ou 0.03 M → badin non fiable"
+     "l": "Max deviation vs PI table",
+     "s": "or 0.03 M → airspeed unreliable"
     }
    ],
-   "trap": "Croire le stick shaker ou l'alerte overspeed : ils peuvent sonner à tort, voire simultanément. Assiette + N1 d'abord, on analyse ensuite.",
+   "trap": "Trusting the stick shaker or overspeed warning: they can sound falsely, even simultaneously. Pitch + N1 first, analyze later.",
    "then": [
     "PROBE HEAT switches … Check ON",
-    "Indications fiables : Attitude, N1, Ground speed, Radio altitude",
-    "Badin fiable identifié ? → l'utiliser pour le reste du vol (F/D côté fiable ON, A/P côté fiable si besoin, pas d'A/T)",
-    "Sinon : table PI « Flight With Unreliable Airspeed », stabilisé et trimé, comparer les 3 badins : écart > 20 kt ou 0.03 M = non fiable",
-    "Altitude non fiable des deux côtés → pas RVSM, transpondeur ALT OFF"
+    "Reliable indications: Attitude, N1, Ground speed, Radio altitude",
+    "Reliable airspeed identified? → use it for the rest of the flight (reliable-side F/D ON, reliable-side A/P if needed, no A/T)",
+    "Otherwise: PI table “Flight With Unreliable Airspeed”, stabilized and trimmed, compare all 3 airspeeds: deviation > 20 kt or 0.03 M = unreliable",
+    "Altitude unreliable on both sides → not RVSM, transponder ALT OFF"
    ],
-   "diff": "Memory items identiques NG/MAX. La NNC MAX ajoute des notes : le Stick Shaker Indicator de l'indicateur d'AOA (et l'AOA readout/aiguille/bande d'approche si l'AOA est en cause) peut être non fiable ; sur NG l'alerte AIRSPEED LOW est « (as installed) ».",
+   "diff": "Memory items identical NG/MAX. The MAX NNC adds notes: the Stick Shaker Indicator on the AOA indicator (and the AOA readout/pointer/approach band if AOA is the cause) may be unreliable; on NG the AIRSPEED LOW alert is “(as installed)”.",
    "qcm": [
     {
-     "q": "Volets rentrés, quel couple assiette / N1 en memory item ?",
+     "q": "Flaps up: which pitch / N1 memory item?",
      "o": [
-      "10° et 80% N1",
-      "4° et 75% N1",
-      "4° et 80% N1",
-      "10° et 75% N1"
+      "10° and 80% N1",
+      "4° and 75% N1",
+      "4° and 80% N1",
+      "10° and 75% N1"
      ],
      "a": 1,
-     "w": "Flaps up : 4° and 75% N1. Le 10°/80% est pour flaps extended, toujours gear up."
+     "w": "Flaps up: 4° and 75% N1. 10°/80% is for flaps extended, still gear up."
     },
     {
-     "q": "Volets sortis (gear up), quel couple assiette / N1 ?",
+     "q": "Flaps extended (gear up): which pitch / N1?",
      "o": [
-      "15° et 85% N1",
-      "4° et 75% N1",
-      "8° et 80% N1",
-      "10° et 80% N1"
+      "15° and 85% N1",
+      "4° and 75% N1",
+      "8° and 80% N1",
+      "10° and 80% N1"
      ],
      "a": 3,
-     "w": "Flaps extended : 10° and 80% N1, selon la NNC 10.1 sur NG comme sur MAX."
+     "w": "Flaps extended: 10° and 80% N1, per NNC 10.1, NG and MAX alike."
     },
     {
-     "q": "Quel est le 3e memory item ?",
+     "q": "What is the 3rd memory item?",
      "o": [
       "F/D switches (both) … OFF",
       "PROBE HEAT switches … Check ON",
@@ -106,10 +106,10 @@ window.NUDGE = {
       "Thrust levers … TO/GA"
      ],
      "a": 0,
-     "w": "Ordre : A/P Disengage → A/T Disengage → F/D (both) OFF → assiette/poussée. PROBE HEAT est le premier reference item, après la ligne pointillée."
+     "w": "Order: A/P Disengage → A/T Disengage → F/D (both) OFF → pitch/thrust. PROBE HEAT is the first reference item, after the dashed line."
     },
     {
-     "q": "Quelle indication n'est PAS listée comme fiable par la QRH ?",
+     "q": "Which indication is NOT listed as reliable by the QRH?",
      "o": [
       "Ground speed",
       "Radio altitude",
@@ -117,18 +117,18 @@ window.NUDGE = {
       "N1"
      ],
      "a": 2,
-     "w": "Fiables : Attitude, N1, Ground speed, Radio altitude. Stick shaker, overspeed et AIRSPEED LOW peuvent sonner à tort."
+     "w": "Reliable: Attitude, N1, Ground speed, Radio altitude. Stick shaker, overspeed and AIRSPEED LOW may sound falsely."
     },
     {
-     "q": "Stabilisé avec la table PI, un badin est jugé non fiable s'il diffère de plus de…",
+     "q": "Stabilized with the PI table, an airspeed is considered unreliable if it differs by more than…",
      "o": [
-      "10 kt ou 0.02 M",
-      "20 kt ou 0.03 M",
-      "5 kt ou 0.01 M",
-      "30 kt ou 0.05 M"
+      "10 kt or 0.02 M",
+      "20 kt or 0.03 M",
+      "5 kt or 0.01 M",
+      "30 kt or 0.05 M"
      ],
      "a": 1,
-     "w": "« differs by more than 20 knots or 0.03 Mach from the airspeed shown in the table »."
+     "w": "“differs by more than 20 knots or 0.03 Mach from the airspeed shown in the table”."
     }
    ]
   },
@@ -138,16 +138,16 @@ window.NUDGE = {
    "cat": "memory",
    "code": "STAB",
    "title": "Runaway Stabilizer",
-   "titleFr": "Emballement du stabilisateur",
+   "titleFr": "Runaway Stabilizer",
    "fleet": "both",
    "ref": "QRH NNC 9.1 (NG & MAX) · FCTM ch.8 Runaway Stabilizer / Manual Stabilizer Trim",
    "flash": {
-    "title": "Croisière FL350, A/P engagé.",
-    "text": "Le trim wheel tourne en continu, la clacker du trim résonne sans arrêt. Le manche devient lourd et l'assiette dérive alors que la vitesse est stable.",
+    "title": "Cruise FL350, A/P engaged.",
+    "text": "The trim wheel spins continuously, the trim clacker never stops. Column forces build and pitch drifts while airspeed is stable.",
     "cues": [
-     "Trim wheel en rotation continue",
-     "Efforts manche croissants",
-     "Indicateur de stab qui défile",
+     "Trim wheel rotating continuously",
+     "Increasing column forces",
+     "Stab trim indicator running",
      "STAB OUT OF TRIM possible"
     ]
    },
@@ -201,26 +201,26 @@ window.NUDGE = {
     },
     {
      "v": "≈15",
-     "l": "Tours de trim wheel",
-     "s": "≈ 1 unit de stab (FCTM)"
+     "l": "Trim wheel turns",
+     "s": "≈ 1 unit of stab trim (FCTM)"
     },
     {
      "v": "5.5°",
      "l": "AOA disagree",
-     "s": "MAX : STS (Speed Trim + MCAS) inhibé, SPEED TRIM FAIL"
+     "s": "MAX: STS (Speed Trim + MCAS) inhibited, SPEED TRIM FAIL"
     }
    ],
-   "trap": "Débrayer l'A/P sans tenir le manche : on perd les ordres de profondeur de l'A/P. Le manche se tient fermement AVANT de déconnecter. Et une fois coupé, on ne réengage ni A/P ni A/T.",
+   "trap": "Disengaging the A/P without holding the column: you lose the A/P elevator commands. Hold the column firmly BEFORE disconnecting. Once off, do not re-engage A/P or A/T.",
    "then": [
-    "Stabilizer … Trim manually (effort à deux pilotes possible)",
-    "Réduire la vitesse diminue les efforts sur le trim manuel",
-    "Anticiper les besoins de trim, ne pas réengager A/P ni A/T",
-    "Deferred items : configuration d'atterrissage et in-trim établis tôt en finale"
+    "Stabilizer … Trim manually (two-pilot effort may be used)",
+    "Reducing airspeed reduces manual trim forces",
+    "Anticipate trim needs, do not re-engage A/P or A/T",
+    "Deferred items: landing configuration and in-trim established early on final"
    ],
-   "diff": "Memory items identiques NG/MAX (QRH 9.1). Différences système : sur MAX les cutouts s'appellent STAB TRIM PRI et B/U et coupent A/P, main electric et Speed Trim System (Speed Trim + MCAS) ; sur NG ce sont MAIN ELECT et AUTOPILOT. Sur MAX, le manche tiré n'interrompt pas un trim nose down MCAS.",
+   "diff": "Memory items identical NG/MAX (QRH 9.1). System differences: on MAX the cutouts are STAB TRIM PRI and B/U and disconnect A/P, main electric and Speed Trim System (Speed Trim + MCAS); on NG they are MAIN ELECT and AUTOPILOT. On MAX, pulling the column does not stop an MCAS nose-down trim.",
    "qcm": [
     {
-     "q": "Premier memory item du Runaway Stabilizer ?",
+     "q": "First Runaway Stabilizer memory item?",
      "o": [
       "Autopilot (if engaged) … Disengage",
       "STAB TRIM cutout switches (both) … CUTOUT",
@@ -228,51 +228,51 @@ window.NUDGE = {
       "Stabilizer trim wheel … Grasp and hold"
      ],
      "a": 2,
-     "w": "On tient le manche fermement avant de déconnecter l'A/P pour garder le contrôle en tangage et les ordres de profondeur de l'A/P (FCTM)."
+     "w": "Hold the column firmly before disconnecting the A/P to keep pitch control and retain the A/P elevator commands (FCTM)."
     },
     {
-     "q": "Après déconnexion A/P, l'emballement continue. Action ?",
+     "q": "A/P disengaged, runaway continues. Action?",
      "o": [
       "STAB TRIM cutout switches (both) … CUTOUT",
-      "Réengager l'autre A/P",
+      "Engage the other A/P",
       "STAB TRIM override switch … OVRD",
       "Flaps … 15"
      ],
      "a": 0,
-     "w": "« If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both) … CUTOUT »."
+     "w": "“If the runaway continues after the autopilot is disengaged: STAB TRIM cutout switches (both) … CUTOUT”."
     },
     {
-     "q": "Malgré les cutouts, le stab continue de bouger. Action ?",
+     "q": "Cutouts set, stab still moving. Action?",
      "o": [
-      "Main Electric Stabilizer trim … opposé",
-      "Réduire la poussée à idle",
-      "Remettre les cutouts sur NORMAL",
+      "Main Electric Stabilizer trim … opposite",
+      "Thrust levers to idle",
+      "Cutouts back to NORMAL",
       "Stabilizer trim wheel … Grasp and hold"
      ],
      "a": 3,
-     "w": "« If the runaway continues: Stabilizer trim wheel … Grasp and hold ». Saisir le trim wheel arrête le mouvement du stab (FCOM)."
+     "w": "“If the runaway continues: Stabilizer trim wheel … Grasp and hold”. Grasping the trim wheel stops stab movement (FCOM)."
     },
     {
-     "q": "L'emballement s'arrête dès la déconnexion de l'A/P. Ensuite ?",
+     "q": "Runaway stops as soon as the A/P is disengaged. Next?",
      "o": [
-      "Réengager l'A/P et surveiller",
+      "Re-engage the A/P and monitor",
       "Do not re-engage the autopilot or autothrottle",
-      "Cutouts sur CUTOUT par précaution",
-      "Réengager l'A/T seulement"
+      "Cutouts to CUTOUT as a precaution",
+      "Re-engage A/T only"
      ],
      "a": 1,
-     "w": "« If the runaway stops after the autopilot is disengaged: Do not re-engage the autopilot or autothrottle. »"
+     "w": "“If the runaway stops after the autopilot is disengaged: Do not re-engage the autopilot or autothrottle.”"
     },
     {
-     "q": "Sur MAX, que coupe un cutout STAB TRIM (PRI ou B/U) sur CUTOUT ?",
+     "q": "On MAX, what does a STAB TRIM cutout (PRI or B/U) at CUTOUT disconnect?",
      "o": [
-      "Uniquement l'A/P trim",
-      "Uniquement le trim manuel (wheel)",
-      "A/P, main electric et Speed Trim System (Speed Trim + MCAS)",
-      "Uniquement MCAS"
+      "A/P trim only",
+      "Manual trim (wheel) only",
+      "A/P, main electric and Speed Trim System (Speed Trim + MCAS)",
+      "MCAS only"
      ],
      "a": 2,
-     "w": "FCOM MAX : les entrées A/P, main electric et STS (Speed Trim et MCAS) sont déconnectées du moteur de trim. Le trim wheel manuel reste disponible."
+     "w": "FCOM MAX: A/P, main electric and STS (Speed Trim and MCAS) inputs are disconnected from the trim motor. The manual trim wheel remains available."
     }
    ]
   },
@@ -282,17 +282,17 @@ window.NUDGE = {
    "cat": "memory",
    "code": "EDES",
    "title": "Emergency Descent",
-   "titleFr": "Descente d'urgence",
+   "titleFr": "Emergency Descent",
    "fleet": "both",
    "ref": "QRH NNC 0.1 (NG & MAX) · SOP B737 Ed03 Rev03",
    "flash": {
-    "title": "FL370, croisière.",
-    "text": "La cabine ne se contrôle plus après la NNC CABIN ALTITUDE WARNING : masques à 100%, communication établie. Décision : descente rapide immédiate.",
+    "title": "FL370, cruise.",
+    "text": "Cabin can no longer be controlled after the CABIN ALTITUDE WARNING NNC: masks at 100%, crew communication established. Decision: immediate rapid descent.",
     "cues": [
-     "Cabin altitude qui monte",
-     "Klaxon intermittent",
+     "Cabin altitude climbing",
+     "Intermittent horn",
      "CABIN ALTITUDE light",
-     "Masques passagers"
+     "Passenger masks deployed"
     ]
    },
    "steps": [
@@ -340,54 +340,54 @@ window.NUDGE = {
    "nums": [
     {
      "v": "10 000 ft",
-     "l": "Niveau cible",
-     "s": "ou lowest safe altitude, le plus haut des deux"
+     "l": "Target altitude",
+     "s": "or lowest safe altitude, whichever is higher"
     },
     {
      "v": "Mmo/Vmo",
-     "l": "Vitesse cible",
-     "s": "sauf doute sur la structure"
+     "l": "Target speed",
+     "s": "unless structural integrity in doubt"
     },
     {
      "v": "320 kt",
-     "l": "Autostow speedbrake",
+     "l": "Speedbrake autostow",
      "s": "NG YD101–YD105, GW > 70 308 kg"
     }
    ],
-   "trap": "Descendre à 10 000 ft sans regarder la MSA : c'est le plus haut entre lowest safe altitude et 10 000 ft. Et avec doute structural, on ne va pas chercher Mmo/Vmo.",
+   "trap": "Descending to 10 000 ft without checking MSA: it's the higher of lowest safe altitude and 10 000 ft. And with structural doubt, don't chase Mmo/Vmo.",
    "then": [
-    "Approche du niveau : SPEED BRAKE lever en DOWN, mise en palier, remettre de la poussée",
-    "Crew oxygen regulators … Normal (O2 obligatoire au-dessus de 10 000 ft cabine)",
+    "Approaching level-off: SPEED BRAKE lever DOWN, level off, add thrust",
+    "Crew oxygen regulators … Normal (O2 mandatory above 10 000 ft cabin altitude)",
     "ENGINE START switches (both) … As needed",
-    "Nouvelle stratégie selon météo, oxygène, carburant, terrains (LRC possible)",
-    "SOP : technique recommandée A/P en LVL CHG, A/T engagée, pas de V/S ; F/O annonce 2 000 et 1 000 ft avant le palier"
+    "New plan based on weather, oxygen, fuel, airports (LRC possible)",
+    "SOP: recommended technique A/P in LVL CHG, A/T engaged, no V/S; F/O calls 2 000 and 1 000 ft before level-off"
    ],
-   "diff": "Mêmes items. Le libellé du levier est « SPEED BRAKE » sur MAX, « Speedbrake » sur NG. QRH NG (YD101–YD105) : caution autostow du speedbrake vers 50% flight detent au-delà de 320 kt si GW > 70 308 kg, ne pas contrer l'autostow sauf sous 320 kt.",
+   "diff": "Same items. Lever label is “SPEED BRAKE” on MAX, “Speedbrake” on NG. QRH NG (YD101–YD105) caution: speedbrake autostows to the 50% flight detent above 320 kt if GW > 70 308 kg; do not counter the autostow unless below 320 kt.",
    "qcm": [
     {
-     "q": "Altitude cible de la descente d'urgence ?",
+     "q": "Emergency descent target altitude?",
      "o": [
-      "10 000 ft systématiquement",
-      "FL100 ou MSA, le plus bas des deux",
-      "Lowest safe altitude ou 10 000 ft, le plus haut des deux",
+      "10 000 ft, always",
+      "FL100 or MSA, whichever is lower",
+      "Lowest safe altitude or 10 000 ft, whichever is higher",
       "14 000 ft"
      ],
      "a": 2,
-     "w": "« descend to the lowest safe altitude or 10,000 feet, whichever is higher »."
+     "w": "“descend to the lowest safe altitude or 10,000 feet, whichever is higher”."
     },
     {
-     "q": "Qui annonce la descente au PA cabine selon la QRH ?",
+     "q": "Per the QRH, who announces the descent to the cabin on the PA?",
      "o": [
-      "Le pilot flying",
-      "Le pilot monitoring",
-      "Le CDB toujours",
-      "Le chef de cabine"
+      "The pilot flying",
+      "The pilot monitoring",
+      "Always the Captain",
+      "The senior cabin crew member"
      ],
      "a": 0,
-     "w": "Le PF prévient la cabine au PA ; le PM prévient l'ATC et récupère le calage altimétrique."
+     "w": "PF advises the cabin on the PA; PM advises ATC and obtains the area altimeter setting."
     },
     {
-     "q": "Que fait-on des ENGINE START switches en memory item ?",
+     "q": "ENGINE START switches in the memory items?",
      "o": [
       "FLT",
       "CONT",
@@ -395,29 +395,29 @@ window.NUDGE = {
       "GRD"
      ],
      "a": 1,
-     "w": "« ENGINE START switches (both) … CONT »."
+     "w": "“ENGINE START switches (both) … CONT”."
     },
     {
-     "q": "Doute sur l'intégrité de la structure : vitesse ?",
+     "q": "Structural integrity in doubt: speed?",
      "o": [
-      "Mmo/Vmo quand même",
+      "Mmo/Vmo anyway",
       "Vref + 80",
-      "Turbulence penetration speed obligatoire",
-      "Limiter la vitesse autant que possible, éviter les fortes charges"
+      "Turbulence penetration speed mandatory",
+      "Limit speed as much as possible, avoid high maneuvering loads"
      ],
      "a": 3,
-     "w": "Caution QRH : limit speed as much as possible and avoid high maneuvering loads."
+     "w": "QRH caution: limit speed as much as possible and avoid high maneuvering loads."
     },
     {
-     "q": "Sur certains NG (YD101–YD105) lourds, le speedbrake peut…",
+     "q": "On some heavy NGs (YD101–YD105), the speedbrake may…",
      "o": [
-      "Se rétracter totalement au-delà de 280 kt",
-      "Autostow vers 50% flight detent au-delà de 320 kt",
-      "Se bloquer à FLIGHT DETENT",
-      "Sortir au maximum automatiquement"
+      "Fully retract above 280 kt",
+      "Autostow to 50% flight detent above 320 kt",
+      "Lock at FLIGHT DETENT",
+      "Extend fully automatically"
      ],
      "a": 1,
-     "w": "Caution QRH NG : GW > 70 308 kg, autostow vers le 50% flight detent si la vitesse dépasse 320 kt."
+     "w": "QRH NG caution: GW > 70 308 kg, autostow to the 50% flight detent if airspeed exceeds 320 kt."
     }
    ]
   },
@@ -427,16 +427,16 @@ window.NUDGE = {
    "cat": "memory",
    "code": "HORN",
    "title": "Warning Horns (Landing / Takeoff Configuration)",
-   "titleFr": "Klaxons de configuration",
+   "titleFr": "Configuration Warning Horns",
    "fleet": "both",
    "ref": "QRH NNC 15.1–15.3 Warning Systems (NG & MAX)",
    "flash": {
-    "title": "Alignement piste, poussée affichée.",
-    "text": "Au moment d'avancer les manettes pour le décollage, un klaxon intermittent retentit et TAKEOFF CONFIG s'allume. Plus tard, en finale, un klaxon continu…",
+    "title": "Lined up on the runway, setting takeoff thrust.",
+    "text": "As the thrust levers are advanced for takeoff, an intermittent horn sounds and TAKEOFF CONFIG illuminates. Later, on final, a steady horn…",
     "cues": [
-     "Klaxon intermittent au sol",
+     "Intermittent horn on the ground",
      "TAKEOFF CONFIG light",
-     "Klaxon continu en vol",
+     "Steady horn in flight",
      "CABIN ALTITUDE light (> 10 000 ft)"
     ]
    },
@@ -459,53 +459,53 @@ window.NUDGE = {
    ],
    "nums": [
     {
-     "v": "Continu",
-     "l": "Klaxon en vol",
+     "v": "Steady",
+     "l": "Horn in flight",
      "s": "= Landing configuration"
     },
     {
      "v": "Intermittent",
-     "l": "Klaxon",
-     "s": "sol = TO config · vol > 10 000 ft = cabine"
+     "l": "Horn",
+     "s": "ground = TO config · flight > 10 000 ft = cabin"
     },
     {
      "v": "100%",
-     "l": "O2 régulateurs",
-     "s": "si klaxon intermittent en vol > 10 000 ft MSL"
+     "l": "O2 regulators",
+     "s": "if intermittent horn in flight > 10 000 ft MSL"
     }
    ],
-   "trap": "Confondre les deux klaxons : en vol au-dessus de 10 000 ft MSL, l'intermittent est une alerte d'altitude cabine → masques d'abord, pas une recherche de configuration.",
+   "trap": "Mixing up the two horns: in flight above 10 000 ft MSL, the intermittent horn is a cabin altitude warning → masks first, not a configuration check.",
    "then": [
-    "Au sol (manettes vers la poussée décollage) : établir la bonne configuration décollage avant tout départ",
-    "Klaxon intermittent > 10 000 ft MSL : CABIN ALTITUDE WARNING or Rapid Depressurization (QRH 2.1)",
-    "Klaxon continu en vol : établir la bonne configuration d'atterrissage"
+    "On the ground (thrust levers advanced to takeoff thrust): establish correct takeoff configuration before any departure",
+    "Intermittent horn > 10 000 ft MSL: CABIN ALTITUDE WARNING or Rapid Depressurization (QRH 2.1)",
+    "Steady horn in flight: establish correct landing configuration"
    ],
-   "diff": "Items identiques. Sur NG, les voyants TAKEOFF CONFIG et CABIN ALTITUDE sont « (if installed and operative) » ; sur MAX ils sont toujours présents (Main Panel CDB et F/O).",
+   "diff": "Identical items. On NG, the TAKEOFF CONFIG and CABIN ALTITUDE lights are “(if installed and operative)”; on MAX they are always fitted (Captain and F/O Main Panels).",
    "qcm": [
     {
-     "q": "En vol, klaxon CONTINU. Memory item ?",
+     "q": "In flight, STEADY horn. Memory item?",
      "o": [
-      "Masques O2 à 100%",
+      "O2 masks at 100%",
       "Assure correct airplane landing configuration.",
       "Assure correct airplane takeoff configuration.",
-      "Descente d'urgence"
+      "Emergency descent"
      ],
      "a": 1,
-     "w": "LANDING CONFIGURATION : « In flight, the steady warning horn sounds » → Assure correct airplane landing configuration."
+     "w": "LANDING CONFIGURATION: “In flight, the steady warning horn sounds” → Assure correct airplane landing configuration."
     },
     {
-     "q": "En vol à FL250, klaxon INTERMITTENT. Première action ?",
+     "q": "In flight at FL250, INTERMITTENT horn. First action?",
      "o": [
-      "Vérifier les volets",
-      "Sortir le train",
+      "Check the flaps",
+      "Extend the gear",
       "Don the oxygen masks and set the regulators to 100%",
-      "Couper le klaxon et continuer"
+      "Silence the horn and continue"
      ],
      "a": 2,
-     "w": "Au-dessus de 10 000 ft MSL, l'intermittent = altitude cabine : masques à 100%, communication, puis NNC 2.1."
+     "w": "Above 10 000 ft MSL, intermittent = cabin altitude: masks at 100%, crew communication, then NNC 2.1."
     },
     {
-     "q": "Au sol, poussée avancée, klaxon intermittent. Memory item ?",
+     "q": "On the ground, thrust advanced, intermittent horn. Memory item?",
      "o": [
       "Assure correct airplane takeoff configuration.",
       "Don the oxygen masks…",
@@ -513,21 +513,21 @@ window.NUDGE = {
       "PROBE HEAT … ON"
      ],
      "a": 0,
-     "w": "TAKEOFF CONFIGURATION : Assure correct airplane takeoff configuration."
+     "w": "TAKEOFF CONFIGURATION: Assure correct airplane takeoff configuration."
     },
     {
-     "q": "Après masques et communication sur klaxon intermittent en vol, quelle NNC ?",
+     "q": "After masks and crew communication for an intermittent horn in flight, which NNC?",
      "o": [
-      "Emergency Descent seule",
+      "Emergency Descent only",
       "Airspeed Unreliable",
       "LANDING CONFIGURATION",
       "CABIN ALTITUDE WARNING or Rapid Depressurization"
      ],
      "a": 3,
-     "w": "« ►►Go to the CABIN ALTITUDE WARNING or Rapid Depressurization checklist on page 2.1 »."
+     "w": "“►►Go to the CABIN ALTITUDE WARNING or Rapid Depressurization checklist on page 2.1”."
     },
     {
-     "q": "Seuil d'altitude avion qui fait de l'intermittent une alarme cabine ?",
+     "q": "Airplane altitude above which the intermittent horn becomes a cabin altitude warning?",
      "o": [
       "8 000 ft MSL",
       "10 000 ft MSL",
@@ -535,7 +535,7 @@ window.NUDGE = {
       "FL200"
      ],
      "a": 1,
-     "w": "« in flight at an airplane flight altitude above 10,000 feet MSL »."
+     "w": "“in flight at an airplane flight altitude above 10,000 feet MSL”."
     }
    ]
   },
@@ -545,17 +545,17 @@ window.NUDGE = {
    "cat": "memory",
    "code": "CAB",
    "title": "CABIN ALTITUDE WARNING or Rapid Depressurization",
-   "titleFr": "Alarme altitude cabine / Dépressurisation rapide",
+   "titleFr": "Cabin Altitude Warning / Rapid Depressurization",
    "fleet": "both",
    "ref": "QRH NNC 2.1 (NG & MAX) · NNC 0.1 Emergency Descent · SOP 2.6",
    "flash": {
-    "title": "Croisière FL370, nuit, au-dessus du Sahara.",
-    "text": "Un bang sourd, les oreilles claquent, un léger brouillard envahit le cockpit. Le klaxon intermittent retentit, l'altitude cabine grimpe à toute vitesse.",
+    "title": "Cruise FL370, night, over the Sahara.",
+    "text": "A dull bang, ears pop, a light mist fills the flight deck. The intermittent horn sounds, cabin altitude climbing fast.",
     "cues": [
-     "Klaxon intermittent en vol",
+     "Intermittent horn in flight",
      "CABIN ALTITUDE light",
-     "Altitude cabine > 10 000 ft",
-     "Cabin rate en forte montée"
+     "Cabin altitude > 10 000 ft",
+     "Cabin rate climbing fast"
     ]
    },
    "steps": [
@@ -600,32 +600,32 @@ window.NUDGE = {
    "nums": [
     {
      "v": "100%",
-     "l": "Régulateurs O2",
-     "s": "Masques équipage"
+     "l": "O2 regulators",
+     "s": "Crew masks"
     },
     {
      "v": "10 000 ft",
-     "l": "Altitude cabine",
-     "s": "Seuil alarme · masques retirables à ou sous"
+     "l": "Cabin altitude",
+     "s": "Warning threshold · masks off at or below"
     },
     {
      "v": "MAN",
-     "l": "Pressurisation",
-     "s": "Puis outflow CLOSE"
+     "l": "Pressurization",
+     "s": "Then outflow CLOSE"
     }
    ],
-   "trap": "Diagnostiquer avant d'avoir le masque : le masque et la com d'abord, l'hypoxie ne prévient pas. Et en vol, ce klaxon intermittent n'est PAS l'alarme de config décollage.",
+   "trap": "Diagnosing before the mask is on: mask and comms first, hypoxia gives no warning. And in flight, this intermittent horn is NOT the takeoff config warning.",
    "then": [
-    "Cabine incontrôlable → Emergency Descent (NNC 0.1) en mémoire",
-    "Cabine contrôlable → maintenir en MAN, masques retirables à ou sous 10 000 ft cabine",
-    "Deferred items : Descent checklist avec outflow VALVE en actions brèves",
-    "Pattern altitude : outflow VALVE OPEN jusqu'à pleine ouverture pour dépressuriser",
-    "SOP : CDB « … MEMORY ITEMS, I HAVE CONTROL », F/O coupe le klaxon, MAN + CLOSE"
+    "Cabin uncontrollable → Emergency Descent (NNC 0.1) from memory",
+    "Cabin controllable → stay in MAN, masks may be removed at or below 10 000 ft cabin",
+    "Deferred items: Descent checklist, outflow VALVE in brief inputs",
+    "Pattern altitude: outflow VALVE OPEN until fully open to depressurize",
+    "SOP: CPT “… MEMORY ITEMS, I HAVE CONTROL”, F/O silences the horn, MAN + CLOSE"
    ],
-   "diff": "Items identiques NG/MAX. Sur NG, le voyant CABIN ALTITUDE est « if installed and operative » ; sur MAX il est toujours installé. Le QRH MAX parle d'« immediate action items » au lieu de « memory items ».",
+   "diff": "Identical items NG/MAX. On NG, the CABIN ALTITUDE light is “if installed and operative”; on MAX it is always installed. The MAX QRH says “immediate action items” instead of “memory items”.",
    "qcm": [
     {
-     "q": "Premier item mémoire ?",
+     "q": "First memory item?",
      "o": [
       "Pressurization mode selector … MAN",
       "Don oxygen masks and set regulators to 100%.",
@@ -633,51 +633,51 @@ window.NUDGE = {
       "Outflow VALVE switch … Hold in CLOSE"
      ],
      "a": 1,
-     "w": "Masques à 100% d'abord, puis communication équipage. Sans oxygène, le reste n'a pas lieu d'être."
+     "w": "Masks at 100% first, then crew communication. Without oxygen, nothing else matters."
     },
     {
-     "q": "Que fait-on avec l'outflow VALVE switch ?",
+     "q": "What do you do with the outflow VALVE switch?",
      "o": [
       "Move to OPEN",
       "Momentary CLOSE pulses",
       "Hold in CLOSE until the outflow VALVE indication shows fully closed",
-      "Laisser en AUTO"
+      "Leave in AUTO"
      ],
      "a": 2,
-     "w": "On maintient en CLOSE jusqu'à l'indication de fermeture complète, après avoir mis le sélecteur en MAN."
+     "w": "Hold in CLOSE until fully closed is indicated, after setting the mode selector to MAN."
     },
     {
-     "q": "Quand passe-t-on PASS OXYGEN sur ON ?",
+     "q": "When is PASS OXYGEN set to ON?",
      "o": [
-      "Toujours, dès le klaxon",
-      "Si cabin altitude is uncontrollable",
-      "Uniquement au-dessus du FL250",
-      "Après l'Emergency Descent"
+      "Always, as soon as the horn sounds",
+      "If cabin altitude is uncontrollable",
+      "Only above FL250",
+      "After the Emergency Descent"
      ],
      "a": 1,
-     "w": "Step 5 conditionnel : si l'altitude cabine est incontrôlable → Passenger signs ON, PASS OXYGEN ON, puis Emergency Descent."
+     "w": "Conditional step 5: if cabin altitude is uncontrollable → Passenger signs ON, PASS OXYGEN ON, then Emergency Descent."
     },
     {
-     "q": "Klaxon intermittent en vol au FL350 : de quoi s'agit-il ?",
+     "q": "Intermittent horn in flight at FL350: what is it?",
      "o": [
       "Takeoff configuration warning",
       "Landing configuration warning",
       "Overspeed",
-      "Altitude cabine > 10 000 ft"
+      "Cabin altitude > 10 000 ft"
      ],
      "a": 3,
-     "w": "Le klaxon de config décollage n'est armé qu'au sol. En vol, il indique une altitude cabine supérieure à 10 000 ft (FCTM 8)."
+     "w": "The takeoff config horn is armed only on the ground. In flight, it indicates cabin altitude above 10 000 ft (FCTM 8)."
     },
     {
-     "q": "À quelle condition les masques peuvent-ils être retirés ?",
+     "q": "When may the masks be removed?",
      "o": [
-      "Cabine à ou sous 10 000 ft",
-      "Avion à ou sous FL140",
-      "Dès que la cabine est contrôlable",
-      "Après la Descent checklist"
+      "Cabin at or below 10 000 ft",
+      "Airplane at or below FL140",
+      "As soon as the cabin is controllable",
+      "After the Descent checklist"
      ],
      "a": 0,
-     "w": "Step 6 : cabine contrôlable, et quand l'altitude cabine est à ou sous 10 000 ft, « Oxygen masks may be removed »."
+     "w": "Step 6: cabin controllable, and once cabin altitude is at or below 10 000 ft, “Oxygen masks may be removed”."
     }
    ]
   },
@@ -687,17 +687,17 @@ window.NUDGE = {
    "cat": "memory",
    "code": "FIRE",
    "title": "ENGINE FIRE or Engine Severe Damage or Separation",
-   "titleFr": "Feu moteur / Dommage sévère / Séparation",
+   "titleFr": "Engine Fire / Severe Damage / Separation",
    "fleet": "both",
    "ref": "QRH NNC 8.10 (NG) · 8.2 (MAX) · SOP 4.2.5 / 4.2.11",
    "flash": {
-    "title": "Montée initiale piste 23 DAAG, 800 ft.",
-    "text": "La cloche feu retentit, FIRE WARN rouges allumés, la poignée moteur 2 est illuminée. L'avion est sous contrôle, train rentré.",
+    "title": "Initial climb, runway 23 DAAG, 800 ft.",
+    "text": "Fire bell rings, red FIRE WARN lights on, engine 2 fire switch illuminated. Airplane under control, gear up.",
     "cues": [
      "Fire bell",
      "FIRE WARN",
-     "Engine fire switch illuminé",
-     "Vibrations cellule + paramètres anormaux"
+     "Engine fire switch illuminated",
+     "Airframe vibration + abnormal parameters"
     ]
    },
    "steps": [
@@ -730,32 +730,32 @@ window.NUDGE = {
    "nums": [
     {
      "v": "1 s",
-     "l": "Rotation poignée",
+     "l": "Fire switch rotation",
      "s": "Rotate to the stop and hold"
     },
     {
      "v": "30 s",
-     "l": "Attente",
-     "s": "Puis rotation vers l'autre butée si toujours allumé"
+     "l": "Wait",
+     "s": "Then rotate to the other stop if still illuminated"
     },
     {
      "v": "400 ft",
-     "l": "AGL mini",
-     "s": "Memory items au décollage (SOP)"
+     "l": "Minimum AGL",
+     "s": "Takeoff memory items (SOP)"
     }
    ],
-   "trap": "Agir vite… sur le mauvais moteur. Chaque item « Confirm » exige l'accord des deux pilotes : main du PM sur la commande, le PF confirme, puis action.",
+   "trap": "Acting fast… on the wrong engine. Every “Confirm” item needs both pilots' agreement: PM's hand on the control, PF confirms, then action.",
    "then": [
-    "Au sol → Engine Fire on the Ground (Back Cover.2)",
-    "En vol, après 30 s toujours allumé → poignée sur l'autre butée, 1 s",
-    "Vibrations fortes persistantes → réduire la vitesse et descendre sans délai",
-    "ISOLATION VALVE CLOSE, PACK côté panne OFF, APU BLEED OFF, APU START",
+    "On the ground → Engine Fire on the Ground (Back Cover.2)",
+    "In flight, still illuminated after 30 s → rotate to the other stop, 1 s",
+    "Heavy vibration persists → reduce airspeed and descend without delay",
+    "ISOLATION VALVE CLOSE, affected-side PACK OFF, APU BLEED OFF, APU START",
     "TA (MAX) / TA ONLY (NG), nearest suitable airport, One Engine Inoperative Landing"
    ],
-   "diff": "Items identiques. MAX : condition ajoutée « Engine failure with smoke or fumes in the flight deck or cabin » (LRD) ; délestage CAB/UTIL + IFE/PASS SEAT si pas d'APU ; note 50% N1 mini si anti-givrage voilure au-dessus du FL220. NNC 8.10 sur NG, 8.2 sur MAX.",
+   "diff": "Identical items. MAX: added condition “Engine failure with smoke or fumes in the flight deck or cabin” (LRD); CAB/UTIL + IFE/PASS SEAT load shed if no APU; note 50% N1 minimum if wing anti-ice above FL220. NNC 8.10 on NG, 8.2 on MAX.",
    "qcm": [
     {
-     "q": "Ordre correct des items 2 à 4 ?",
+     "q": "Correct order of items 2 to 4?",
      "o": [
       "Fire switch Pull → Thrust lever Close → Start lever CUTOFF",
       "Thrust lever Close → Start lever CUTOFF → Fire switch Pull",
@@ -763,51 +763,51 @@ window.NUDGE = {
       "Thrust lever Close → Fire switch Pull → Start lever CUTOFF"
      ],
      "a": 1,
-     "w": "A/T Disengage, Thrust lever Close, Start lever CUTOFF, Fire switch Pull, puis Rotate si toujours allumé."
+     "w": "A/T Disengage, Thrust lever Close, Start lever CUTOFF, Fire switch Pull, then Rotate if still illuminated."
     },
     {
-     "q": "Quand tourne-t-on la poignée feu en mémoire ?",
+     "q": "When is the fire switch rotated in the memory items?",
      "o": [
-      "Toujours, immédiatement après Pull",
-      "Seulement après 30 secondes",
+      "Always, immediately after Pull",
+      "Only after 30 seconds",
       "If the engine fire switch or ENG OVERHEAT light is illuminated",
-      "Seulement au sol"
+      "Only on the ground"
      ],
      "a": 2,
-     "w": "Step 5 conditionnel : si la poignée ou ENG OVERHEAT est allumé → Rotate to the stop and hold for 1 second."
+     "w": "Conditional step 5: if the fire switch or ENG OVERHEAT light is illuminated → Rotate to the stop and hold for 1 second."
     },
     {
-     "q": "La poignée reste allumée 30 s après la 1re rotation. Action ?",
+     "q": "Fire switch still illuminated 30 s after the first rotation. Action?",
      "o": [
       "Rotate to the other stop and hold for 1 second",
-      "Re-tourner sur la même butée",
-      "Rallumer le moteur",
+      "Rotate to the same stop again",
+      "Relight the engine",
       "APU fire switch Pull"
      ],
      "a": 0,
-     "w": "Step 7 : rotation vers l'autre butée pour décharger la deuxième bouteille, maintien 1 seconde."
+     "w": "Step 7: rotate to the other stop to discharge the second bottle, hold 1 second."
     },
     {
-     "q": "Selon le SOP, hauteur mini pour les memory items feu moteur au décollage ?",
+     "q": "Per SOP, minimum height for engine fire memory items after takeoff?",
      "o": [
       "1 500 ft AGL",
       "1 000 ft AGL",
-      "Dès V1",
+      "At V1",
       "400 ft AGL"
      ],
      "a": 3,
-     "w": "Avion sous contrôle, train rentré, altitude de sécurité atteinte (minimum 400 ft AGL)."
+     "w": "Airplane under control, gear up, safe altitude reached (minimum 400 ft AGL)."
     },
     {
-     "q": "Le feu est sur un moteur au sol. Quelle checklist après le step 5 ?",
+     "q": "Engine fire on the ground. Which checklist after step 5?",
      "o": [
       "Engine Tailpipe Fire",
-      "Evacuation directement",
+      "Evacuation directly",
       "Engine Fire on the Ground (Back Cover.2)",
       "One Engine Inoperative Landing"
      ],
      "a": 2,
-     "w": "Step 6 « Choose one: On the ground » → Engine Fire on the Ground, au dos du QRH."
+     "w": "Step 6 “Choose one: On the ground” → Engine Fire on the Ground, on the QRH back cover."
     }
    ]
   },
@@ -817,17 +817,17 @@ window.NUDGE = {
    "cat": "memory",
    "code": "SURGE",
    "title": "Engine Limit or Surge or Stall",
-   "titleFr": "Moteur hors limites / Pompage / Décrochage",
+   "titleFr": "Engine Limit / Surge / Stall",
    "fleet": "both",
    "ref": "QRH NNC 7.2 (NG & MAX) · FCTM ch.8 Loss of Engine Thrust Control",
    "flash": {
-    "title": "Montée FL180, forte pluie.",
-    "text": "Plusieurs détonations sourdes, légères vibrations. L'EGT du moteur 1 monte vers le rouge, le N1 fluctue et ne suit plus la manette.",
+    "title": "Climbing through FL180, heavy rain.",
+    "text": "Several dull bangs, light vibration. Engine 1 EGT rising toward redline, N1 fluctuating and no longer following the thrust lever.",
     "cues": [
-     "EGT vers redline",
-     "N1/N2 fluctuants",
-     "Bangs / vibrations",
-     "Pas de réponse à la manette"
+     "EGT toward redline",
+     "N1/N2 fluctuating",
+     "Bangs / vibration",
+     "No response to thrust lever"
     ]
    },
    "steps": [
@@ -845,22 +845,22 @@ window.NUDGE = {
    "nums": [
     {
      "v": "50%",
-     "l": "N1 mini",
-     "s": "MAX · anti-givrage voilure > FL220"
+     "l": "Minimum N1",
+     "s": "MAX · wing anti-ice > FL220"
     }
    ],
-   "trap": "Réduire la manette sans confirmer le moteur, ou tout couper d'emblée : on retarde seulement jusqu'au retour dans les limites. Et pas d'APU / prédictions FMC en poussée réduite.",
+   "trap": "Retarding the thrust lever without confirming the engine, or shutting it down outright: retard only until back within limits. If the engine runs at reduced thrust: do not use FMC performance predictions, and set the transponder to TA.",
    "then": [
-    "Paramètres stabilisés et EGT stable/en baisse → avancer lentement, RPM/EGT suivent ?",
-    "Moteur OK ou poussée réduite sans pompage → continuer (TA / TA ONLY si poussée réduite)",
-    "Anormal ou EGT qui monte → Engine start lever CUTOFF (Confirm), PACK côté panne OFF",
+    "Parameters stabilized and EGT stable/decreasing → advance slowly; do RPM/EGT follow?",
+    "Engine normal, or reduced thrust without surge → continue (TA / TA ONLY if reduced thrust)",
+    "Abnormal or EGT increasing → Engine start lever CUTOFF (Confirm), affected-side PACK OFF",
     "APU START, balance fuel, ISOLATION VALVE Verify AUTO",
-    "Rallumage possible si rotation N1 et pas de vibration anormale → Engine In-Flight Start"
+    "Restart possible if N1 rotation and no abnormal vibration → Engine In-Flight Start"
    ],
-   "diff": "Items identiques. MAX : TA (NG : TA ONLY), délestage CAB/UTIL + IFE/PASS SEAT si APU indisponible, note 50% N1 au-dessus du FL220. In-Flight Start en 7.24 (NG) / 7.26 (MAX).",
+   "diff": "Identical items. MAX: TA (NG: TA ONLY), CAB/UTIL + IFE/PASS SEAT load shed if APU unavailable, 50% N1 note above FL220. In-Flight Start at 7.24 (NG) / 7.26 (MAX).",
    "qcm": [
     {
-     "q": "Item 2 de la checklist ?",
+     "q": "Checklist item 2?",
      "o": [
       "Thrust lever … Close",
       "Engine start lever … CUTOFF",
@@ -868,10 +868,10 @@ window.NUDGE = {
       "Thrust lever … Advance slowly"
      ],
      "a": 2,
-     "w": "On retarde jusqu'au retour dans les limites ou jusqu'à manette fermée, pas de coupure immédiate."
+     "w": "Retard until back within limits or until the thrust lever is closed; no immediate shutdown."
     },
     {
-     "q": "Premier item ?",
+     "q": "First item?",
      "o": [
       "Autothrottle (if engaged) … Disengage",
       "Autopilot … Disengage",
@@ -879,40 +879,40 @@ window.NUDGE = {
       "Ignition … BOTH"
      ],
      "a": 0,
-     "w": "L'A/T est déconnecté d'abord pour éviter qu'il ne repousse la manette du moteur affecté."
+     "w": "A/T is disengaged first so it doesn't drive the affected engine's thrust lever back up."
     },
     {
-     "q": "Après les memory items, l'EGT continue de monter. Étape suivante ?",
+     "q": "After the memory items, EGT keeps increasing. Next step?",
      "o": [
-      "Go to step 4 : Advance slowly",
-      "Go to step 7 : Engine start lever CUTOFF",
+      "Go to step 4: Advance slowly",
+      "Go to step 7: Engine start lever CUTOFF",
       "Engine fire switch Pull",
-      "Rien, surveiller"
+      "Nothing, monitor"
      ],
      "a": 1,
-     "w": "Step 3 : « Engine indications are abnormal or EGT continues to increase » → step 7, coupure du moteur après confirmation."
+     "w": "Step 3: “Engine indications are abnormal or EGT continues to increase” → step 7, engine shutdown after confirmation."
     },
     {
-     "q": "Moteur qui tourne en poussée réduite sans pompage. Selon le QRH ?",
+     "q": "Engine running at reduced thrust without surge. Per the QRH?",
      "o": [
-      "Utiliser les prédictions FMC normales",
-      "Transponder TA (MAX) / TA ONLY (NG) et pas de prédictions FMC",
-      "Couper le moteur par précaution",
-      "Mettre ENGINE START sur GRD"
+      "Use normal FMC predictions",
+      "Transponder TA (MAX) / TA ONLY (NG) and no FMC predictions",
+      "Shut down the engine as a precaution",
+      "Set ENGINE START to GRD"
      ],
      "a": 1,
-     "w": "« Do not use FMC performance predictions » et transpondeur TA pour éviter des ordres de montée hors capacité."
+     "w": "“Do not use FMC performance predictions” and transponder TA to avoid climb commands beyond capability."
     },
     {
-     "q": "Condition de rallumage selon le QRH ?",
+     "q": "Restart condition per the QRH?",
      "o": [
       "N2 > 20%",
-      "Toujours après 30 s",
-      "Uniquement sous FL250",
-      "S'il y a rotation N1 et pas de vibration cellule anormale"
+      "Always after 30 s",
+      "Only below FL250",
+      "If there is N1 rotation and no abnormal airframe vibration"
      ],
      "a": 3,
-     "w": "« A restart may be attempted if there is N1 rotation and no abnormal airframe vibration. »"
+     "w": "“A restart may be attempted if there is N1 rotation and no abnormal airframe vibration.”"
     }
    ]
   },
@@ -922,17 +922,17 @@ window.NUDGE = {
    "cat": "memory",
    "code": "DUAL",
    "title": "Loss Of Thrust On Both Engines",
-   "titleFr": "Perte de poussée des deux moteurs",
+   "titleFr": "Loss of Thrust, Both Engines",
    "fleet": "both",
    "ref": "QRH NNC 7.6 (NG & MAX) · FCTM 8.17",
    "flash": {
-    "title": "Descente FL290, cumulonimbus, très forte pluie.",
-    "text": "Les deux N1 s'effondrent, ENG FAIL ambre sur les deux moteurs, les écrans clignotent. Silence inhabituel dans le cockpit.",
+    "title": "Descending through FL290, CB, very heavy rain.",
+    "text": "Both N1s collapse, amber ENG FAIL on both engines, displays flicker. Unusual silence on the flight deck.",
     "cues": [
      "ENG FAIL (both)",
-     "N1/N2 en chute sur les 2 moteurs",
-     "Perte des génératrices",
-     "Pluie / grêle intense"
+     "N1/N2 dropping on both engines",
+     "Loss of generators",
+     "Intense rain / hail"
     ]
    },
    "steps": [
@@ -965,37 +965,37 @@ window.NUDGE = {
    "nums": [
     {
      "v": "30 s",
-     "l": "EGT doit monter",
-     "s": "Sinon CUTOFF puis IDLE"
+     "l": "EGT must rise",
+     "s": "Otherwise CUTOFF then IDLE"
     },
     {
      "v": "275 kt",
-     "l": "Vitesse",
+     "l": "Speed",
      "s": "At or above FL270"
     },
     {
      "v": "300 kt",
-     "l": "Vitesse",
+     "l": "Speed",
      "s": "Below FL270"
     },
     {
      "v": "11% / 8.5%",
-     "l": "N2 windmill",
+     "l": "Windmill N2",
      "s": "NG / MAX"
     }
    ],
-   "trap": "Démarrer l'APU avant les memory items : le FCTM demande de lancer la partie mémoire d'abord pour profiter du N2 élevé. Pas de procédure de confirmation croisée pour cette checklist (SOP).",
+   "trap": "Starting the APU before the memory items: the FCTM calls for the memory items first to take advantage of high N2. No cross-confirmation procedure for this checklist (SOP).",
    "then": [
-    "Vitesse : 275 kt à/au-dessus du FL270, 300 kt en dessous",
-    "Accélération lente possible : si N2 monte et EGT dans les limites, ne pas interrompre",
-    "APU START sans attendre le rallumage, puis APU GEN (both) ON un par un",
-    "Pas de rallumage : windmill si N2 ≥ 11% (NG) / 8.5% (MAX), sinon starter assist avec APU bleed",
-    "Moteur stabilisé : thrust lever Advance slowly, GEN ON"
+    "Speed: 275 kt at/above FL270, 300 kt below",
+    "Slow acceleration possible: if N2 rises and EGT within limits, do not interrupt",
+    "APU START without waiting for relight, then APU GEN (both) ON one at a time",
+    "No relight: windmill if N2 ≥ 11% (NG) / 8.5% (MAX), otherwise starter assist with APU bleed",
+    "Engine stabilized: thrust lever Advance slowly, GEN ON"
    ],
-   "diff": "Items identiques. Reference items : seuil windmill N2 11% (NG) vs 8.5% (MAX) ; le MAX fait sélectionner un moteur et met ENG HYD PUMP (selected engine) OFF avant le rallumage, puis ENG HYD PUMP ON et YAW DAMPER ON.",
+   "diff": "Identical items. Reference items: windmill N2 threshold 11% (NG) vs 8.5% (MAX); MAX has you select an engine and set ENG HYD PUMP (selected engine) OFF before the restart, then ENG HYD PUMP ON and YAW DAMPER ON.",
    "qcm": [
     {
-     "q": "Premier item mémoire ?",
+     "q": "First memory item?",
      "o": [
       "APU … START",
       "Engine start levers (both) … CUTOFF",
@@ -1003,32 +1003,32 @@ window.NUDGE = {
       "ENGINE START switches (both) … FLT"
      ],
      "a": 3,
-     "w": "FLT d'abord (allumage), puis start levers CUTOFF, puis IDLE quand l'EGT baisse."
+     "w": "FLT first (ignition), then start levers CUTOFF, then IDLE when EGT decreases."
     },
     {
-     "q": "Quand remet-on les start levers en IDLE detent ?",
+     "q": "When are the start levers returned to IDLE detent?",
      "o": [
       "When EGT decreases",
-      "Après 30 secondes",
-      "Quand N2 > 20%",
-      "Immédiatement"
+      "After 30 seconds",
+      "When N2 > 20%",
+      "Immediately"
      ],
      "a": 0,
-     "w": "Step 3 : « When EGT decreases: Engine start levers (both) … IDLE detent »."
+     "w": "Step 3: “When EGT decreases: Engine start levers (both) … IDLE detent”."
     },
     {
-     "q": "EGT sans hausse 30 s après IDLE. Action ?",
+     "q": "No EGT rise 30 s after IDLE. Action?",
      "o": [
       "APU START",
       "Engine start lever (affected engine) … Confirm … CUTOFF, then IDLE detent",
       "Engine fire switch Pull",
-      "Augmenter la vitesse à 300 kt et attendre"
+      "Increase speed to 300 kt and wait"
      ],
      "a": 1,
-     "w": "Step 4 : CUTOFF puis IDLE detent, à répéter si l'EGT atteint la redline ou ne monte pas en 30 s."
+     "w": "Step 4: CUTOFF then IDLE detent, repeat if EGT reaches redline or does not rise within 30 s."
     },
     {
-     "q": "Vitesse cible au FL300 ?",
+     "q": "Target speed at FL300?",
      "o": [
       "250 kt",
       "300 kt",
@@ -1036,10 +1036,10 @@ window.NUDGE = {
       "Vref + 80"
      ],
      "a": 2,
-     "w": "At or above FL270 : 275 kt. Below FL270 : 300 kt."
+     "w": "At or above FL270: 275 kt. Below FL270: 300 kt."
     },
     {
-     "q": "Seuil N2 pour tenter un windmill start sur 737 MAX ?",
+     "q": "N2 threshold to attempt a windmill start on the 737 MAX?",
      "o": [
       "8.5%",
       "11%",
@@ -1047,7 +1047,7 @@ window.NUDGE = {
       "25%"
      ],
      "a": 0,
-     "w": "MAX : N2 ≥ 8.5% → windmill. NG : 11%. En dessous, starter assist si APU bleed dispo."
+     "w": "MAX: N2 ≥ 8.5% → windmill. NG: 11%. Below that, starter assist if APU bleed available."
     }
    ]
   },
@@ -1057,17 +1057,17 @@ window.NUDGE = {
    "cat": "memory",
    "code": "ABRT",
    "title": "Aborted Engine Start",
-   "titleFr": "Démarrage moteur interrompu",
+   "titleFr": "Aborted Engine Start",
    "fleet": "both",
    "ref": "QRH NNC 7.1 (NG & MAX) · FCOM NP.21 Engine Start",
    "flash": {
-    "title": "Parking Oran, mise en route moteur 2.",
-    "text": "Start lever en IDLE. Le N2 stagne, l'EGT grimpe très vite vers la limite de démarrage. Le F/O garde la main sur le start lever.",
+    "title": "On stand in Oran, starting engine 2.",
+    "text": "Start lever to IDLE. N2 hangs, EGT climbs very fast toward the start limit. The F/O keeps a hand on the start lever.",
     "cues": [
-     "EGT approche la start limit",
-     "N1/N2 stagnants",
-     "Pas de hausse EGT en 15 s",
-     "Pas de pression d'huile au ralenti"
+     "EGT approaching start limit",
+     "N1/N2 hanging",
+     "No EGT rise within 15 s",
+     "No oil pressure at idle"
     ]
    },
    "steps": [
@@ -1080,36 +1080,36 @@ window.NUDGE = {
    "nums": [
     {
      "v": "15 s",
-     "l": "EGT doit monter",
-     "s": "Après start lever IDLE"
+     "l": "EGT must rise",
+     "s": "After start lever IDLE"
     },
     {
      "v": "60 s",
-     "l": "Ventilation",
+     "l": "Motoring",
      "s": "Motor the engine"
     },
     {
      "v": "20%",
      "l": "N2",
-     "s": "Attendre en dessous avant GRD"
+     "s": "Wait until below before GRD"
     },
     {
      "v": "15 min",
-     "l": "Refroidissement",
-     "s": "Après 3 démarrages avortés"
+     "l": "Cooling",
+     "s": "After 3 aborted starts"
     }
    ],
-   "trap": "Remettre ENGINE START sur GRD alors que le N2 tourne encore : attendre N2 < 20%. Et ne jamais rouvrir le start lever pour « rattraper » un démarrage.",
+   "trap": "Returning ENGINE START to GRD while N2 is still spinning down: wait for N2 < 20%. And never reopen the start lever to “save” a start.",
    "then": [
-    "ENGINE START switch encore en GRD → ventiler 60 s, puis OFF",
-    "Switch déjà en OFF → attendre N2 < 20%, GRD, ventiler 60 s, OFF",
-    "Critères d'abort (FCOM) : N1/N2 qui ne monte pas après hausse EGT, pas de pression d'huile au ralenti, EGT sans hausse 15 s, EGT vers la start limit",
-    "3 démarrages avortés consécutifs → 15 min de refroidissement"
+    "ENGINE START switch still in GRD → motor 60 s, then OFF",
+    "Switch already OFF → wait for N2 < 20%, GRD, motor 60 s, OFF",
+    "Abort criteria (FCOM): N1/N2 not rising after EGT rise, no oil pressure at idle, no EGT rise within 15 s, EGT approaching start limit",
+    "3 consecutive aborted starts → 15 min cooling"
    ],
-   "diff": "Item identique. Sur MAX (LEAP-1B), l'EEC a une protection automatique au sol (hot start, stall, dépassement EGT, wet start) qui coupe carburant et allumage ; elle ne fonctionne pas en vol.",
+   "diff": "Identical item. On MAX (LEAP-1B), the EEC has automatic ground protection (hot start, stall, EGT exceedance, wet start) that cuts fuel and ignition; it does not operate in flight.",
    "qcm": [
     {
-     "q": "Le seul item mémoire ?",
+     "q": "The only memory item?",
      "o": [
       "ENGINE START switch … OFF",
       "Engine start lever (affected engine) … CUTOFF",
@@ -1117,51 +1117,51 @@ window.NUDGE = {
       "APU BLEED … OFF"
      ],
      "a": 1,
-     "w": "Un seul memory item : start lever CUTOFF. La ventilation fait partie des reference items."
+     "w": "Single memory item: start lever CUTOFF. Motoring is part of the reference items."
     },
     {
-     "q": "ENGINE START switch est en OFF. Avant de le remettre sur GRD ?",
+     "q": "ENGINE START switch is OFF. Before returning it to GRD?",
      "o": [
-      "Attendre 60 s",
-      "Attendre EGT < 100 °C",
-      "Attendre que N2 descende sous 20%",
-      "Aucune attente"
+      "Wait 60 s",
+      "Wait for EGT < 100 °C",
+      "Wait for N2 to drop below 20%",
+      "No wait"
      ],
      "a": 2,
-     "w": "Step 3 : « After N2 decreases below 20% » → GRD, ventiler 60 s, puis OFF."
+     "w": "Step 3: “After N2 decreases below 20%” → GRD, motor 60 s, then OFF."
     },
     {
-     "q": "Durée de ventilation demandée ?",
+     "q": "Required motoring time?",
      "o": [
-      "30 secondes",
+      "30 seconds",
       "2 minutes",
-      "15 secondes",
-      "60 secondes"
+      "15 seconds",
+      "60 seconds"
      ],
      "a": 3,
-     "w": "« Motor the engine for 60 seconds. »"
+     "w": "“Motor the engine for 60 seconds.”"
     },
     {
-     "q": "Lequel N'EST PAS un critère d'abort du FCOM ?",
+     "q": "Which is NOT an FCOM abort criterion?",
      "o": [
-      "N2 à 25% au moment d'ouvrir le start lever",
-      "Pas de pression d'huile quand le moteur est stabilisé au ralenti",
-      "EGT sans hausse 15 s après IDLE detent",
-      "EGT qui approche rapidement la start limit"
+      "N2 at 25% when opening the start lever",
+      "No oil pressure once the engine is stabilized at idle",
+      "No EGT rise 15 s after IDLE detent",
+      "EGT rapidly approaching the start limit"
      ],
      "a": 0,
-     "w": "25% N2 est la condition normale pour ouvrir le start lever, pas un critère d'abort."
+     "w": "25% N2 is the normal condition for opening the start lever, not an abort criterion."
     },
     {
-     "q": "Après 3 démarrages avortés consécutifs ?",
+     "q": "After 3 consecutive aborted starts?",
      "o": [
-      "5 min de refroidissement",
-      "15 min de refroidissement",
-      "Maintenance obligatoire",
-      "Démarrage par crossbleed"
+      "5 min cooling",
+      "15 min cooling",
+      "Maintenance mandatory",
+      "Crossbleed start"
      ],
      "a": 1,
-     "w": "FCOM limitations : « After three consecutive aborted start attempts, a 15-minute cooling period is required »."
+     "w": "FCOM limitations: “After three consecutive aborted start attempts, a 15-minute cooling period is required”."
     }
    ]
   },
@@ -1171,17 +1171,17 @@ window.NUDGE = {
    "cat": "memory",
    "code": "OVHT",
    "title": "ENGINE OVERHEAT",
-   "titleFr": "Surchauffe moteur",
+   "titleFr": "Engine Overheat",
    "fleet": "both",
    "ref": "QRH NNC 8.14 (NG) · 8.6 (MAX)",
    "flash": {
-    "title": "Croisière FL350, jour.",
-    "text": "MASTER CAUTION, OVHT/DET sur le récap. Le voyant ENG 1 OVERHEAT est allumé, pas de cloche feu. Paramètres moteur normaux.",
+    "title": "Cruise FL350, daytime.",
+    "text": "MASTER CAUTION, OVHT/DET on the annunciator. ENG 1 OVERHEAT light on, no fire bell. Engine parameters normal.",
     "cues": [
      "ENG 1 OVERHEAT light",
      "MASTER CAUTION",
      "OVHT/DET annunciator",
-     "Pas de fire bell"
+     "No fire bell"
     ]
    },
    "steps": [
@@ -1202,17 +1202,17 @@ window.NUDGE = {
     }
    ],
    "nums": [],
-   "trap": "Couper le moteur d'office : on ferme seulement la manette. Si le voyant s'éteint, le moteur reste en fonctionnement à poussée réduite.",
+   "trap": "Shutting the engine down by reflex: only close the thrust lever. If the light goes out, the engine keeps running at reduced thrust.",
    "then": [
-    "Voyant toujours allumé → ENGINE FIRE or Engine Severe Damage or Separation",
-    "Voyant éteint → poussée réduite pour le garder éteint, pas de prédictions FMC",
-    "Transpondeur TA (MAX) / TA ONLY (NG)",
-    "MAX : éviter le givrage, anti-givrage moteur indisponible côté affecté"
+    "Light stays on → ENGINE FIRE or Engine Severe Damage or Separation",
+    "Light out → reduced thrust to keep it out, no FMC predictions",
+    "Transponder TA (MAX) / TA ONLY (NG)",
+    "MAX: avoid icing, engine anti-ice unavailable on the affected side"
    ],
-   "diff": "Items identiques. MAX ajoute : « Avoid icing conditions. Engine anti-ice is not available on the affected engine. » et ne pas faire ENGINE COWL VALVE or TAI INDICATION. Renvoi ENGINE FIRE page 8.10 (NG) / 8.2 (MAX).",
+   "diff": "Identical items. MAX adds: “Avoid icing conditions. Engine anti-ice is not available on the affected engine.” and do not run ENGINE COWL VALVE or TAI INDICATION. ENGINE FIRE reference page 8.10 (NG) / 8.2 (MAX).",
    "qcm": [
     {
-     "q": "Item 2 de ENGINE OVERHEAT ?",
+     "q": "ENGINE OVERHEAT item 2?",
      "o": [
       "Engine start lever … CUTOFF",
       "Engine fire switch … Pull",
@@ -1220,43 +1220,43 @@ window.NUDGE = {
       "Thrust lever … Retard until within limits"
      ],
      "a": 2,
-     "w": "A/T Disengage puis manette fermée. Pas de coupure carburant en mémoire."
+     "w": "A/T Disengage, then thrust lever closed. No fuel cutoff in the memory items."
     },
     {
-     "q": "Le voyant ENG OVERHEAT reste allumé après fermeture de la manette ?",
+     "q": "ENG OVERHEAT light stays on after closing the thrust lever?",
      "o": [
       "Go to ENGINE FIRE or Engine Severe Damage or Separation",
-      "Attendre 30 s puis rouvrir",
+      "Wait 30 s then advance again",
       "Engine Limit or Surge or Stall",
       "Engine Tailpipe Fire"
      ],
      "a": 0,
-     "w": "Step 3 : voyant toujours allumé → checklist ENGINE FIRE, poignée feu incluse."
+     "w": "Step 3: light still on → ENGINE FIRE checklist, fire switch included."
     },
     {
-     "q": "Le voyant s'éteint. Que fait-on du moteur ?",
+     "q": "The light goes out. What about the engine?",
      "o": [
-      "Shutdown par précaution",
+      "Precautionary shutdown",
       "Run the engine at reduced thrust to keep the light extinguished",
-      "Retour à la poussée normale",
-      "Rallumage avec ignition BOTH"
+      "Back to normal thrust",
+      "Relight with ignition BOTH"
      ],
      "a": 1,
-     "w": "On garde le moteur à poussée réduite pour que le voyant reste éteint."
+     "w": "Keep the engine at reduced thrust so the light stays out."
     },
     {
-     "q": "Spécificité MAX dans les reference items ?",
+     "q": "MAX-specific reference item?",
      "o": [
-      "Couper le PACK côté panne",
-      "Démarrer l'APU",
-      "ENGINE START sur CONT",
-      "Éviter le givrage : anti-givrage moteur indisponible côté affecté"
+      "Affected-side PACK OFF",
+      "Start the APU",
+      "ENGINE START to CONT",
+      "Avoid icing: engine anti-ice unavailable on the affected side"
      ],
      "a": 3,
-     "w": "QRH MAX 8.7 step 6 : « Avoid icing conditions. Engine anti-ice is not available on the affected engine. »"
+     "w": "QRH MAX 8.7 step 6: “Avoid icing conditions. Engine anti-ice is not available on the affected engine.”"
     },
     {
-     "q": "Premier item ?",
+     "q": "First item?",
      "o": [
       "Autothrottle (if engaged) … Disengage",
       "Autopilot … Disengage",
@@ -1264,7 +1264,7 @@ window.NUDGE = {
       "MASTER CAUTION … Reset"
      ],
      "a": 0,
-     "w": "Comme pour ENGINE FIRE et Engine Limit : on commence par déconnecter l'A/T."
+     "w": "As for ENGINE FIRE and Engine Limit: start by disengaging the A/T."
     }
    ]
   },
@@ -1274,17 +1274,17 @@ window.NUDGE = {
    "cat": "memory",
    "code": "APU",
    "title": "APU FIRE",
-   "titleFr": "Feu APU",
+   "titleFr": "APU Fire",
    "fleet": "both",
    "ref": "QRH NNC 8.1 (NG & MAX) · FCTM ch.8 Evacuation",
    "flash": {
-    "title": "Escale Alger, transit, APU en marche.",
-    "text": "La cloche feu retentit, FIRE WARN allumés, la poignée APU est illuminée. Les moteurs sont arrêtés, passagers en embarquement.",
+    "title": "Turnaround in Algiers, APU running.",
+    "text": "Fire bell rings, FIRE WARN lights on, APU fire switch illuminated. Engines shut down, passengers boarding.",
     "cues": [
      "Fire bell",
      "FIRE WARN",
-     "APU fire switch illuminé",
-     "APU en fonctionnement"
+     "APU fire switch illuminated",
+     "APU running"
     ]
    },
    "steps": [
@@ -1302,20 +1302,20 @@ window.NUDGE = {
    "nums": [
     {
      "v": "1 s",
-     "l": "Rotation poignée APU",
+     "l": "APU fire switch rotation",
      "s": "Rotate to the stop and hold"
     }
    ],
-   "trap": "Faire seulement « Pull » comme sur un moteur : pour l'APU, l'item unique enchaîne Pull, rotation à la butée et maintien 1 s. Puis APU switch OFF.",
+   "trap": "Doing only “Pull” as for an engine: for the APU, the single item chains Pull, rotate to the stop and hold 1 s. Then APU switch OFF.",
    "then": [
-    "Poignée APU qui s'éteint → checklist terminée",
-    "Poignée qui reste allumée → plan to land at the nearest suitable airport",
-    "Au sol, si évacuation : Evacuation checklist (Back Cover.4)"
+    "APU fire switch extinguishes → checklist complete",
+    "Switch stays illuminated → plan to land at the nearest suitable airport",
+    "On the ground, if evacuating: Evacuation checklist (Back Cover.4)"
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "Premier item APU FIRE ?",
+     "q": "First APU FIRE item?",
      "o": [
       "APU switch … OFF",
       "APU BLEED … OFF",
@@ -1323,10 +1323,10 @@ window.NUDGE = {
       "APU fire switch … Pull"
      ],
      "a": 2,
-     "w": "Pull, rotation et maintien 1 s dans le même item, avant de couper l'APU switch."
+     "w": "Pull, rotate and hold 1 s in a single item, before switching the APU OFF."
     },
     {
-     "q": "Deuxième item ?",
+     "q": "Second item?",
      "o": [
       "APU switch … OFF",
       "Engine start levers … CUTOFF",
@@ -1334,40 +1334,40 @@ window.NUDGE = {
       "Advise ATC"
      ],
      "a": 0,
-     "w": "Item 2 : APU switch OFF. La ligne pointillée suit."
+     "w": "Item 2: APU switch OFF. The dashed line follows."
     },
     {
-     "q": "La poignée APU reste allumée en vol ?",
+     "q": "APU fire switch stays illuminated in flight?",
      "o": [
-      "Tourner vers l'autre butée",
+      "Rotate to the other stop",
       "Plan to land at the nearest suitable airport",
-      "Redémarrer l'APU",
-      "Ignorer"
+      "Restart the APU",
+      "Ignore it"
      ],
      "a": 1,
-     "w": "Step 4 : « Plan to land at the nearest suitable airport. »"
+     "w": "Step 4: “Plan to land at the nearest suitable airport.”"
     },
     {
-     "q": "Combien de temps maintenir la poignée en rotation ?",
+     "q": "How long to hold the switch rotated?",
      "o": [
       "5 s",
       "30 s",
-      "Jusqu'à extinction",
+      "Until it extinguishes",
       "1 s"
      ],
      "a": 3,
-     "w": "« Rotate to the stop, and hold for 1 second. »"
+     "w": "“Rotate to the stop, and hold for 1 second.”"
     },
     {
-     "q": "La poignée APU s'éteint après décharge. Suite ?",
+     "q": "APU fire switch extinguishes after discharge. Next?",
      "o": [
-      "Checklist terminée",
+      "Checklist complete",
       "Plan to land at the nearest suitable airport",
       "Engine Fire on the Ground",
-      "Redémarrer l'APU"
+      "Restart the APU"
      ],
      "a": 0,
-     "w": "Step 3 « APU fire switch extinguishes » → ■■■■ fin de checklist."
+     "w": "Step 3 “APU fire switch extinguishes” → ■■■■ end of checklist."
     }
    ]
   },
@@ -1377,18 +1377,18 @@ window.NUDGE = {
    "cat": "maneuver",
    "code": "STALL",
    "title": "Approach to Stall or Stall Recovery",
-   "titleFr": "Approche du décrochage / décrochage",
+   "titleFr": "Approach to Stall / Stall",
    "fleet": "both",
    "ref": "QRH MAN.1.1 (NG & MAX) · FCTM 7.11–7.15",
    "flash": {
-    "title": "Virage base, flaps 5, A/P engagé, nuit.",
-    "text": "ATC vous a gardé haut, speedbrakes encore sortis. Dans le virage la vitesse fond sous la bande ambre et le manche se met à vibrer.",
+    "title": "Base turn, flaps 5, A/P engaged, night.",
+    "text": "ATC kept you high, speedbrakes still out. In the turn the speed bleeds below the amber band and the column starts to shake.",
     "cues": [
      "Stick shaker",
      "Buffet",
      "“AIRSPEED LOW”",
-     "Vitesse dans la bande ambre",
-     "Assiette qui monte, vario qui baisse"
+     "Speed in the amber band",
+     "Pitch rising, V/S decreasing"
     ]
    },
    "steps": [
@@ -1462,32 +1462,32 @@ window.NUDGE = {
    "nums": [
     {
      "v": "Flaps 1",
-     "l": "Seul changement config",
-     "s": "Au liftoff si flaps UP"
+     "l": "Only config change",
+     "s": "At liftoff if flaps UP"
     },
     {
      "v": "20 000 ft",
-     "l": "Au-dessus : avion limité en poussée",
-     "s": "Récup = perte d'altitude"
+     "l": "Above: airplane thrust limited",
+     "s": "Recovery = altitude loss"
     },
     {
      "v": "V2",
-     "l": "Shaker erroné au décollage",
-     "s": "≥ V2 et V/S positive : continuer"
+     "l": "Erroneous shaker at takeoff",
+     "s": "≥ V2 and positive V/S: continue"
     }
    ],
-   "trap": "Vouloir « sauver l'altitude » en gardant le manche arrière. On réduit l'incidence d'abord (manche en avant, trim piqué si besoin, sans excès) ; et pas de FD pendant la récupération.",
+   "trap": "Trying to “save altitude” by holding back pressure. Reduce AOA first (column forward, nose-down trim if needed, not excessive) — and no FD during the recovery.",
    "then": [
-    "Retour à la vitesse commandée, poussée ajustée, trajectoire reprise",
-    "Re-engager A/P et A/T selon procédures normales",
-    "Ressource douce : un pull up trop agressif → décrochage secondaire",
-    "Poussée déjà élevée (T/O, G/A) : une réduction peut être nécessaire pour faire baisser l'incidence",
-    "PM : annonce toute tendance vers le sol"
+    "Back to commanded speed, thrust adjusted, flight path regained",
+    "Re-engage A/P and A/T per normal procedures",
+    "Smooth pull-out: too aggressive a pull up → secondary stall",
+    "Thrust already high (T/O, G/A): a reduction may be needed to lower AOA",
+    "PM: calls out any trend toward terrain"
    ],
-   "diff": "Manœuvre identique NG/MAX (QRH MAN.1.1). Nuance de rédaction : « Nose down stabilizer trim may be needed » (QRH NG) / « can be needed » (QRH MAX).",
+   "diff": "Same maneuver NG/MAX (QRH MAN.1.1). Wording nuance: “Nose down stabilizer trim may be needed” (QRH NG) / “can be needed” (QRH MAX).",
    "qcm": [
     {
-     "q": "Stick shaker en virage base, A/P engagé. Premier geste du PF selon le QRH ?",
+     "q": "Stick shaker in the base turn, A/P engaged. PF's first action per QRH?",
      "o": [
       "Hold the control column firmly",
       "Advance thrust levers to maximum",
@@ -1495,51 +1495,51 @@ window.NUDGE = {
       "Roll wings level"
      ],
      "a": 0,
-     "w": "Initiate the recovery commence par « Hold the control column firmly », puis déconnexion A/P et A/T et nose down elevator."
+     "w": "Initiate the recovery starts with “Hold the control column firmly”, then disengage A/P and A/T, then nose down elevator."
     },
     {
-     "q": "Pendant la récupération, les directeurs de vol :",
+     "q": "During the recovery, flight directors are:",
      "o": [
-      "Se suivent en tangage uniquement",
-      "Ne s'utilisent pas",
-      "Se suivent après TO/GA",
-      "Se suivent si A/P déconnecté"
+      "Followed in pitch only",
+      "Not used",
+      "Followed after TO/GA",
+      "Followed if A/P disengaged"
      ],
      "a": 1,
-     "w": "QRH : « Do not use flight director commands during the recovery. » Les FD ne sont pas conçus pour guider une sortie de décrochage (FCTM 7.14)."
+     "w": "QRH: “Do not use flight director commands during the recovery.” FDs are not designed to guide a stall recovery (FCTM 7.14)."
     },
     {
-     "q": "Shaker au liftoff, volets rentrés par erreur. Configuration ?",
+     "q": "Shaker at liftoff, flaps retracted by mistake. Configuration?",
      "o": [
-      "Ne rien toucher",
-      "Sortir le train",
-      "Appeler flaps 1",
-      "Appeler flaps 5"
+      "Change nothing",
+      "Extend the gear",
+      "Call flaps 1",
+      "Call flaps 5"
      ],
      "a": 2,
-     "w": "Seule exception au « Do not change gear or flap configuration » : « During liftoff, if flaps are up, call for flaps 1. »"
+     "w": "Only exception to “Do not change gear or flap configuration”: “During liftoff, if flaps are up, call for flaps 1.”"
     },
     {
-     "q": "Le manche seul ne suffit pas à faire baisser le nez. Le trim à piquer :",
+     "q": "Elevator alone won't lower the nose. Nose-down trim:",
      "o": [
-      "Est interdit pendant la manœuvre",
-      "Doit être mis plein piqué",
-      "Se fait uniquement à la roue de trim",
-      "Peut être nécessaire, avec modération"
+      "Is prohibited during the maneuver",
+      "Must be run to full nose down",
+      "Is done with the trim wheel only",
+      "May be needed, in moderation"
      ],
      "a": 3,
-     "w": "« Nose down stabilizer trim can be needed » — mais un excès de trim peut aggraver la situation ou mener à la perte de contrôle (WARNING QRH)."
+     "w": "“Nose down stabilizer trim can be needed” — but excessive trim can worsen the situation or lead to loss of control (QRH WARNING)."
     },
     {
-     "q": "Approche du décrochage vers FL350. Que dit le FCTM ?",
+     "q": "Approach to stall near FL350. What does the FCTM say?",
      "o": [
-      "La poussée max suffit, sans perte d'altitude",
-      "Il faut échanger de l'altitude contre de la vitesse",
-      "Sortir flaps 1 pour baisser la Vs",
-      "Engager l'A/P pour stabiliser"
+      "Max thrust is enough, no altitude loss",
+      "Trade altitude for airspeed",
+      "Select flaps 1 to lower Vs",
+      "Engage the A/P to stabilize"
      ],
      "a": 1,
-     "w": "Au-dessus d'environ 20 000 ft l'avion est limité en poussée : nose down + trim pour descendre, la récupération coûte plus d'altitude."
+     "w": "Above about 20,000 ft the airplane is thrust limited: nose down + trim to descend; the recovery costs more altitude."
     }
    ]
   },
@@ -1549,24 +1549,24 @@ window.NUDGE = {
    "cat": "maneuver",
    "code": "GPWS",
    "title": "Ground Proximity Warning System (GPWS) Response — GPWS Warning",
-   "titleFr": "Évitement terrain (PULL UP)",
+   "titleFr": "Terrain Avoidance (PULL UP)",
    "fleet": "both",
    "ref": "QRH MAN.1.2–1.3 (MAX) / MAN.1.5–1.6 (NG) · FCTM 7.18 · SOP 3.3",
    "flash": {
-    "title": "Arrivée de nuit, relief autour du terrain, IMC.",
-    "text": "Clairance de descente mal comprise, vous passez sous l'altitude de secteur. Le radioaltimètre défile et le cockpit hurle.",
+    "title": "Night arrival, high terrain around the field, IMC.",
+    "text": "Descent clearance misunderstood, you go below sector altitude. The radio altimeter is unwinding and the cockpit is screaming.",
     "cues": [
      "“TERRAIN TERRAIN PULL UP”",
-     "PULL UP rouge sur les deux PFD",
-     "Terrain rouge plein sur ND",
-     "Radio altitude qui chute"
+     "Red PULL UP on both PFDs",
+     "Solid red terrain on ND",
+     "Radio altitude dropping"
     ]
    },
    "steps": [
     {
      "role": "PF",
      "phase": "",
-     "text": "Call “TERRAIN GO” (SOP Air Algérie)",
+     "text": "Call “TERRAIN GO” (Air Algérie SOP)",
      "fleet": "both"
     },
     {
@@ -1639,32 +1639,32 @@ window.NUDGE = {
    "nums": [
     {
      "v": "20°",
-     "l": "Assiette initiale",
-     "s": "Puis jusqu'au PLI / shaker si menace"
+     "l": "Initial pitch",
+     "s": "Then up to PLI / shaker if threat remains"
     },
     {
      "v": "MAX",
-     "l": "Poussée",
-     "s": "Manettes plein avant (EEC normal)"
+     "l": "Thrust",
+     "s": "Thrust levers full forward (EEC normal)"
     },
     {
      "v": "20–30 s",
-     "l": "Préavis look-ahead",
-     "s": "Avant impact projeté (FCOM MAX)"
+     "l": "Look-ahead warning time",
+     "s": "Before projected impact (FCOM MAX)"
     }
    ],
-   "trap": "Garder l'A/P ou suivre le FD : le QRH dit « Do not use flight director commands ». Et ne pas toucher au train/volets tant que la séparation terrain n'est pas assurée.",
+   "trap": "Keeping the A/P or following the FD: the QRH says “Do not use flight director commands”. And don't touch gear/flaps until terrain separation is assured.",
    "then": [
-    "Plus de menace : annoncer que le terrain n'est plus un facteur (SOP)",
-    "Réduire lentement l'assiette, accélérer, rentrer train/volets selon schedule",
-    "Ne pas réengager A/P ou A/T avant d'avoir la séparation terrain assurée (FCTM)",
-    "Alerte look-ahead en montée/croisière/descente vérifiée au-dessus de la MSA : peut être considérée non fiable",
-    "GPWS Caution (SINK RATE, TERRAIN, GLIDESLOPE…) : « Correct the flight path, airplane configuration, or airspeed. »"
+    "Threat gone: call terrain no longer a factor (SOP)",
+    "Slowly decrease pitch, accelerate, retract gear/flaps per schedule",
+    "Do not re-engage A/P or A/T until terrain separation is assured (FCTM)",
+    "Look-ahead alert in climb/cruise/descent, verified above MSA: may be considered unreliable",
+    "GPWS Caution (SINK RATE, TERRAIN, GLIDESLOPE…): “Correct the flight path, airplane configuration, or airspeed.”"
    ],
-   "diff": "Manœuvre identique NG/MAX. Sur NG, l'alerte « OBSTACLE OBSTACLE PULL UP » / CAUTION OBSTACLE n'existe que sur les avions YD108–YD117, YG721–YV388 (effectivité QRH NG).",
+   "diff": "Same maneuver NG/MAX. On NG, the “OBSTACLE OBSTACLE PULL UP” / CAUTION OBSTACLE alert exists only on airplanes YD108–YD117, YG721–YV388 (QRH NG effectivity).",
    "qcm": [
     {
-     "q": "« TERRAIN TERRAIN PULL UP » de nuit en IMC. Assiette initiale visée ?",
+     "q": "“TERRAIN TERRAIN PULL UP” at night in IMC. Target initial pitch?",
      "o": [
       "10°",
       "15°",
@@ -1672,32 +1672,32 @@ window.NUDGE = {
       "25°"
      ],
      "a": 2,
-     "w": "GPWS warning : « rotate to an initial pitch attitude of 20° ». Le 15° c'est la windshear escape."
+     "w": "GPWS warning: “rotate to an initial pitch attitude of 20°”. 15° is the windshear escape."
     },
     {
-     "q": "Le terrain reste menaçant après 20°. Jusqu'où cabrer ?",
+     "q": "Terrain still a threat after 20°. How far to pitch up?",
      "o": [
-      "Jusqu'à 25° maximum",
-      "Jusqu'au PLI, ou stick shaker, ou buffet initial",
-      "Jusqu'à ce que le FD soit centré",
-      "Jusqu'à V2"
+      "Up to 25° maximum",
+      "Up to PLI, or stick shaker, or initial buffet",
+      "Until the FD is centered",
+      "Until V2"
      ],
      "a": 1,
-     "w": "« continue rotation up to the pitch limit indicator (if available) or stick shaker or initial buffet. » Le shaker intermittent est la limite haute."
+     "w": "“continue rotation up to the pitch limit indicator (if available) or stick shaker or initial buffet.” Intermittent shaker is the upper limit."
     },
     {
-     "q": "Pendant la manœuvre, train et volets :",
+     "q": "During the maneuver, gear and flaps:",
      "o": [
-      "Rentrer le train immédiatement",
-      "Volets à 1 pour réduire la traînée",
-      "Volets 15 pour plus de portance",
-      "Ne pas changer avant séparation terrain assurée"
+      "Retract the gear immediately",
+      "Flaps 1 to reduce drag",
+      "Flaps 15 for more lift",
+      "No change until terrain separation is assured"
      ],
      "a": 3,
-     "w": "« Do not change gear or flap configuration until terrain separation is assured. »"
+     "w": "“Do not change gear or flap configuration until terrain separation is assured.”"
     },
     {
-     "q": "Rôle du PM sur la poussée ?",
+     "q": "PM's role on thrust?",
      "o": [
       "Assure maximum thrust",
       "Set CLB thrust",
@@ -1705,18 +1705,18 @@ window.NUDGE = {
       "Disengage autothrottle"
      ],
      "a": 0,
-     "w": "PM : « Assure maximum thrust », vérifie les actions et annonce les omissions. Le PF a déjà déconnecté l'A/T."
+     "w": "PM: “Assure maximum thrust”, verifies actions and calls out omissions. The PF has already disengaged the A/T."
     },
     {
-     "q": "Annonce SOP Air Algérie du PF au déclenchement de la manœuvre ?",
+     "q": "PF's Air Algérie SOP callout when initiating the maneuver?",
      "o": [
-      "« PULL UP »",
-      "« GO AROUND, TERRAIN »",
-      "« TERRAIN GO »",
-      "« ESCAPE »"
+      "“PULL UP”",
+      "“GO AROUND, TERRAIN”",
+      "“TERRAIN GO”",
+      "“ESCAPE”"
      ],
      "a": 2,
-     "w": "SOP 3.3 : « When the GPWS Warning Maneuver is required, the PF shall call: \"TERRAIN GO\" »."
+     "w": "SOP 3.3: “When the GPWS Warning Maneuver is required, the PF shall call: \"TERRAIN GO\"”."
     }
    ]
   },
@@ -1726,17 +1726,17 @@ window.NUDGE = {
    "cat": "maneuver",
    "code": "TCAS",
    "title": "Traffic Avoidance",
-   "titleFr": "Évitement de trafic (TCAS RA)",
+   "titleFr": "Traffic Avoidance (TCAS RA)",
    "fleet": "both",
    "ref": "QRH MAN.1.8–1.10 (MAX) / MAN.1.7–1.8 (NG) · FCTM 7.18–7.20 · SOP 3.4, 15.5",
    "flash": {
-    "title": "Montée vers FL240, A/P engagé, zone TMA chargée.",
-    "text": "TA d'abord, puis le trafic converge. TCAS ordonne une manœuvre alors que l'ATC vient de vous donner une autre consigne.",
+    "title": "Climbing to FL240, A/P engaged, busy TMA.",
+    "text": "TA first, then the traffic converges. TCAS commands a maneuver just as ATC gives you a different instruction.",
     "cues": [
      "“TRAFFIC, TRAFFIC”",
      "“CLIMB, CLIMB”",
-     "Zone rouge sur l'indicateur de vitesse verticale/attitude",
-     "Symbole trafic rouge sur ND"
+     "Red zone on the vertical speed/attitude indicator",
+     "Red traffic symbol on ND"
     ]
    },
    "steps": [
@@ -1811,42 +1811,42 @@ window.NUDGE = {
     {
      "v": "1000 ft",
      "l": "AGL",
-     "s": "Ne pas suivre un DESCEND RA en dessous"
+     "s": "Do not follow a DESCEND RA below"
     },
     {
      "v": "Flaps 15",
-     "l": "Climb RA en config atterrissage",
-     "s": "+ poussée max"
+     "l": "Climb RA in landing config",
+     "s": "+ max thrust"
     },
     {
      "v": "1000 ft/min",
-     "l": "Vz max",
-     "s": "Dans les 2000 ft avant le niveau (SOP)"
+     "l": "Max V/S",
+     "s": "Within 2000 ft of level-off (SOP)"
     }
    ],
-   "trap": "Suivre l'ATC plutôt que le RA, ou manœuvrer à l'opposé : « Comply with the RA if there is a conflict between the RA and air traffic control. » Et pas de manœuvre sur un simple TA.",
+   "trap": "Following ATC instead of the RA, or maneuvering opposite: “Comply with the RA if there is a conflict between the RA and air traffic control.” And no maneuver on a TA alone.",
    "then": [
-    "Pas d'ordre FD en tangage avant d'être clear of conflict",
-    "Shaker ou buffet initial pendant le RA → Approach to Stall Recovery immédiatement",
-    "Buffet haute vitesse : relâcher l'effort à cabrer mais continuer la manœuvre",
-    "Clear of conflict : retour rapide et souple à l'altitude/vitesse autorisées",
-    "TCAS II v7.1 Air Algérie : « LEVEL OFF, LEVEL OFF » = ramener la Vz à 0"
+    "No FD pitch commands until clear of conflict",
+    "Shaker or initial buffet during the RA → Approach to Stall Recovery immediately",
+    "High-speed buffet: relax pitch-up force but continue the maneuver",
+    "Clear of conflict: promptly and smoothly return to cleared altitude/speed",
+    "Air Algérie TCAS II v7.1: “LEVEL OFF, LEVEL OFF” = reduce V/S to 0"
    ],
-   "diff": "Manœuvre identique NG/MAX. Toute la flotte Air Algérie est en TCAS II v7.1 (SOP) : l'ancien RA « ADJUST VERTICAL SPEED ADJUST » est remplacé par « LEVEL OFF ».",
+   "diff": "Same maneuver NG/MAX. The whole Air Algérie fleet has TCAS II v7.1 (SOP): the old “ADJUST VERTICAL SPEED ADJUST” RA is replaced by “LEVEL OFF”.",
    "qcm": [
     {
-     "q": "RA « CLIMB » alors que l'ATC vient de demander de descendre. Que faire ?",
+     "q": "“CLIMB” RA just after ATC cleared you to descend. Action?",
      "o": [
-      "Suivre l'ATC, c'est l'autorité",
-      "Suivre le RA",
-      "Maintenir le niveau et demander à l'ATC",
-      "Virer pour s'écarter"
+      "Follow ATC, it's the authority",
+      "Follow the RA",
+      "Hold level and ask ATC",
+      "Turn away"
      ],
      "a": 1,
-     "w": "WARNING QRH : « Comply with the RA if there is a conflict between the RA and air traffic control. »"
+     "w": "QRH WARNING: “Comply with the RA if there is a conflict between the RA and air traffic control.”"
     },
     {
-     "q": "En dessous de quelle hauteur ne suit-on pas un DESCEND RA ?",
+     "q": "Below what height do you NOT follow a DESCEND RA?",
      "o": [
       "500 ft AGL",
       "1000 ft AGL",
@@ -1854,10 +1854,10 @@ window.NUDGE = {
       "2500 ft AGL"
      ],
      "a": 1,
-     "w": "« Do not follow a DESCEND (fly down) RA issued below 1000 feet AGL. »"
+     "w": "“Do not follow a DESCEND (fly down) RA issued below 1000 feet AGL.”"
     },
     {
-     "q": "Climb RA en finale, config atterrissage. Volets demandés par le PF ?",
+     "q": "Climb RA on final, landing config. Flaps called by PF?",
      "o": [
       "FLAPS 1",
       "FLAPS 5",
@@ -1865,29 +1865,29 @@ window.NUDGE = {
       "FLAPS 15"
      ],
      "a": 3,
-     "w": "« Advance thrust levers forward to ensure maximum thrust is attained and call for FLAPS 15. » Puis GEAR UP sur positive rate."
+     "w": "“Advance thrust levers forward to ensure maximum thrust is attained and call for FLAPS 15.” Then GEAR UP on positive rate."
     },
     {
-     "q": "TA « TRAFFIC, TRAFFIC », trafic non visuel. Action ?",
+     "q": "“TRAFFIC, TRAFFIC” TA, traffic not in sight. Action?",
      "o": [
-      "Chercher le trafic à l'aide de l'écran, sans manœuvrer sur le TA seul",
-      "Monter de 500 ft par précaution",
-      "Déconnecter l'A/P et descendre",
-      "Passer le TCAS en TA ONLY"
+      "Look for traffic using the display, no maneuver on the TA alone",
+      "Climb 500 ft as a precaution",
+      "Disengage the A/P and descend",
+      "Select TCAS to TA ONLY"
      ],
      "a": 0,
-     "w": "Pour un TA : rechercher le trafic. « Maneuvers based solely on a TA can result in reduced separation and are not recommended. »"
+     "w": "For a TA: look for the traffic. “Maneuvers based solely on a TA can result in reduced separation and are not recommended.”"
     },
     {
-     "q": "Stick shaker pendant un RA de montée. Priorité ?",
+     "q": "Stick shaker during a climb RA. Priority?",
      "o": [
-      "Continuer le RA, il est prioritaire",
-      "Réduire la Vz de moitié",
-      "Approach to Stall Recovery immédiatement",
-      "Rentrer les volets"
+      "Continue the RA, it has priority",
+      "Halve the V/S",
+      "Approach to Stall Recovery immediately",
+      "Retract the flaps"
      ],
      "a": 2,
-     "w": "Note QRH : shaker ou buffet initial → « immediately accomplish the APPROACH TO STALL RECOVERY procedure ». Le shaker passe avant tout (FCTM)."
+     "w": "QRH Note: shaker or initial buffet → “immediately accomplish the APPROACH TO STALL RECOVERY procedure”. The shaker comes first (FCTM)."
     }
    ]
   },
@@ -1897,16 +1897,16 @@ window.NUDGE = {
    "cat": "maneuver",
    "code": "UPS↑",
    "title": "Upset Recovery — Nose High Recovery",
-   "titleFr": "Récupération d'assiette — nez haut",
+   "titleFr": "Upset Recovery — Nose High",
    "fleet": "both",
    "ref": "QRH MAN.1.10–1.11 (MAX) / MAN.1.9–1.10 (NG) · FCTM 7.21–7.24 · SOP 3.8",
    "flash": {
-    "title": "Croisière FL370, turbulence en air clair.",
-    "text": "Une rafale verticale et l'A/P décroche. Le nez part à 30° au-dessus de l'horizon, la vitesse s'effondre.",
+    "title": "Cruise FL370, clear air turbulence.",
+    "text": "A vertical gust and the A/P trips off. The nose goes 30° above the horizon, speed collapsing.",
     "cues": [
-     "Assiette > 25° nez haut",
-     "Vitesse qui décroît rapidement",
-     "Ciel bleu dominant sur l'ADI",
+     "Pitch > 25° nose up",
+     "Airspeed decreasing rapidly",
+     "Mostly blue sky on the ADI",
      "A/P disconnect"
     ]
    },
@@ -1981,64 +1981,64 @@ window.NUDGE = {
    "nums": [
     {
      "v": "> 25°",
-     "l": "Nez haut",
-     "s": "Définition historique d'un upset"
+     "l": "Nose high",
+     "s": "Historical upset definition"
     },
     {
      "v": "45°–60°",
-     "l": "Inclinaison",
-     "s": "Si le tangage seul ne fait pas baisser le nez (FCTM)"
+     "l": "Bank",
+     "s": "If pitch alone won't lower the nose (FCTM)"
     },
     {
-     "v": "0 à 1 g",
-     "l": "Facteur de charge",
-     "s": "Pendant la mise en piqué (FCTM)"
+     "v": "0 to 1 g",
+     "l": "Load factor",
+     "s": "During the nose-down push (FCTM)"
     }
    ],
-   "trap": "Remettre plein gaz parce que la vitesse chute : sous les ailes, la poussée cabre encore plus. On réduit la poussée et on pousse ; le trim, juste ce qu'il faut — l'excès de trim ou de palonnier aggrave l'upset.",
+   "trap": "Adding full thrust because speed is dropping: with underwing engines, thrust pitches the nose up further. Reduce thrust and push; trim only as needed — excessive trim or rudder worsens the upset.",
    "then": [
-    "Décroché ? D'abord sortir du décrochage (nose down jusqu'à arrêt du shaker)",
-    "Arrêter le trim piqué quand le g ou l'effort au manche diminue",
-    "Palonnier : seulement si le gauchissement est inefficace et l'avion non décroché, petite quantité",
-    "Proche de l'horizon : ailes à plat, vitesse, poussée, assiette"
+    "Stalled? Recover from the stall first (nose down until shaker stops)",
+    "Stop nose-down trim when g or column force decreases",
+    "Rudder: only if roll control is ineffective and not stalled, small amounts",
+    "Near the horizon: wings level, speed, thrust, pitch"
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "Nez haut 30°, vitesse qui chute. Action sur la poussée ?",
+     "q": "Nose high 30°, speed dropping. Thrust action?",
      "o": [
-      "Poussée max pour regagner de la vitesse",
-      "Maintenir la poussée actuelle",
+      "Max thrust to regain speed",
+      "Keep current thrust",
       "Reduce thrust",
       "TO/GA"
      ],
      "a": 2,
-     "w": "QRH : « Reduce thrust ». Moteurs sous les ailes : plus de poussée = moment cabreur supplémentaire."
+     "w": "QRH: “Reduce thrust”. Underwing engines: more thrust = additional nose-up moment."
     },
     {
-     "q": "Le piqué au manche et le trim ne suffisent pas. Étape suivante du QRH ?",
+     "q": "Nose-down elevator and trim aren't enough. Next QRH step?",
      "o": [
       "Roll (adjust bank angle) to obtain a nose down pitch rate",
-      "Sortir les speedbrakes",
-      "Sortir flaps 1",
-      "Plein palonnier"
+      "Extend speedbrakes",
+      "Select flaps 1",
+      "Full rudder"
      ],
      "a": 0,
-     "w": "« Roll (adjust bank angle) to obtain a nose down pitch rate. » Le FCTM cite 45°, jusqu'à 60° max."
+     "w": "“Roll (adjust bank angle) to obtain a nose down pitch rate.” The FCTM cites 45°, up to 60° max."
     },
     {
-     "q": "Quand remet-on les ailes à plat ?",
+     "q": "When do you roll wings level?",
      "o": [
-      "Immédiatement au début de la récupération",
+      "Immediately at the start of the recovery",
       "When approaching the horizon",
-      "Après avoir retrouvé la vitesse de croisière",
-      "Quand le shaker s'arrête"
+      "After regaining cruise speed",
+      "When the shaker stops"
      ],
      "a": 1,
-     "w": "Complete the recovery : « When approaching the horizon, roll to wings level », puis vitesse/poussée, assiette."
+     "w": "Complete the recovery: “When approaching the horizon, roll to wings level”, then speed/thrust, pitch."
     },
     {
-     "q": "Historiquement, un upset nez haut c'est une assiette supérieure à :",
+     "q": "Historically, a nose-high upset is a pitch attitude greater than:",
      "o": [
       "10°",
       "15°",
@@ -2046,18 +2046,18 @@ window.NUDGE = {
       "25°"
      ],
      "a": 3,
-     "w": "Pitch > 25° nose up, > 10° nose down, bank > 45°, ou vitesse inappropriée. Aujourd'hui : toute déviation de l'état voulu."
+     "w": "Pitch > 25° nose up, > 10° nose down, bank > 45°, or inappropriate airspeed. Today: any deviation from the desired state."
     },
     {
-     "q": "Rôle du PM pendant la récupération ?",
+     "q": "PM's role during the recovery?",
      "o": [
-      "Reprendre les commandes",
+      "Take over the controls",
       "Call out attitude, airspeed and altitude throughout the recovery",
-      "Ré-engager l'A/P dès que possible",
-      "Lire la check-list NNC"
+      "Re-engage the A/P as soon as possible",
+      "Read the NNC checklist"
      ],
      "a": 1,
-     "w": "PM : annonce attitude, vitesse et altitude tout au long, vérifie les actions et annonce toute déviation persistante."
+     "w": "PM: calls out attitude, airspeed and altitude throughout, verifies actions and calls out any continued deviation."
     }
    ]
   },
@@ -2067,17 +2067,17 @@ window.NUDGE = {
    "cat": "maneuver",
    "code": "UPS↓",
    "title": "Upset Recovery — Nose Low Recovery",
-   "titleFr": "Récupération d'assiette — nez bas",
+   "titleFr": "Upset Recovery — Nose Low",
    "fleet": "both",
    "ref": "QRH MAN.1.11–1.12 (MAX) / MAN.1.10–1.11 (NG) · FCTM 7.21–7.25 · SOP 3.8",
    "flash": {
-    "title": "Descente FL200, IMC, nuit.",
-    "text": "Panne d'affichage côté PF, désorientation. Quand vous reprenez le scan, l'avion est à 100° d'inclinaison, nez sous l'horizon, la vitesse grimpe vers VMO.",
+    "title": "Descent FL200, IMC, night.",
+    "text": "Display failure on the PF side, disorientation. When you get your scan back, the airplane is at 100° bank, nose below the horizon, speed climbing toward VMO.",
     "cues": [
-     "Inclinaison > 90°",
-     "Assiette nez bas > 10°",
-     "Vitesse qui s'emballe vers VMO/MMO",
-     "Marron dominant sur l'ADI",
+     "Bank > 90°",
+     "Pitch > 10° nose down",
+     "Speed running toward VMO/MMO",
+     "Mostly brown on the ADI",
      "“BANK ANGLE”"
     ]
    },
@@ -2140,64 +2140,64 @@ window.NUDGE = {
    "nums": [
     {
      "v": "> 10°",
-     "l": "Nez bas",
-     "s": "Définition historique d'un upset"
+     "l": "Nose low",
+     "s": "Historical upset definition"
     },
     {
      "v": "90°",
-     "l": "Inclinaison",
-     "s": "Au-delà : unload and roll"
+     "l": "Bank",
+     "s": "Beyond: unload and roll"
     },
     {
      "v": "67°",
-     "l": "Inclinaison",
-     "s": "Au-delà, vol en palier impossible dans les limites de g (FCTM)"
+     "l": "Bank",
+     "s": "Beyond: level flight impossible within g limits (FCTM)"
     }
    ],
-   "trap": "Tirer sur le manche avant d'avoir remis les ailes à plat : au-delà de 60° d'inclinaison, cabrer ne change quasiment pas l'assiette et charge la structure. D'abord rouler (shortest direction, vers le bank pointer), puis ressource.",
+   "trap": "Pulling before rolling wings level: beyond 60° bank, pulling barely changes pitch and loads the structure. Roll first (shortest direction, toward the bank pointer), then pull out.",
    "then": [
-    "Le bank pointer reste perpendiculaire à l'horizon : rouler vers lui",
-    "Pas de nose up ni de trim cabreur avant d'approcher les ailes à plat (FCTM)",
-    "Speedbrakes si besoin pour contenir la vitesse",
-    "Efforts aux commandes plus élevés que la normale : effort ferme et continu"
+    "The bank pointer stays perpendicular to the horizon: roll toward it",
+    "No nose-up elevator or nose-up trim until approaching wings level (FCTM)",
+    "Speedbrakes as needed to control speed",
+    "Control forces higher than normal: firm, continuous force"
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "Inclinaison 110°, nez bas. Le geste QRH ?",
+     "q": "Bank 110°, nose low. The QRH action?",
      "o": [
-      "Tirer pour ramener le nez à l'horizon",
-      "Réduire la poussée et sortir le train",
+      "Pull to bring the nose to the horizon",
+      "Reduce thrust and extend the gear",
       "Unload and roll, shortest direction to wings level",
-      "Plein palonnier côté haut"
+      "Full top rudder"
      ],
      "a": 2,
-     "w": "« Roll in the shortest direction to wings level. If bank angle is more than 90 degrees, unload and roll. »"
+     "w": "“Roll in the shortest direction to wings level. If bank angle is more than 90 degrees, unload and roll.”"
     },
     {
-     "q": "Ordre correct en nez bas :",
+     "q": "Correct sequence, nose low:",
      "o": [
-      "Nose up elevator puis roll wings level",
-      "Roll wings level puis nose up elevator",
-      "Trim cabreur puis roll",
-      "Speedbrakes puis roll"
+      "Nose up elevator, then roll wings level",
+      "Roll wings level, then nose up elevator",
+      "Nose-up trim, then roll",
+      "Speedbrakes, then roll"
      ],
      "a": 1,
-     "w": "Recover : stall si besoin, roll wings level. Complete the recovery : nose up elevator, trim si besoin, poussée/traînée."
+     "w": "Recover: stall if needed, roll wings level. Complete the recovery: nose up elevator, trim if needed, thrust/drag."
     },
     {
-     "q": "Avant toute action de récupération d'upset, si l'avion est décroché :",
+     "q": "Before any upset recovery action, if the airplane is stalled:",
      "o": [
-      "Sortir du décrochage d'abord (nose down)",
-      "Remettre les ailes à plat d'abord",
-      "Poussée max d'abord",
-      "Sortir les volets"
+      "Recover from the stall first (nose down)",
+      "Roll wings level first",
+      "Max thrust first",
+      "Extend the flaps"
      ],
      "a": 0,
-     "w": "QRH : « If the airplane is stalled, first recover from the stall by applying and maintaining nose down elevator until stall recovery is complete and stick shaker stops. »"
+     "w": "QRH: “If the airplane is stalled, first recover from the stall by applying and maintaining nose down elevator until stall recovery is complete and stick shaker stops.”"
     },
     {
-     "q": "Au-delà de quelle inclinaison le vol en palier est-il impossible dans les limites de facteur de charge AFM ?",
+     "q": "Beyond what bank angle is level flight impossible within AFM load factor limits?",
      "o": [
       "45°",
       "60°",
@@ -2205,18 +2205,18 @@ window.NUDGE = {
       "90°"
      ],
      "a": 2,
-     "w": "FCTM 7.25 : « At bank angles greater than 67°, level flight cannot be maintained within AFM load factor limits. »"
+     "w": "FCTM 7.25: “At bank angles greater than 67°, level flight cannot be maintained within AFM load factor limits.”"
     },
     {
-     "q": "Usage du palonnier pendant un upset :",
+     "q": "Rudder use during an upset:",
      "o": [
-      "Systématique pour accélérer le roulis",
-      "Interdit",
-      "Seulement pour les nez haut",
-      "Seulement si le gauchissement est inefficace et l'avion non décroché, avec soin"
+      "Always, to speed up the roll",
+      "Prohibited",
+      "Nose-high upsets only",
+      "Only if roll control is ineffective and not stalled, carefully"
      ],
      "a": 3,
-     "w": "QRH : « Careful use of rudder to aid roll control should be considered only if roll control is ineffective and the airplane is not stalled. »"
+     "w": "QRH: “Careful use of rudder to aid roll control should be considered only if roll control is ineffective and the airplane is not stalled.”"
     }
    ]
   },
@@ -2226,15 +2226,15 @@ window.NUDGE = {
    "cat": "maneuver",
    "code": "WS",
    "title": "Windshear Escape Maneuver",
-   "titleFr": "Cisaillement de vent — manœuvre d'échappement",
+   "titleFr": "Windshear Escape Maneuver",
    "fleet": "both",
    "ref": "QRH MAN.1.12–1.15 (MAX) / MAN.1.11–1.14 (NG) · FCTM 7.25 · SOP 3.2",
    "flash": {
-    "title": "Courte finale, 600 ft, orage à proximité, A/P engagé.",
-    "text": "La vitesse gagne 20 kt puis s'effondre de 25 kt, le vario passe à −1500 ft/min sous le glide.",
+    "title": "Short final, 600 ft, thunderstorm nearby, A/P engaged.",
+    "text": "Speed gains 20 kt then drops 25 kt, V/S goes to −1500 ft/min below the glide.",
     "cues": [
-     "Sirène deux tons + “WINDSHEAR, WINDSHEAR, WINDSHEAR”",
-     "WINDSHEAR rouge sur les deux PFD",
+     "Two-tone siren + “WINDSHEAR, WINDSHEAR, WINDSHEAR”",
+     "Red WINDSHEAR on both PFDs",
      "“GO-AROUND, WINDSHEAR AHEAD”",
      "IAS −15 kt / V/S −500 fpm / 1 dot G/S"
     ]
@@ -2243,7 +2243,7 @@ window.NUDGE = {
     {
      "role": "PF",
      "phase": "",
-     "text": "Call “WINDSHEAR GO” (SOP Air Algérie)",
+     "text": "Call “WINDSHEAR GO” (Air Algérie SOP)",
      "fleet": "both"
     },
     {
@@ -2328,89 +2328,89 @@ window.NUDGE = {
    "nums": [
     {
      "v": "15°",
-     "l": "Assiette initiale",
-     "s": "Puis jusqu'au shaker intermittent / PLI"
+     "l": "Initial pitch",
+     "s": "Then up to intermittent shaker / PLI"
     },
     {
      "v": "15 kt",
      "l": "IAS",
-     "s": "Écart inacceptable < 1000 ft AGL (avec 500 fpm, 5° pitch, 1 dot G/S)"
+     "s": "Unacceptable deviation < 1000 ft AGL (with 500 fpm, 5° pitch, 1 dot G/S)"
     },
     {
      "v": "2 000 ft",
-     "l": "Avant fin de piste",
-     "s": "Rotation au plus tard si arrêt impossible"
+     "l": "Before end of runway",
+     "s": "Latest rotation if unable to stop"
     },
     {
      "v": "V1",
-     "l": "PWS au roulage",
-     "s": "Avant : RTO · Après : escape"
+     "l": "PWS on takeoff roll",
+     "s": "Before: RTO · After: escape"
     }
    ],
-   "trap": "Baisser le nez pour « regagner la vitesse » : c'est le crash. On garde l'assiette (15°, jusqu'au shaker intermittent) et on ne touche ni train ni volets tant que le windshear est un facteur.",
+   "trap": "Lowering the nose to “regain speed”: that's the crash. Hold the pitch (15°, up to intermittent shaker) and leave gear and flaps alone while windshear is a factor.",
    "then": [
-    "PWS caution (« MONITOR RADAR DISPLAY ») : manœuvrer pour éviter le windshear",
-    "PWS warning en approche (« GO-AROUND, WINDSHEAR AHEAD ») : escape, ou remise de gaz normale au choix du pilote",
-    "Windshear au roulage avant V1 : à VR rotation normale vers 15°, escape une fois en l'air",
-    "Fin : annoncer windshear plus un facteur, transition vol normal, rentrer train/volets selon schedule (SOP)",
-    "TO/GA indisponible : déconnecter A/P et A/T et piloter à la main"
+    "PWS caution (“MONITOR RADAR DISPLAY”): maneuver to avoid the windshear",
+    "PWS warning on approach (“GO-AROUND, WINDSHEAR AHEAD”): escape, or normal go-around at pilot's discretion",
+    "Windshear on takeoff roll before V1: at VR normal rotation toward 15°, escape once airborne",
+    "End: call windshear no longer a factor, transition to normal flight, retract gear/flaps per schedule (SOP)",
+    "TO/GA unavailable: disengage A/P and A/T and fly manually"
    ],
-   "diff": "Manœuvre identique NG/MAX (QRH NG MAN.1.13 / MAX MAN.1.14). Rien à adapter côté pilote.",
+   "diff": "Same maneuver NG/MAX (QRH NG MAN.1.13 / MAX MAN.1.14). Nothing to adapt for the pilot.",
    "qcm": [
     {
-     "q": "Windshear warning en finale, pilotage manuel. Assiette initiale visée ?",
+     "q": "Windshear warning on final, manual flight. Target initial pitch?",
      "o": [
       "10°",
       "15°",
       "20°",
-      "Celle du FD uniquement"
+      "FD pitch only"
      ],
      "a": 1,
-     "w": "« rotate toward an initial pitch attitude of 15° » — 20° c'est le GPWS PULL UP."
+     "w": "“rotate toward an initial pitch attitude of 15°” — 20° is the GPWS PULL UP."
     },
     {
-     "q": "« WINDSHEAR AHEAD, WINDSHEAR AHEAD » au roulage, avant V1 :",
+     "q": "“WINDSHEAR AHEAD, WINDSHEAR AHEAD” on takeoff roll, before V1:",
      "o": [
-      "Continuer et faire l'escape après rotation",
-      "Rejeter le décollage",
-      "Rotation immédiate",
-      "Continuer, c'est seulement prédictif"
+      "Continue and fly the escape after rotation",
+      "Reject the takeoff",
+      "Rotate immediately",
+      "Continue, it's only predictive"
      ],
      "a": 1,
-     "w": "Predictive windshear warning during takeoff roll : « before V1, reject takeoff · after V1, perform the Windshear Escape Maneuver »."
+     "w": "Predictive windshear warning during takeoff roll: “before V1, reject takeoff · after V1, perform the Windshear Escape Maneuver”."
     },
     {
-     "q": "Pendant l'escape, la vitesse continue de baisser. Le PF :",
+     "q": "During the escape, speed keeps decreasing. The PF:",
      "o": [
-      "Baisse le nez pour la regagner",
-      "Rentre les volets pour réduire la traînée",
-      "Rentre le train",
-      "Ne cherche pas à regagner la vitesse tant que le windshear est un facteur"
+      "Lowers the nose to regain it",
+      "Retracts flaps to reduce drag",
+      "Retracts the gear",
+      "Does not try to regain speed while windshear is a factor"
      ],
      "a": 3,
-     "w": "« Do not attempt to regain lost airspeed until windshear is no longer a factor. » Le shaker intermittent est la limite haute d'assiette."
+     "w": "“Do not attempt to regain lost airspeed until windshear is no longer a factor.” Intermittent shaker is the upper pitch limit."
     },
     {
-     "q": "Écart « inacceptable » sous 1000 ft AGL : lequel ne fait PAS partie de la liste QRH ?",
+     "q": "“Unacceptable” deviation below 1000 ft AGL: which is NOT on the QRH list?",
      "o": [
       "15 kt IAS",
       "500 fpm V/S",
-      "10° d'inclinaison",
+      "10° bank",
       "1 dot glideslope"
      ],
      "a": 2,
-     "w": "Liste QRH : 15 kt IAS, 500 fpm V/S, 5° pitch, 1 dot G/S, position manette inhabituelle prolongée. Pas d'inclinaison."
+     "w": "QRH list: 15 kt IAS, 500 fpm V/S, 5° pitch, 1 dot G/S, unusual thrust lever position for a significant time. No bank."
     },
     {
-     "q": "En vol automatique, après avoir poussé TO/GA, le PF :",
+     "q": "In automatic flight, after pushing TO/GA, the PF:",
      "o": [
       "Verify TO/GA mode annunciation, verify GA thrust",
-      "Déconnecte immédiatement l'A/T",
-      "Sort flaps 15",
-      "Sélectionne LVL CHG"
+      "Immediately disengages the A/T",
+      "Selects flaps 15",
+      "Selects LVL CHG"
      ],
      "a": 0,
-     "w": "AUTOMATIC FLIGHT : TO/GA, « Verify TO/GA mode annunciation. Verify GA thrust. Retract speedbrakes. Monitor system performance », prêt à reprendre en manuel."
+     "w": "AUTOMATIC FLIGHT: TO/GA, “Verify TO/GA mode annunciation. Verify GA thrust. Retract speedbrakes. Monitor system performance”, ready to take over manually."
     }
    ]
   },
@@ -2420,17 +2420,17 @@ window.NUDGE = {
    "cat": "maneuver",
    "code": "RTO",
    "title": "Rejected Takeoff",
-   "titleFr": "Décollage interrompu",
+   "titleFr": "Rejected Takeoff",
    "fleet": "both",
    "ref": "QRH MAN.1.5–1.8 (MAX) / MAN.1.2–1.4 (NG) · FCTM 3.29–3.32 · SOP 3.1",
    "flash": {
-    "title": "Décollage DAAG, piste mouillée, CDB PF, autobrake RTO.",
-    "text": "Le F/O vient d'annoncer « EIGHTY KNOTS ». À 120 kt, V1 à 142, la Master Caution s'allume avec un voyant système, puis un bruit sourd.",
+    "title": "Takeoff DAAG, wet runway, CPT PF, autobrake RTO.",
+    "text": "The F/O just called “EIGHTY KNOTS”. At 120 kt, V1 142, Master Caution comes on with a system light, then a dull thud.",
     "cues": [
      "MASTER CAUTION",
-     "ENGINE FIRE / ENGINE FAILURE annoncé",
-     "Bruit / vibration inhabituels",
-     "Accélération anormalement lente",
+     "ENGINE FIRE / ENGINE FAILURE called",
+     "Unusual noise / vibration",
+     "Abnormally slow acceleration",
      "Takeoff configuration warning"
     ]
    },
@@ -2511,48 +2511,48 @@ window.NUDGE = {
    "nums": [
     {
      "v": "80 kt",
-     "l": "Avant : on rejette pour",
-     "s": "Master caution, panne système, bruit/vibration, pneu, accél. lente, config warning, feu, panne moteur, PWS, fenêtre, avion inapte"
+     "l": "Before: reject for",
+     "s": "Master caution, system failure, noise/vibration, tire, slow accel., config warning, fire, engine failure, PWS, window, unsafe airplane"
     },
     {
      "v": "80 kt → V1",
-     "l": "Seulement pour",
-     "s": "Feu / fire warning, panne moteur, PWS warning, avion unsafe ou incapable de voler"
+     "l": "Only for",
+     "s": "Fire / fire warning, engine failure, PWS warning, airplane unsafe or unable to fly"
     },
     {
      "v": "60 kt",
-     "l": "Annonce F/O",
-     "s": "« 60 knots »"
+     "l": "F/O callout",
+     "s": "“60 knots”"
     },
     {
      "v": "V1",
-     "l": "Vitesse max",
-     "s": "Pour la 1ʳᵉ action d'arrêt (14 CFR 25)"
+     "l": "Max speed",
+     "s": "For the 1st stopping action (14 CFR 25)"
     }
    ],
-   "trap": "Rejeter au-dessus de 80 kt pour une Master Caution, ou commencer l'action d'arrêt après V1 : cause n°1 des sorties de piste. Et ne pas oublier de déconnecter l'A/T, sinon les manettes repartent si on rejette avant THR HLD.",
+   "trap": "Rejecting above 80 kt for a Master Caution, or starting the stopping action after V1: #1 cause of runway excursions. And don't forget to disengage the A/T, or the thrust levers advance again if you reject before THR HLD.",
    "then": [
-    "F/O à l'ATC (sous 60 kt ou à l'arrêt) : « AIR ALGERIE (call sign) REJECTED TAKEOFF AIRCRAFT ON THE RUNWAY » (SOP)",
-    "CDB au PA : « CABIN CREW NORMAL PROCEDURES » ou « CABIN CREW AT YOUR STATIONS »",
-    "Memory items / NNC selon la cause ; si besoin « EVACUATION CHECKLIST » puis « EVACUATE, EVACUATE, EVACUATE »",
-    "Brake Cooling Schedule, fuse plugs, frein de parc seulement si évacuation, pompiers, vent si feu",
-    "Nouveau décollage : nouveau « CABIN READY » exigé"
+    "F/O to ATC (below 60 kt or stopped): “AIR ALGERIE (call sign) REJECTED TAKEOFF AIRCRAFT ON THE RUNWAY” (SOP)",
+    "CPT on PA: “CABIN CREW NORMAL PROCEDURES” or “CABIN CREW AT YOUR STATIONS”",
+    "Memory items / NNC as per the cause; if needed “EVACUATION CHECKLIST” then “EVACUATE, EVACUATE, EVACUATE”",
+    "Brake Cooling Schedule, fuse plugs, parking brake only if evacuating, fire services, wind if fire",
+    "New takeoff: new “CABIN READY” required"
    ],
-   "diff": "Manœuvre identique NG/MAX. Pages QRH différentes (NG MAN.1.2, MAX MAN.1.5). Nuance de rédaction : « unless passenger evacuation is needed » (NG) / « is necessary » (MAX).",
+   "diff": "Same maneuver NG/MAX. Different QRH pages (NG MAN.1.2, MAX MAN.1.5). Wording nuance: “unless passenger evacuation is needed” (NG) / “is necessary” (MAX).",
    "qcm": [
     {
-     "q": "À 110 kt (V1 140), MASTER CAUTION seule, pas d'autre symptôme. Décision ?",
+     "q": "At 110 kt (V1 140), MASTER CAUTION only, no other symptom. Decision?",
      "o": [
-      "Rejeter immédiatement",
-      "Rejeter si le CDB est PF",
-      "Continuer le décollage",
-      "Rejeter si piste longue"
+      "Reject immediately",
+      "Reject if CPT is PF",
+      "Continue the takeoff",
+      "Reject if runway is long"
      ],
      "a": 2,
-     "w": "Au-dessus de 80 kt et avant V1, on ne rejette que pour feu/fire warning, panne moteur, PWS warning, ou avion unsafe/incapable de voler."
+     "w": "Above 80 kt and before V1, reject only for fire/fire warning, engine failure, PWS warning, or airplane unsafe/unable to fly."
     },
     {
-     "q": "Lequel N'est PAS un motif de rejet entre 80 kt et V1 ?",
+     "q": "Which is NOT a reason to reject between 80 kt and V1?",
      "o": [
       "Engine failure",
       "Fire warning",
@@ -2560,40 +2560,40 @@ window.NUDGE = {
       "Tire failure"
      ],
      "a": 3,
-     "w": "Tire failure fait partie de la liste « before 80 knots » seulement. Entre 80 kt et V1 : fire, engine failure, PWS warning, unsafe/unable to fly."
+     "w": "Tire failure is on the “before 80 knots” list only. Between 80 kt and V1: fire, engine failure, PWS warning, unsafe/unable to fly."
     },
     {
-     "q": "F/O PF, le CDB annonce « REJECT ». Qui pilote ?",
+     "q": "F/O PF, CPT calls “REJECT”. Who flies?",
      "o": [
-      "Le F/O jusqu'à l'arrêt complet",
-      "Le F/O garde les commandes jusqu'à une action positive du CDB",
-      "Le CDB dès l'annonce, sans autre geste",
-      "Le PM"
+      "The F/O until full stop",
+      "The F/O keeps control until a positive input by the CPT",
+      "The CPT from the callout, no other action",
+      "The PM"
      ],
      "a": 1,
-     "w": "« the first officer maintains control of the airplane until the captain makes a positive input to the controls. »"
+     "w": "“the first officer maintains control of the airplane until the captain makes a positive input to the controls.”"
     },
     {
-     "q": "Réversers : une seule indication REV passe au vert. Annonce F/O ?",
+     "q": "Reversers: only one REV indication turns green. F/O callout?",
      "o": [
-      "« REVERSERS NORMAL »",
-      "« NO REVERSERS »",
-      "« NO REVERSER ENGINE NUMBER 1 » (ou 2)",
-      "« REVERSER FAULT »"
+      "“REVERSERS NORMAL”",
+      "“NO REVERSERS”",
+      "“NO REVERSER ENGINE NUMBER 1” (or 2)",
+      "“REVERSER FAULT”"
      ],
      "a": 2,
-     "w": "Si une indication REV manque ou reste ambre : « NO REVERSER ENGINE NUMBER 1 » ou « NUMBER 2 »; les deux : « NO REVERSERS »."
+     "w": "If one REV indication is missing or stays amber: “NO REVERSER ENGINE NUMBER 1” or “NUMBER 2”; both: “NO REVERSERS”."
     },
     {
-     "q": "Pourquoi déconnecter l'A/T sur tout RTO (FCTM) ?",
+     "q": "Why disengage the A/T on every RTO (FCTM)?",
      "o": [
-      "Avant THR HLD, les manettes réavanceraient à la poussée décollage une fois relâchées",
-      "Pour armer l'autobrake RTO",
-      "Pour activer les reversers",
-      "Pour couper le FD"
+      "Before THR HLD, thrust levers would advance to takeoff thrust once released",
+      "To arm RTO autobrake",
+      "To activate the reversers",
+      "To turn off the FD"
      ],
      "a": 0,
-     "w": "Avant l'annonce THR HLD, sans déconnexion les manettes repartent à la poussée de décollage. Par cohérence : A/T déconnectée pour tous les RTO."
+     "w": "Before THR HLD annunciates, without disengagement the thrust levers advance back to takeoff thrust. For consistency: A/T disengaged for all RTOs."
     }
    ]
   },
@@ -2603,17 +2603,17 @@ window.NUDGE = {
    "cat": "maneuver",
    "code": "ORW",
    "title": "Overrun Warnings (ORW)",
-   "titleFr": "Alertes de sortie de piste (ORW)",
+   "titleFr": "Runway Overrun Warnings (ORW)",
    "fleet": "MAX",
    "ref": "QRH MAX MAN.1.4–1.5 · FCOM MAX L.10 / 15.20.13–14",
    "flash": {
-    "title": "MAX, approche piste courte et mouillée, vent arrière.",
-    "text": "Un peu haut et rapide à 300 ft, vous poussez pour rattraper le plan. Puis, au sol, le freinage auto paraît mou.",
+    "title": "MAX, approach to a short wet runway, tailwind.",
+    "text": "A bit high and fast at 300 ft, you push to regain the path. Then, on the ground, the autobrake feels weak.",
     "cues": [
      "“OVERRUN, GO-AROUND”",
-     "GO AROUND sur le PFD",
+     "GO AROUND on the PFD",
      "“MAX BRAKES, MAX REVERSE”",
-     "MAX REVERSE sur le PFD"
+     "MAX REVERSE on the PFD"
     ]
    },
    "steps": [
@@ -2681,88 +2681,88 @@ window.NUDGE = {
    "nums": [
     {
      "v": "500 ft",
-     "l": "In-air ORW armé",
-     "s": "Au-dessus du TDZE jusqu'au toucher"
+     "l": "In-air ORW armed",
+     "s": "Above TDZE until touchdown"
     },
     {
      "v": "3 s",
-     "l": "On-ground ORW armé",
-     "s": "Après le toucher"
+     "l": "On-ground ORW armed",
+     "s": "After touchdown"
     },
     {
      "v": "20 kt",
-     "l": "On-ground désarmé",
-     "s": "GS < 20 kt ou à 1000 ft du bout de piste"
+     "l": "On-ground disarmed",
+     "s": "GS < 20 kt or 1000 ft from runway end"
     },
     {
      "v": "150 ft",
-     "l": "Aural in-air répété",
-     "s": "Si ≤ 150 ft TDZE et alerte vraie ≥ 7 s"
+     "l": "In-air aural repeated",
+     "s": "If ≤ 150 ft TDZE and alert valid ≥ 7 s"
     }
    ],
-   "trap": "Croire que pas d'alerte = arrêt garanti. Le FCOM est clair : ORW ne remplace pas le calcul de distance d'atterrissage en route, et l'absence d'alerte ne garantit pas l'arrêt avant le bout de piste.",
+   "trap": "Believing no alert = guaranteed stop. The FCOM is clear: ORW does not replace the en-route landing distance assessment, and no alert does not guarantee stopping before the runway end.",
    "then": [
-    "« OVERRUN, GO-AROUND » en approche : remise de gaz immédiate",
-    "Inhiber l'ORW si OAT au sol < −40 °C ou > 50 °C, ou masse > MLW (FCOM MAX)",
-    "L'aural « MAX BRAKES, MAX REVERSE » ne retentit qu'une fois",
-    "Basé sur la base de données piste EGPWS et la position avion"
+    "“OVERRUN, GO-AROUND” on approach: immediate go-around",
+    "Inhibit ORW if ground OAT < −40 °C or > 50 °C, or weight > MLW (FCOM MAX)",
+    "The “MAX BRAKES, MAX REVERSE” aural sounds only once",
+    "Based on the EGPWS runway database and airplane position"
    ],
-   "diff": "MAX uniquement : l'ORW et sa manœuvre n'existent pas dans le QRH NG (rev 55).",
+   "diff": "MAX only: ORW and its maneuver do not exist in the NG QRH (rev 55).",
    "qcm": [
     {
-     "q": "« OVERRUN, GO-AROUND » à 200 ft. Action ?",
+     "q": "“OVERRUN, GO-AROUND” at 200 ft. Action?",
      "o": [
-      "Continuer et freiner max",
+      "Continue and use max braking",
       "Execute a go-around",
-      "Réduire la vitesse et continuer",
-      "Sortir les speedbrakes"
+      "Reduce speed and continue",
+      "Extend speedbrakes"
      ],
      "a": 1,
-     "w": "In-Air Overrun Warning : « Execute a go-around. » (PF et PM)."
+     "w": "In-Air Overrun Warning: “Execute a go-around.” (PF and PM)."
     },
     {
-     "q": "« MAX BRAKES, MAX REVERSE » au roulement. Premier geste du PF ?",
+     "q": "“MAX BRAKES, MAX REVERSE” on the rollout. PF's first action?",
      "o": [
       "Simultaneously close the thrust levers and apply maximum manual wheel brakes",
-      "Augmenter le réglage autobrake",
-      "Remettre les gaz",
-      "Raise SPEED BRAKE lever puis freiner"
+      "Increase the autobrake setting",
+      "Go around",
+      "Raise SPEED BRAKE lever, then brake"
      ],
      "a": 0,
-     "w": "« Without delay: Simultaneously close the thrust levers and apply maximum manual wheel brakes. »"
+     "w": "“Without delay: Simultaneously close the thrust levers and apply maximum manual wheel brakes.”"
     },
     {
-     "q": "L'In-Air ORW est armé à partir de :",
+     "q": "In-Air ORW is armed from:",
      "o": [
       "1000 ft TDZE",
       "50 ft RA",
-      "500 ft au-dessus du TDZE",
-      "Le FAF"
+      "500 ft above TDZE",
+      "The FAF"
      ],
      "a": 2,
-     "w": "FCOM MAX : « The alert is armed from 500 feet above the runway touchdown zone elevation (TDZE) until airplane touchdown. »"
+     "w": "FCOM MAX: “The alert is armed from 500 feet above the runway touchdown zone elevation (TDZE) until airplane touchdown.”"
     },
     {
-     "q": "Cas où il faut inhiber l'ORW (FCOM) :",
+     "q": "When must ORW be inhibited (FCOM)?",
      "o": [
-      "Piste mouillée",
-      "Vent arrière",
+      "Wet runway",
+      "Tailwind",
       "Autobrake 3",
-      "Masse supérieure à la MLW"
+      "Weight above MLW"
      ],
      "a": 3,
-     "w": "Inhiber si OAT au sol < −40 °C ou > 50 °C, ou masse > Maximum Landing Weight."
+     "w": "Inhibit if ground OAT < −40 °C or > 50 °C, or weight > Maximum Landing Weight."
     },
     {
-     "q": "Pas d'alerte ORW sur une piste courte. Conclusion ?",
+     "q": "No ORW alert on a short runway. Conclusion?",
      "o": [
-      "L'arrêt est garanti",
-      "Rien n'est garanti : le calcul de distance d'atterrissage reste obligatoire",
-      "Le freinage peut être réduit",
-      "L'autobrake peut être désarmé"
+      "Stopping is guaranteed",
+      "Nothing is guaranteed: landing distance assessment is still mandatory",
+      "Braking can be reduced",
+      "Autobrake can be disarmed"
      ],
      "a": 1,
-     "w": "« The lack of an overrun alert does not guarantee the airplane can stop prior to reaching the runway end. »"
+     "w": "“The lack of an overrun alert does not guarantee the airplane can stop prior to reaching the runway end.”"
     }
    ]
   },
@@ -2772,16 +2772,16 @@ window.NUDGE = {
    "cat": "maneuver",
    "code": "RAAS",
    "title": "Runway Awareness and Advisory System (RAAS)",
-   "titleFr": "Alertes RAAS (conscience piste)",
+   "titleFr": "RAAS Alerts (Runway Awareness)",
    "fleet": "both",
    "ref": "QRH MAN.1.8 (MAX) / MAN.1.4 (NG) · FCOM NG L.10.9",
    "flash": {
-    "title": "Roulage de nuit, plateforme inconnue, piste parallèle.",
-    "text": "Vous vous alignez sur ce que vous croyez être la piste autorisée. L'annonce vocale ne correspond pas à votre briefing.",
+    "title": "Night taxi, unfamiliar airport, parallel runway.",
+    "text": "You line up on what you think is the cleared runway. The voice callout doesn't match your briefing.",
     "cues": [
-     "Annonce vocale RAAS de la piste",
-     "Identifiant de piste inattendu",
-     "Doute sur la position"
+     "RAAS runway voice callout",
+     "Unexpected runway identifier",
+     "Doubt about position"
     ]
    },
    "steps": [
@@ -2793,68 +2793,68 @@ window.NUDGE = {
     }
    ],
    "nums": [],
-   "trap": "Utiliser RAAS comme aide à la navigation ou à la décision de performance : interdit. Il ne remplace ni NOTAM ni ATIS, et la longueur de piste annoncée ne tient pas compte de la météo ou de l'état de piste.",
+   "trap": "Using RAAS as a navigation aid or for performance decisions: prohibited. It replaces neither NOTAM nor ATIS, and the announced runway length ignores weather and runway condition.",
    "then": [
-    "Ne pas utiliser RAAS pour la navigation",
-    "Pas un substitut aux NOTAM / ATIS",
-    "Alerte longueur de piste réglée par la compagnie, sans facteurs temps réel"
+    "Do not use RAAS for navigation",
+    "Not a substitute for NOTAM / ATIS",
+    "Runway length alert set by the operator, no real-time factors"
    ],
-   "diff": "QRH NG : RAAS limité par effectivité aux avions YD111–YD117 et YG721–YV388 (voir FCOM NG 0.1 pour les immatriculations). QRH MAX : sans restriction d'effectivité.",
+   "diff": "QRH NG: RAAS limited by effectivity to airplanes YD111–YD117 and YG721–YV388 (see FCOM NG 0.1 for registrations). QRH MAX: no effectivity restriction.",
    "qcm": [
     {
-     "q": "L'annonce RAAS ne correspond pas à la piste attendue. Action QRH ?",
+     "q": "The RAAS callout doesn't match the expected runway. QRH action?",
      "o": [
-      "Ignorer, RAAS est seulement informatif",
+      "Ignore it, RAAS is advisory only",
       "Verify position. Contact ATC for assistance, if needed.",
-      "Décoller, la clairance prime",
-      "Couper le RAAS"
+      "Take off, the clearance prevails",
+      "Turn RAAS off"
      ],
      "a": 1,
-     "w": "QRH : « Verify position. Contact ATC for assistance, if needed. » (PF et PM)."
+     "w": "QRH: “Verify position. Contact ATC for assistance, if needed.” (PF and PM)."
     },
     {
-     "q": "Une alerte RAAS de longueur de piste peut-elle servir à juger la performance ?",
+     "q": "Can a RAAS runway length alert be used to assess performance?",
      "o": [
-      "Oui, si piste sèche",
-      "Oui, en complément de l'OPT",
-      "Non : réglée par la compagnie, sans météo ni état de piste ni NOTAM",
-      "Oui, sur MAX uniquement"
+      "Yes, if the runway is dry",
+      "Yes, in addition to OPT",
+      "No: set by the operator, no weather, runway condition or NOTAM",
+      "Yes, on MAX only"
      ],
      "a": 2,
-     "w": "FCOM NG : « Do not use … RAAS … to determine real-time runway suitability for airplane performance. »"
+     "w": "FCOM NG: “Do not use … RAAS … to determine real-time runway suitability for airplane performance.”"
     },
     {
-     "q": "RAAS peut-il remplacer l'ATIS ou les NOTAM ?",
+     "q": "Can RAAS replace ATIS or NOTAM?",
      "o": [
-      "Oui",
-      "Non",
-      "Seulement de nuit",
-      "Seulement en LVP"
+      "Yes",
+      "No",
+      "Only at night",
+      "Only in LVP"
      ],
      "a": 1,
-     "w": "« Do not use RAAS callouts or alerts as a substitute for NOTAM or ATIS information. »"
+     "w": "“Do not use RAAS callouts or alerts as a substitute for NOTAM or ATIS information.”"
     },
     {
-     "q": "Usage interdit du RAAS selon le FCOM NG :",
+     "q": "Prohibited use of RAAS per FCOM NG:",
      "o": [
       "Navigation",
-      "Conscience de situation",
-      "Confirmation de l'alignement",
-      "Alerte en cas de doute"
+      "Situational awareness",
+      "Confirming lineup",
+      "Alerting when in doubt"
      ],
      "a": 0,
-     "w": "« Do not use RAAS callouts or alerts for navigation. »"
+     "w": "“Do not use RAAS callouts or alerts for navigation.”"
     },
     {
-     "q": "Côté NG Air Algérie, le RAAS est :",
+     "q": "On the Air Algérie NG fleet, RAAS is:",
      "o": [
-      "Installé sur toute la flotte NG",
-      "Absent de la flotte NG",
-      "Limité par effectivité (YD111–YD117, YG721–YV388)",
-      "Seulement sur -600"
+      "Installed on the whole NG fleet",
+      "Not installed on the NG fleet",
+      "Limited by effectivity (YD111–YD117, YG721–YV388)",
+      "Only on -600s"
      ],
      "a": 2,
-     "w": "Le QRH et le FCOM NG portent l'effectivité YD111 - YD117, YG721 - YV388 pour le RAAS."
+     "w": "The NG QRH and FCOM list RAAS effectivity as YD111 - YD117, YG721 - YV388."
     }
    ]
   },
@@ -2864,12 +2864,12 @@ window.NUDGE = {
    "cat": "sop",
    "code": "STAB",
    "title": "Stabilized Approach Criteria",
-   "titleFr": "Approche stabilisée",
+   "titleFr": "Stabilized Approach",
    "fleet": "both",
    "ref": "SOP B737 Ed03 Rev03 §17.5 p.132-134 · FCTM ch.5 Stabilized Approach",
    "flash": {
-    "title": "ILS 05, VMC, vent arrière fort.",
-    "text": "Tu as accepté un raccourci ATC. À 1100 ft AFE : flaps 30 sortis, Vapp +14 kt, V/S 1200 fpm, glide 1 dot haut. Le PM regarde l'altimètre…",
+    "title": "ILS 05, VMC, strong tailwind.",
+    "text": "You accepted an ATC shortcut. At 1100 ft AFE: flaps 30, Vapp +14 kt, V/S 1200 fpm, glide 1 dot high. The PM is watching the altimeter…",
     "cues": [
      "Vapp +14 kt",
      "V/S −1200 fpm",
@@ -2913,17 +2913,17 @@ window.NUDGE = {
     {
      "v": "1000 ft",
      "l": "AFE",
-     "s": "Toutes approches (y.c. visual approach)"
+     "s": "All approaches (incl. visual approach)"
     },
     {
      "v": "+10/−5 kt",
      "l": "Vapp",
-     "s": "Si tendance vers Vapp"
+     "s": "If trending toward Vapp"
     },
     {
      "v": "1000 fpm",
      "l": "V/S max",
-     "s": "Derniers 1000 ft"
+     "s": "Last 1000 ft"
     },
     {
      "v": "500 ft",
@@ -2931,18 +2931,18 @@ window.NUDGE = {
      "s": "Circling & visual traffic pattern"
     }
    ],
-   "trap": "Le FCTM Boeing dit 1000 ft IMC / 500 ft VMC. Chez Air Algérie : TOUTES les approches stabilisées à 1000 ft AFE — seuls le circling et le visual traffic pattern ont la porte à 500 ft AFE.",
+   "trap": "The Boeing FCTM says 1000 ft IMC / 500 ft VMC. At Air Algérie: ALL approaches stabilized by 1000 ft AFE — only circling and the visual traffic pattern use the 500 ft AFE gate.",
    "then": [
-    "Déstabilisée sous 1000 ft AFE = remise de gaz immédiate.",
-    "Critères complets : bonne trajectoire, petites corrections, config atterrissage, poussée adaptée, briefings et checklists faits.",
-    "RNP aux minima VNAV : dans 75 ft de déviation verticale.",
-    "Circling / visual pattern : ailes à plat sur le final à 400 ft AFE (visual segment : 500 ft AFE).",
-    "Au seuil : Vapp +10 kt max, atterrissage dans la TDZ (3000 premiers ft ou 1er tiers, le plus court)."
+    "Unstabilized below 1000 ft AFE = immediate go-around.",
+    "Full criteria: correct flight path, small corrections, landing config, appropriate thrust, briefings and checklists complete.",
+    "RNP at VNAV minima: within 75 ft vertical deviation.",
+    "Circling / visual pattern: wings level on final by 400 ft AFE (visual segment: 500 ft AFE).",
+    "At threshold: Vapp +10 kt max, touchdown in the TDZ (first 3000 ft or first third, whichever is shorter)."
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "Approche à vue de jour, VMC. Selon le SOP Air Algérie, à quelle hauteur doit-elle être stabilisée ?",
+     "q": "Day visual approach, VMC. Per Air Algérie SOP, stabilized by what height?",
      "o": [
       "500 ft AFE",
       "1000 ft AFE",
@@ -2950,51 +2950,51 @@ window.NUDGE = {
       "400 ft AFE"
      ],
      "a": 1,
-     "w": "SOP §17.5.1 : « For a Visual Approach, the airplane must be stabilized … by 1000 feet AFE ». Le 500 ft VMC est la reco FCTM, pas la règle compagnie."
+     "w": "SOP §17.5.1: “For a Visual Approach, the airplane must be stabilized … by 1000 feet AFE”. 500 ft VMC is the FCTM recommendation, not the company rule."
     },
     {
-     "q": "Quelle tolérance de vitesse est acceptable pour être stabilisé ?",
+     "q": "What speed tolerance is acceptable to be stabilized?",
      "o": [
       "+5/−5 kt",
       "+15/−5 kt",
       "+10/0 kt",
-      "+10/−5 kt si tendance vers Vapp"
+      "+10/−5 kt if trending toward Vapp"
      ],
      "a": 3,
-     "w": "« deviations of +10 knots to – 5 knots are acceptable if the airspeed is trending toward approach speed »."
+     "w": "“deviations of +10 knots to – 5 knots are acceptable if the airspeed is trending toward approach speed”."
     },
     {
-     "q": "Une approche devient non stabilisée à 700 ft AFE. Que fait-on ?",
+     "q": "An approach becomes unstabilized at 700 ft AFE. Action?",
      "o": [
-      "Remise de gaz immédiate",
-      "On corrige jusqu'à 500 ft",
-      "On continue si la piste est en vue",
-      "Le CDB décide de continuer"
+      "Immediate go-around",
+      "Correct until 500 ft",
+      "Continue if runway in sight",
+      "CPT decides to continue"
      ],
      "a": 0,
-     "w": "Note 1 §17.5.1 : « An approach that becomes unstabilized below 1000 feet AFE requires an immediate go-around »."
+     "w": "Note 1 §17.5.1: “An approach that becomes unstabilized below 1000 feet AFE requires an immediate go-around”."
     },
     {
-     "q": "Pour un circling, quelle est la porte de stabilisation ?",
+     "q": "For a circling approach, what is the stabilization gate?",
      "o": [
-      "1000 ft AFE, ailes à plat à 500 ft",
-      "500 ft AFE, ailes à plat sur le final à 400 ft AFE",
+      "1000 ft AFE, wings level at 500 ft",
+      "500 ft AFE, wings level on final by 400 ft AFE",
       "400 ft AFE",
       "MDA"
      ],
      "a": 1,
-     "w": "Circling : stabilisé à 500 ft AFE, sauf les ailes « leveled on final when the airplane reaches 400 feet AFE »."
+     "w": "Circling: stabilized by 500 ft AFE, except wings “leveled on final when the airplane reaches 400 feet AFE”."
     },
     {
-     "q": "Qui annonce à 1000 ft et quoi ?",
+     "q": "Who calls at 1000 ft, and what?",
      "o": [
-      "Le PF : « STABILIZED »",
-      "Le GPWS seul, pas d'annonce",
-      "Le PM : « 1000 STABLE » ou « 1000 UNSTABLE GO AROUND »",
-      "Le PM : « ONE THOUSAND »"
+      "PF: “STABILIZED”",
+      "GPWS only, no callout",
+      "PM: “1000 STABLE” or “1000 UNSTABLE GO AROUND”",
+      "PM: “ONE THOUSAND”"
      ],
      "a": 2,
-     "w": "SOP §18.2.1 : le PM annonce « 1000 STABLE » ou « 1000 UNSTABLE GO AROUND », le PF répond « CONTINUE » ou « GO-AROUND »."
+     "w": "SOP §18.2.1: PM calls “1000 STABLE” or “1000 UNSTABLE GO AROUND”, PF replies “CONTINUE” or “GO-AROUND”."
     }
    ]
   },
@@ -3004,17 +3004,17 @@ window.NUDGE = {
    "cat": "sop",
    "code": "G/A",
    "title": "F/D Go-Around Procedure (Single Channel or Manual)",
-   "titleFr": "Remise de gaz — callouts SOP",
+   "titleFr": "Go-Around — SOP Callouts",
    "fleet": "both",
    "ref": "SOP B737 Ed03 Rev03 §19 p.167-171 · FCOM NP Go-Around · FCTM ch.5",
    "flash": {
-    "title": "ILS 23, CAT I, brouillard.",
-    "text": "GPWS « MINIMUMS ». Le PM n'a rien annoncé en visuel. Mains sur le manche, AP déconnecté.",
+    "title": "ILS 23, CAT I, fog.",
+    "text": "GPWS “MINIMUMS”. The PM has made no visual callout. Hands on the controls, AP disengaged.",
     "cues": [
-     "« MINIMUMS »",
-     "Pas d'annonce visuelle du PM",
+     "“MINIMUMS”",
+     "No visual callout from PM",
      "Flaps 30",
-     "A/T engagé"
+     "A/T engaged"
     ]
    },
    "steps": [
@@ -3058,47 +3058,47 @@ window.NUDGE = {
     {
      "v": "15°",
      "l": "Pitch",
-     "s": "Rotation G/A (manuel / single channel)"
+     "s": "G/A rotation (manual / single channel)"
     },
     {
      "v": "400 ft",
      "l": "RA",
-     "s": "Mode latéral"
+     "s": "Roll mode"
     },
     {
      "v": "1000 ft",
-     "l": "AGL mini",
-     "s": "Accélération / rentrée volets"
+     "l": "Min AGL",
+     "s": "Acceleration / flap retraction"
     },
     {
      "v": "15°",
      "l": "Bank max",
-     "s": "Vitesse dans la bande ambre"
+     "s": "Speed in the amber band"
     }
    ],
-   "trap": "Aux minima, le PF ne cherche pas la piste : pas d'annonce visuelle du PM = remise de gaz. Et une fois les reverses sorties, atterrissage complet obligatoire.",
+   "trap": "At minimums, the PF doesn't go looking for the runway: no visual callout from the PM = go-around. And once reversers are selected, a full-stop landing is mandatory.",
    "then": [
-    "TO/GA une 2e fois si poussée G/A pleine requise (après la poussée réduite).",
-    "Volets rentrés et ≥ vitesse de manœuvre : LVL CHG (VNAV si volets UP), « COMMAND A/B ».",
-    "PM : « SPEED CHECKED, FLAPS UP » puis « FLAPS UP, NO LIGHTS ».",
-    "« AFTER TAKEOFF CHECKLIST ».",
-    "Dual channel (FLARE armé) : AP restent engagés, PF « GO-AROUND, FLAPS 15 » puis « SET GO-AROUND THRUST »."
+    "TO/GA a 2nd time if full G/A thrust is required (after reduced thrust).",
+    "Flaps up and ≥ maneuvering speed: LVL CHG (VNAV if flaps UP), “COMMAND A/B”.",
+    "PM: “SPEED CHECKED, FLAPS UP” then “FLAPS UP, NO LIGHTS”.",
+    "“AFTER TAKEOFF CHECKLIST”.",
+    "Dual channel (FLARE armed): APs stay engaged, PF “GO-AROUND, FLAPS 15” then “SET GO-AROUND THRUST”."
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "Remise de gaz manuelle : quelle est la première annonce du PF ?",
+     "q": "Manual go-around: PF's first callout?",
      "o": [
-      "« GO-AROUND, FLAPS 15 »",
-      "« GO-AROUND, SET GO-AROUND THRUST »",
-      "« TOGA, FLAPS 15, GEAR UP »",
-      "« MISSED APPROACH »"
+      "“GO-AROUND, FLAPS 15”",
+      "“GO-AROUND, SET GO-AROUND THRUST”",
+      "“TOGA, FLAPS 15, GEAR UP”",
+      "“MISSED APPROACH”"
      ],
      "a": 1,
-     "w": "§19.2 : Push TO/GA switch, call « GO-AROUND, SET GO-AROUND THRUST ». « GO-AROUND, FLAPS 15 » est l'annonce dual channel (§19.3)."
+     "w": "§19.2: Push TO/GA switch, call “GO-AROUND, SET GO-AROUND THRUST”. “GO-AROUND, FLAPS 15” is the dual channel callout (§19.3)."
     },
     {
-     "q": "Hauteur minimale d'accélération pour commencer à rentrer les volets ?",
+     "q": "Minimum acceleration height to start flap retraction?",
      "o": [
       "400 ft AGL",
       "800 ft AGL",
@@ -3106,10 +3106,10 @@ window.NUDGE = {
       "1500 ft AGL"
      ],
      "a": 2,
-     "w": "« At acceleration height (minimum 1000ft AGL) Commence flap retraction »."
+     "w": "“At acceleration height (minimum 1000ft AGL) Commence flap retraction”."
     },
     {
-     "q": "Vitesse dans la bande ambre pendant la G/A : limite d'inclinaison ?",
+     "q": "Speed in the amber band during the G/A: bank limit?",
      "o": [
       "10°",
       "15°",
@@ -3117,29 +3117,29 @@ window.NUDGE = {
       "30°"
      ],
      "a": 1,
-     "w": "« If the airspeed is within the amber band, limit bank angle to 15° »."
+     "w": "“If the airspeed is within the amber band, limit bank angle to 15°”."
     },
     {
-     "q": "Aux minimums, le PF n'a entendu aucune annonce de références visuelles du PM. Il doit :",
+     "q": "At minimums, the PF has heard no visual reference callout from the PM. The PF must:",
      "o": [
-      "Regarder dehors pour chercher la piste",
-      "Attendre 100 ft de plus",
-      "Demander au PM",
-      "Remettre les gaz sans délai"
+      "Look outside for the runway",
+      "Wait another 100 ft",
+      "Ask the PM",
+      "Go around without delay"
      ],
      "a": 3,
-     "w": "SOP p.143 : « If the PF has not heard any visual cue calls from the PM, it is safe to assume that no visual cues have been received so execute a go-around »."
+     "w": "SOP p.143: “If the PF has not heard any visual cue calls from the PM, it is safe to assume that no visual cues have been received so execute a go-around”."
     },
     {
-     "q": "Remise de gaz après le toucher : quelle affirmation est correcte ?",
+     "q": "Go-around after touchdown: which statement is correct?",
      "o": [
-      "Après sélection des reverses, l'atterrissage complet est obligatoire",
-      "Une G/A automatique reste possible après le toucher",
-      "Le F/D G/A est disponible dès l'avance des manettes au sol",
-      "Les reverses peuvent être rentrées pour redécoller"
+      "Once reversers are selected, a full-stop landing is mandatory",
+      "An automatic G/A is still possible after touchdown",
+      "F/D G/A is available as soon as thrust levers advance on the ground",
+      "Reversers can be stowed to take off again"
      ],
      "a": 0,
-     "w": "§19.1 : « Once reverse thrust is initiated following touchdown, a full stop landing must be made. » Et « An automatic go-around cannot be initiated after touchdown »."
+     "w": "§19.1: “Once reverse thrust is initiated following touchdown, a full stop landing must be made.” And “An automatic go-around cannot be initiated after touchdown”."
     }
    ]
   },
@@ -3149,14 +3149,14 @@ window.NUDGE = {
    "cat": "sop",
    "code": "T/O",
    "title": "Takeoff Procedure — Standard Callouts",
-   "titleFr": "Décollage — annonces standard",
+   "titleFr": "Takeoff — Standard Callouts",
    "fleet": "both",
    "ref": "SOP B737 Ed03 Rev03 §14.2-14.4 p.101-105 · §7.1 p.46",
    "flash": {
-    "title": "Alger 23, le F/O est PF.",
-    "text": "Alignés, autorisés au décollage. Le CDB transfère les commandes. Les manettes avancent…",
+    "title": "Algiers 23, F/O is PF.",
+    "text": "Lined up, cleared for takeoff. The CPT hands over control. Thrust levers coming up…",
     "cues": [
-     "« YOU HAVE CONTROL »",
+     "“YOU HAVE CONTROL”",
      "40% N1",
      "TOGA",
      "80 kt"
@@ -3203,47 +3203,47 @@ window.NUDGE = {
     {
      "v": "40%",
      "l": "N1",
-     "s": "Stabilisation avant TOGA"
+     "s": "Stabilize before TOGA"
     },
     {
      "v": "60 kt",
-     "l": "Réglage poussée",
-     "s": "Ajuster avant 60 kt"
+     "l": "Thrust set",
+     "s": "Adjust before 60 kt"
     },
     {
      "v": "15°",
      "l": "Pitch",
-     "s": "Rotation à VR"
+     "s": "Rotation at VR"
     },
     {
      "v": "400 ft",
      "l": "RA",
-     "s": "Début des annonces FMA"
+     "s": "FMA callouts begin"
     }
    ],
-   "trap": "F/O PF : après « THRUST SET », c'est la main du CDB qui est sur les manettes jusqu'à V1 — c'est lui qui décide le rejet.",
+   "trap": "F/O PF: after “THRUST SET”, the CPT's hand is on the thrust levers until V1 — the CPT makes the reject decision.",
    "then": [
-    "Pas d'autre annonce FMA sous 400 ft RA ; à 400 ft : « LNAV » ou « HEADING SELECT » + « VNAV SPEED ».",
-    "Au-dessus de 400 ft RA : mode latéral, AP au-dessus de l'altitude mini → « COMMAND A/B ».",
-    "Thrust reduction : « N ONE VNAV SPEED » ; volets selon schedule, PM « FLAPS ___, GREEN LIGHT ».",
-    "Sans virage publié dans la SID : pas de virage avant 400 ft AGL.",
-    "F/D OFF interdit en ligne pour l'entraînement ; V/S pas avant flaps UP."
+    "No other FMA callout below 400 ft RA; at 400 ft: “LNAV” or “HEADING SELECT” + “VNAV SPEED”.",
+    "Above 400 ft RA: roll mode, AP above minimum altitude → “COMMAND A/B”.",
+    "Thrust reduction: “N ONE VNAV SPEED”; flaps per schedule, PM “FLAPS ___, GREEN LIGHT”.",
+    "No turn published in the SID: no turn before 400 ft AGL.",
+    "F/D OFF prohibited on line for training; no V/S before flaps UP."
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "À combien de N1 le PF stabilise-t-il les moteurs avant TOGA ?",
+     "q": "At what N1 does the PF stabilize the engines before TOGA?",
      "o": [
-      "Environ 40% N1",
-      "Environ 70% N1",
-      "Ralenti",
-      "Environ 60% N1"
+      "Approx. 40% N1",
+      "Approx. 70% N1",
+      "Idle",
+      "Approx. 60% N1"
      ],
      "a": 0,
-     "w": "« Advance the thrust levers to approximately 40% N1 », le PM annonce « STABILIZED »."
+     "w": "“Advance the thrust levers to approximately 40% N1”, PM calls “STABILIZED”."
     },
     {
-     "q": "Avant quelle vitesse le PM doit-il avoir ajusté la poussée décollage ?",
+     "q": "Before what speed must the PM have adjusted takeoff thrust?",
      "o": [
       "80 kt",
       "V1",
@@ -3251,32 +3251,32 @@ window.NUDGE = {
       "40 kt"
      ],
      "a": 2,
-     "w": "« Adjust takeoff thrust before 60 knots as needed »."
+     "w": "“Adjust takeoff thrust before 60 knots as needed”."
     },
     {
-     "q": "Le F/O est PF. Qui a la main sur les manettes jusqu'à V1 après « THRUST SET » ?",
+     "q": "F/O is PF. Whose hand is on the thrust levers until V1 after “THRUST SET”?",
      "o": [
-      "Le F/O (PF)",
-      "Le CDB",
-      "Personne, A/T engagé",
-      "Le PF jusqu'à 80 kt puis le CDB"
+      "The F/O (PF)",
+      "The CPT",
+      "Nobody, A/T engaged",
+      "The PF until 80 kt, then the CPT"
      ],
      "a": 1,
-     "w": "« After takeoff thrust is set, the captain's hand must be on the thrust levers until V1. »"
+     "w": "“After takeoff thrust is set, the captain's hand must be on the thrust levers until V1.”"
     },
     {
-     "q": "Annonce PM « EIGHTY KNOTS » : réponse du PF ?",
+     "q": "PM calls “EIGHTY KNOTS”: PF's response?",
      "o": [
-      "« EIGHTY »",
-      "« V ONE »",
-      "Aucune",
-      "« CHECKED »"
+      "“EIGHTY”",
+      "“V ONE”",
+      "None",
+      "“CHECKED”"
      ],
      "a": 3,
-     "w": "PF : « Verify 80 knots and call “CHECKED” »."
+     "w": "PF: “Verify 80 knots and call “CHECKED””."
     },
     {
-     "q": "À quelle hauteur commencent les annonces FMA au décollage (hors annonce TOGA) ?",
+     "q": "At what height do takeoff FMA callouts begin (excluding the TOGA callout)?",
      "o": [
       "50 ft RA",
       "400 ft RA",
@@ -3284,7 +3284,7 @@ window.NUDGE = {
       "Thrust reduction altitude"
      ],
      "a": 1,
-     "w": "§14.4 : « No further FMA callouts are to be made below 400 feet RA »."
+     "w": "§14.4: “No further FMA callouts are to be made below 400 feet RA”."
     }
    ]
   },
@@ -3294,12 +3294,12 @@ window.NUDGE = {
    "cat": "sop",
    "code": "RTO",
    "title": "Rejected Takeoff Decision",
-   "titleFr": "Décision d'interruption du décollage",
+   "titleFr": "Rejected Takeoff Decision",
    "fleet": "both",
    "ref": "SOP B737 Ed03 Rev03 NNP §3.1-3.1.1 p.217-218 · QRH MAN.1 Rejected Takeoff (NG & MAX)",
    "flash": {
-    "title": "Décollage Oran, 110 kt, V1 142.",
-    "text": "Master caution, voyant PACK sur l'overhead. Le PF continue l'accélération. Le CDB a la main sur les manettes…",
+    "title": "Takeoff Oran, 110 kt, V1 142.",
+    "text": "Master caution, PACK light on the overhead. The PF keeps accelerating. The CPT has a hand on the thrust levers…",
     "cues": [
      "MASTER CAUTION",
      "AIR COND annunciator",
@@ -3342,88 +3342,88 @@ window.NUDGE = {
    "nums": [
     {
      "v": "80 kt",
-     "l": "Seuil",
-     "s": "Bas / haute vitesse"
+     "l": "Threshold",
+     "s": "Low / high speed"
     },
     {
      "v": "V1",
-     "l": "Décision",
-     "s": "1re action de freinage avant V1"
+     "l": "Decision",
+     "s": "1st braking action before V1"
     },
     {
      "v": "60 kt",
-     "l": "Appel ATC",
-     "s": "Par le F/O, ou à l'arrêt"
+     "l": "ATC call",
+     "s": "By the F/O, or when stopped"
     },
     {
      "v": "5-10 kt",
-     "l": "Avant V2",
-     "s": "Rotation si Vr oubliée"
+     "l": "Before V2",
+     "s": "Rotate if VR missed"
     }
    ],
-   "trap": "Au-dessus de 80 kt, une master caution seule n'est PAS un motif de rejet : seuls feu, panne moteur, PWS warning, avion inapte au vol. Et après V1, rejet seulement si le CDB juge l'avion incapable de voler.",
+   "trap": "Above 80 kt, a master caution alone is NOT a reason to reject: only fire, engine failure, PWS warning, airplane unable to fly. And after V1, reject only if the CPT judges the airplane unable to fly.",
    "then": [
-    "Avion arrêté : évaluer, memory items et/ou NNC.",
-    "Évacuation : « EVACUATION CHECKLIST », PA « EVACUATE, EVACUATE, EVACUATE ».",
-    "Nouveau décollage prévu = nouveau « CABIN READY ».",
-    "V speeds non affichées sans autre panne : décollage possible, le PM annonce V1 et VR."
+    "Airplane stopped: assess, memory items and/or NNC.",
+    "Evacuation: “EVACUATION CHECKLIST”, PA “EVACUATE, EVACUATE, EVACUATE”.",
+    "New takeoff planned = new “CABIN READY”.",
+    "V speeds not displayed with no other failure: takeoff possible, PM calls V1 and VR."
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "À 110 kt (V1 142), master caution PACK. Décision ?",
+     "q": "At 110 kt (V1 142), PACK master caution. Decision?",
      "o": [
-      "Rejet immédiat",
-      "Rejet si le CDB l'annonce avant 120 kt",
-      "Continuer le décollage",
-      "Rejet seulement si le PM confirme"
+      "Reject immediately",
+      "Reject if CPT calls it before 120 kt",
+      "Continue the takeoff",
+      "Reject only if PM confirms"
      ],
      "a": 2,
-     "w": "Au-dessus de 80 kt et avant V1, la master caution n'est pas dans la liste : fire, engine failure, predictive windshear warning, unsafe or unable to fly."
+     "w": "Above 80 kt and before V1, master caution is not on the list: fire, engine failure, predictive windshear warning, unsafe or unable to fly."
     },
     {
-     "q": "Qui décide du rejet et quelle annonce ?",
+     "q": "Who decides to reject, and what's the callout?",
      "o": [
-      "Le PF : « STOP »",
-      "Le CDB seul : « REJECT »",
-      "Le PM : « ABORT »",
-      "Celui qui voit la panne : « STOP STOP »"
+      "PF: “STOP”",
+      "CPT only: “REJECT”",
+      "PM: “ABORT”",
+      "Whoever sees the failure: “STOP STOP”"
      ],
      "a": 1,
-     "w": "QRH MAN.1 : « The captain has the sole responsibility for the decision to reject the takeoff … clearly announces “REJECT” »."
+     "w": "QRH MAN.1: “The captain has the sole responsibility for the decision to reject the takeoff … clearly announces “REJECT””."
     },
     {
-     "q": "F/O PF, le CDB annonce « REJECT ». Quand le CDB a-t-il les commandes ?",
+     "q": "F/O PF, CPT calls “REJECT”. When does the CPT have control?",
      "o": [
-      "Dès l'annonce",
-      "À 60 kt",
-      "À l'arrêt",
-      "Quand il fait une action positive sur les commandes"
+      "From the callout",
+      "At 60 kt",
+      "When stopped",
+      "When making a positive input to the controls"
      ],
      "a": 3,
-     "w": "« the first officer maintains control of the airplane until the captain makes a positive input to the controls »."
+     "w": "“the first officer maintains control of the airplane until the captain makes a positive input to the controls”."
     },
     {
-     "q": "Quand le F/O informe-t-il l'ATC du rejet ?",
+     "q": "When does the F/O inform ATC of the reject?",
      "o": [
-      "Sous 60 kt ou à l'arrêt, après la prise de commandes du CDB",
-      "Immédiatement à l'annonce REJECT",
-      "Après la checklist évacuation",
-      "Jamais, c'est le CDB"
+      "Below 60 kt or stopped, after the CPT takes control",
+      "Immediately on the REJECT callout",
+      "After the evacuation checklist",
+      "Never, that's the CPT's job"
      ],
      "a": 0,
-     "w": "SOP §3.1 : « After the captain has taken control and below 60 knots or when aircraft has come to a stop »."
+     "w": "SOP §3.1: “After the captain has taken control and below 60 knots or when aircraft has come to a stop”."
     },
     {
-     "q": "Avion arrêté, évacuation possiblement nécessaire. Annonce PA du CDB ?",
+     "q": "Airplane stopped, evacuation possibly needed. CPT's PA?",
      "o": [
-      "« CABIN CREW NORMAL PROCEDURES »",
-      "« EVACUATE, EVACUATE, EVACUATE »",
-      "« CABIN CREW AT YOUR STATIONS »",
-      "« NUMBER ONE TO THE FLIGHT DECK »"
+      "“CABIN CREW NORMAL PROCEDURES”",
+      "“EVACUATE, EVACUATE, EVACUATE”",
+      "“CABIN CREW AT YOUR STATIONS”",
+      "“NUMBER ONE TO THE FLIGHT DECK”"
      ],
      "a": 2,
-     "w": "« CABIN CREW AT YOUR STATIONS » quand une évacuation pourrait être nécessaire ; « EVACUATE ×3 » seulement après décision d'évacuer."
+     "w": "“CABIN CREW AT YOUR STATIONS” when an evacuation may be needed; “EVACUATE ×3” only after the decision to evacuate."
     }
    ]
   },
@@ -3433,12 +3433,12 @@ window.NUDGE = {
    "cat": "sop",
    "code": "DEV",
    "title": "Callouts — Deviations on Final Approach",
-   "titleFr": "Annonces de déviation en finale",
+   "titleFr": "Approach Deviation Callouts",
    "fleet": "both",
    "ref": "SOP B737 Ed03 Rev03 §7.1-7.4 p.46-49",
    "flash": {
-    "title": "ILS 09, turbulence, PF en manuel.",
-    "text": "Vers 800 ft, le localizer dérive, le vario passe à −1300 fpm, l'inclinaison atteint 10° pour corriger. Le PM doit parler.",
+    "title": "ILS 09, turbulence, PF hand flying.",
+    "text": "Around 800 ft, the localizer drifts, V/S goes to −1300 fpm, bank reaches 10° to correct. The PM has to speak up.",
     "cues": [
      "LOC ¼ dot",
      "V/S −1300 fpm",
@@ -3487,36 +3487,36 @@ window.NUDGE = {
     {
      "v": "1200",
      "l": "ft/min",
-     "s": "« SINK RATE »"
+     "s": "“SINK RATE”"
     },
     {
      "v": "¼ dot",
      "l": "LOC",
-     "s": "« LOCALIZER »"
+     "s": "“LOCALIZER”"
     },
     {
      "v": "1 dot",
      "l": "G/S",
-     "s": "« GLIDESLOPE »"
+     "s": "“GLIDESLOPE”"
     },
     {
      "v": "> 7°",
      "l": "Bank",
-     "s": "« BANK »"
+     "s": "“BANK”"
     }
    ],
-   "trap": "Ne pas inverser : LOCALIZER à ¼ dot, GLIDESLOPE à 1 dot. Et SINK RATE à 1200 ft/min ≠ critère de stabilisation 1000 fpm.",
+   "trap": "Don't mix them up: LOCALIZER at ¼ dot, GLIDESLOPE at 1 dot. And SINK RATE at 1200 ft/min ≠ the 1000 fpm stabilization criterion.",
    "then": [
-    "Si le PM rate une annonce, le PF la fait.",
-    "Le PF acquitte les annonces GPWS, sauf les annonces d'altitude sous 500 ft AFE.",
-    "« CONTINUE » / « GO-AROUND » aux minima : toujours annoncé.",
-    "Annonce auto non entendue → le PM la fait. Changements FMA sous 1000 ft : annoncés par le PM.",
-    "Checkpoints : « ___ FEET HIGH/LOW »."
+    "If the PM misses a callout, the PF makes it.",
+    "PF acknowledges GPWS callouts, except altitude callouts below 500 ft AFE.",
+    "“CONTINUE” / “GO-AROUND” at minimums: always called.",
+    "Auto callout not heard → PM makes it. FMA changes below 1000 ft: called by the PM.",
+    "Checkpoints: “___ FEET HIGH/LOW”."
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "À partir de quelle déviation localizer le PM annonce-t-il « LOCALIZER » ?",
+     "q": "From what localizer deviation does the PM call “LOCALIZER”?",
      "o": [
       "1 dot",
       "½ dot",
@@ -3524,10 +3524,10 @@ window.NUDGE = {
       "2 dots"
      ],
      "a": 2,
-     "w": "Table §7.3 : « Excess Deviation Warning or 1/4 Dot on the PFD »."
+     "w": "Table §7.3: “Excess Deviation Warning or 1/4 Dot on the PFD”."
     },
     {
-     "q": "Seuil de l'annonce « SINK RATE » en finale ?",
+     "q": "“SINK RATE” callout threshold on final?",
      "o": [
       "≥ 1000 ft/min",
       "≥ 1200 ft/min",
@@ -3535,21 +3535,21 @@ window.NUDGE = {
       "≥ 800 ft/min"
      ],
      "a": 1,
-     "w": "« Rate of Descent ≥1200ft/mn → SINK RATE »."
+     "w": "“Rate of Descent ≥1200ft/mn → SINK RATE”."
     },
     {
-     "q": "Annonce « PITCH » : limites ?",
+     "q": "“PITCH” callout: limits?",
      "o": [
-      "10.0 nose up ou 0.0 nose down",
-      "15° nose up ou 5° nose down",
-      "7.5° nose up ou 2.5° nose down",
-      "12° nose up ou 0° nose down"
+      "10.0 nose up or 0.0 nose down",
+      "15° nose up or 5° nose down",
+      "7.5° nose up or 2.5° nose down",
+      "12° nose up or 0° nose down"
      ],
      "a": 0,
-     "w": "Table §7.3 : « 10.0 Nose Up or 0.0 Nose Down »."
+     "w": "Table §7.3: “10.0 Nose Up or 0.0 Nose Down”."
     },
     {
-     "q": "Annonce « BANK » en finale à partir de :",
+     "q": "“BANK” callout on final from:",
      "o": [
       "> 15°",
       "> 10°",
@@ -3557,18 +3557,18 @@ window.NUDGE = {
       "> 7°"
      ],
      "a": 3,
-     "w": "Table §7.3 : « Bank Angle > 7° → BANK »."
+     "w": "Table §7.3: “Bank Angle > 7° → BANK”."
     },
     {
-     "q": "Sous 500 ft AFE, le PF doit-il acquitter les annonces d'altitude GPWS ?",
+     "q": "Below 500 ft AFE, must the PF acknowledge GPWS altitude callouts?",
      "o": [
-      "Oui, toutes",
-      "Non, sauf « CONTINUE »/« GO-AROUND » aux minima qui restent obligatoires",
-      "Oui, seulement « PLUS HUNDRED »",
-      "Non, le PM les acquitte"
+      "Yes, all of them",
+      "No, except “CONTINUE”/“GO-AROUND” at minimums, which remain mandatory",
+      "Yes, only “PLUS HUNDRED”",
+      "No, the PM acknowledges them"
      ],
      "a": 1,
-     "w": "§7.1 : pas d'acquittement des altitude callouts sous 500 ft AFE ; « CONTINUE » ou « GO-AROUND » aux minimums « shall always be made »."
+     "w": "§7.1: no acknowledgment of altitude callouts below 500 ft AFE; “CONTINUE” or “GO-AROUND” at minimums “shall always be made”."
     }
    ]
   },
@@ -3578,17 +3578,17 @@ window.NUDGE = {
    "cat": "sop",
    "code": "ALT",
    "title": "Altitude Selections/Awareness — MCP Settings",
-   "titleFr": "Altitude & MCP : zéro level bust",
+   "titleFr": "Altitude & MCP: Zero Level Bust",
    "fleet": "both",
    "ref": "SOP B737 Ed03 Rev03 §5.3 p.39 · §7.1-7.2 p.46-47 · §15 p.112",
    "flash": {
-    "title": "Descente vers FL120, fréquence chargée.",
-    "text": "L'ATC donne « descend FL110 » — était-ce pour vous ou pour un indicatif proche ? AP engagé, le PF tend la main vers la fenêtre ALT.",
+    "title": "Descending to FL120, busy frequency.",
+    "text": "ATC says “descend FL110” — was it for you or a similar call sign? AP engaged, the PF reaches for the ALT window.",
     "cues": [
-     "Indicatifs similaires",
+     "Similar call signs",
      "MCP ALT",
      "VNAV PTH",
-     "« ONE THOUSAND TO LEVEL OFF »"
+     "“ONE THOUSAND TO LEVEL OFF”"
     ]
    },
    "steps": [
@@ -3626,79 +3626,79 @@ window.NUDGE = {
    "nums": [
     {
      "v": "1000 ft",
-     "l": "Avant palier",
-     "s": "« ONE THOUSAND TO LEVEL OFF »"
+     "l": "Before level-off",
+     "s": "“ONE THOUSAND TO LEVEL OFF”"
     },
     {
      "v": "2",
-     "l": "Annonces",
-     "s": "Verbale + automatique"
+     "l": "Callouts",
+     "s": "Verbal + automatic"
     }
    ],
-   "trap": "CWS sélectionné au MCP : le FMA a l'air normal mais ALT ACQ n'est plus armé — l'avion traverse l'altitude sélectionnée. Ne pas sélectionner CWS.",
+   "trap": "CWS selected on the MCP: the FMA looks normal but ALT ACQ is no longer armed — the airplane flies through the selected altitude. Do not select CWS.",
    "then": [
-    "Après chaque message ATC, les deux pilotes s'accordent qu'il était pour eux.",
-    "Hors routes publiées : vérifier altitude assignée > MSA.",
-    "Toute modification de la fenêtre ALT est annoncée par celui qui la manipule.",
-    "Croiser altimètres et calages ; standard au passage de l'altitude de transition.",
-    "À la capture glide : PF pointe la missed approach altitude (LEGS), l'affiche, « SET » → PM « CHECKED »."
+    "After every ATC message, both pilots agree it was for them.",
+    "Off published routes: verify assigned altitude > MSA.",
+    "Any ALT window change is called by the pilot making it.",
+    "Cross-check altimeters and settings; STD when passing transition altitude.",
+    "At G/S capture: PF points to missed approach altitude (LEGS), sets it, “SET” → PM “CHECKED”."
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "Annonce standard à l'approche de l'altitude assignée ?",
+     "q": "Standard callout approaching the assigned altitude?",
      "o": [
-      "« ONE THOUSAND TO LEVEL OFF »",
-      "« ALTITUDE ALERT »",
-      "« ONE TO GO »",
-      "« APPROACHING LEVEL »"
+      "“ONE THOUSAND TO LEVEL OFF”",
+      "“ALTITUDE ALERT”",
+      "“ONE TO GO”",
+      "“APPROACHING LEVEL”"
      ],
      "a": 0,
-     "w": "SOP §5.3 b : « ONE THOUSAND TO LEVEL OFF » standard callout when approaching the assigned altitude."
+     "w": "SOP §5.3 b: “ONE THOUSAND TO LEVEL OFF” standard callout when approaching the assigned altitude."
     },
     {
-     "q": "AP engagé, nouvelle altitude ATC. Qui l'affiche au MCP ?",
+     "q": "AP engaged, new ATC altitude. Who sets it on the MCP?",
      "o": [
-      "Le PM, le PF vérifie",
-      "Le CDB toujours",
-      "Le PF, le PM vérifie visuellement et verbalement",
-      "Celui qui a répondu à l'ATC"
+      "PM, PF verifies",
+      "Always the CPT",
+      "PF, PM verifies visually and verbally",
+      "Whoever answered ATC"
      ],
      "a": 2,
-     "w": "§5.3 e : « With the autopilot engaged, PF sets the new altitude » ; le PM vérifie. AP non engagé : le PM affiche, le PF vérifie."
+     "w": "§5.3 e: “With the autopilot engaged, PF sets the new altitude”; PM verifies. AP not engaged: PM sets, PF verifies."
     },
     {
-     "q": "Doute sur l'altitude autorisée. Qui agit ?",
+     "q": "In doubt about the cleared altitude. Who acts?",
      "o": [
-      "Le PF reprend la dernière altitude",
-      "Le CDB décide sans ATC",
-      "On attend le prochain message",
-      "Le PM appelle immédiatement l'ATC pour confirmer"
+      "PF reverts to the last altitude",
+      "CPT decides without ATC",
+      "Wait for the next message",
+      "PM immediately calls ATC to confirm"
      ],
      "a": 3,
-     "w": "§5.3 : « the PM shall immediately call ATC and ask for confirmation of the instruction »."
+     "w": "§5.3: “the PM shall immediately call ATC and ask for confirmation of the instruction”."
     },
     {
-     "q": "Pourquoi ne pas sélectionner CWS au MCP ?",
+     "q": "Why not select CWS on the MCP?",
      "o": [
-      "Le F/D se déconnecte",
-      "ALT ACQ n'est plus armé et l'avion traverse l'altitude MCP",
-      "L'A/T passe en ARM",
-      "Le VNAV se reprogramme"
+      "The F/D disconnects",
+      "ALT ACQ is no longer armed and the airplane flies through the MCP altitude",
+      "The A/T goes to ARM",
+      "VNAV reprograms itself"
      ],
      "a": 1,
-     "w": "SOP p.112 : « the FMA looks normal but the ALT ACQ facility is no longer armed. The aircraft will continue through the MCP selected altitude »."
+     "w": "SOP p.112: “the FMA looks normal but the ALT ACQ facility is no longer armed. The aircraft will continue through the MCP selected altitude”."
     },
     {
-     "q": "ALT HOLD ne s'engage pas au palier. Annonce ?",
+     "q": "ALT HOLD fails to engage at level-off. Callout?",
      "o": [
-      "« ALT HOLD »",
-      "« CHECK FMA »",
-      "« NO ALT HOLD »",
-      "« LEVEL OFF »"
+      "“ALT HOLD”",
+      "“CHECK FMA”",
+      "“NO ALT HOLD”",
+      "“LEVEL OFF”"
      ],
      "a": 2,
-     "w": "§7.1 : « call the mode that failed preceded by the word “NO” i.e. “NO ALT HOLD” »."
+     "w": "§7.1: “call the mode that failed preceded by the word “NO” i.e. “NO ALT HOLD””."
     }
    ]
   },
@@ -3708,17 +3708,17 @@ window.NUDGE = {
    "cat": "sop",
    "code": "AFS",
    "title": "Autoflight Policy",
-   "titleFr": "Politique d'automatisme",
+   "titleFr": "Automation Policy",
    "fleet": "both",
    "ref": "SOP B737 Ed03 Rev03 §6 p.43-44 · §14.4 p.105",
    "flash": {
-    "title": "VOR/DME 27, plafond 800 ft, visi 4 km.",
-    "text": "Belle journée pour s'entraîner au pilotage manuel ? Le PF propose de faire l'approche à la main, F/D ON.",
+    "title": "VOR/DME 27, ceiling 800 ft, visibility 4 km.",
+    "text": "Nice day for some hand-flying practice? The PF offers to fly the approach manually, F/D ON.",
     "cues": [
      "Ceiling 800 ft",
      "Visibility 4 km",
      "Non-ILS",
-     "CMD A dispo"
+     "CMD A available"
     ]
    },
    "steps": [
@@ -3756,89 +3756,89 @@ window.NUDGE = {
    "nums": [
     {
      "v": "1000 ft",
-     "l": "Plafond",
-     "s": "Non-ILS : AP requis si inférieur"
+     "l": "Ceiling",
+     "s": "Non-ILS: AP required if lower"
     },
     {
      "v": "5 km",
-     "l": "Visibilité",
-     "s": "Non-ILS : AP requis si inférieure"
+     "l": "Visibility",
+     "s": "Non-ILS: AP required if lower"
     },
     {
      "v": "5000 ft",
      "l": "AFE",
-     "s": "PF garde les commandes"
+     "s": "PF guards the controls"
     },
     {
      "v": "400 ft",
      "l": "AGL",
-     "s": "Deux mains sur le manche à la rotation"
+     "s": "Both hands on the control column at rotation"
     }
    ],
-   "trap": "Approche non-ILS sous 1000 ft de plafond ou 5 km de visi : l'AP est OBLIGATOIRE (si opérationnel). Et pas de dual channel en ILS CAT I.",
+   "trap": "Non-ILS approach with ceiling below 1000 ft or visibility below 5 km: AP is MANDATORY (if operational). And no dual channel on ILS CAT I.",
    "then": [
-    "Pilotage manuel encouragé si trafic et charge faibles ; F/D OFF pour entraînement interdit en ligne.",
-    "Les deux F/D obligatoires pour tous les décollages (si opérationnels), sélectionnés ON/OFF ensemble.",
-    "Engager l'AP seulement avion trimé, ordres F/D satisfaits, trajectoire maîtrisée.",
-    "PF annonce les changements FMA ; PM « CHECKED ». Sous 1000 ft en approche : le PM annonce.",
-    "Paliers à basse altitude normalement sous AP."
+    "Hand flying encouraged when traffic and workload are low; F/D OFF for training prohibited on line.",
+    "Both F/Ds required for all takeoffs (if operational), switched ON/OFF together.",
+    "Engage AP only with airplane trimmed, F/D commands satisfied, flight path under control.",
+    "PF calls FMA changes; PM “CHECKED”. Below 1000 ft on approach: PM calls.",
+    "Low-altitude level-offs normally on AP."
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "Approche VOR, plafond 800 ft. Pilotage manuel autorisé ?",
+     "q": "VOR approach, ceiling 800 ft. Hand flying allowed?",
      "o": [
-      "Oui, si le CDB l'accepte",
-      "Oui, avec F/D ON",
-      "Non, l'AP est requis (si opérationnel)",
-      "Oui, sous 1000 ft seulement"
+      "Yes, if the CPT agrees",
+      "Yes, with F/D ON",
+      "No, AP is required (if operational)",
+      "Yes, below 1000 ft only"
      ],
      "a": 2,
-     "w": "§6.2 : AP requis pour non-ILS si « ceiling is less than 1,000 feet or the reported visibility is less than 5 km or the reported weather is at the published minimum »."
+     "w": "§6.2: AP required for non-ILS if “ceiling is less than 1,000 feet or the reported visibility is less than 5 km or the reported weather is at the published minimum”."
     },
     {
-     "q": "ILS CAT I : dual channel autorisé ?",
+     "q": "ILS CAT I: dual channel allowed?",
      "o": [
-      "Non, pas autorisé",
-      "Oui, recommandé",
-      "Oui si vent < 15 kt",
-      "Oui pour autoland"
+      "No, not authorized",
+      "Yes, recommended",
+      "Yes if wind < 15 kt",
+      "Yes for autoland"
      ],
      "a": 0,
-     "w": "§6.2 : « The use of dual channel autopilot for ILS cat 1 approach is not authorized »."
+     "w": "§6.2: “The use of dual channel autopilot for ILS cat 1 approach is not authorized”."
     },
     {
-     "q": "À partir de quand le PF garde-t-il les commandes (manche, palonnier, manettes) ?",
+     "q": "From when does the PF guard the controls (column, rudder, thrust levers)?",
      "o": [
       "10 000 ft AFE",
       "1000 ft AFE",
       "Approach checklist",
-      "5000 ft AFE et en dessous"
+      "At or below 5000 ft AFE"
      ],
      "a": 3,
-     "w": "§6.1 : « At or below 5000 feet AFE the PF shall guard the flight controls »."
+     "w": "§6.1: “At or below 5000 feet AFE the PF shall guard the flight controls”."
     },
     {
-     "q": "Auto throttle en croisière, AP déconnecté (vol manuel) :",
+     "q": "Autothrottle in cruise, AP disengaged (manual flight):",
      "o": [
-      "Obligatoire",
-      "Recommandé seulement si AP en CMD",
-      "Interdit au-dessus du FL100",
-      "Recommandé en toutes phases"
+      "Mandatory",
+      "Recommended only with AP in CMD",
+      "Prohibited above FL100",
+      "Recommended in all phases"
      ],
      "a": 1,
-     "w": "§6.4 : hors décollage/montée, « auto throttle use is recommended only when the autopilot is engaged in CMD »."
+     "w": "§6.4: outside takeoff/climb, “auto throttle use is recommended only when the autopilot is engaged in CMD”."
     },
     {
-     "q": "Le PF n'est pas prêt à reprendre physiquement l'avion (ex. paperasse). Que faire ?",
+     "q": "The PF is not ready to physically take over (e.g. paperwork). Action?",
      "o": [
-      "Laisser l'AP, le PM surveille",
-      "Augmenter le niveau d'automatisme",
-      "Passer le rôle PF au PM avec confirmation positive",
-      "Annoncer « HEADS DOWN »"
+      "Keep the AP, PM monitors",
+      "Increase the automation level",
+      "Pass the PF role to the PM with positive confirmation",
+      "Call “HEADS DOWN”"
      ],
      "a": 2,
-     "w": "§6.1 : « the PF role must be passed to the PM with positive confirmation »."
+     "w": "§6.1: “the PF role must be passed to the PM with positive confirmation”."
     }
    ]
   },
@@ -3848,17 +3848,17 @@ window.NUDGE = {
    "cat": "sop",
    "code": "NNC",
    "title": "Non-Normal Procedures — Philosophy and Work Method",
-   "titleFr": "Gestion d'une panne : méthode Air Algérie",
+   "titleFr": "Failure Management: Air Algérie Method",
    "fleet": "both",
    "ref": "SOP B737 Ed03 Rev03 NNP §1.1-1.8 p.202-205",
    "flash": {
-    "title": "Croisière FL350, CDB PF.",
-    "text": "Master caution. ENG sur l'annunciator, puis voyant sur l'overhead moteur 2. Le F/O tend déjà la main vers les manettes…",
+    "title": "Cruise FL350, CPT PF.",
+    "text": "Master caution. ENG on the annunciator, then a light on the overhead for engine 2. The F/O is already reaching for the thrust levers…",
     "cues": [
      "MASTER CAUTION",
      "ENG annunciator",
-     "Moteur n°2",
-     "AP engagé"
+     "Engine No. 2",
+     "AP engaged"
     ]
    },
    "steps": [
@@ -3901,18 +3901,18 @@ window.NUDGE = {
    "nums": [
     {
      "v": "6",
-     "l": "Étapes",
-     "s": "Contrôle → … → 4 comms"
+     "l": "Steps",
+     "s": "Control → … → 4 comms"
     },
     {
      "v": "4",
      "l": "Comms",
-     "s": "ATC, PNC, Pax, Compagnie"
+     "s": "ATC, Cabin Crew, Pax, Company"
     },
     {
      "v": "3×",
      "l": "Seat belt sign",
-     "s": "Signal d'urgence au PNC"
+     "s": "Emergency signal to cabin crew"
     },
     {
      "v": "NITS",
@@ -3920,70 +3920,70 @@ window.NUDGE = {
      "s": "Nature, Intention, Time, Special"
     }
    ],
-   "trap": "Avant de toucher une manette de poussée, un start lever, une fire switch, un drive disconnect, un IRS (une seule en panne) ou un flight control switch : « CONFIRM? » / « CONFIRMED! ». Seule exception : Loss of Thrust on Both Engines.",
+   "trap": "Before touching a thrust lever, start lever, fire switch, drive disconnect, IRS (only one failed) or flight control switch: “CONFIRM?” / “CONFIRMED!”. Only exception: Loss of Thrust on Both Engines.",
    "then": [
-    "Master caution : PF ou PM annonce + voyants (les DEUX annunciators), le PM lit et diagnostique, le PF recoupe.",
-    "Le PF répartit les tâches (« I HAVE CONTROL and Communication… ») et identifie la NNC.",
-    "Priorité : NNC avec memory items > NNC sans > supplementary > normal.",
-    "Moteur : toujours « number one » / « number two ».",
-    "Sauf atterrissage immédiat requis, actions correctives terminées avant la finale ; ASR pour tout écart au SOP."
+    "Master caution: PF or PM calls it + lights (BOTH annunciators), PM reads and diagnoses, PF cross-checks.",
+    "PF assigns tasks (“I HAVE CONTROL and Communication…”) and identifies the NNC.",
+    "Priority: NNC with memory items > NNC without > supplementary > normal.",
+    "Engines: always “number one” / “number two”.",
+    "Unless an immediate landing is required, corrective actions complete before final; ASR for any SOP deviation."
    ],
    "diff": null,
    "qcm": [
     {
-     "q": "Première action devant toute situation anormale ?",
+     "q": "First action in any non-normal situation?",
      "o": [
-      "Annuler l'alarme",
-      "Lire la QRH",
-      "Contrôler l'assiette et la trajectoire",
-      "Prévenir l'ATC"
+      "Cancel the alert",
+      "Read the QRH",
+      "Control attitude and flight path",
+      "Notify ATC"
      ],
      "a": 2,
-     "w": "SOP NNP §1.1 : « Control airplane’s attitude and path » d'abord, puis cancel, assess, memory/reference items, décision, 4 comms."
+     "w": "SOP NNP §1.1: “Control airplane’s attitude and path” first, then cancel, assess, memory/reference items, decision, 4 comms."
     },
     {
-     "q": "Les « 4 comms » sont :",
+     "q": "The “4 comms” are:",
      "o": [
-      "ATC, PNC, Pax, Compagnie",
-      "ATC, PNC, Maintenance, Météo",
-      "ATC, CDB, PNC, Pax",
-      "ATC, Compagnie, Aéroport, Pompiers"
+      "ATC, Cabin Crew, Pax, Company",
+      "ATC, Cabin Crew, Maintenance, Weather",
+      "ATC, CPT, Cabin Crew, Pax",
+      "ATC, Company, Airport, Fire Services"
      ],
      "a": 0,
-     "w": "« Make the 4 comms (ATC, Cabin Crew, Pax and Company) »."
+     "w": "“Make the 4 comms (ATC, Cabin Crew, Pax and Company)”."
     },
     {
-     "q": "Le PM s'apprête à couper le start lever moteur 2. Procédure ?",
+     "q": "The PM is about to cut off the No. 2 start lever. Procedure?",
      "o": [
-      "Il agit puis annonce",
-      "Le PF agit lui-même",
-      "Il attend la checklist complète",
-      "Il montre la commande, énonce l'action, « CONFIRM? » → PF « CONFIRMED! »"
+      "Acts, then announces",
+      "The PF does it",
+      "Waits for the complete checklist",
+      "Points to the control, states the action, “CONFIRM?” → PF “CONFIRMED!”"
      ],
      "a": 3,
-     "w": "NNP §1.5 : confirmation obligatoire avant de bouger une commande critique en vol."
+     "w": "NNP §1.5: confirmation required before moving a critical control in flight."
     },
     {
-     "q": "Plusieurs checklists en attente. Quelle priorité ?",
+     "q": "Several checklists pending. What priority?",
      "o": [
       "Normal > supplementary > NNC",
-      "NNC avec memory items > NNC sans > supplementary > normal",
-      "Ordre d'apparition des voyants",
-      "Au choix du PM"
+      "NNC with memory items > NNC without > supplementary > normal",
+      "Order the lights came on",
+      "PM's choice"
      ],
      "a": 1,
-     "w": "NNP §1.4 : c'est au CDB de prioriser, en général dans cet ordre."
+     "w": "NNP §1.4: the CPT prioritizes, generally in this order."
     },
     {
-     "q": "Pannes multiples sur le panneau pressurisation/air conditionné : par où commencer ?",
+     "q": "Multiple failures on the pressurization/air conditioning panel: where to start?",
      "o": [
-      "Voyant du haut",
-      "Voyant le plus à gauche",
-      "Voyant du bas",
-      "N'importe lequel"
+      "Top light",
+      "Leftmost light",
+      "Bottom light",
+      "Any of them"
      ],
      "a": 2,
-     "w": "NNP §1.4 : électrique → commencer par le voyant du haut ; air conditioning/pressurisation → par le voyant du bas."
+     "w": "NNP §1.4: electrical → start with the top light; air conditioning/pressurization → start with the bottom light."
     }
    ]
   }

@@ -5,18 +5,18 @@
   "cat": "maneuver",
   "code": "STALL",
   "title": "Approach to Stall or Stall Recovery",
-  "titleFr": "Approche du décrochage / décrochage",
+  "titleFr": "Approach to Stall / Stall",
   "fleet": "both",
   "ref": "QRH MAN.1.1 (NG & MAX) · FCTM 7.11–7.15",
   "flash": {
-   "title": "Virage base, flaps 5, A/P engagé, nuit.",
-   "text": "ATC vous a gardé haut, speedbrakes encore sortis. Dans le virage la vitesse fond sous la bande ambre et le manche se met à vibrer.",
+   "title": "Base turn, flaps 5, A/P engaged, night.",
+   "text": "ATC kept you high, speedbrakes still out. In the turn the speed bleeds below the amber band and the column starts to shake.",
    "cues": [
     "Stick shaker",
     "Buffet",
     "“AIRSPEED LOW”",
-    "Vitesse dans la bande ambre",
-    "Assiette qui monte, vario qui baisse"
+    "Speed in the amber band",
+    "Pitch rising, V/S decreasing"
    ]
   },
   "steps": [
@@ -90,32 +90,32 @@
   "nums": [
    {
     "v": "Flaps 1",
-    "l": "Seul changement config",
-    "s": "Au liftoff si flaps UP"
+    "l": "Only config change",
+    "s": "At liftoff if flaps UP"
    },
    {
     "v": "20 000 ft",
-    "l": "Au-dessus : avion limité en poussée",
-    "s": "Récup = perte d'altitude"
+    "l": "Above: airplane thrust limited",
+    "s": "Recovery = altitude loss"
    },
    {
     "v": "V2",
-    "l": "Shaker erroné au décollage",
-    "s": "≥ V2 et V/S positive : continuer"
+    "l": "Erroneous shaker at takeoff",
+    "s": "≥ V2 and positive V/S: continue"
    }
   ],
-  "trap": "Vouloir « sauver l'altitude » en gardant le manche arrière. On réduit l'incidence d'abord (manche en avant, trim piqué si besoin, sans excès) ; et pas de FD pendant la récupération.",
+  "trap": "Trying to “save altitude” by holding back pressure. Reduce AOA first (column forward, nose-down trim if needed, not excessive) — and no FD during the recovery.",
   "then": [
-   "Retour à la vitesse commandée, poussée ajustée, trajectoire reprise",
-   "Re-engager A/P et A/T selon procédures normales",
-   "Ressource douce : un pull up trop agressif → décrochage secondaire",
-   "Poussée déjà élevée (T/O, G/A) : une réduction peut être nécessaire pour faire baisser l'incidence",
-   "PM : annonce toute tendance vers le sol"
+   "Back to commanded speed, thrust adjusted, flight path regained",
+   "Re-engage A/P and A/T per normal procedures",
+   "Smooth pull-out: too aggressive a pull up → secondary stall",
+   "Thrust already high (T/O, G/A): a reduction may be needed to lower AOA",
+   "PM: calls out any trend toward terrain"
   ],
-  "diff": "Manœuvre identique NG/MAX (QRH MAN.1.1). Nuance de rédaction : « Nose down stabilizer trim may be needed » (QRH NG) / « can be needed » (QRH MAX).",
+  "diff": "Same maneuver NG/MAX (QRH MAN.1.1). Wording nuance: “Nose down stabilizer trim may be needed” (QRH NG) / “can be needed” (QRH MAX).",
   "qcm": [
    {
-    "q": "Stick shaker en virage base, A/P engagé. Premier geste du PF selon le QRH ?",
+    "q": "Stick shaker in the base turn, A/P engaged. PF's first action per QRH?",
     "o": [
      "Hold the control column firmly",
      "Advance thrust levers to maximum",
@@ -123,51 +123,51 @@
      "Roll wings level"
     ],
     "a": 0,
-    "w": "Initiate the recovery commence par « Hold the control column firmly », puis déconnexion A/P et A/T et nose down elevator."
+    "w": "Initiate the recovery starts with “Hold the control column firmly”, then disengage A/P and A/T, then nose down elevator."
    },
    {
-    "q": "Pendant la récupération, les directeurs de vol :",
+    "q": "During the recovery, flight directors are:",
     "o": [
-     "Se suivent en tangage uniquement",
-     "Ne s'utilisent pas",
-     "Se suivent après TO/GA",
-     "Se suivent si A/P déconnecté"
+     "Followed in pitch only",
+     "Not used",
+     "Followed after TO/GA",
+     "Followed if A/P disengaged"
     ],
     "a": 1,
-    "w": "QRH : « Do not use flight director commands during the recovery. » Les FD ne sont pas conçus pour guider une sortie de décrochage (FCTM 7.14)."
+    "w": "QRH: “Do not use flight director commands during the recovery.” FDs are not designed to guide a stall recovery (FCTM 7.14)."
    },
    {
-    "q": "Shaker au liftoff, volets rentrés par erreur. Configuration ?",
+    "q": "Shaker at liftoff, flaps retracted by mistake. Configuration?",
     "o": [
-     "Ne rien toucher",
-     "Sortir le train",
-     "Appeler flaps 1",
-     "Appeler flaps 5"
+     "Change nothing",
+     "Extend the gear",
+     "Call flaps 1",
+     "Call flaps 5"
     ],
     "a": 2,
-    "w": "Seule exception au « Do not change gear or flap configuration » : « During liftoff, if flaps are up, call for flaps 1. »"
+    "w": "Only exception to “Do not change gear or flap configuration”: “During liftoff, if flaps are up, call for flaps 1.”"
    },
    {
-    "q": "Le manche seul ne suffit pas à faire baisser le nez. Le trim à piquer :",
+    "q": "Elevator alone won't lower the nose. Nose-down trim:",
     "o": [
-     "Est interdit pendant la manœuvre",
-     "Doit être mis plein piqué",
-     "Se fait uniquement à la roue de trim",
-     "Peut être nécessaire, avec modération"
+     "Is prohibited during the maneuver",
+     "Must be run to full nose down",
+     "Is done with the trim wheel only",
+     "May be needed, in moderation"
     ],
     "a": 3,
-    "w": "« Nose down stabilizer trim can be needed » — mais un excès de trim peut aggraver la situation ou mener à la perte de contrôle (WARNING QRH)."
+    "w": "“Nose down stabilizer trim can be needed” — but excessive trim can worsen the situation or lead to loss of control (QRH WARNING)."
    },
    {
-    "q": "Approche du décrochage vers FL350. Que dit le FCTM ?",
+    "q": "Approach to stall near FL350. What does the FCTM say?",
     "o": [
-     "La poussée max suffit, sans perte d'altitude",
-     "Il faut échanger de l'altitude contre de la vitesse",
-     "Sortir flaps 1 pour baisser la Vs",
-     "Engager l'A/P pour stabiliser"
+     "Max thrust is enough, no altitude loss",
+     "Trade altitude for airspeed",
+     "Select flaps 1 to lower Vs",
+     "Engage the A/P to stabilize"
     ],
     "a": 1,
-    "w": "Au-dessus d'environ 20 000 ft l'avion est limité en poussée : nose down + trim pour descendre, la récupération coûte plus d'altitude."
+    "w": "Above about 20,000 ft the airplane is thrust limited: nose down + trim to descend; the recovery costs more altitude."
    }
   ],
   "sources": [
@@ -204,24 +204,24 @@
   "cat": "maneuver",
   "code": "GPWS",
   "title": "Ground Proximity Warning System (GPWS) Response — GPWS Warning",
-  "titleFr": "Évitement terrain (PULL UP)",
+  "titleFr": "Terrain Avoidance (PULL UP)",
   "fleet": "both",
   "ref": "QRH MAN.1.2–1.3 (MAX) / MAN.1.5–1.6 (NG) · FCTM 7.18 · SOP 3.3",
   "flash": {
-   "title": "Arrivée de nuit, relief autour du terrain, IMC.",
-   "text": "Clairance de descente mal comprise, vous passez sous l'altitude de secteur. Le radioaltimètre défile et le cockpit hurle.",
+   "title": "Night arrival, high terrain around the field, IMC.",
+   "text": "Descent clearance misunderstood, you go below sector altitude. The radio altimeter is unwinding and the cockpit is screaming.",
    "cues": [
     "“TERRAIN TERRAIN PULL UP”",
-    "PULL UP rouge sur les deux PFD",
-    "Terrain rouge plein sur ND",
-    "Radio altitude qui chute"
+    "Red PULL UP on both PFDs",
+    "Solid red terrain on ND",
+    "Radio altitude dropping"
    ]
   },
   "steps": [
    {
     "role": "PF",
     "phase": "",
-    "text": "Call “TERRAIN GO” (SOP Air Algérie)",
+    "text": "Call “TERRAIN GO” (Air Algérie SOP)",
     "fleet": "both"
    },
    {
@@ -294,32 +294,32 @@
   "nums": [
    {
     "v": "20°",
-    "l": "Assiette initiale",
-    "s": "Puis jusqu'au PLI / shaker si menace"
+    "l": "Initial pitch",
+    "s": "Then up to PLI / shaker if threat remains"
    },
    {
     "v": "MAX",
-    "l": "Poussée",
-    "s": "Manettes plein avant (EEC normal)"
+    "l": "Thrust",
+    "s": "Thrust levers full forward (EEC normal)"
    },
    {
     "v": "20–30 s",
-    "l": "Préavis look-ahead",
-    "s": "Avant impact projeté (FCOM MAX)"
+    "l": "Look-ahead warning time",
+    "s": "Before projected impact (FCOM MAX)"
    }
   ],
-  "trap": "Garder l'A/P ou suivre le FD : le QRH dit « Do not use flight director commands ». Et ne pas toucher au train/volets tant que la séparation terrain n'est pas assurée.",
+  "trap": "Keeping the A/P or following the FD: the QRH says “Do not use flight director commands”. And don't touch gear/flaps until terrain separation is assured.",
   "then": [
-   "Plus de menace : annoncer que le terrain n'est plus un facteur (SOP)",
-   "Réduire lentement l'assiette, accélérer, rentrer train/volets selon schedule",
-   "Ne pas réengager A/P ou A/T avant d'avoir la séparation terrain assurée (FCTM)",
-   "Alerte look-ahead en montée/croisière/descente vérifiée au-dessus de la MSA : peut être considérée non fiable",
-   "GPWS Caution (SINK RATE, TERRAIN, GLIDESLOPE…) : « Correct the flight path, airplane configuration, or airspeed. »"
+   "Threat gone: call terrain no longer a factor (SOP)",
+   "Slowly decrease pitch, accelerate, retract gear/flaps per schedule",
+   "Do not re-engage A/P or A/T until terrain separation is assured (FCTM)",
+   "Look-ahead alert in climb/cruise/descent, verified above MSA: may be considered unreliable",
+   "GPWS Caution (SINK RATE, TERRAIN, GLIDESLOPE…): “Correct the flight path, airplane configuration, or airspeed.”"
   ],
-  "diff": "Manœuvre identique NG/MAX. Sur NG, l'alerte « OBSTACLE OBSTACLE PULL UP » / CAUTION OBSTACLE n'existe que sur les avions YD108–YD117, YG721–YV388 (effectivité QRH NG).",
+  "diff": "Same maneuver NG/MAX. On NG, the “OBSTACLE OBSTACLE PULL UP” / CAUTION OBSTACLE alert exists only on airplanes YD108–YD117, YG721–YV388 (QRH NG effectivity).",
   "qcm": [
    {
-    "q": "« TERRAIN TERRAIN PULL UP » de nuit en IMC. Assiette initiale visée ?",
+    "q": "“TERRAIN TERRAIN PULL UP” at night in IMC. Target initial pitch?",
     "o": [
      "10°",
      "15°",
@@ -327,32 +327,32 @@
      "25°"
     ],
     "a": 2,
-    "w": "GPWS warning : « rotate to an initial pitch attitude of 20° ». Le 15° c'est la windshear escape."
+    "w": "GPWS warning: “rotate to an initial pitch attitude of 20°”. 15° is the windshear escape."
    },
    {
-    "q": "Le terrain reste menaçant après 20°. Jusqu'où cabrer ?",
+    "q": "Terrain still a threat after 20°. How far to pitch up?",
     "o": [
-     "Jusqu'à 25° maximum",
-     "Jusqu'au PLI, ou stick shaker, ou buffet initial",
-     "Jusqu'à ce que le FD soit centré",
-     "Jusqu'à V2"
+     "Up to 25° maximum",
+     "Up to PLI, or stick shaker, or initial buffet",
+     "Until the FD is centered",
+     "Until V2"
     ],
     "a": 1,
-    "w": "« continue rotation up to the pitch limit indicator (if available) or stick shaker or initial buffet. » Le shaker intermittent est la limite haute."
+    "w": "“continue rotation up to the pitch limit indicator (if available) or stick shaker or initial buffet.” Intermittent shaker is the upper limit."
    },
    {
-    "q": "Pendant la manœuvre, train et volets :",
+    "q": "During the maneuver, gear and flaps:",
     "o": [
-     "Rentrer le train immédiatement",
-     "Volets à 1 pour réduire la traînée",
-     "Volets 15 pour plus de portance",
-     "Ne pas changer avant séparation terrain assurée"
+     "Retract the gear immediately",
+     "Flaps 1 to reduce drag",
+     "Flaps 15 for more lift",
+     "No change until terrain separation is assured"
     ],
     "a": 3,
-    "w": "« Do not change gear or flap configuration until terrain separation is assured. »"
+    "w": "“Do not change gear or flap configuration until terrain separation is assured.”"
    },
    {
-    "q": "Rôle du PM sur la poussée ?",
+    "q": "PM's role on thrust?",
     "o": [
      "Assure maximum thrust",
      "Set CLB thrust",
@@ -360,18 +360,18 @@
      "Disengage autothrottle"
     ],
     "a": 0,
-    "w": "PM : « Assure maximum thrust », vérifie les actions et annonce les omissions. Le PF a déjà déconnecté l'A/T."
+    "w": "PM: “Assure maximum thrust”, verifies actions and calls out omissions. The PF has already disengaged the A/T."
    },
    {
-    "q": "Annonce SOP Air Algérie du PF au déclenchement de la manœuvre ?",
+    "q": "PF's Air Algérie SOP callout when initiating the maneuver?",
     "o": [
-     "« PULL UP »",
-     "« GO AROUND, TERRAIN »",
-     "« TERRAIN GO »",
-     "« ESCAPE »"
+     "“PULL UP”",
+     "“GO AROUND, TERRAIN”",
+     "“TERRAIN GO”",
+     "“ESCAPE”"
     ],
     "a": 2,
-    "w": "SOP 3.3 : « When the GPWS Warning Maneuver is required, the PF shall call: \"TERRAIN GO\" »."
+    "w": "SOP 3.3: “When the GPWS Warning Maneuver is required, the PF shall call: \"TERRAIN GO\"”."
    }
   ],
   "sources": [
@@ -413,17 +413,17 @@
   "cat": "maneuver",
   "code": "TCAS",
   "title": "Traffic Avoidance",
-  "titleFr": "Évitement de trafic (TCAS RA)",
+  "titleFr": "Traffic Avoidance (TCAS RA)",
   "fleet": "both",
   "ref": "QRH MAN.1.8–1.10 (MAX) / MAN.1.7–1.8 (NG) · FCTM 7.18–7.20 · SOP 3.4, 15.5",
   "flash": {
-   "title": "Montée vers FL240, A/P engagé, zone TMA chargée.",
-   "text": "TA d'abord, puis le trafic converge. TCAS ordonne une manœuvre alors que l'ATC vient de vous donner une autre consigne.",
+   "title": "Climbing to FL240, A/P engaged, busy TMA.",
+   "text": "TA first, then the traffic converges. TCAS commands a maneuver just as ATC gives you a different instruction.",
    "cues": [
     "“TRAFFIC, TRAFFIC”",
     "“CLIMB, CLIMB”",
-    "Zone rouge sur l'indicateur de vitesse verticale/attitude",
-    "Symbole trafic rouge sur ND"
+    "Red zone on the vertical speed/attitude indicator",
+    "Red traffic symbol on ND"
    ]
   },
   "steps": [
@@ -498,42 +498,42 @@
    {
     "v": "1000 ft",
     "l": "AGL",
-    "s": "Ne pas suivre un DESCEND RA en dessous"
+    "s": "Do not follow a DESCEND RA below"
    },
    {
     "v": "Flaps 15",
-    "l": "Climb RA en config atterrissage",
-    "s": "+ poussée max"
+    "l": "Climb RA in landing config",
+    "s": "+ max thrust"
    },
    {
     "v": "1000 ft/min",
-    "l": "Vz max",
-    "s": "Dans les 2000 ft avant le niveau (SOP)"
+    "l": "Max V/S",
+    "s": "Within 2000 ft of level-off (SOP)"
    }
   ],
-  "trap": "Suivre l'ATC plutôt que le RA, ou manœuvrer à l'opposé : « Comply with the RA if there is a conflict between the RA and air traffic control. » Et pas de manœuvre sur un simple TA.",
+  "trap": "Following ATC instead of the RA, or maneuvering opposite: “Comply with the RA if there is a conflict between the RA and air traffic control.” And no maneuver on a TA alone.",
   "then": [
-   "Pas d'ordre FD en tangage avant d'être clear of conflict",
-   "Shaker ou buffet initial pendant le RA → Approach to Stall Recovery immédiatement",
-   "Buffet haute vitesse : relâcher l'effort à cabrer mais continuer la manœuvre",
-   "Clear of conflict : retour rapide et souple à l'altitude/vitesse autorisées",
-   "TCAS II v7.1 Air Algérie : « LEVEL OFF, LEVEL OFF » = ramener la Vz à 0"
+   "No FD pitch commands until clear of conflict",
+   "Shaker or initial buffet during the RA → Approach to Stall Recovery immediately",
+   "High-speed buffet: relax pitch-up force but continue the maneuver",
+   "Clear of conflict: promptly and smoothly return to cleared altitude/speed",
+   "Air Algérie TCAS II v7.1: “LEVEL OFF, LEVEL OFF” = reduce V/S to 0"
   ],
-  "diff": "Manœuvre identique NG/MAX. Toute la flotte Air Algérie est en TCAS II v7.1 (SOP) : l'ancien RA « ADJUST VERTICAL SPEED ADJUST » est remplacé par « LEVEL OFF ».",
+  "diff": "Same maneuver NG/MAX. The whole Air Algérie fleet has TCAS II v7.1 (SOP): the old “ADJUST VERTICAL SPEED ADJUST” RA is replaced by “LEVEL OFF”.",
   "qcm": [
    {
-    "q": "RA « CLIMB » alors que l'ATC vient de demander de descendre. Que faire ?",
+    "q": "“CLIMB” RA just after ATC cleared you to descend. Action?",
     "o": [
-     "Suivre l'ATC, c'est l'autorité",
-     "Suivre le RA",
-     "Maintenir le niveau et demander à l'ATC",
-     "Virer pour s'écarter"
+     "Follow ATC, it's the authority",
+     "Follow the RA",
+     "Hold level and ask ATC",
+     "Turn away"
     ],
     "a": 1,
-    "w": "WARNING QRH : « Comply with the RA if there is a conflict between the RA and air traffic control. »"
+    "w": "QRH WARNING: “Comply with the RA if there is a conflict between the RA and air traffic control.”"
    },
    {
-    "q": "En dessous de quelle hauteur ne suit-on pas un DESCEND RA ?",
+    "q": "Below what height do you NOT follow a DESCEND RA?",
     "o": [
      "500 ft AGL",
      "1000 ft AGL",
@@ -541,10 +541,10 @@
      "2500 ft AGL"
     ],
     "a": 1,
-    "w": "« Do not follow a DESCEND (fly down) RA issued below 1000 feet AGL. »"
+    "w": "“Do not follow a DESCEND (fly down) RA issued below 1000 feet AGL.”"
    },
    {
-    "q": "Climb RA en finale, config atterrissage. Volets demandés par le PF ?",
+    "q": "Climb RA on final, landing config. Flaps called by PF?",
     "o": [
      "FLAPS 1",
      "FLAPS 5",
@@ -552,29 +552,29 @@
      "FLAPS 15"
     ],
     "a": 3,
-    "w": "« Advance thrust levers forward to ensure maximum thrust is attained and call for FLAPS 15. » Puis GEAR UP sur positive rate."
+    "w": "“Advance thrust levers forward to ensure maximum thrust is attained and call for FLAPS 15.” Then GEAR UP on positive rate."
    },
    {
-    "q": "TA « TRAFFIC, TRAFFIC », trafic non visuel. Action ?",
+    "q": "“TRAFFIC, TRAFFIC” TA, traffic not in sight. Action?",
     "o": [
-     "Chercher le trafic à l'aide de l'écran, sans manœuvrer sur le TA seul",
-     "Monter de 500 ft par précaution",
-     "Déconnecter l'A/P et descendre",
-     "Passer le TCAS en TA ONLY"
+     "Look for traffic using the display, no maneuver on the TA alone",
+     "Climb 500 ft as a precaution",
+     "Disengage the A/P and descend",
+     "Select TCAS to TA ONLY"
     ],
     "a": 0,
-    "w": "Pour un TA : rechercher le trafic. « Maneuvers based solely on a TA can result in reduced separation and are not recommended. »"
+    "w": "For a TA: look for the traffic. “Maneuvers based solely on a TA can result in reduced separation and are not recommended.”"
    },
    {
-    "q": "Stick shaker pendant un RA de montée. Priorité ?",
+    "q": "Stick shaker during a climb RA. Priority?",
     "o": [
-     "Continuer le RA, il est prioritaire",
-     "Réduire la Vz de moitié",
-     "Approach to Stall Recovery immédiatement",
-     "Rentrer les volets"
+     "Continue the RA, it has priority",
+     "Halve the V/S",
+     "Approach to Stall Recovery immediately",
+     "Retract the flaps"
     ],
     "a": 2,
-    "w": "Note QRH : shaker ou buffet initial → « immediately accomplish the APPROACH TO STALL RECOVERY procedure ». Le shaker passe avant tout (FCTM)."
+    "w": "QRH Note: shaker or initial buffet → “immediately accomplish the APPROACH TO STALL RECOVERY procedure”. The shaker comes first (FCTM)."
    }
   ],
   "sources": [
@@ -616,16 +616,16 @@
   "cat": "maneuver",
   "code": "UPS↑",
   "title": "Upset Recovery — Nose High Recovery",
-  "titleFr": "Récupération d'assiette — nez haut",
+  "titleFr": "Upset Recovery — Nose High",
   "fleet": "both",
   "ref": "QRH MAN.1.10–1.11 (MAX) / MAN.1.9–1.10 (NG) · FCTM 7.21–7.24 · SOP 3.8",
   "flash": {
-   "title": "Croisière FL370, turbulence en air clair.",
-   "text": "Une rafale verticale et l'A/P décroche. Le nez part à 30° au-dessus de l'horizon, la vitesse s'effondre.",
+   "title": "Cruise FL370, clear air turbulence.",
+   "text": "A vertical gust and the A/P trips off. The nose goes 30° above the horizon, speed collapsing.",
    "cues": [
-    "Assiette > 25° nez haut",
-    "Vitesse qui décroît rapidement",
-    "Ciel bleu dominant sur l'ADI",
+    "Pitch > 25° nose up",
+    "Airspeed decreasing rapidly",
+    "Mostly blue sky on the ADI",
     "A/P disconnect"
    ]
   },
@@ -700,64 +700,64 @@
   "nums": [
    {
     "v": "> 25°",
-    "l": "Nez haut",
-    "s": "Définition historique d'un upset"
+    "l": "Nose high",
+    "s": "Historical upset definition"
    },
    {
     "v": "45°–60°",
-    "l": "Inclinaison",
-    "s": "Si le tangage seul ne fait pas baisser le nez (FCTM)"
+    "l": "Bank",
+    "s": "If pitch alone won't lower the nose (FCTM)"
    },
    {
-    "v": "0 à 1 g",
-    "l": "Facteur de charge",
-    "s": "Pendant la mise en piqué (FCTM)"
+    "v": "0 to 1 g",
+    "l": "Load factor",
+    "s": "During the nose-down push (FCTM)"
    }
   ],
-  "trap": "Remettre plein gaz parce que la vitesse chute : sous les ailes, la poussée cabre encore plus. On réduit la poussée et on pousse ; le trim, juste ce qu'il faut — l'excès de trim ou de palonnier aggrave l'upset.",
+  "trap": "Adding full thrust because speed is dropping: with underwing engines, thrust pitches the nose up further. Reduce thrust and push; trim only as needed — excessive trim or rudder worsens the upset.",
   "then": [
-   "Décroché ? D'abord sortir du décrochage (nose down jusqu'à arrêt du shaker)",
-   "Arrêter le trim piqué quand le g ou l'effort au manche diminue",
-   "Palonnier : seulement si le gauchissement est inefficace et l'avion non décroché, petite quantité",
-   "Proche de l'horizon : ailes à plat, vitesse, poussée, assiette"
+   "Stalled? Recover from the stall first (nose down until shaker stops)",
+   "Stop nose-down trim when g or column force decreases",
+   "Rudder: only if roll control is ineffective and not stalled, small amounts",
+   "Near the horizon: wings level, speed, thrust, pitch"
   ],
   "diff": null,
   "qcm": [
    {
-    "q": "Nez haut 30°, vitesse qui chute. Action sur la poussée ?",
+    "q": "Nose high 30°, speed dropping. Thrust action?",
     "o": [
-     "Poussée max pour regagner de la vitesse",
-     "Maintenir la poussée actuelle",
+     "Max thrust to regain speed",
+     "Keep current thrust",
      "Reduce thrust",
      "TO/GA"
     ],
     "a": 2,
-    "w": "QRH : « Reduce thrust ». Moteurs sous les ailes : plus de poussée = moment cabreur supplémentaire."
+    "w": "QRH: “Reduce thrust”. Underwing engines: more thrust = additional nose-up moment."
    },
    {
-    "q": "Le piqué au manche et le trim ne suffisent pas. Étape suivante du QRH ?",
+    "q": "Nose-down elevator and trim aren't enough. Next QRH step?",
     "o": [
      "Roll (adjust bank angle) to obtain a nose down pitch rate",
-     "Sortir les speedbrakes",
-     "Sortir flaps 1",
-     "Plein palonnier"
+     "Extend speedbrakes",
+     "Select flaps 1",
+     "Full rudder"
     ],
     "a": 0,
-    "w": "« Roll (adjust bank angle) to obtain a nose down pitch rate. » Le FCTM cite 45°, jusqu'à 60° max."
+    "w": "“Roll (adjust bank angle) to obtain a nose down pitch rate.” The FCTM cites 45°, up to 60° max."
    },
    {
-    "q": "Quand remet-on les ailes à plat ?",
+    "q": "When do you roll wings level?",
     "o": [
-     "Immédiatement au début de la récupération",
+     "Immediately at the start of the recovery",
      "When approaching the horizon",
-     "Après avoir retrouvé la vitesse de croisière",
-     "Quand le shaker s'arrête"
+     "After regaining cruise speed",
+     "When the shaker stops"
     ],
     "a": 1,
-    "w": "Complete the recovery : « When approaching the horizon, roll to wings level », puis vitesse/poussée, assiette."
+    "w": "Complete the recovery: “When approaching the horizon, roll to wings level”, then speed/thrust, pitch."
    },
    {
-    "q": "Historiquement, un upset nez haut c'est une assiette supérieure à :",
+    "q": "Historically, a nose-high upset is a pitch attitude greater than:",
     "o": [
      "10°",
      "15°",
@@ -765,18 +765,18 @@
      "25°"
     ],
     "a": 3,
-    "w": "Pitch > 25° nose up, > 10° nose down, bank > 45°, ou vitesse inappropriée. Aujourd'hui : toute déviation de l'état voulu."
+    "w": "Pitch > 25° nose up, > 10° nose down, bank > 45°, or inappropriate airspeed. Today: any deviation from the desired state."
    },
    {
-    "q": "Rôle du PM pendant la récupération ?",
+    "q": "PM's role during the recovery?",
     "o": [
-     "Reprendre les commandes",
+     "Take over the controls",
      "Call out attitude, airspeed and altitude throughout the recovery",
-     "Ré-engager l'A/P dès que possible",
-     "Lire la check-list NNC"
+     "Re-engage the A/P as soon as possible",
+     "Read the NNC checklist"
     ],
     "a": 1,
-    "w": "PM : annonce attitude, vitesse et altitude tout au long, vérifie les actions et annonce toute déviation persistante."
+    "w": "PM: calls out attitude, airspeed and altitude throughout, verifies actions and calls out any continued deviation."
    }
   ],
   "sources": [
@@ -813,17 +813,17 @@
   "cat": "maneuver",
   "code": "UPS↓",
   "title": "Upset Recovery — Nose Low Recovery",
-  "titleFr": "Récupération d'assiette — nez bas",
+  "titleFr": "Upset Recovery — Nose Low",
   "fleet": "both",
   "ref": "QRH MAN.1.11–1.12 (MAX) / MAN.1.10–1.11 (NG) · FCTM 7.21–7.25 · SOP 3.8",
   "flash": {
-   "title": "Descente FL200, IMC, nuit.",
-   "text": "Panne d'affichage côté PF, désorientation. Quand vous reprenez le scan, l'avion est à 100° d'inclinaison, nez sous l'horizon, la vitesse grimpe vers VMO.",
+   "title": "Descent FL200, IMC, night.",
+   "text": "Display failure on the PF side, disorientation. When you get your scan back, the airplane is at 100° bank, nose below the horizon, speed climbing toward VMO.",
    "cues": [
-    "Inclinaison > 90°",
-    "Assiette nez bas > 10°",
-    "Vitesse qui s'emballe vers VMO/MMO",
-    "Marron dominant sur l'ADI",
+    "Bank > 90°",
+    "Pitch > 10° nose down",
+    "Speed running toward VMO/MMO",
+    "Mostly brown on the ADI",
     "“BANK ANGLE”"
    ]
   },
@@ -886,64 +886,64 @@
   "nums": [
    {
     "v": "> 10°",
-    "l": "Nez bas",
-    "s": "Définition historique d'un upset"
+    "l": "Nose low",
+    "s": "Historical upset definition"
    },
    {
     "v": "90°",
-    "l": "Inclinaison",
-    "s": "Au-delà : unload and roll"
+    "l": "Bank",
+    "s": "Beyond: unload and roll"
    },
    {
     "v": "67°",
-    "l": "Inclinaison",
-    "s": "Au-delà, vol en palier impossible dans les limites de g (FCTM)"
+    "l": "Bank",
+    "s": "Beyond: level flight impossible within g limits (FCTM)"
    }
   ],
-  "trap": "Tirer sur le manche avant d'avoir remis les ailes à plat : au-delà de 60° d'inclinaison, cabrer ne change quasiment pas l'assiette et charge la structure. D'abord rouler (shortest direction, vers le bank pointer), puis ressource.",
+  "trap": "Pulling before rolling wings level: beyond 60° bank, pulling barely changes pitch and loads the structure. Roll first (shortest direction, toward the bank pointer), then pull out.",
   "then": [
-   "Le bank pointer reste perpendiculaire à l'horizon : rouler vers lui",
-   "Pas de nose up ni de trim cabreur avant d'approcher les ailes à plat (FCTM)",
-   "Speedbrakes si besoin pour contenir la vitesse",
-   "Efforts aux commandes plus élevés que la normale : effort ferme et continu"
+   "The bank pointer stays perpendicular to the horizon: roll toward it",
+   "No nose-up elevator or nose-up trim until approaching wings level (FCTM)",
+   "Speedbrakes as needed to control speed",
+   "Control forces higher than normal: firm, continuous force"
   ],
   "diff": null,
   "qcm": [
    {
-    "q": "Inclinaison 110°, nez bas. Le geste QRH ?",
+    "q": "Bank 110°, nose low. The QRH action?",
     "o": [
-     "Tirer pour ramener le nez à l'horizon",
-     "Réduire la poussée et sortir le train",
+     "Pull to bring the nose to the horizon",
+     "Reduce thrust and extend the gear",
      "Unload and roll, shortest direction to wings level",
-     "Plein palonnier côté haut"
+     "Full top rudder"
     ],
     "a": 2,
-    "w": "« Roll in the shortest direction to wings level. If bank angle is more than 90 degrees, unload and roll. »"
+    "w": "“Roll in the shortest direction to wings level. If bank angle is more than 90 degrees, unload and roll.”"
    },
    {
-    "q": "Ordre correct en nez bas :",
+    "q": "Correct sequence, nose low:",
     "o": [
-     "Nose up elevator puis roll wings level",
-     "Roll wings level puis nose up elevator",
-     "Trim cabreur puis roll",
-     "Speedbrakes puis roll"
+     "Nose up elevator, then roll wings level",
+     "Roll wings level, then nose up elevator",
+     "Nose-up trim, then roll",
+     "Speedbrakes, then roll"
     ],
     "a": 1,
-    "w": "Recover : stall si besoin, roll wings level. Complete the recovery : nose up elevator, trim si besoin, poussée/traînée."
+    "w": "Recover: stall if needed, roll wings level. Complete the recovery: nose up elevator, trim if needed, thrust/drag."
    },
    {
-    "q": "Avant toute action de récupération d'upset, si l'avion est décroché :",
+    "q": "Before any upset recovery action, if the airplane is stalled:",
     "o": [
-     "Sortir du décrochage d'abord (nose down)",
-     "Remettre les ailes à plat d'abord",
-     "Poussée max d'abord",
-     "Sortir les volets"
+     "Recover from the stall first (nose down)",
+     "Roll wings level first",
+     "Max thrust first",
+     "Extend the flaps"
     ],
     "a": 0,
-    "w": "QRH : « If the airplane is stalled, first recover from the stall by applying and maintaining nose down elevator until stall recovery is complete and stick shaker stops. »"
+    "w": "QRH: “If the airplane is stalled, first recover from the stall by applying and maintaining nose down elevator until stall recovery is complete and stick shaker stops.”"
    },
    {
-    "q": "Au-delà de quelle inclinaison le vol en palier est-il impossible dans les limites de facteur de charge AFM ?",
+    "q": "Beyond what bank angle is level flight impossible within AFM load factor limits?",
     "o": [
      "45°",
      "60°",
@@ -951,18 +951,18 @@
      "90°"
     ],
     "a": 2,
-    "w": "FCTM 7.25 : « At bank angles greater than 67°, level flight cannot be maintained within AFM load factor limits. »"
+    "w": "FCTM 7.25: “At bank angles greater than 67°, level flight cannot be maintained within AFM load factor limits.”"
    },
    {
-    "q": "Usage du palonnier pendant un upset :",
+    "q": "Rudder use during an upset:",
     "o": [
-     "Systématique pour accélérer le roulis",
-     "Interdit",
-     "Seulement pour les nez haut",
-     "Seulement si le gauchissement est inefficace et l'avion non décroché, avec soin"
+     "Always, to speed up the roll",
+     "Prohibited",
+     "Nose-high upsets only",
+     "Only if roll control is ineffective and not stalled, carefully"
     ],
     "a": 3,
-    "w": "QRH : « Careful use of rudder to aid roll control should be considered only if roll control is ineffective and the airplane is not stalled. »"
+    "w": "QRH: “Careful use of rudder to aid roll control should be considered only if roll control is ineffective and the airplane is not stalled.”"
    }
   ],
   "sources": [
@@ -999,15 +999,15 @@
   "cat": "maneuver",
   "code": "WS",
   "title": "Windshear Escape Maneuver",
-  "titleFr": "Cisaillement de vent — manœuvre d'échappement",
+  "titleFr": "Windshear Escape Maneuver",
   "fleet": "both",
   "ref": "QRH MAN.1.12–1.15 (MAX) / MAN.1.11–1.14 (NG) · FCTM 7.25 · SOP 3.2",
   "flash": {
-   "title": "Courte finale, 600 ft, orage à proximité, A/P engagé.",
-   "text": "La vitesse gagne 20 kt puis s'effondre de 25 kt, le vario passe à −1500 ft/min sous le glide.",
+   "title": "Short final, 600 ft, thunderstorm nearby, A/P engaged.",
+   "text": "Speed gains 20 kt then drops 25 kt, V/S goes to −1500 ft/min below the glide.",
    "cues": [
-    "Sirène deux tons + “WINDSHEAR, WINDSHEAR, WINDSHEAR”",
-    "WINDSHEAR rouge sur les deux PFD",
+    "Two-tone siren + “WINDSHEAR, WINDSHEAR, WINDSHEAR”",
+    "Red WINDSHEAR on both PFDs",
     "“GO-AROUND, WINDSHEAR AHEAD”",
     "IAS −15 kt / V/S −500 fpm / 1 dot G/S"
    ]
@@ -1016,7 +1016,7 @@
    {
     "role": "PF",
     "phase": "",
-    "text": "Call “WINDSHEAR GO” (SOP Air Algérie)",
+    "text": "Call “WINDSHEAR GO” (Air Algérie SOP)",
     "fleet": "both"
    },
    {
@@ -1101,89 +1101,89 @@
   "nums": [
    {
     "v": "15°",
-    "l": "Assiette initiale",
-    "s": "Puis jusqu'au shaker intermittent / PLI"
+    "l": "Initial pitch",
+    "s": "Then up to intermittent shaker / PLI"
    },
    {
     "v": "15 kt",
     "l": "IAS",
-    "s": "Écart inacceptable < 1000 ft AGL (avec 500 fpm, 5° pitch, 1 dot G/S)"
+    "s": "Unacceptable deviation < 1000 ft AGL (with 500 fpm, 5° pitch, 1 dot G/S)"
    },
    {
     "v": "2 000 ft",
-    "l": "Avant fin de piste",
-    "s": "Rotation au plus tard si arrêt impossible"
+    "l": "Before end of runway",
+    "s": "Latest rotation if unable to stop"
    },
    {
     "v": "V1",
-    "l": "PWS au roulage",
-    "s": "Avant : RTO · Après : escape"
+    "l": "PWS on takeoff roll",
+    "s": "Before: RTO · After: escape"
    }
   ],
-  "trap": "Baisser le nez pour « regagner la vitesse » : c'est le crash. On garde l'assiette (15°, jusqu'au shaker intermittent) et on ne touche ni train ni volets tant que le windshear est un facteur.",
+  "trap": "Lowering the nose to “regain speed”: that's the crash. Hold the pitch (15°, up to intermittent shaker) and leave gear and flaps alone while windshear is a factor.",
   "then": [
-   "PWS caution (« MONITOR RADAR DISPLAY ») : manœuvrer pour éviter le windshear",
-   "PWS warning en approche (« GO-AROUND, WINDSHEAR AHEAD ») : escape, ou remise de gaz normale au choix du pilote",
-   "Windshear au roulage avant V1 : à VR rotation normale vers 15°, escape une fois en l'air",
-   "Fin : annoncer windshear plus un facteur, transition vol normal, rentrer train/volets selon schedule (SOP)",
-   "TO/GA indisponible : déconnecter A/P et A/T et piloter à la main"
+   "PWS caution (“MONITOR RADAR DISPLAY”): maneuver to avoid the windshear",
+   "PWS warning on approach (“GO-AROUND, WINDSHEAR AHEAD”): escape, or normal go-around at pilot's discretion",
+   "Windshear on takeoff roll before V1: at VR normal rotation toward 15°, escape once airborne",
+   "End: call windshear no longer a factor, transition to normal flight, retract gear/flaps per schedule (SOP)",
+   "TO/GA unavailable: disengage A/P and A/T and fly manually"
   ],
-  "diff": "Manœuvre identique NG/MAX (QRH NG MAN.1.13 / MAX MAN.1.14). Rien à adapter côté pilote.",
+  "diff": "Same maneuver NG/MAX (QRH NG MAN.1.13 / MAX MAN.1.14). Nothing to adapt for the pilot.",
   "qcm": [
    {
-    "q": "Windshear warning en finale, pilotage manuel. Assiette initiale visée ?",
+    "q": "Windshear warning on final, manual flight. Target initial pitch?",
     "o": [
      "10°",
      "15°",
      "20°",
-     "Celle du FD uniquement"
+     "FD pitch only"
     ],
     "a": 1,
-    "w": "« rotate toward an initial pitch attitude of 15° » — 20° c'est le GPWS PULL UP."
+    "w": "“rotate toward an initial pitch attitude of 15°” — 20° is the GPWS PULL UP."
    },
    {
-    "q": "« WINDSHEAR AHEAD, WINDSHEAR AHEAD » au roulage, avant V1 :",
+    "q": "“WINDSHEAR AHEAD, WINDSHEAR AHEAD” on takeoff roll, before V1:",
     "o": [
-     "Continuer et faire l'escape après rotation",
-     "Rejeter le décollage",
-     "Rotation immédiate",
-     "Continuer, c'est seulement prédictif"
+     "Continue and fly the escape after rotation",
+     "Reject the takeoff",
+     "Rotate immediately",
+     "Continue, it's only predictive"
     ],
     "a": 1,
-    "w": "Predictive windshear warning during takeoff roll : « before V1, reject takeoff · after V1, perform the Windshear Escape Maneuver »."
+    "w": "Predictive windshear warning during takeoff roll: “before V1, reject takeoff · after V1, perform the Windshear Escape Maneuver”."
    },
    {
-    "q": "Pendant l'escape, la vitesse continue de baisser. Le PF :",
+    "q": "During the escape, speed keeps decreasing. The PF:",
     "o": [
-     "Baisse le nez pour la regagner",
-     "Rentre les volets pour réduire la traînée",
-     "Rentre le train",
-     "Ne cherche pas à regagner la vitesse tant que le windshear est un facteur"
+     "Lowers the nose to regain it",
+     "Retracts flaps to reduce drag",
+     "Retracts the gear",
+     "Does not try to regain speed while windshear is a factor"
     ],
     "a": 3,
-    "w": "« Do not attempt to regain lost airspeed until windshear is no longer a factor. » Le shaker intermittent est la limite haute d'assiette."
+    "w": "“Do not attempt to regain lost airspeed until windshear is no longer a factor.” Intermittent shaker is the upper pitch limit."
    },
    {
-    "q": "Écart « inacceptable » sous 1000 ft AGL : lequel ne fait PAS partie de la liste QRH ?",
+    "q": "“Unacceptable” deviation below 1000 ft AGL: which is NOT on the QRH list?",
     "o": [
      "15 kt IAS",
      "500 fpm V/S",
-     "10° d'inclinaison",
+     "10° bank",
      "1 dot glideslope"
     ],
     "a": 2,
-    "w": "Liste QRH : 15 kt IAS, 500 fpm V/S, 5° pitch, 1 dot G/S, position manette inhabituelle prolongée. Pas d'inclinaison."
+    "w": "QRH list: 15 kt IAS, 500 fpm V/S, 5° pitch, 1 dot G/S, unusual thrust lever position for a significant time. No bank."
    },
    {
-    "q": "En vol automatique, après avoir poussé TO/GA, le PF :",
+    "q": "In automatic flight, after pushing TO/GA, the PF:",
     "o": [
      "Verify TO/GA mode annunciation, verify GA thrust",
-     "Déconnecte immédiatement l'A/T",
-     "Sort flaps 15",
-     "Sélectionne LVL CHG"
+     "Immediately disengages the A/T",
+     "Selects flaps 15",
+     "Selects LVL CHG"
     ],
     "a": 0,
-    "w": "AUTOMATIC FLIGHT : TO/GA, « Verify TO/GA mode annunciation. Verify GA thrust. Retract speedbrakes. Monitor system performance », prêt à reprendre en manuel."
+    "w": "AUTOMATIC FLIGHT: TO/GA, “Verify TO/GA mode annunciation. Verify GA thrust. Retract speedbrakes. Monitor system performance”, ready to take over manually."
    }
   ],
   "sources": [
@@ -1225,17 +1225,17 @@
   "cat": "maneuver",
   "code": "RTO",
   "title": "Rejected Takeoff",
-  "titleFr": "Décollage interrompu",
+  "titleFr": "Rejected Takeoff",
   "fleet": "both",
   "ref": "QRH MAN.1.5–1.8 (MAX) / MAN.1.2–1.4 (NG) · FCTM 3.29–3.32 · SOP 3.1",
   "flash": {
-   "title": "Décollage DAAG, piste mouillée, CDB PF, autobrake RTO.",
-   "text": "Le F/O vient d'annoncer « EIGHTY KNOTS ». À 120 kt, V1 à 142, la Master Caution s'allume avec un voyant système, puis un bruit sourd.",
+   "title": "Takeoff DAAG, wet runway, CPT PF, autobrake RTO.",
+   "text": "The F/O just called “EIGHTY KNOTS”. At 120 kt, V1 142, Master Caution comes on with a system light, then a dull thud.",
    "cues": [
     "MASTER CAUTION",
-    "ENGINE FIRE / ENGINE FAILURE annoncé",
-    "Bruit / vibration inhabituels",
-    "Accélération anormalement lente",
+    "ENGINE FIRE / ENGINE FAILURE called",
+    "Unusual noise / vibration",
+    "Abnormally slow acceleration",
     "Takeoff configuration warning"
    ]
   },
@@ -1316,48 +1316,48 @@
   "nums": [
    {
     "v": "80 kt",
-    "l": "Avant : on rejette pour",
-    "s": "Master caution, panne système, bruit/vibration, pneu, accél. lente, config warning, feu, panne moteur, PWS, fenêtre, avion inapte"
+    "l": "Before: reject for",
+    "s": "Master caution, system failure, noise/vibration, tire, slow accel., config warning, fire, engine failure, PWS, window, unsafe airplane"
    },
    {
     "v": "80 kt → V1",
-    "l": "Seulement pour",
-    "s": "Feu / fire warning, panne moteur, PWS warning, avion unsafe ou incapable de voler"
+    "l": "Only for",
+    "s": "Fire / fire warning, engine failure, PWS warning, airplane unsafe or unable to fly"
    },
    {
     "v": "60 kt",
-    "l": "Annonce F/O",
-    "s": "« 60 knots »"
+    "l": "F/O callout",
+    "s": "“60 knots”"
    },
    {
     "v": "V1",
-    "l": "Vitesse max",
-    "s": "Pour la 1ʳᵉ action d'arrêt (14 CFR 25)"
+    "l": "Max speed",
+    "s": "For the 1st stopping action (14 CFR 25)"
    }
   ],
-  "trap": "Rejeter au-dessus de 80 kt pour une Master Caution, ou commencer l'action d'arrêt après V1 : cause n°1 des sorties de piste. Et ne pas oublier de déconnecter l'A/T, sinon les manettes repartent si on rejette avant THR HLD.",
+  "trap": "Rejecting above 80 kt for a Master Caution, or starting the stopping action after V1: #1 cause of runway excursions. And don't forget to disengage the A/T, or the thrust levers advance again if you reject before THR HLD.",
   "then": [
-   "F/O à l'ATC (sous 60 kt ou à l'arrêt) : « AIR ALGERIE (call sign) REJECTED TAKEOFF AIRCRAFT ON THE RUNWAY » (SOP)",
-   "CDB au PA : « CABIN CREW NORMAL PROCEDURES » ou « CABIN CREW AT YOUR STATIONS »",
-   "Memory items / NNC selon la cause ; si besoin « EVACUATION CHECKLIST » puis « EVACUATE, EVACUATE, EVACUATE »",
-   "Brake Cooling Schedule, fuse plugs, frein de parc seulement si évacuation, pompiers, vent si feu",
-   "Nouveau décollage : nouveau « CABIN READY » exigé"
+   "F/O to ATC (below 60 kt or stopped): “AIR ALGERIE (call sign) REJECTED TAKEOFF AIRCRAFT ON THE RUNWAY” (SOP)",
+   "CPT on PA: “CABIN CREW NORMAL PROCEDURES” or “CABIN CREW AT YOUR STATIONS”",
+   "Memory items / NNC as per the cause; if needed “EVACUATION CHECKLIST” then “EVACUATE, EVACUATE, EVACUATE”",
+   "Brake Cooling Schedule, fuse plugs, parking brake only if evacuating, fire services, wind if fire",
+   "New takeoff: new “CABIN READY” required"
   ],
-  "diff": "Manœuvre identique NG/MAX. Pages QRH différentes (NG MAN.1.2, MAX MAN.1.5). Nuance de rédaction : « unless passenger evacuation is needed » (NG) / « is necessary » (MAX).",
+  "diff": "Same maneuver NG/MAX. Different QRH pages (NG MAN.1.2, MAX MAN.1.5). Wording nuance: “unless passenger evacuation is needed” (NG) / “is necessary” (MAX).",
   "qcm": [
    {
-    "q": "À 110 kt (V1 140), MASTER CAUTION seule, pas d'autre symptôme. Décision ?",
+    "q": "At 110 kt (V1 140), MASTER CAUTION only, no other symptom. Decision?",
     "o": [
-     "Rejeter immédiatement",
-     "Rejeter si le CDB est PF",
-     "Continuer le décollage",
-     "Rejeter si piste longue"
+     "Reject immediately",
+     "Reject if CPT is PF",
+     "Continue the takeoff",
+     "Reject if runway is long"
     ],
     "a": 2,
-    "w": "Au-dessus de 80 kt et avant V1, on ne rejette que pour feu/fire warning, panne moteur, PWS warning, ou avion unsafe/incapable de voler."
+    "w": "Above 80 kt and before V1, reject only for fire/fire warning, engine failure, PWS warning, or airplane unsafe/unable to fly."
    },
    {
-    "q": "Lequel N'est PAS un motif de rejet entre 80 kt et V1 ?",
+    "q": "Which is NOT a reason to reject between 80 kt and V1?",
     "o": [
      "Engine failure",
      "Fire warning",
@@ -1365,40 +1365,40 @@
      "Tire failure"
     ],
     "a": 3,
-    "w": "Tire failure fait partie de la liste « before 80 knots » seulement. Entre 80 kt et V1 : fire, engine failure, PWS warning, unsafe/unable to fly."
+    "w": "Tire failure is on the “before 80 knots” list only. Between 80 kt and V1: fire, engine failure, PWS warning, unsafe/unable to fly."
    },
    {
-    "q": "F/O PF, le CDB annonce « REJECT ». Qui pilote ?",
+    "q": "F/O PF, CPT calls “REJECT”. Who flies?",
     "o": [
-     "Le F/O jusqu'à l'arrêt complet",
-     "Le F/O garde les commandes jusqu'à une action positive du CDB",
-     "Le CDB dès l'annonce, sans autre geste",
-     "Le PM"
+     "The F/O until full stop",
+     "The F/O keeps control until a positive input by the CPT",
+     "The CPT from the callout, no other action",
+     "The PM"
     ],
     "a": 1,
-    "w": "« the first officer maintains control of the airplane until the captain makes a positive input to the controls. »"
+    "w": "“the first officer maintains control of the airplane until the captain makes a positive input to the controls.”"
    },
    {
-    "q": "Réversers : une seule indication REV passe au vert. Annonce F/O ?",
+    "q": "Reversers: only one REV indication turns green. F/O callout?",
     "o": [
-     "« REVERSERS NORMAL »",
-     "« NO REVERSERS »",
-     "« NO REVERSER ENGINE NUMBER 1 » (ou 2)",
-     "« REVERSER FAULT »"
+     "“REVERSERS NORMAL”",
+     "“NO REVERSERS”",
+     "“NO REVERSER ENGINE NUMBER 1” (or 2)",
+     "“REVERSER FAULT”"
     ],
     "a": 2,
-    "w": "Si une indication REV manque ou reste ambre : « NO REVERSER ENGINE NUMBER 1 » ou « NUMBER 2 »; les deux : « NO REVERSERS »."
+    "w": "If one REV indication is missing or stays amber: “NO REVERSER ENGINE NUMBER 1” or “NUMBER 2”; both: “NO REVERSERS”."
    },
    {
-    "q": "Pourquoi déconnecter l'A/T sur tout RTO (FCTM) ?",
+    "q": "Why disengage the A/T on every RTO (FCTM)?",
     "o": [
-     "Avant THR HLD, les manettes réavanceraient à la poussée décollage une fois relâchées",
-     "Pour armer l'autobrake RTO",
-     "Pour activer les reversers",
-     "Pour couper le FD"
+     "Before THR HLD, thrust levers would advance to takeoff thrust once released",
+     "To arm RTO autobrake",
+     "To activate the reversers",
+     "To turn off the FD"
     ],
     "a": 0,
-    "w": "Avant l'annonce THR HLD, sans déconnexion les manettes repartent à la poussée de décollage. Par cohérence : A/T déconnectée pour tous les RTO."
+    "w": "Before THR HLD annunciates, without disengagement the thrust levers advance back to takeoff thrust. For consistency: A/T disengaged for all RTOs."
    }
   ],
   "sources": [
@@ -1440,17 +1440,17 @@
   "cat": "maneuver",
   "code": "ORW",
   "title": "Overrun Warnings (ORW)",
-  "titleFr": "Alertes de sortie de piste (ORW)",
+  "titleFr": "Runway Overrun Warnings (ORW)",
   "fleet": "MAX",
   "ref": "QRH MAX MAN.1.4–1.5 · FCOM MAX L.10 / 15.20.13–14",
   "flash": {
-   "title": "MAX, approche piste courte et mouillée, vent arrière.",
-   "text": "Un peu haut et rapide à 300 ft, vous poussez pour rattraper le plan. Puis, au sol, le freinage auto paraît mou.",
+   "title": "MAX, approach to a short wet runway, tailwind.",
+   "text": "A bit high and fast at 300 ft, you push to regain the path. Then, on the ground, the autobrake feels weak.",
    "cues": [
     "“OVERRUN, GO-AROUND”",
-    "GO AROUND sur le PFD",
+    "GO AROUND on the PFD",
     "“MAX BRAKES, MAX REVERSE”",
-    "MAX REVERSE sur le PFD"
+    "MAX REVERSE on the PFD"
    ]
   },
   "steps": [
@@ -1518,88 +1518,88 @@
   "nums": [
    {
     "v": "500 ft",
-    "l": "In-air ORW armé",
-    "s": "Au-dessus du TDZE jusqu'au toucher"
+    "l": "In-air ORW armed",
+    "s": "Above TDZE until touchdown"
    },
    {
     "v": "3 s",
-    "l": "On-ground ORW armé",
-    "s": "Après le toucher"
+    "l": "On-ground ORW armed",
+    "s": "After touchdown"
    },
    {
     "v": "20 kt",
-    "l": "On-ground désarmé",
-    "s": "GS < 20 kt ou à 1000 ft du bout de piste"
+    "l": "On-ground disarmed",
+    "s": "GS < 20 kt or 1000 ft from runway end"
    },
    {
     "v": "150 ft",
-    "l": "Aural in-air répété",
-    "s": "Si ≤ 150 ft TDZE et alerte vraie ≥ 7 s"
+    "l": "In-air aural repeated",
+    "s": "If ≤ 150 ft TDZE and alert valid ≥ 7 s"
    }
   ],
-  "trap": "Croire que pas d'alerte = arrêt garanti. Le FCOM est clair : ORW ne remplace pas le calcul de distance d'atterrissage en route, et l'absence d'alerte ne garantit pas l'arrêt avant le bout de piste.",
+  "trap": "Believing no alert = guaranteed stop. The FCOM is clear: ORW does not replace the en-route landing distance assessment, and no alert does not guarantee stopping before the runway end.",
   "then": [
-   "« OVERRUN, GO-AROUND » en approche : remise de gaz immédiate",
-   "Inhiber l'ORW si OAT au sol < −40 °C ou > 50 °C, ou masse > MLW (FCOM MAX)",
-   "L'aural « MAX BRAKES, MAX REVERSE » ne retentit qu'une fois",
-   "Basé sur la base de données piste EGPWS et la position avion"
+   "“OVERRUN, GO-AROUND” on approach: immediate go-around",
+   "Inhibit ORW if ground OAT < −40 °C or > 50 °C, or weight > MLW (FCOM MAX)",
+   "The “MAX BRAKES, MAX REVERSE” aural sounds only once",
+   "Based on the EGPWS runway database and airplane position"
   ],
-  "diff": "MAX uniquement : l'ORW et sa manœuvre n'existent pas dans le QRH NG (rev 55).",
+  "diff": "MAX only: ORW and its maneuver do not exist in the NG QRH (rev 55).",
   "qcm": [
    {
-    "q": "« OVERRUN, GO-AROUND » à 200 ft. Action ?",
+    "q": "“OVERRUN, GO-AROUND” at 200 ft. Action?",
     "o": [
-     "Continuer et freiner max",
+     "Continue and use max braking",
      "Execute a go-around",
-     "Réduire la vitesse et continuer",
-     "Sortir les speedbrakes"
+     "Reduce speed and continue",
+     "Extend speedbrakes"
     ],
     "a": 1,
-    "w": "In-Air Overrun Warning : « Execute a go-around. » (PF et PM)."
+    "w": "In-Air Overrun Warning: “Execute a go-around.” (PF and PM)."
    },
    {
-    "q": "« MAX BRAKES, MAX REVERSE » au roulement. Premier geste du PF ?",
+    "q": "“MAX BRAKES, MAX REVERSE” on the rollout. PF's first action?",
     "o": [
      "Simultaneously close the thrust levers and apply maximum manual wheel brakes",
-     "Augmenter le réglage autobrake",
-     "Remettre les gaz",
-     "Raise SPEED BRAKE lever puis freiner"
+     "Increase the autobrake setting",
+     "Go around",
+     "Raise SPEED BRAKE lever, then brake"
     ],
     "a": 0,
-    "w": "« Without delay: Simultaneously close the thrust levers and apply maximum manual wheel brakes. »"
+    "w": "“Without delay: Simultaneously close the thrust levers and apply maximum manual wheel brakes.”"
    },
    {
-    "q": "L'In-Air ORW est armé à partir de :",
+    "q": "In-Air ORW is armed from:",
     "o": [
      "1000 ft TDZE",
      "50 ft RA",
-     "500 ft au-dessus du TDZE",
-     "Le FAF"
+     "500 ft above TDZE",
+     "The FAF"
     ],
     "a": 2,
-    "w": "FCOM MAX : « The alert is armed from 500 feet above the runway touchdown zone elevation (TDZE) until airplane touchdown. »"
+    "w": "FCOM MAX: “The alert is armed from 500 feet above the runway touchdown zone elevation (TDZE) until airplane touchdown.”"
    },
    {
-    "q": "Cas où il faut inhiber l'ORW (FCOM) :",
+    "q": "When must ORW be inhibited (FCOM)?",
     "o": [
-     "Piste mouillée",
-     "Vent arrière",
+     "Wet runway",
+     "Tailwind",
      "Autobrake 3",
-     "Masse supérieure à la MLW"
+     "Weight above MLW"
     ],
     "a": 3,
-    "w": "Inhiber si OAT au sol < −40 °C ou > 50 °C, ou masse > Maximum Landing Weight."
+    "w": "Inhibit if ground OAT < −40 °C or > 50 °C, or weight > Maximum Landing Weight."
    },
    {
-    "q": "Pas d'alerte ORW sur une piste courte. Conclusion ?",
+    "q": "No ORW alert on a short runway. Conclusion?",
     "o": [
-     "L'arrêt est garanti",
-     "Rien n'est garanti : le calcul de distance d'atterrissage reste obligatoire",
-     "Le freinage peut être réduit",
-     "L'autobrake peut être désarmé"
+     "Stopping is guaranteed",
+     "Nothing is guaranteed: landing distance assessment is still mandatory",
+     "Braking can be reduced",
+     "Autobrake can be disarmed"
     ],
     "a": 1,
-    "w": "« The lack of an overrun alert does not guarantee the airplane can stop prior to reaching the runway end. »"
+    "w": "“The lack of an overrun alert does not guarantee the airplane can stop prior to reaching the runway end.”"
    }
   ],
   "sources": [
@@ -1636,16 +1636,16 @@
   "cat": "maneuver",
   "code": "RAAS",
   "title": "Runway Awareness and Advisory System (RAAS)",
-  "titleFr": "Alertes RAAS (conscience piste)",
+  "titleFr": "RAAS Alerts (Runway Awareness)",
   "fleet": "both",
   "ref": "QRH MAN.1.8 (MAX) / MAN.1.4 (NG) · FCOM NG L.10.9",
   "flash": {
-   "title": "Roulage de nuit, plateforme inconnue, piste parallèle.",
-   "text": "Vous vous alignez sur ce que vous croyez être la piste autorisée. L'annonce vocale ne correspond pas à votre briefing.",
+   "title": "Night taxi, unfamiliar airport, parallel runway.",
+   "text": "You line up on what you think is the cleared runway. The voice callout doesn't match your briefing.",
    "cues": [
-    "Annonce vocale RAAS de la piste",
-    "Identifiant de piste inattendu",
-    "Doute sur la position"
+    "RAAS runway voice callout",
+    "Unexpected runway identifier",
+    "Doubt about position"
    ]
   },
   "steps": [
@@ -1657,68 +1657,68 @@
    }
   ],
   "nums": [],
-  "trap": "Utiliser RAAS comme aide à la navigation ou à la décision de performance : interdit. Il ne remplace ni NOTAM ni ATIS, et la longueur de piste annoncée ne tient pas compte de la météo ou de l'état de piste.",
+  "trap": "Using RAAS as a navigation aid or for performance decisions: prohibited. It replaces neither NOTAM nor ATIS, and the announced runway length ignores weather and runway condition.",
   "then": [
-   "Ne pas utiliser RAAS pour la navigation",
-   "Pas un substitut aux NOTAM / ATIS",
-   "Alerte longueur de piste réglée par la compagnie, sans facteurs temps réel"
+   "Do not use RAAS for navigation",
+   "Not a substitute for NOTAM / ATIS",
+   "Runway length alert set by the operator, no real-time factors"
   ],
-  "diff": "QRH NG : RAAS limité par effectivité aux avions YD111–YD117 et YG721–YV388 (voir FCOM NG 0.1 pour les immatriculations). QRH MAX : sans restriction d'effectivité.",
+  "diff": "QRH NG: RAAS limited by effectivity to airplanes YD111–YD117 and YG721–YV388 (see FCOM NG 0.1 for registrations). QRH MAX: no effectivity restriction.",
   "qcm": [
    {
-    "q": "L'annonce RAAS ne correspond pas à la piste attendue. Action QRH ?",
+    "q": "The RAAS callout doesn't match the expected runway. QRH action?",
     "o": [
-     "Ignorer, RAAS est seulement informatif",
+     "Ignore it, RAAS is advisory only",
      "Verify position. Contact ATC for assistance, if needed.",
-     "Décoller, la clairance prime",
-     "Couper le RAAS"
+     "Take off, the clearance prevails",
+     "Turn RAAS off"
     ],
     "a": 1,
-    "w": "QRH : « Verify position. Contact ATC for assistance, if needed. » (PF et PM)."
+    "w": "QRH: “Verify position. Contact ATC for assistance, if needed.” (PF and PM)."
    },
    {
-    "q": "Une alerte RAAS de longueur de piste peut-elle servir à juger la performance ?",
+    "q": "Can a RAAS runway length alert be used to assess performance?",
     "o": [
-     "Oui, si piste sèche",
-     "Oui, en complément de l'OPT",
-     "Non : réglée par la compagnie, sans météo ni état de piste ni NOTAM",
-     "Oui, sur MAX uniquement"
+     "Yes, if the runway is dry",
+     "Yes, in addition to OPT",
+     "No: set by the operator, no weather, runway condition or NOTAM",
+     "Yes, on MAX only"
     ],
     "a": 2,
-    "w": "FCOM NG : « Do not use … RAAS … to determine real-time runway suitability for airplane performance. »"
+    "w": "FCOM NG: “Do not use … RAAS … to determine real-time runway suitability for airplane performance.”"
    },
    {
-    "q": "RAAS peut-il remplacer l'ATIS ou les NOTAM ?",
+    "q": "Can RAAS replace ATIS or NOTAM?",
     "o": [
-     "Oui",
-     "Non",
-     "Seulement de nuit",
-     "Seulement en LVP"
+     "Yes",
+     "No",
+     "Only at night",
+     "Only in LVP"
     ],
     "a": 1,
-    "w": "« Do not use RAAS callouts or alerts as a substitute for NOTAM or ATIS information. »"
+    "w": "“Do not use RAAS callouts or alerts as a substitute for NOTAM or ATIS information.”"
    },
    {
-    "q": "Usage interdit du RAAS selon le FCOM NG :",
+    "q": "Prohibited use of RAAS per FCOM NG:",
     "o": [
      "Navigation",
-     "Conscience de situation",
-     "Confirmation de l'alignement",
-     "Alerte en cas de doute"
+     "Situational awareness",
+     "Confirming lineup",
+     "Alerting when in doubt"
     ],
     "a": 0,
-    "w": "« Do not use RAAS callouts or alerts for navigation. »"
+    "w": "“Do not use RAAS callouts or alerts for navigation.”"
    },
    {
-    "q": "Côté NG Air Algérie, le RAAS est :",
+    "q": "On the Air Algérie NG fleet, RAAS is:",
     "o": [
-     "Installé sur toute la flotte NG",
-     "Absent de la flotte NG",
-     "Limité par effectivité (YD111–YD117, YG721–YV388)",
-     "Seulement sur -600"
+     "Installed on the whole NG fleet",
+     "Not installed on the NG fleet",
+     "Limited by effectivity (YD111–YD117, YG721–YV388)",
+     "Only on -600s"
     ],
     "a": 2,
-    "w": "Le QRH et le FCOM NG portent l'effectivité YD111 - YD117, YG721 - YV388 pour le RAAS."
+    "w": "The NG QRH and FCOM list RAAS effectivity as YD111 - YD117, YG721 - YV388."
    }
   ],
   "sources": [
